@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <defs>
+    <linearGradient id="urabSky" x1="20" y1="20" x2="180" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0E6BA8"/>
+      <stop offset="55%" stop-color="#28B463"/>
+      <stop offset="100%" stop-color="#0D2B45"/>
+    </linearGradient>
+    <linearGradient id="urabRing" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#28B463"/>
+      <stop offset="100%" stop-color="#0E6BA8"/>
+    </linearGradient>
+    <clipPath id="urabClip">
+      <circle cx="100" cy="100" r="88"/>
+    </clipPath>
+  </defs>
+  <circle cx="100" cy="100" r="98" fill="url(#urabRing)"/>
+  <circle cx="100" cy="100" r="92" fill="#0D2B45"/>
+  <g clip-path="url(#urabClip)">
+    <rect width="200" height="200" fill="url(#urabSky)"/>
+    <path d="M0 118 C45 102 70 128 100 118 C130 108 155 132 200 116 V200 H0 Z" fill="#0D2B45" opacity="0.55"/>
+    <path d="M0 132 C50 118 78 142 100 132 C122 122 150 146 200 130 V200 H0 Z" fill="#061525" opacity="0.75"/>
+    <path d="M48 150 V108" stroke="#A8D60E" stroke-width="4" stroke-linecap="round"/>
+    <path d="M48 112 C34 96 24 88 18 82 C30 90 40 98 48 108" fill="#28B463"/>
+    <path d="M48 108 C58 90 70 80 78 74 C64 86 54 96 48 108" fill="#A8D60E"/>
+    <path d="M48 114 C40 100 30 92 22 88 C34 98 42 106 48 114" fill="#28B463" opacity="0.85"/>
+    <g transform="translate(142 42)" stroke="#E6F4FF" stroke-width="3" stroke-linecap="round" fill="none">
+      <path d="M0 14 C10 4 22 4 32 14"/>
+      <path d="M8 22 C14 16 20 16 26 22"/>
+      <circle cx="17" cy="28" r="3" fill="#E6F4FF" stroke="none"/>
+    </g>
+    <g transform="translate(126 86)">
+      <path d="M12 0 C18 0 24 6 24 14 C24 24 12 38 12 38 C12 38 0 24 0 14 C0 6 6 0 12 0 Z" fill="#E6F4FF"/>
+      <circle cx="12" cy="14" r="5" fill="#0E6BA8"/>
+    </g>
+    <g transform="translate(72 128)">
+      <ellipse cx="34" cy="34" rx="42" ry="8" fill="#061525" opacity="0.35"/>
+      <circle cx="14" cy="34" r="9" fill="#0D2B45" stroke="#E6F4FF" stroke-width="2"/>
+      <circle cx="54" cy="34" r="9" fill="#0D2B45" stroke="#E6F4FF" stroke-width="2"/>
+      <circle cx="14" cy="34" r="3" fill="#E6F4FF"/>
+      <circle cx="54" cy="34" r="3" fill="#E6F4FF"/>
+      <path d="M14 34 H28 L34 24 H46 L50 34 H54" stroke="#E6F4FF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M30 24 L34 14 H42" stroke="#A8D60E" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="38" cy="18" r="6" fill="#28B463" stroke="#E6F4FF" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

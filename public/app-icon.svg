@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="appSky" x1="64" y1="64" x2="448" y2="448" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0E6BA8"/>
+      <stop offset="55%" stop-color="#28B463"/>
+      <stop offset="100%" stop-color="#0D2B45"/>
+    </linearGradient>
+    <linearGradient id="appRing" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#28B463"/>
+      <stop offset="100%" stop-color="#0E6BA8"/>
+    </linearGradient>
+    <clipPath id="appClip">
+      <circle cx="256" cy="256" r="210"/>
+    </clipPath>
+  </defs>
+  <rect width="512" height="512" rx="108" fill="#0D2B45"/>
+  <circle cx="256" cy="256" r="232" fill="url(#appRing)"/>
+  <circle cx="256" cy="256" r="220" fill="#0D2B45"/>
+  <g clip-path="url(#appClip)">
+    <rect width="512" height="512" fill="url(#appSky)"/>
+    <path d="M0 300 C110 260 170 330 256 300 C342 270 402 340 512 290 V512 H0 Z" fill="#061525" opacity="0.55"/>
+    <path d="M120 340 V220" stroke="#A8D60E" stroke-width="14" stroke-linecap="round"/>
+    <path d="M120 228 C90 188 70 168 55 150 C85 180 105 205 120 228" fill="#28B463"/>
+    <path d="M120 228 C155 185 185 155 205 135 C170 170 145 200 120 228" fill="#A8D60E"/>
+    <g transform="translate(310 170)" stroke="#E6F4FF" stroke-width="10" stroke-linecap="round" fill="none">
+      <path d="M0 45 C35 15 75 15 110 45"/>
+      <path d="M28 72 C45 55 65 55 82 72"/>
+      <circle cx="55" cy="92" r="14" fill="#E6F4FF" stroke="none"/>
+    </g>
+    <g transform="translate(176 320)">
+      <circle cx="56" cy="112" r="36" fill="#0D2B45" stroke="#E6F4FF" stroke-width="8"/>
+      <circle cx="176" cy="112" r="36" fill="#0D2B45" stroke="#E6F4FF" stroke-width="8"/>
+      <path d="M56 112 H112 L136 48 H176 L200 112 H176" stroke="#E6F4FF" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="148" cy="36" r="28" fill="#28B463" stroke="#E6F4FF" stroke-width="6"/>
+    </g>
+  </g>
+</svg>

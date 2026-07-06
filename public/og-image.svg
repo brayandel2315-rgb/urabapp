@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="ogBg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0D2B45"/>
+      <stop offset="45%" stop-color="#0E6BA8"/>
+      <stop offset="100%" stop-color="#28B463"/>
+    </linearGradient>
+    <linearGradient id="ogRing" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#28B463"/>
+      <stop offset="100%" stop-color="#A8D60E"/>
+    </linearGradient>
+    <clipPath id="ogClip">
+      <circle cx="290" cy="315" r="170"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#ogBg)"/>
+  <path d="M0 420 C200 360 360 460 600 400 C840 340 980 450 1200 390 V630 H0 Z" fill="#061525" opacity="0.35"/>
+  <path d="M0 470 C220 430 400 500 620 450 C840 400 1000 490 1200 440 V630 H0 Z" fill="#061525" opacity="0.25"/>
+  <g opacity="0.12" stroke="#E6F4FF" stroke-width="2" fill="none">
+    <path d="M80 120 C220 60 360 60 500 120"/>
+    <path d="M700 80 C840 20 980 20 1120 80"/>
+  </g>
+  <g opacity="0.22">
+    <ellipse cx="180" cy="590" rx="90" ry="28" fill="#A8D60E" transform="rotate(-12 180 590)"/>
+    <ellipse cx="420" cy="600" rx="110" ry="32" fill="#28B463" transform="rotate(8 420 600)"/>
+    <ellipse cx="980" cy="585" rx="100" ry="30" fill="#A8D60E" transform="rotate(-6 980 585)"/>
+  </g>
+
+  <circle cx="290" cy="315" r="188" fill="url(#ogRing)"/>
+  <circle cx="290" cy="315" r="178" fill="#0D2B45"/>
+  <g clip-path="url(#ogClip)">
+    <rect x="120" y="145" width="340" height="340" fill="url(#ogBg)"/>
+    <path d="M120 360 C200 320 250 390 290 360 C330 330 380 400 460 360 V515 H120 Z" fill="#061525" opacity="0.6"/>
+    <path d="M170 390 V300" stroke="#A8D60E" stroke-width="8" stroke-linecap="round"/>
+    <path d="M170 305 C140 265 120 245 105 230 C135 255 155 280 170 305" fill="#28B463"/>
+    <path d="M170 305 C205 260 235 230 255 210 C220 245 195 275 170 305" fill="#A8D60E"/>
+    <g transform="translate(350 210)" stroke="#E6F4FF" stroke-width="6" stroke-linecap="round" fill="none">
+      <path d="M0 28 C20 8 44 8 64 28"/>
+      <path d="M16 44 C26 34 38 34 48 44"/>
+      <circle cx="32" cy="56" r="8" fill="#E6F4FF" stroke="none"/>
+    </g>
+    <g transform="translate(220 390)">
+      <circle cx="36" cy="72" r="24" fill="#0D2B45" stroke="#E6F4FF" stroke-width="5"/>
+      <circle cx="116" cy="72" r="24" fill="#0D2B45" stroke="#E6F4FF" stroke-width="5"/>
+      <path d="M36 72 H72 L88 36 H112 L124 72 H116" stroke="#E6F4FF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="96" cy="24" r="18" fill="#28B463" stroke="#E6F4FF" stroke-width="4"/>
+    </g>
+  </g>
+
+  <text x="540" y="250" font-family="Poppins, Arial, sans-serif" font-weight="700" font-size="92" fill="#FFFFFF" letter-spacing="2">URABAPP</text>
+  <text x="542" y="310" font-family="Poppins, Arial, sans-serif" font-weight="500" font-size="28" fill="#E6F4FF" letter-spacing="6">CONEXION LOCAL Y ENVIOS</text>
+  <text x="544" y="390" font-family="Poppins, Arial, sans-serif" font-weight="400" font-size="34" fill="#F7FAFC" opacity="0.92">Conectamos lo que importa.</text>
+  <text x="544" y="440" font-family="Poppins, Arial, sans-serif" font-weight="400" font-size="34" fill="#F7FAFC" opacity="0.92">Impulsamos lo local.</text>
+  <path d="M540 470 H760" stroke="#A8D60E" stroke-width="6" stroke-linecap="round"/>
+  <path d="M540 482 H700" stroke="#28B463" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+  <path d="M540 492 H640" stroke="#0E6BA8" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <g font-family="Poppins, Arial, sans-serif" font-size="18" font-weight="600" fill="#0D2B45">
+    <rect x="544" y="510" width="120" height="44" rx="22" fill="#E6F4FF"/>
+    <text x="572" y="538">Envios</text>
+    <rect x="680" y="510" width="130" height="44" rx="22" fill="#F7FAFC"/>
+    <text x="702" y="538">Compras</text>
+    <rect x="826" y="510" width="150" height="44" rx="22" fill="#A8D60E"/>
+    <text x="848" y="538">Uraba local</text>
+  </g>
+</svg>

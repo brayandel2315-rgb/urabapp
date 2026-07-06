@@ -1,0 +1,15 @@
+Fotos regionales Urabá — Urabapp
+================================
+
+Licencias: Creative Commons BY-SA 4.0 (salvo NASA = dominio público).
+Fuente principal: Wikimedia Commons (https://commons.wikimedia.org)
+
+Archivos locales:
+- nuestro-uraba.jpg — Centro Comercial Nuestro Urabá (MateoPuertaL, CC BY-SA 4.0)
+- via-troncal-turbo.jpg — Vía Turbo, carretera regional (panoramio, CC BY-SA 3.0)
+- necocli-costa.jpg — Costa caribeña, Necoclí (Wikimedia Commons)
+
+Otras imágenes se cargan vía miniaturas oficiales de Wikimedia Commons.
+Ver src/utils/uraba-images.js para la lista completa y créditos.
+
+Para descargar todo localmente: npm run fetch:uraba-images

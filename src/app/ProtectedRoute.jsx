@@ -1,0 +1,36 @@
+import { Navigate, useLocation } from 'react-router-dom';
+import { useAuthStore } from '../store/authStore';
+import Loader from '../components/ui/Loader';
+import ProfileBootstrap from '../components/auth/ProfileBootstrap';
+import { getRoleHome } from './roleConfig';
+import { canAccessRoles } from '@/utils/auth-rbac';
+import { buildLoginRedirect } from '@/utils/auth-routes';
+
+export default function ProtectedRoute({ children, roles, requireAuth = false }) {
+  const { user, profile, loading } = useAuthStore();
+  const location = useLocation();
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <Loader size="lg" />
+      </div>
+    );
+  }
+
+  if ((requireAuth || roles) && !user) {
+    return <Navigate to={buildLoginRedirect(location.pathname, location.search)} replace />;
+  }
+
+  const profileReady = profile?.role;
+
+  if (roles && user && !profileReady) {
+    return <ProfileBootstrap>{children}</ProfileBootstrap>;
+  }
+
+  if (roles && user && profile && !canAccessRoles(profile.role, roles)) {
+    return <Navigate to={getRoleHome(profile.role)} replace />;
+  }
+
+  return children;
+}

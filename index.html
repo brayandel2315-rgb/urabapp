@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es-CO">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Urabapp — Conexión local y envíos en Urabá</title>
+    <link rel="icon" type="image/svg+xml" href="/app-icon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/app-icon.svg" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/app-icon.svg" />
+    <link rel="apple-touch-icon" sizes="512x512" href="/app-icon.svg" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="description" content="Urabapp — Conectamos lo que importa. Impulsamos lo local. Comida, mensajería, tiendas y envíos en Apartadó y municipios del Urabá." />
+    <meta name="keywords" content="Urabá, Apartadó, domicilios, mensajería, comida, delivery" />
+    <meta name="author" content="Urabapp" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:title" content="Urabapp" />
+    <meta property="og:description" content="Conectamos lo que importa. Impulsamos lo local." />
+    <meta property="og:url" content="https://urabapp.vercel.app/" />
+    <link rel="canonical" href="https://urabapp.vercel.app/" />
+    <meta property="og:image" content="https://urabapp.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Urabapp — Conexión local y envíos en Urabá" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://urabapp.vercel.app/og-image.png" />
+    <meta name="theme-color" content="#0D2B45" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Urabapp" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      #urabapp-boot {
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        padding: 1.5rem;
+        font-family: Poppins, system-ui, sans-serif;
+        background: #F7FAFC;
+        color: #0D2B45;
+      }
+      html.dark #urabapp-boot { background: #061525; color: #F7FAFC; }
+      #urabapp-boot .logo {
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 1rem;
+        background: #28B463;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 800;
+        font-size: 1.25rem;
+      }
+      #urabapp-boot .spinner {
+        width: 1.75rem;
+        height: 1.75rem;
+        border: 3px solid rgba(40, 180, 99, 0.2);
+        border-top-color: #28B463;
+        border-radius: 50%;
+        animation: urabapp-spin 0.8s linear infinite;
+      }
+      @keyframes urabapp-spin { to { transform: rotate(360deg); } }
+    </style>
+  </head>
+  <body>
+    <script>
+      (function () {
+        var t = localStorage.getItem('urabapp-theme');
+        if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+
+        window.__urabappBootOk = function () {
+          sessionStorage.removeItem('urabapp-sw-recover');
+        };
+
+        window.__urabappRecover = function (force) {
+          try {
+            var key = 'urabapp-sw-recover';
+            var count = Number(sessionStorage.getItem(key) || '0');
+            if (!force && count >= 3) return;
+            sessionStorage.setItem(key, String(count + 1));
+            var tasks = [];
+            if ('serviceWorker' in navigator) {
+              tasks.push(navigator.serviceWorker.getRegistrations().then(function (regs) {
+                return Promise.all(regs.map(function (r) { return r.unregister(); }));
+              }));
+            }
+            if ('caches' in window) {
+              tasks.push(caches.keys().then(function (keys) {
+                return Promise.all(keys.map(function (k) { return caches.delete(k); }));
+              }));
+            }
+            Promise.all(tasks).finally(function () {
+              var url = new URL(window.location.href);
+              url.searchParams.set('v', String(Date.now()));
+              window.location.replace(url.toString());
+            });
+          } catch (e) {
+            window.location.reload();
+          }
+        };
+
+        function shouldRecoverAsset(msg) {
+          if (!msg) return false;
+          msg = String(msg);
+          return msg.indexOf('/assets/') !== -1
+            || /Failed to fetch dynamically imported module/i.test(msg)
+            || /Importing a module script failed/i.test(msg)
+            || /error loading dynamically imported module/i.test(msg);
+        }
+
+        window.addEventListener('error', function (e) {
+          var el = e.target;
+          if (el && el.tagName === 'SCRIPT' && el.src && shouldRecoverAsset(el.src)) {
+            window.__urabappRecover();
+            return;
+          }
+          if (shouldRecoverAsset(e.message)) {
+            window.__urabappRecover();
+          }
+        }, true);
+
+        window.addEventListener('unhandledrejection', function (e) {
+          var msg = (e.reason && e.reason.message) || String(e.reason || '');
+          if (shouldRecoverAsset(msg)) window.__urabappRecover();
+        });
+
+        window.setTimeout(function () {
+          var boot = document.getElementById('urabapp-boot');
+          if (boot) {
+            boot.innerHTML = '<div class="logo">U</div><p style="margin:0;font-size:14px;text-align:center">Actualizando Urabapp…</p><div class="spinner"></div>';
+            window.__urabappRecover();
+          }
+        }, 14000);
+      })();
+    </script>
+    <div id="root">
+      <div id="urabapp-boot" role="status" aria-live="polite">
+        <div class="logo">U</div>
+        <p style="margin:0;font-size:15px;font-weight:600">Cargando Urabapp…</p>
+        <div class="spinner" aria-hidden="true"></div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

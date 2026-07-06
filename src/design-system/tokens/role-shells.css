@@ -1,0 +1,274 @@
+/* Identidad visual por rol — Brandboard Urabapp */
+
+[data-role='client'],
+.client-auth-screen {
+  --role-accent: hsl(var(--primary));
+  --role-accent-soft: hsl(145 64% 43% / 0.1);
+  --role-header-fg: #0D2B45;
+  --role-promo: #A8D60E;
+  --role-header-bg: linear-gradient(135deg, #F7FAFC 0%, #E6F4FF 55%, #FFFFFF 100%);
+  /* Cliente siempre usa paleta clara brandboard (evita texto claro sobre fondo claro en dark mode) */
+  --background: 210 29% 98%;
+  --foreground: 207 68% 16%;
+  --card: 0 0% 100%;
+  --card-foreground: 207 68% 16%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 207 68% 16%;
+  --muted: 204 60% 94%;
+  --muted-foreground: 207 48% 30%;
+  --secondary: 207 68% 16%;
+  --secondary-foreground: 210 29% 98%;
+  --border: 204 35% 82%;
+  --input: 204 35% 82%;
+  --accent-foreground: 207 68% 16%;
+  color: #0D2B45;
+}
+
+/* Legibilidad: tokens semánticos → colores fijos brandboard */
+[data-role='client'] .text-foreground,
+.client-auth-screen .text-foreground,
+[data-role='client'] .text-card-foreground,
+.client-auth-screen .text-card-foreground,
+[data-role='client'] h1,
+[data-role='client'] h2,
+[data-role='client'] h3,
+[data-role='client'] h4,
+.client-auth-screen h1,
+.client-auth-screen h2,
+.client-auth-screen h3,
+.client-auth-screen h4 {
+  color: #0D2B45;
+}
+
+/* Títulos sobre fotos, banners y gradientes oscuros */
+[data-role='client'] .on-media h1,
+[data-role='client'] .on-media h2,
+[data-role='client'] .on-media h3,
+[data-role='client'] .on-media h4,
+.client-auth-screen .on-media h1,
+.client-auth-screen .on-media h2,
+.client-auth-screen .on-media h3,
+.client-auth-screen .on-media h4 {
+  color: #ffffff;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+}
+
+[data-role='client'] .on-media p,
+.client-auth-screen .on-media p {
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
+}
+
+[data-role='client'] .text-muted-foreground,
+.client-auth-screen .text-muted-foreground,
+[data-role='client'] .text-tagline,
+.client-auth-screen .text-tagline,
+[data-role='client'] .text-caption,
+.client-auth-screen .text-caption {
+  color: #4A6278;
+}
+
+[data-role='client'] .text-muted,
+.client-auth-screen .text-muted {
+  color: #4A6278;
+}
+
+[data-role='client'] .text-secondary,
+.client-auth-screen .text-secondary {
+  color: #0D2B45;
+}
+
+[data-role='client'] .bg-card,
+.client-auth-screen .bg-card {
+  background-color: #FFFFFF;
+}
+
+[data-role='client'] .bg-background,
+.client-auth-screen .bg-background {
+  background-color: #F7FAFC;
+}
+
+[data-role='client'] .bg-popover,
+.client-auth-screen .bg-popover {
+  background-color: #FFFFFF;
+}
+
+[data-role='client'] input,
+[data-role='client'] textarea,
+[data-role='client'] select,
+.client-auth-screen input,
+.client-auth-screen textarea,
+.client-auth-screen select {
+  color: #0D2B45;
+  background-color: #FFFFFF;
+}
+
+[data-role='client'] input::placeholder,
+[data-role='client'] textarea::placeholder,
+.client-auth-screen input::placeholder,
+.client-auth-screen textarea::placeholder {
+  color: #4A6278;
+}
+
+[data-role='client'] label,
+.client-auth-screen label {
+  color: #0D2B45;
+}
+
+[data-role='business'] {
+  --role-accent: hsl(var(--primary));
+  --role-accent-soft: hsl(145 64% 43% / 0.14);
+  --role-header-bg: linear-gradient(135deg, #28B463 0%, #0E6BA8 100%);
+  --role-header-fg: #fff;
+  --role-nav-active: hsl(var(--primary));
+  --background: 210 29% 98%;
+  --foreground: 207 68% 16%;
+  --card: 0 0% 100%;
+  --card-foreground: 207 68% 16%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 207 68% 16%;
+  --muted: 204 60% 94%;
+  --muted-foreground: 207 48% 30%;
+  --secondary: 207 68% 16%;
+  --secondary-foreground: 210 29% 98%;
+  --border: 204 35% 82%;
+  --input: 204 35% 82%;
+  --accent-foreground: 207 68% 16%;
+  color: #0D2B45;
+}
+
+[data-role='business'] .text-foreground,
+[data-role='business'] .text-card-foreground,
+[data-role='business'] h1,
+[data-role='business'] h2,
+[data-role='business'] h3,
+[data-role='business'] h4 {
+  color: #0D2B45;
+}
+
+[data-role='business'] .text-muted-foreground,
+[data-role='business'] .text-tagline,
+[data-role='business'] .text-caption,
+[data-role='business'] .text-muted {
+  color: #4A6278;
+}
+
+[data-role='business'] .text-secondary {
+  color: #0D2B45;
+}
+
+[data-role='business'] .bg-card {
+  background-color: #FFFFFF;
+}
+
+[data-role='business'] .bg-background {
+  background-color: #F7FAFC;
+}
+
+[data-role='business'] input,
+[data-role='business'] textarea,
+[data-role='business'] select {
+  color: #0D2B45;
+  background-color: #FFFFFF;
+}
+
+[data-role='business'] input::placeholder,
+[data-role='business'] textarea::placeholder {
+  color: #4A6278;
+}
+
+[data-role='business'] label {
+  color: #0D2B45;
+}
+
+[data-role='rider'] {
+  --role-accent: hsl(var(--brand-blue));
+  --role-accent-soft: hsl(203 85% 36% / 0.12);
+  --role-header-bg: linear-gradient(135deg, #0E6BA8 0%, #0D2B45 100%);
+  --role-header-fg: #fff;
+  --role-nav-active: hsl(var(--brand-blue));
+  --background: 210 29% 98%;
+  --foreground: 207 68% 16%;
+  --card: 0 0% 100%;
+  --card-foreground: 207 68% 16%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 207 68% 16%;
+  --muted: 204 60% 94%;
+  --muted-foreground: 207 48% 30%;
+  --secondary: 207 68% 16%;
+  --secondary-foreground: 210 29% 98%;
+  --border: 204 35% 82%;
+  --input: 204 35% 82%;
+  --accent-foreground: 207 68% 16%;
+  color: #0D2B45;
+}
+
+[data-role='rider'] .text-foreground,
+[data-role='rider'] .text-card-foreground,
+[data-role='rider'] h1,
+[data-role='rider'] h2,
+[data-role='rider'] h3,
+[data-role='rider'] h4 {
+  color: #0D2B45;
+}
+
+[data-role='rider'] .text-muted-foreground,
+[data-role='rider'] .text-tagline,
+[data-role='rider'] .text-caption {
+  color: #4A6278;
+}
+
+[data-role='rider'] .text-muted {
+  color: #4A6278;
+}
+
+[data-role='rider'] .text-secondary {
+  color: #0D2B45;
+}
+
+[data-role='rider'] .bg-card {
+  background-color: #FFFFFF;
+}
+
+[data-role='rider'] .bg-background {
+  background-color: #F7FAFC;
+}
+
+[data-role='rider'] input,
+[data-role='rider'] textarea,
+[data-role='rider'] select {
+  color: #0D2B45;
+  background-color: #FFFFFF;
+}
+
+[data-role='rider'] input::placeholder,
+[data-role='rider'] textarea::placeholder {
+  color: #4A6278;
+}
+
+[data-role='rider'] label {
+  color: #0D2B45;
+}
+
+[data-role='admin'] {
+  --role-accent: hsl(var(--secondary));
+  --role-accent-soft: hsl(207 68% 16% / 0.08);
+  --role-header-bg: linear-gradient(135deg, #0D2B45 0%, #061525 100%);
+  --role-header-fg: #fff;
+  --role-nav-active: hsl(var(--accent));
+}
+
+.role-shell-header {
+  background: var(--role-header-bg, hsl(var(--secondary)));
+  color: var(--role-header-fg, hsl(var(--secondary-foreground)));
+}
+
+.role-shell-nav-active {
+  background-color: var(--role-nav-active, hsl(var(--primary)));
+  color: #fff;
+}
+
+.role-shell-security {
+  border-left: 3px solid var(--role-accent, hsl(var(--primary)));
+  background: var(--role-accent-soft, hsl(var(--muted)));
+}

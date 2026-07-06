@@ -1,0 +1,43 @@
+/* Jerarquía tipográfica alineada al logo Urabapp (Montserrat) */
+
+.text-brand {
+  font-family: var(--font-family);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.text-tagline {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.text-heading {
+  font-family: var(--font-family);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.text-subheading {
+  font-family: var(--font-family);
+  font-weight: 700;
+}
+
+.text-body {
+  font-family: var(--font-family);
+  font-weight: 400;
+}
+
+.text-label {
+  font-family: var(--font-family);
+  font-weight: 600;
+}
+
+.text-caption {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 0.75rem;
+}

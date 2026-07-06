@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 80" fill="none" role="img" aria-label="Urabapp">
+  <defs>
+    <linearGradient id="fullSky" x1="4" y1="4" x2="76" y2="76" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0E6BA8"/>
+      <stop offset="55%" stop-color="#28B463"/>
+      <stop offset="100%" stop-color="#0D2B45"/>
+    </linearGradient>
+    <linearGradient id="fullRing" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#28B463"/>
+      <stop offset="100%" stop-color="#0E6BA8"/>
+    </linearGradient>
+    <clipPath id="fullClip">
+      <circle cx="40" cy="40" r="34"/>
+    </clipPath>
+  </defs>
+
+  <!-- Emblema -->
+  <circle cx="40" cy="40" r="39" fill="url(#fullRing)"/>
+  <circle cx="40" cy="40" r="37" fill="#0D2B45"/>
+  <g clip-path="url(#fullClip)">
+    <rect width="80" height="80" fill="url(#fullSky)"/>
+    <path d="M0 48 C18 42 28 54 40 48 C52 42 62 54 80 46 V80 H0 Z" fill="#0D2B45" opacity="0.55"/>
+    <path d="M18 54 V38" stroke="#A8D60E" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M18 39 C12 31 8 27 6 24 C10 29 14 33 18 39" fill="#28B463"/>
+    <path d="M18 39 C24 30 29 25 33 22 C27 29 23 34 18 39" fill="#A8D60E"/>
+    <g transform="translate(29 32)" stroke="#E6F4FF" stroke-width="2" stroke-linecap="round" fill="none">
+      <path d="M0 9 C5 4 11 4 16 9"/>
+      <path d="M4 14 C7 11 11 11 14 14"/>
+      <circle cx="9" cy="18" r="2" fill="#E6F4FF" stroke="none"/>
+    </g>
+    <g transform="translate(28 50)">
+      <circle cx="6" cy="15" r="5" fill="#0D2B45" stroke="#E6F4FF" stroke-width="1.5"/>
+      <circle cx="22" cy="15" r="5" fill="#0D2B45" stroke="#E6F4FF" stroke-width="1.5"/>
+      <path d="M6 15 H12 L15 8 H20 L22 15 H22" stroke="#E6F4FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="17" cy="5" r="3" fill="#28B463" stroke="#E6F4FF" stroke-width="1.2"/>
+    </g>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="96" y="46" font-family="Poppins, system-ui, sans-serif" font-weight="700" font-size="34" fill="#0D2B45" letter-spacing="1">URABAPP</text>
+  <text x="97" y="66" font-family="Poppins, system-ui, sans-serif" font-weight="500" font-size="11" fill="#0E6BA8" letter-spacing="2.8">CONEXI&#211;N LOCAL Y ENV&#205;OS</text>
+</svg>

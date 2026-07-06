@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="favSky" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0E6BA8"/>
+      <stop offset="55%" stop-color="#28B463"/>
+      <stop offset="100%" stop-color="#0D2B45"/>
+    </linearGradient>
+    <linearGradient id="favRing" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#28B463"/>
+      <stop offset="100%" stop-color="#0E6BA8"/>
+    </linearGradient>
+    <clipPath id="favClip">
+      <circle cx="32" cy="32" r="27"/>
+    </clipPath>
+  </defs>
+  <circle cx="32" cy="32" r="31" fill="url(#favRing)"/>
+  <circle cx="32" cy="32" r="29" fill="#0D2B45"/>
+  <g clip-path="url(#favClip)">
+    <rect width="64" height="64" fill="url(#favSky)"/>
+    <path d="M0 38 C14 34 22 42 32 38 C42 34 50 42 64 36 V64 H0 Z" fill="#0D2B45" opacity="0.55"/>
+    <path d="M15 44 V30" stroke="#A8D60E" stroke-width="2" stroke-linecap="round"/>
+    <path d="M15 31 C10 25 7 22 5 20 C9 24 12 27 15 31" fill="#28B463"/>
+    <g transform="translate(22 40)">
+      <circle cx="5" cy="12" r="4" fill="#0D2B45" stroke="#E6F4FF" stroke-width="1.2"/>
+      <circle cx="19" cy="12" r="4" fill="#0D2B45" stroke="#E6F4FF" stroke-width="1.2"/>
+      <path d="M5 12 H10 L13 6 H18 L20 12 H19" stroke="#E6F4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="14" cy="4" r="2.5" fill="#28B463" stroke="#E6F4FF" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

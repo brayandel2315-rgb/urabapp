@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://urabapp.vercel.app/sitemap.xml
