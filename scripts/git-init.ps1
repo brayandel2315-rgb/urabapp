@@ -1,6 +1,6 @@
 # Bootstrap Git for UrabApp on Windows (safe.directory + optional first push)
 param(
-    [string]$RemoteUrl = "",
+    [string]$RemoteUrl = "https://github.com/brayandel2315-rgb/urabapp.git",
     [string]$UserName = "",
     [string]$UserEmail = ""
 )
