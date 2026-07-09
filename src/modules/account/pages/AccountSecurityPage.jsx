@@ -1,32 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SurfaceCard, SectionTitle } from '@/design-system/patterns/SurfaceCard';
-import ClientTrustStrip from '@/design-system/patterns/ClientTrustStrip';
-import GuestOrderRecoveryCard from '@/modules/client/components/GuestOrderRecoveryCard';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
-import AppIcon from '@/design-system/icons/AppIcon';
 import { useAuthStore } from '@/store/authStore';
 import { resetPassword, updatePassword } from '@/services/auth.service';
 import { toast } from '@/utils/toast';
-
-const SECURITY_PRINCIPLES = [
-  {
-    icon: 'lock',
-    title: 'Perfil blindado',
-    text: 'Rol, correo y estado de cuenta solo los modifica el equipo UrabApp. Tu sesión no puede escalar privilegios.',
-  },
-  {
-    icon: 'tag',
-    title: 'Beneficios únicos',
-    text: 'Entrega gratis de bienvenida y cupones se validan en servidor. No se pueden reutilizar ni transferir desde el perfil.',
-  },
-  {
-    icon: 'orders',
-    title: 'Pedidos ajenos',
-    text: 'No puedes reclamar pedidos de otra persona. En otro dispositivo solo recuperas actividad verificando tu celular por SMS.',
-  },
-];
 
 export default function AccountSecurityPage() {
   const { user, profile } = useAuthStore();
@@ -69,25 +48,6 @@ export default function AccountSecurityPage() {
 
   return (
     <div className="space-y-4">
-      <ClientTrustStrip className="rounded-2xl" />
-
-      <div className="grid gap-3 sm:grid-cols-3">
-        {SECURITY_PRINCIPLES.map((item) => (
-          <SurfaceCard key={item.title} className="space-y-2 p-4">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-              <AppIcon name={item.icon} size="sm" />
-            </span>
-            <p className="font-display text-sm font-bold text-foreground">{item.title}</p>
-            <p className="text-xs leading-relaxed text-muted-foreground">{item.text}</p>
-          </SurfaceCard>
-        ))}
-      </div>
-
-      <GuestOrderRecoveryCard
-        title="Vincular pedidos invitados"
-        description="Verifica tu celular por SMS para traer pedidos y envíos de sesión invitada desde otro dispositivo. Requiere el mismo número usado al pedir."
-      />
-
       <SurfaceCard className="space-y-4 p-5">
         <SectionTitle>Recuperar cuenta</SectionTitle>
         <p className="text-sm text-muted-foreground">

@@ -22,10 +22,7 @@ import {
   toggleMuteNotification,
   notificationDeepLink,
 } from '@/communication/inbox.service';
-import { normalizeAppPath } from '@/utils/navigation';
-import { getCommunicationStats, getCommunicationTimeline } from '@/communication/dispatch.service';
-import { getEngagementStats, trackCommunicationEngagement } from '@/communication/engagement.service';
-import CommunicationPreferencesPanel from '../components/CommunicationPreferencesPanel';
+import { trackCommunicationEngagement } from '@/communication/engagement.service';
 
 const FILTERS = [
   { id: 'all', label: 'Todas' },
@@ -47,11 +44,6 @@ const SORT_OPTIONS = [
   { id: 'priority', label: 'Por prioridad' },
 ];
 
-const PRIORITY_OPTIONS = [
-  { id: 'all', label: 'Todas las prioridades' },
-  ...Object.entries(COMM_PRIORITY_LABELS).map(([id, label]) => ({ id, label })),
-];
-
 const CATEGORY_OPTIONS = [
   { id: 'all', label: 'Todas las categorías' },
   ...Object.entries(COMM_CATEGORY_LABELS).map(([id, label]) => ({ id, label })),
@@ -71,7 +63,7 @@ export default function AccountNotificationsPage() {
   const [dateRange, setDateRange] = useState('all');
   const [sort, setSort] = useState('newest');
   const [search, setSearch] = useState('');
-  const [tab, setTab] = useState('inbox');
+  const [showFilters, setShowFilters] = useState(false);
 
   const { data: notifications = [], isLoading } = useQuery({
     queryKey: ['notifications', user?.id, category, priority, filter, dateRange, sort, search],
@@ -79,24 +71,6 @@ export default function AccountNotificationsPage() {
       category, priority, filter, dateRange, sort, search,
     }),
     enabled: !!user?.id,
-  });
-
-  const { data: stats } = useQuery({
-    queryKey: ['comm-stats', user?.id],
-    queryFn: () => getCommunicationStats(user.id),
-    enabled: !!user?.id,
-  });
-
-  const { data: timeline = [] } = useQuery({
-    queryKey: ['comm-timeline', user?.id, category],
-    queryFn: () => getCommunicationTimeline(user.id, { category, limit: 30 }),
-    enabled: !!user?.id && tab === 'timeline',
-  });
-
-  const { data: engagement } = useQuery({
-    queryKey: ['comm-engagement', user?.id],
-    queryFn: () => getEngagementStats(user.id),
-    enabled: !!user?.id && tab === 'stats',
   });
 
   const markAllMutation = useMutation({
@@ -111,64 +85,34 @@ export default function AccountNotificationsPage() {
 
   const invalidate = () => {
     queryClient.invalidateQueries({ queryKey: ['notifications'] });
-    queryClient.invalidateQueries({ queryKey: ['comm-stats'] });
   };
 
   if (!user) return null;
 
   return (
     <div className="space-y-4">
-      <SurfaceCard variant="highlight" className="text-sm">
-        <p className="font-semibold text-primary-dark">Centro de Comunicación UrabApp</p>
-        <p className="mt-1 text-muted">
-          Pedidos, pagos, soporte y avisos del sistema en un solo lugar — con deep links a cada pantalla.
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <p className="text-sm text-[#4A6278]">
+          {unreadCount > 0 ? `${unreadCount} aviso${unreadCount === 1 ? '' : 's'} sin leer` : 'Estás al día con tus avisos'}
         </p>
-        {stats && (
-          <div className="mt-3 flex flex-wrap gap-2 text-xs">
-            <Badge variant="muted">{stats.total} en bandeja</Badge>
-            <Badge variant="muted">{stats.unread} sin leer</Badge>
-            {Object.entries(stats.byCategory || {}).slice(0, 4).map(([cat, count]) => (
-              <Badge key={cat} variant="outline">{COMM_CATEGORY_LABELS[cat] || cat}: {count}</Badge>
-            ))}
-          </div>
-        )}
-      </SurfaceCard>
-
-      <div className="flex gap-2">
-        <Button size="sm" variant={tab === 'inbox' ? 'primary' : 'outline'} onClick={() => setTab('inbox')}>
-          Bandeja
-        </Button>
-        <Button size="sm" variant={tab === 'timeline' ? 'primary' : 'outline'} onClick={() => setTab('timeline')}>
-          Cronología
-        </Button>
-        <Button size="sm" variant={tab === 'prefs' ? 'primary' : 'outline'} onClick={() => setTab('prefs')}>
-          Preferencias
-        </Button>
-        <Button size="sm" variant={tab === 'stats' ? 'primary' : 'outline'} onClick={() => setTab('stats')}>
-          Métricas
-        </Button>
+        <div className="flex gap-2">
+          {unreadCount > 0 && (
+            <Button
+              variant="outline"
+              size="sm"
+              loading={markAllMutation.isPending}
+              onClick={() => markAllMutation.mutate()}
+            >
+              Marcar leídas
+            </Button>
+          )}
+          <Link to="/cuenta/preferencias">
+            <Button variant="outline" size="sm">Preferencias</Button>
+          </Link>
+        </div>
       </div>
 
-      {tab === 'prefs' && <CommunicationPreferencesPanel />}
-
-      {tab === 'stats' && engagement && (
-        <SurfaceCard className="grid gap-3 p-5 sm:grid-cols-3">
-          <div>
-            <p className="text-2xl font-black text-primary">{engagement.opened}</p>
-            <p className="text-xs text-muted-foreground">Avisos abiertos (30d)</p>
-          </div>
-          <div>
-            <p className="text-2xl font-black text-primary">{engagement.clicked}</p>
-            <p className="text-xs text-muted-foreground">Clics en avisos</p>
-          </div>
-          <div>
-            <p className="text-2xl font-black text-primary">{engagement.ctr}%</p>
-            <p className="text-xs text-muted-foreground">CTR aproximado</p>
-          </div>
-        </SurfaceCard>
-      )}
-
-      {tab === 'inbox' && (
+      {(
         <>
           <Input
             placeholder="Buscar en avisos…"
@@ -177,7 +121,7 @@ export default function AccountNotificationsPage() {
           />
 
           <div className="flex flex-wrap gap-2">
-            {FILTERS.map((f) => (
+            {FILTERS.slice(0, 2).map((f) => (
               <Button
                 key={f.id}
                 size="sm"
@@ -187,63 +131,60 @@ export default function AccountNotificationsPage() {
                 {f.label}
               </Button>
             ))}
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setShowFilters((v) => !v)}
+            >
+              {showFilters ? 'Menos filtros' : 'Más filtros'}
+            </Button>
           </div>
 
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="h-10 w-full rounded-xl border border-input bg-background px-3 text-sm"
-          >
-            {CATEGORY_OPTIONS.map((c) => (
-              <option key={c.id} value={c.id}>{c.label}</option>
-            ))}
-          </select>
-
-          <div className="grid gap-3 sm:grid-cols-3">
-            <select
-              value={priority}
-              onChange={(e) => setPriority(e.target.value)}
-              className="h-10 w-full rounded-xl border border-input bg-background px-3 text-sm"
-            >
-              {PRIORITY_OPTIONS.map((p) => (
-                <option key={p.id} value={p.id}>{p.label}</option>
-              ))}
-            </select>
-            <select
-              value={dateRange}
-              onChange={(e) => setDateRange(e.target.value)}
-              className="h-10 w-full rounded-xl border border-input bg-background px-3 text-sm"
-            >
-              {DATE_RANGES.map((d) => (
-                <option key={d.id} value={d.id}>{d.label}</option>
-              ))}
-            </select>
-            <select
-              value={sort}
-              onChange={(e) => setSort(e.target.value)}
-              className="h-10 w-full rounded-xl border border-input bg-background px-3 text-sm"
-            >
-              {SORT_OPTIONS.map((s) => (
-                <option key={s.id} value={s.id}>{s.label}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="flex items-center justify-between gap-3">
-            <p className="text-sm text-muted-foreground">
-              {unreadCount > 0 ? `${unreadCount} sin leer` : 'Estás al día'}
-            </p>
-            {unreadCount > 0 && (
-              <Button
-                variant="outline"
-                size="sm"
-                loading={markAllMutation.isPending}
-                onClick={() => markAllMutation.mutate()}
+          {showFilters && (
+            <>
+              <div className="flex flex-wrap gap-2">
+                {FILTERS.slice(2).map((f) => (
+                  <Button
+                    key={f.id}
+                    size="sm"
+                    variant={filter === f.id ? 'primary' : 'outline'}
+                    onClick={() => setFilter(f.id)}
+                  >
+                    {f.label}
+                  </Button>
+                ))}
+              </div>
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="h-10 w-full rounded-xl border border-input bg-background px-3 text-sm"
               >
-                Marcar todas leídas
-              </Button>
-            )}
-          </div>
+                {CATEGORY_OPTIONS.map((c) => (
+                  <option key={c.id} value={c.id}>{c.label}</option>
+                ))}
+              </select>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <select
+                  value={dateRange}
+                  onChange={(e) => setDateRange(e.target.value)}
+                  className="h-10 w-full rounded-xl border border-input bg-background px-3 text-sm"
+                >
+                  {DATE_RANGES.map((d) => (
+                    <option key={d.id} value={d.id}>{d.label}</option>
+                  ))}
+                </select>
+                <select
+                  value={sort}
+                  onChange={(e) => setSort(e.target.value)}
+                  className="h-10 w-full rounded-xl border border-input bg-background px-3 text-sm"
+                >
+                  {SORT_OPTIONS.map((s) => (
+                    <option key={s.id} value={s.id}>{s.label}</option>
+                  ))}
+                </select>
+              </div>
+            </>
+          )}
 
           {isLoading ? (
             <SurfaceCard className="p-6 text-center text-sm text-muted-foreground">
@@ -355,36 +296,6 @@ export default function AccountNotificationsPage() {
             </ul>
           )}
         </>
-      )}
-
-      {tab === 'timeline' && (
-        <ul className="space-y-2">
-          {timeline.length === 0 ? (
-            <SurfaceCard className="p-6 text-center text-sm text-muted">Sin eventos en cronología.</SurfaceCard>
-          ) : (
-            timeline.map((ev) => (
-              <li key={ev.id}>
-                <SurfaceCard className="p-3 text-sm">
-                  <div className="flex items-center justify-between gap-2">
-                    <p className="font-semibold">{ev.title || ev.event_key}</p>
-                    <Badge variant="muted" className="text-[10px]">
-                      {COMM_CATEGORY_LABELS[ev.category] || ev.category}
-                    </Badge>
-                  </div>
-                  {ev.body && <p className="mt-1 text-muted-foreground">{ev.body}</p>}
-                  {ev.deep_link && (
-                    <Link to={normalizeAppPath(ev.deep_link) || '/cuenta/notificaciones'} className="mt-2 inline-block text-xs font-semibold text-primary">
-                      Abrir →
-                    </Link>
-                  )}
-                  <p className="mt-1 text-[10px] text-muted">
-                    {new Date(ev.created_at).toLocaleString('es-CO')}
-                  </p>
-                </SurfaceCard>
-              </li>
-            ))
-          )}
-        </ul>
       )}
     </div>
   );

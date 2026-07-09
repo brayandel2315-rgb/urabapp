@@ -29,6 +29,7 @@ const EnviosPage = lazy(() => import('../modules/client/pages/EnviosPage'));
 const ShipmentDetailPage = lazy(() => import('../modules/client/pages/ShipmentDetailPage'));
 const AccountLayout = lazy(() => import('../modules/account/AccountLayout'));
 const AccountProfilePage = lazy(() => import('../modules/account/pages/AccountProfilePage'));
+const AccountPersonalPage = lazy(() => import('../modules/account/pages/AccountPersonalPage'));
 const AccountAddressesPage = lazy(() => import('../modules/account/pages/AccountAddressesPage'));
 const AccountPaymentsPage = lazy(() => import('../modules/account/pages/AccountPaymentsPage'));
 const AccountBillingPage = lazy(() => import('../modules/account/pages/AccountBillingPage'));
@@ -46,6 +47,7 @@ const ComoFuncionaPage = lazy(() => import('../modules/info/pages/ComoFuncionaPa
 const RegistrarComercioPage = lazy(() => import('../modules/info/pages/RegistrarComercioPage'));
 const SerDomiciliarioPage = lazy(() => import('../modules/info/pages/SerDomiciliarioPage'));
 const FaqPage = lazy(() => import('../modules/info/pages/FaqPage'));
+const InstallAppPage = lazy(() => import('../modules/info/pages/InstallAppPage'));
 const SeguridadInfoPage = lazy(() => import('../modules/info/pages/SeguridadInfoPage'));
 const RecoverAccount = lazy(() => import('../pages/RecoverAccount'));
 const SupportPage = lazy(() => import('../modules/client/pages/SupportPage'));
@@ -109,6 +111,7 @@ export default function AppRoutes() {
         >
           <Route index element={<Navigate to="/cuenta/perfil" replace />} />
           <Route path="perfil" element={<Lazy><AccountProfilePage /></Lazy>} />
+          <Route path="datos" element={<Lazy><AccountPersonalPage /></Lazy>} />
           <Route path="notificaciones" element={<Lazy><AccountNotificationsPage /></Lazy>} />
           <Route path="direcciones" element={<Lazy><AccountAddressesPage /></Lazy>} />
           <Route path="pagos" element={<Lazy><AccountPaymentsPage /></Lazy>} />
@@ -135,6 +138,7 @@ export default function AppRoutes() {
       <Route path="/info/registrar-comercio" element={<Lazy><RegistrarComercioPage /></Lazy>} />
       <Route path="/info/ser-domiciliario" element={<Lazy><SerDomiciliarioPage /></Lazy>} />
       <Route path="/info/faq" element={<Lazy><FaqPage /></Lazy>} />
+      <Route path="/info/instalar-app" element={<Lazy><InstallAppPage /></Lazy>} />
       <Route path="/info/seguridad" element={<Lazy><SeguridadInfoPage /></Lazy>} />
 
       <Route path="/brandboard" element={<DevOnlyRoute><Lazy><Brandboard /></Lazy></DevOnlyRoute>} />
