@@ -5,7 +5,6 @@ import BottomNavigation from '@/design-system/layouts/BottomNavigation';
 import { CommandMenu } from '@/design-system/providers/CommandMenu';
 import OfflineBanner from '@/design-system/patterns/OfflineBanner';
 import CommunicationBanner from '@/components/communication/CommunicationBanner';
-import InAppSupportButton from '../components/InAppSupportButton';
 import ClientServicesFab from '../components/layout/ClientServicesFab';
 import AbandonedCartSync from '../hooks/useAbandonedCartSync';
 import { useNotificationsRealtime } from '../hooks/useNotificationsRealtime';
@@ -51,7 +50,6 @@ export default function ClientLayout() {
       </div>
       <div className="lg:hidden">
         <ClientServicesFab />
-        <InAppSupportButton />
       </div>
       <BottomNavigation tabs={CLIENT_BOTTOM_TABS} badges={badges} />
       <CommandMenu />

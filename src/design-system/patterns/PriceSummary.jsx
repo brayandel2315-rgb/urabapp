@@ -12,18 +12,19 @@ export function PriceRow({ label, value, highlight, className }) {
   );
 }
 
-export default function PriceSummary({ rows, totalLabel = 'Total', totalValue, className }) {
+export default function PriceSummary({ rows, totalLabel = 'Total', totalValue, footnote, className }) {
   return (
     <SurfaceCard className={cn('space-y-2', className)}>
       {rows?.map((row) => (
         <PriceRow key={row.label} label={row.label} value={row.value} />
       ))}
       {totalValue != null && (
-        <>
-          <div className="border-t border-border pt-2">
-            <PriceRow label={totalLabel} value={totalValue} highlight />
-          </div>
-        </>
+        <div className="border-t border-border pt-2">
+          <PriceRow label={totalLabel} value={totalValue} highlight />
+        </div>
+      )}
+      {footnote && (
+        <p className="text-[11px] leading-relaxed text-muted-foreground">{footnote}</p>
       )}
     </SurfaceCard>
   );

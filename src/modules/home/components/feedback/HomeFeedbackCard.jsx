@@ -8,6 +8,7 @@ import { toast } from '@/utils/toast';
 import { cn } from '@/lib/utils';
 
 const STORAGE_KEY = 'urabapp-home-feedback-v1';
+const VISIT_KEY = 'urabapp-home-visits-v1';
 
 function wasDismissedRecently() {
   try {
@@ -26,9 +27,30 @@ function markDismissed(score) {
   } catch { /* ignore */ }
 }
 
-export default function HomeFeedbackCard({ className }) {
+function getVisitCount() {
+  try {
+    return Number(localStorage.getItem(VISIT_KEY) || 0);
+  } catch {
+    return 0;
+  }
+}
+
+function incrementVisitCount() {
+  try {
+    const next = getVisitCount() + 1;
+    localStorage.setItem(VISIT_KEY, String(next));
+    return next;
+  } catch {
+    return 1;
+  }
+}
+
+export default function HomeFeedbackCard({ className, deferUntilVisit = 1 }) {
   const { user } = useAuthStore();
-  const [hidden, setHidden] = useState(wasDismissedRecently);
+  const [hidden, setHidden] = useState(() => {
+    const visits = incrementVisitCount();
+    return wasDismissedRecently() || visits < deferUntilVisit;
+  });
   const [selected, setSelected] = useState(null);
 
   if (hidden) return null;

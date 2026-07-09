@@ -12,7 +12,7 @@ export default function CheckoutStepper({ currentStep, onStepClick, completedSte
   const currentIndex = CHECKOUT_STEPS.findIndex((s) => s.id === currentStep);
 
   return (
-    <nav aria-label="Pasos del checkout" className="rounded-2xl border border-border/60 bg-card p-3 shadow-soft">
+    <nav aria-label="Pasos del checkout" className="rounded-xl border border-border/40 bg-card/80 p-2">
       <div className="flex items-center">
         {CHECKOUT_STEPS.map((step, index) => {
           const done = completedSteps.includes(step.id) || index < currentIndex;
@@ -34,8 +34,8 @@ export default function CheckoutStepper({ currentStep, onStepClick, completedSte
                 <span
                   className={cn(
                     'flex h-9 w-9 items-center justify-center rounded-full border-2 text-sm font-bold transition-all',
-                    active && 'border-primary bg-primary text-primary-foreground shadow-glow',
-                    done && !active && 'border-primary/40 bg-primary/10 text-primary',
+                    active && 'border-[#0E6BA8] bg-[#0E6BA8] text-white',
+                    done && !active && 'border-[#0E6BA8]/30 bg-[#E6F4FF] text-[#0E6BA8]',
                     !done && !active && 'border-border bg-muted/30 text-muted-foreground'
                   )}
                 >

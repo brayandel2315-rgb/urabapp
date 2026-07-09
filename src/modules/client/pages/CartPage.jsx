@@ -75,8 +75,9 @@ export default function CartPage() {
     staleTime: 60_000,
   });
 
-  const drinkUpsells = filterUpsellProducts(catalogProducts, 'drinks').slice(0, 4);
-  const utensilUpsells = filterUpsellProducts(catalogProducts, 'utensils').slice(0, 3);
+  const drinkUpsells = filterUpsellProducts(catalogProducts, 'drinks').slice(0, 2);
+  const utensilUpsells = filterUpsellProducts(catalogProducts, 'utensils').slice(0, 1);
+  const upsellProducts = [...drinkUpsells, ...utensilUpsells];
 
   const businessStub = {
     id: businessId,
@@ -139,7 +140,9 @@ export default function CartPage() {
       <ClientScreenHeader
         tag="Tu pedido"
         title={businessName}
-        subtitle={`Llegada estimada ${etaMin}-${etaMax} min · Domicilio ${formatCOP(fee)}`}
+        subtitle={storeReady
+          ? `Entrega ~${etaMin}–${etaMax} min · ${formatCOP(fee)} domicilio`
+          : 'La tienda no acepta pedidos ahora'}
       />
 
       <PageExperienceGuard
@@ -170,82 +173,52 @@ export default function CartPage() {
                 <span className="w-6 text-center font-semibold">{item.quantity}</span>
                 <button type="button" onClick={() => updateQuantity(lineKey(item), item.quantity + 1)} className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary-light font-bold text-primary" aria-label="Más">+</button>
               </div>
+              <button type="button" onClick={() => removeItem(lineKey(item))} className="text-xs font-medium text-muted-foreground hover:text-destructive">
+                Quitar
+              </button>
               {(item.modifiers?.length > 0 || item.modifierSummary) && (
                 <button
                   type="button"
                   onClick={() => handleEditLine(item)}
-                  className="text-xs font-semibold text-primary"
+                  className="text-xs font-medium text-[#0E6BA8]"
                 >
                   Editar
                 </button>
               )}
-              <button type="button" onClick={() => removeItem(lineKey(item))} className="text-xs font-semibold text-muted-foreground hover:text-destructive">
-                Quitar
-              </button>
             </div>
           </SurfaceCard>
         ))}
       </div>
 
-      {(drinkUpsells.length > 0 || utensilUpsells.length > 0) && (
-        <SurfaceCard className="mt-4 space-y-4">
-          <SectionTitle>¿Quieres agregar algo más?</SectionTitle>
-          {drinkUpsells.length > 0 && (
-            <div>
-              <p className="mb-2 text-sm font-semibold text-foreground">Bebidas</p>
-              <div className="flex gap-2 overflow-x-auto pb-1">
-                {drinkUpsells.map((product) => (
-                  <button
-                    key={product.id}
-                    type="button"
-                    onClick={() => handleQuickAdd(product)}
-                    className="min-w-[140px] rounded-2xl border border-border/60 bg-background p-3 text-left"
-                  >
-                    <p className="line-clamp-2 text-sm font-semibold text-foreground">{product.name}</p>
-                    <p className="mt-1 text-sm font-bold text-primary-dark">{formatCOP(product.price)}</p>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-          {utensilUpsells.length > 0 && (
-            <div>
-              <p className="mb-2 text-sm font-semibold text-foreground">Cubiertos y extras</p>
-              <div className="flex gap-2 overflow-x-auto pb-1">
-                {utensilUpsells.map((product) => (
-                  <button
-                    key={product.id}
-                    type="button"
-                    onClick={() => handleQuickAdd(product)}
-                    className="min-w-[140px] rounded-2xl border border-border/60 bg-background p-3 text-left"
-                  >
-                    <p className="line-clamp-2 text-sm font-semibold text-foreground">{product.name}</p>
-                    <p className="mt-1 text-sm font-bold text-primary-dark">{formatCOP(product.price)}</p>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
+      {upsellProducts.length > 0 && (
+        <SurfaceCard className="mt-4">
+          <SectionTitle>Agrega algo más</SectionTitle>
+          <div className="mt-2 flex gap-2 overflow-x-auto pb-1">
+            {upsellProducts.map((product) => (
+              <button
+                key={product.id}
+                type="button"
+                onClick={() => handleQuickAdd(product)}
+                className="min-w-[132px] rounded-xl border border-border/50 bg-background p-3 text-left transition-colors hover:border-[#0E6BA8]/30"
+              >
+                <p className="line-clamp-2 text-sm font-semibold text-foreground">{product.name}</p>
+                <p className="mt-1 text-sm font-bold text-[#0E6BA8]">{formatCOP(product.price)}</p>
+              </button>
+            ))}
+          </div>
         </SurfaceCard>
       )}
-
-      <SurfaceCard className="mt-4 space-y-2">
-        <SectionTitle>Detalle de tu pedido</SectionTitle>
-        <p className="text-sm text-muted-foreground">
-          {STORE.partialFulfillment}
-        </p>
-      </SurfaceCard>
 
       <PriceSummary
         className="mt-4"
         rows={[
-          { label: 'Subtotal productos', value: formatCOP(subtotal) },
+          { label: 'Subtotal', value: formatCOP(subtotal) },
           ...(savings > 0 ? [{ label: 'Ahorro en promos', value: `-${formatCOP(savings)}` }] : []),
-          { label: 'Tarifa de entrega', value: formatCOP(fee) },
-          { label: 'Llegada estimada', value: `${etaMin}-${etaMax} min` },
+          { label: 'Domicilio', value: formatCOP(fee) },
         ]}
         totalLabel="Total estimado"
         totalValue={formatCOP(subtotal + fee)}
+        footnote={`Llegada estimada ${etaMin}–${etaMax} min · ${STORE.partialFulfillment}`}
       />
 
       {belowMin && (

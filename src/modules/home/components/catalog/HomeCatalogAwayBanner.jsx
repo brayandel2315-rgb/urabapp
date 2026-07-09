@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import AppIcon from '@/design-system/icons/AppIcon';
 import Button from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
@@ -46,16 +45,17 @@ export default function HomeCatalogAwayBanner({
               Los comercios locales de {catalog.home} no hacen entrega inmediata donde estás ahora.
               Activa envíos entre municipios para ver opciones que llegan a {catalog.detected}.
             </p>
-            <div className="mt-4 flex flex-wrap gap-2">
+            <div className="mt-4 flex flex-wrap items-center gap-3">
               <Button type="button" size="sm" onClick={onEnableIntermunicipal}>
                 Ver envíos intermunicipales
               </Button>
-              <Button type="button" variant="outline" size="sm" onClick={onRefreshLocation}>
+              <button
+                type="button"
+                onClick={onRefreshLocation}
+                className="text-sm font-semibold text-teal-800 underline-offset-2 hover:underline dark:text-teal-200"
+              >
                 Actualizar ubicación
-              </Button>
-              <Button asChild variant="ghost" size="sm">
-                <Link to="/envios">Cotizar envío</Link>
-              </Button>
+              </button>
             </div>
           </div>
         </div>

@@ -33,9 +33,11 @@ export default function ClientAppHeader({ notificationCount = 0 }) {
             />
             <span className="min-w-0 font-display text-sm font-black tracking-tight text-[#0D2B45]">
               <span className="block truncate leading-none">{BRAND.name}</span>
-              <span className="mt-0.5 block truncate text-[9px] font-semibold uppercase tracking-[0.14em] text-[#4A6278]">
-                Conexión local
-              </span>
+              {!isHome && (
+                <span className="mt-0.5 block truncate text-[9px] font-semibold uppercase tracking-[0.14em] text-[#4A6278]">
+                  Conexión local
+                </span>
+              )}
             </span>
           </Link>
 

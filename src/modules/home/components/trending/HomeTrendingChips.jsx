@@ -23,7 +23,7 @@ export default function HomeTrendingChips({ chips = [], onSelect, className, com
         </p>
       )}
       <div className="flex flex-wrap gap-2">
-        {items.slice(0, compact ? 6 : items.length).map((chip) => (
+        {items.slice(0, compact ? 4 : items.length).map((chip) => (
           <button
             key={chip}
             type="button"

@@ -23,11 +23,11 @@ export const CLIENT_SERVICE_LINKS = [
   { to: '/soporte', label: 'Ayuda', icon: 'headset', hint: 'Soporte en app' },
 ];
 
-/** Móvil: barra inferior estilo app delivery */
+/** Móvil: barra inferior uniforme — sin tab destacado que compita con la búsqueda */
 export const CLIENT_BOTTOM_TABS = [
   { to: CLIENT_HOME, icon: 'home', label: 'Inicio', exact: true },
-  { to: CLIENT_ORDERS, icon: 'orders', label: 'Pedidos' },
-  { to: CLIENT_SEARCH, icon: 'search', label: 'Explorar', featured: true },
+  { to: CLIENT_SEARCH, icon: 'search', label: 'Explorar' },
+  { to: CLIENT_OFFERS, icon: 'tag', label: 'Ofertas' },
   { to: '/carrito', icon: 'cart', label: 'Carrito', badgeKey: 'cart' },
   { to: CLIENT_ACCOUNT, icon: 'profile', label: 'Cuenta' },
 ];

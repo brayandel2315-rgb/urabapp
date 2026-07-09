@@ -128,6 +128,16 @@ export const HOME_CATEGORY_TILES = [
   { id: 'more', label: 'Ver más', icon: 'all', route: '/search' },
 ];
 
+/** Home móvil: 6 categorías sin duplicar rutas ni competir con el FAB de servicios */
+export const HOME_CATEGORY_TILES_MOBILE = [
+  { id: 'restaurantes', label: 'Comida', icon: 'comida', route: '/restaurantes' },
+  { id: 'mercado', label: 'Mercado', icon: 'market', route: '/mercado' },
+  { id: 'farmacia', label: 'Farmacia', icon: 'pharmacy', route: '/farmacia' },
+  { id: 'tiendas', label: 'Tiendas', icon: 'tiendas', route: '/tiendas' },
+  { id: 'ofertas', label: 'Ofertas', icon: 'tag', route: '/ofertas' },
+  { id: 'more', label: 'Explorar', icon: 'all', route: '/search' },
+];
+
 export const DEFAULT_TRENDING = [
   'Hamburguesa', 'Pollo', 'Sushi', 'Envíos', 'Farmacia', 'Pizza', 'Mercado', 'Mandado',
 ];

@@ -1,10 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
-import { Button } from '@/design-system/ui/button';
 import { getMunicipioHeroProfile, URABA_HERO_IMAGES } from '@/utils/uraba-images';
-import AppIcon from '@/design-system/icons/AppIcon';
-import { HOME_TRUST_SIGNALS } from '../../constants/home-categories';
 import { tween } from '@/design-system/motion/presets';
 import HomeHeroLocationChip from './HomeHeroLocationChip';
 import HomeHeroDashboard from './HomeHeroDashboard';
@@ -25,7 +22,6 @@ export default function HomeMvpHero({
   search,
   onSearchChange,
   userId,
-  onExplore,
   onRefreshLocation,
   firstName,
 }) {
@@ -42,7 +38,7 @@ export default function HomeMvpHero({
   return (
     <section
       ref={sectionRef}
-      className="home-premium-hero relative min-h-0 overflow-hidden border-b border-white/10 lg:min-h-[min(72vh,680px)]"
+      className="home-premium-hero relative min-h-0 overflow-hidden border-b border-white/10 lg:min-h-[min(62vh,600px)]"
       aria-label="UrabApp — pedir en tu zona"
     >
       <motion.div className="absolute inset-0 scale-105" style={{ y: bgY }}>
@@ -59,24 +55,23 @@ export default function HomeMvpHero({
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          background: 'linear-gradient(180deg, rgba(13,43,69,.9) 0%, rgba(13,43,69,.78) 55%, rgba(14,107,168,.55) 100%)',
+          background: 'linear-gradient(180deg, rgba(13,43,69,.92) 0%, rgba(13,43,69,.82) 60%, rgba(14,107,168,.5) 100%)',
         }}
         aria-hidden
       />
-      <div className="hero-noise pointer-events-none absolute inset-0 opacity-[0.35]" aria-hidden />
-      <div className="pointer-events-none absolute inset-0 backdrop-blur-[2px]" aria-hidden />
+      <div className="hero-noise pointer-events-none absolute inset-0 opacity-[0.2]" aria-hidden />
 
       <div className="relative z-10 mx-auto flex max-w-[1440px] flex-col justify-center px-4 py-8 sm:px-[6%] sm:py-10 lg:min-h-0 lg:px-[8%] lg:py-12">
-        <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,55fr)_minmax(0,45fr)] lg:gap-12">
+        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,58fr)_minmax(0,42fr)] lg:gap-10">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={tween}
             className="min-w-0"
           >
-            <HomeHeroLocationChip className="mb-5" onRefreshLocation={onRefreshLocation} />
+            <HomeHeroLocationChip className="mb-4" onRefreshLocation={onRefreshLocation} />
 
-            <h1 className="home-premium-hero__title max-w-xl font-display text-[1.75rem] font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-[3.75rem] lg:leading-[1.05]">
+            <h1 className="home-premium-hero__title max-w-xl font-display text-[1.75rem] font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-[3.25rem] lg:leading-[1.05]">
               {firstName ? (
                 <>
                   {firstName}, todo Urabá
@@ -92,43 +87,13 @@ export default function HomeMvpHero({
               )}
             </h1>
 
-            <p className="home-premium-hero__lead mt-4 max-w-lg text-base leading-snug sm:text-lg lg:line-clamp-2">
+            <p className="home-premium-hero__lead mt-3 max-w-lg text-base leading-relaxed sm:text-lg">
               {catalog?.awayFromHome && catalog?.mode === 'away_blocked'
                 ? `Estás en ${catalog.detected || 'otra zona'}. Activa envíos intermunicipales para pedir desde ${catalog.viewMunicipio || municipio}.`
-                : 'Compra, envía y descubre negocios disponibles para tu zona.'}
+                : 'Busca tiendas, pide a domicilio o envía un paquete. Todo desde un solo lugar.'}
             </p>
 
-            <ul className="mt-4 flex flex-wrap gap-1.5 sm:mt-5 sm:gap-2" aria-label="Beneficios">
-              {HOME_TRUST_SIGNALS.map((s) => (
-                <li
-                  key={s.id}
-                  className="inline-flex items-center gap-1 rounded-[16px] border border-white/15 bg-white/10 px-2.5 py-1.5 text-[11px] font-semibold text-white backdrop-blur-md sm:rounded-[20px] sm:px-3 sm:py-2 sm:text-xs"
-                >
-                  <AppIcon name={s.icon} size="xs" className="text-emerald-200" />
-                  {s.label}
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-5 flex flex-col gap-2.5 sm:mt-7 sm:flex-row sm:flex-wrap sm:gap-3">
-              <Button
-                size="lg"
-                className="h-12 rounded-2xl px-6 text-sm font-bold shadow-lift sm:h-[60px] sm:rounded-[20px] sm:px-8 sm:text-base"
-                onClick={onExplore}
-              >
-                Explorar
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                asChild
-                className="h-12 rounded-2xl border-white/30 bg-white/10 px-6 text-sm font-bold text-white backdrop-blur-md hover:bg-white/20 sm:h-[60px] sm:rounded-[20px] sm:px-8 sm:text-base"
-              >
-                <Link to="/mandado">Enviar paquete</Link>
-              </Button>
-            </div>
-
-            <div className="mt-5 sm:mt-8">
+            <div className="mt-6 sm:mt-7">
               <HomeMegaSearch
                 query={search}
                 onQueryChange={onSearchChange}
@@ -138,14 +103,21 @@ export default function HomeMvpHero({
                 sticky={false}
                 className="!max-w-[1100px]"
               />
+              <p className="mt-3 text-sm text-white/75">
+                ¿Necesitas mandar algo?
+                {' '}
+                <Link to="/mandado" className="font-semibold text-white underline-offset-2 hover:underline">
+                  Ir a mensajería
+                </Link>
+              </p>
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
+            initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ ...tween, delay: 0.12 }}
-            className="hidden min-w-0 lg:block lg:pt-4"
+            transition={{ ...tween, delay: 0.1 }}
+            className="hidden min-w-0 lg:block"
           >
             <HomeHeroDashboard pulse={pulse} municipio={municipio} />
           </motion.div>

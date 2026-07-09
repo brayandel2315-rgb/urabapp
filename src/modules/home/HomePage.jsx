@@ -16,9 +16,7 @@ import HomePromotionsStrip from './components/discovery/HomePromotionsStrip';
 import HomeTrendingChips from './components/trending/HomeTrendingChips';
 import HomeMarketPulse from './components/hero/HomeMarketPulse';
 import HomeFeedbackCard from './components/feedback/HomeFeedbackCard';
-import LocationPromptBanner from '@/components/geo/LocationPromptBanner';
 import AppIcon from '@/design-system/icons/AppIcon';
-import TrustPills from '@/design-system/patterns/TrustPills';
 import HomeSectionHeader from '@/modules/client/components/HomeSectionHeader';
 import ClientActiveOrderBanner from '@/modules/client/components/ClientActiveOrderBanner';
 import BusinessCard from '@/components/BusinessCard';
@@ -110,12 +108,12 @@ export default function HomeMvpPage() {
 
   const firstName = profile?.full_name?.trim().split(/\s+/)[0];
   const openNow = stats?.openBusinessesCount ?? 0;
+  const showAwayBanner = catalog?.awayFromHome || catalog?.mode === 'out_of_coverage';
 
   return (
     <>
-      {/* Móvil — sin cambios */}
       <div className="w-full min-w-0 mobile-app-bg lg:hidden">
-        <div className="app-container space-y-5 py-4 sm:space-y-6 sm:py-5">
+        <div className="app-container space-y-6 py-4 sm:py-5">
           <section className="home-hero-card">
             <button
               type="button"
@@ -145,30 +143,17 @@ export default function HomeMvpPage() {
               avgDeliveryMin={pulse?.avgDeliveryMin}
               activeOrders={user ? myActiveOrders : pulse?.activeOrders}
             />
-
-            <TrustPills className="mt-3 flex flex-wrap gap-2" />
           </section>
 
           {user && <ClientActiveOrderBanner />}
 
-          <HomeCatalogAwayBanner
-            catalog={catalog}
-            onEnableIntermunicipal={setIntermunicipalCatalog}
-            onRefreshLocation={detect}
-          />
-
-          <LocationPromptBanner />
-
-          {hasPromos || discoveryLoading ? (
-            <HomePromotionsStrip
-              promotions={discovery?.promotions ?? []}
-              promotionsByMerchant={discovery?.promotionsByMerchant ?? []}
-              isLoading={discoveryLoading}
-              municipio={viewMuni}
+          {showAwayBanner && (
+            <HomeCatalogAwayBanner
+              catalog={catalog}
+              onEnableIntermunicipal={setIntermunicipalCatalog}
+              onRefreshLocation={detect}
             />
-          ) : null}
-
-          <HomeCategoryRail onNavigate={handleCategoryNavigate} />
+          )}
 
           <section className="space-y-3">
             <HomeSectionHeader
@@ -182,7 +167,7 @@ export default function HomeMvpPage() {
               }
               variant="brand"
               aside={(
-                <Link to="/restaurantes" className="home-cta-pill">
+                <Link to="/restaurantes" className="home-cta-link">
                   Ver todos
                 </Link>
               )}
@@ -207,29 +192,41 @@ export default function HomeMvpPage() {
                 isLoading={discoveryLoading}
                 municipio={outsideCoverage ? homeMunicipio : viewMuni}
                 emptyMessage={openNow === 0 && !noLocalBusinesses
-                  ? 'Ninguna tienda está abierta en este momento. Vuelve en su horario o prueba Mensajería.'
+                  ? 'Ninguna tienda está abierta en este momento. Vuelve en su horario o usa el botón de servicios.'
                   : noLocalBusinesses
                     ? 'Activa envíos intermunicipales para ver tiendas que lleguen a tu ubicación.'
-                    : 'Pronto habrá más tiendas en tu zona. Mientras tanto, prueba Mensajería o Envíos.'}
+                    : 'Pronto habrá más tiendas en tu zona.'}
               />
             )}
           </section>
 
-          <section className="home-surface-card">
-            <HomeTrendingChips
-              compact
-              chips={discovery?.trending ?? []}
-              onSelect={handleTrending}
+          {(hasPromos || discoveryLoading) && (
+            <HomePromotionsStrip
+              promotions={discovery?.promotions ?? []}
+              promotionsByMerchant={discovery?.promotionsByMerchant ?? []}
+              isLoading={discoveryLoading}
+              municipio={viewMuni}
             />
-          </section>
+          )}
 
-          <HomeFeedbackCard />
+          <HomeCategoryRail onNavigate={handleCategoryNavigate} variant="mobile" />
+
+          {(discovery?.trending?.length ?? 0) > 0 && (
+            <section className="home-surface-card">
+              <HomeTrendingChips
+                compact
+                chips={discovery?.trending ?? []}
+                onSelect={handleTrending}
+              />
+            </section>
+          )}
+
+          <HomeFeedbackCard deferUntilVisit={2} />
         </div>
 
         <HomeFooter />
       </div>
 
-      {/* Escritorio — experiencia premium */}
       <div className="hidden lg:block">
         <HomeDesktopView
           user={user}

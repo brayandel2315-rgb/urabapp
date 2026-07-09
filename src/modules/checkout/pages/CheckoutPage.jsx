@@ -30,7 +30,6 @@ import { isValidDeliveryCoordinates } from '../utils/checkout-validation';
 import { useCheckoutForm } from '../hooks/useCheckoutForm';
 import { useCheckoutSubmit } from '../hooks/useCheckoutSubmit';
 import CheckoutStepper from '../components/CheckoutStepper';
-import CheckoutTrustStrip from '../components/CheckoutTrustStrip';
 import CheckoutDeliveryStep from '../components/CheckoutDeliveryStep';
 import CheckoutPaymentStep from '../components/CheckoutPaymentStep';
 import CheckoutReviewStep from '../components/CheckoutReviewStep';
@@ -245,9 +244,9 @@ export default function CheckoutPage() {
       >
       <div className="space-y-4">
         <ClientScreenHeader
-          tag="Checkout seguro"
+          tag="Checkout"
           title="Confirma tu pedido"
-          subtitle={`${form.municipio} · ${businessName || cartBusiness?.name || `Tu ${STORE.oneLower}`}`}
+          subtitle={businessName || cartBusiness?.name || `Tu ${STORE.oneLower}`}
         />
 
         {!isAuthed && (
@@ -266,7 +265,11 @@ export default function CheckoutPage() {
           onStepClick={handleStepClick}
         />
 
-        <CheckoutTrustStrip />
+        <p className="text-center text-xs text-muted-foreground">
+          {currentStep === 'delivery' && 'Paso 1 de 3 · Dónde entregamos'}
+          {currentStep === 'payment' && 'Paso 2 de 3 · Cómo pagas'}
+          {currentStep === 'review' && 'Paso 3 de 3 · Revisa y confirma'}
+        </p>
 
         <form
           id="checkout-form"

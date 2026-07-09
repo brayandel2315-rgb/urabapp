@@ -62,10 +62,6 @@ export default function DiscoverSearchTrigger({ className, municipio, compact = 
           {PLACEHOLDERS[idx]}
         </span>
       </span>
-      <span className="discover-search-trigger__chip hidden sm:inline-flex">
-        <AppIcon name="filter" size="xs" />
-        Explorar
-      </span>
     </button>
   );
 }
