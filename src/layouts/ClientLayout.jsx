@@ -18,6 +18,8 @@ import GeoBootstrap from '../components/geo/GeoBootstrap';
 import ClientOnboardingTour from '../components/onboarding/ClientOnboardingTour';
 import { CLIENT_BOTTOM_TABS } from '@/app/clientNav';
 import { useClientLightTheme } from '@/hooks/useClientLightTheme';
+import { useMarketplaceLiveRefresh } from '@/hooks/useMarketplaceLiveRefresh';
+import { useCatalogLocation } from '@/hooks/useCatalogLocation';
 
 export default function ClientLayout() {
   const cartCount = useCartStore((s) => s.getItemCount());
@@ -27,6 +29,8 @@ export default function ClientLayout() {
 
   useClientLightTheme();
   useNotificationsRealtime(user?.id);
+  const { activeMunicipio } = useCatalogLocation();
+  useMarketplaceLiveRefresh(activeMunicipio);
 
   const badges = {
     cart: cartCount,

@@ -13,7 +13,7 @@ export default function NotFound() {
         action={(
           <div className="flex w-full max-w-xs flex-col gap-2">
             <Link to="/"><Button className="w-full">Ir al inicio</Button></Link>
-            <Link to="/"><Button variant="outline" className="w-full">Ir al inicio</Button></Link>
+            <Link to="/pedidos"><Button variant="outline" className="w-full">Ver mis pedidos</Button></Link>
           </div>
         )}
       />

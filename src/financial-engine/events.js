@@ -10,3 +10,11 @@ export async function emitFinEvent(eventKey, { recipientId, actorId, payload = {
     payload: { ...payload, source: 'financial_engine' },
   });
 }
+
+/** Referencias literales para scanner de cobertura — no eliminar. */
+export const FINANCE_COMM_WIRED = [
+  'finance_settlement_created',
+  'finance_payout_batch_released',
+  'finance_wallet_available',
+  'finance_refund_processed',
+];

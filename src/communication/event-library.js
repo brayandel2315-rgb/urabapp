@@ -3,6 +3,7 @@
  */
 import { COMM_CATEGORIES } from './categories';
 import { COMM_PRIORITIES, COMM_CHANNELS } from './priorities';
+import { normalizeAppPath, resolveOrderPath } from '@/utils/navigation';
 
 const DEFAULT_CHANNELS = [COMM_CHANNELS.IN_APP, COMM_CHANNELS.PUSH, COMM_CHANNELS.ANALYTICS, COMM_CHANNELS.AUDIT];
 const ORDER_CHANNELS = [...DEFAULT_CHANNELS, COMM_CHANNELS.WHATSAPP];
@@ -81,6 +82,18 @@ export const EVENT_LIBRARY = {
       body: p.body || `Estado: ${p.statusLabel || p.status || 'actualizado'}`,
     }),
   },
+  order_tracking_update: {
+    key: 'order_tracking_update',
+    category: COMM_CATEGORIES.ORDERS,
+    priority: COMM_PRIORITIES.HIGH,
+    icon: 'mensajeria',
+    channels: ORDER_CHANNELS,
+    deepLink: (p) => (p.orderId ? `/pedidos/${p.orderId}` : '/pedidos'),
+    message: (p) => ({
+      title: p.title || 'Actualización de tu pedido',
+      body: p.body || 'Hay novedades en el seguimiento de tu entrega.',
+    }),
+  },
   order_cancelled: {
     key: 'order_cancelled',
     category: COMM_CATEGORIES.ORDERS,
@@ -111,7 +124,7 @@ export const EVENT_LIBRARY = {
     priority: COMM_PRIORITIES.CRITICAL,
     icon: 'store',
     channels: DEFAULT_CHANNELS,
-    deepLink: () => '/comercio',
+    deepLink: () => '/negocio',
     message: (p) => ({
       title: `Nuevo pedido ${p.orderNumber || ''}`.trim(),
       body: `${p.businessName || 'Tu comercio'} — confirma y prepara.`,
@@ -158,6 +171,48 @@ export const EVENT_LIBRARY = {
     channels: DEFAULT_CHANNELS,
     deepLink: (p) => (p.orderId ? `/pedidos/${p.orderId}` : '/checkout'),
     message: () => ({ title: 'Pago no procesado', body: 'Intenta de nuevo o elige otro método.' }),
+  },
+  finance_settlement_created: {
+    key: 'finance_settlement_created',
+    category: COMM_CATEGORIES.PAYMENTS,
+    priority: COMM_PRIORITIES.HIGH,
+    icon: 'money',
+    channels: DEFAULT_CHANNELS,
+    deepLink: (p) => (p.orderId ? `/pedidos/${p.orderId}` : '/cuenta'),
+    message: (p) => ({
+      title: 'Nueva ganancia registrada',
+      body: p.amount ? `+${p.amount} COP pendientes de liquidación` : 'Tu saldo pendiente fue actualizado.',
+    }),
+  },
+  finance_payout_batch_released: {
+    key: 'finance_payout_batch_released',
+    category: COMM_CATEGORIES.PAYMENTS,
+    priority: COMM_PRIORITIES.HIGH,
+    icon: 'money',
+    channels: DEFAULT_CHANNELS,
+    deepLink: () => '/domiciliario/ganancias',
+    message: (p) => ({
+      title: 'Liquidación realizada',
+      body: p.amount ? `Tu saldo de ${p.amount} COP ya está disponible.` : 'Tu saldo ya está disponible para retiro.',
+    }),
+  },
+  finance_wallet_available: {
+    key: 'finance_wallet_available',
+    category: COMM_CATEGORIES.PAYMENTS,
+    priority: COMM_PRIORITIES.MEDIUM,
+    icon: 'money',
+    channels: DEFAULT_CHANNELS,
+    deepLink: () => '/negocio',
+    message: () => ({ title: 'Saldo disponible', body: 'Tu liquidación fue procesada y el saldo está listo.' }),
+  },
+  finance_refund_processed: {
+    key: 'finance_refund_processed',
+    category: COMM_CATEGORIES.PAYMENTS,
+    priority: COMM_PRIORITIES.HIGH,
+    icon: 'money',
+    channels: DEFAULT_CHANNELS,
+    deepLink: (p) => (p.orderId ? `/pedidos/${p.orderId}` : '/cuenta/pagos'),
+    message: () => ({ title: 'Reembolso procesado', body: 'Los movimientos financieros del pedido fueron revertidos.' }),
   },
   checkout_started: {
     key: 'checkout_started',
@@ -287,6 +342,18 @@ export const EVENT_LIBRARY = {
     channels: [COMM_CHANNELS.ANALYTICS, COMM_CHANNELS.AUDIT],
     deepLink: () => '/cuenta/seguridad',
   },
+  consent_preferences_changed: {
+    key: 'consent_preferences_changed',
+    category: COMM_CATEGORIES.ACCOUNT,
+    priority: COMM_PRIORITIES.SILENT,
+    icon: 'shield',
+    channels: [COMM_CHANNELS.WEBHOOK, COMM_CHANNELS.AUDIT, COMM_CHANNELS.ANALYTICS],
+    deepLink: () => '/cuenta/preferencias',
+    message: (p) => ({
+      title: 'Preferencias actualizadas',
+      body: p.changeType ? `Cambio en ${p.changeType}` : 'El usuario actualizó sus preferencias de comunicación.',
+    }),
+  },
   discovery_search: {
     key: 'discovery_search',
     category: COMM_CATEGORIES.MARKETPLACE,
@@ -374,6 +441,54 @@ export const EVENT_LIBRARY = {
       body: p.body || 'Recibiste un mensaje programado.',
     }),
   },
+  broadcast_segment_sent: {
+    key: 'broadcast_segment_sent',
+    category: COMM_CATEGORIES.SYSTEM,
+    priority: COMM_PRIORITIES.MEDIUM,
+    icon: 'megaphone',
+    channels: [COMM_CHANNELS.IN_APP, COMM_CHANNELS.PUSH, COMM_CHANNELS.ANALYTICS, COMM_CHANNELS.AUDIT],
+    deepLink: () => '/cuenta/notificaciones',
+    message: (p) => ({
+      title: p.title || 'Aviso de Urabapp',
+      body: p.body || 'Tienes un nuevo aviso del equipo Urabapp.',
+    }),
+  },
+  sla_breach_alert: {
+    key: 'sla_breach_alert',
+    category: COMM_CATEGORIES.ADMIN,
+    priority: COMM_PRIORITIES.HIGH,
+    icon: 'alert',
+    channels: [COMM_CHANNELS.IN_APP, COMM_CHANNELS.PUSH, COMM_CHANNELS.ANALYTICS, COMM_CHANNELS.AUDIT],
+    deepLink: () => '/admin',
+    message: (p) => ({
+      title: p.title || `Alerta SLA: ${p.channel || 'canal'}`,
+      body: p.body || 'Un canal de comunicación está fuera del objetivo SLA.',
+    }),
+  },
+  weekly_comm_report_sent: {
+    key: 'weekly_comm_report_sent',
+    category: COMM_CATEGORIES.ADMIN,
+    priority: COMM_PRIORITIES.LOW,
+    icon: 'report',
+    channels: [COMM_CHANNELS.IN_APP, COMM_CHANNELS.ANALYTICS, COMM_CHANNELS.AUDIT],
+    deepLink: () => '/admin',
+    message: () => ({
+      title: 'Informe semanal enviado',
+      body: 'Recibiste el resumen de comunicaciones de los últimos 7 días.',
+    }),
+  },
+  sla_alert_escalated: {
+    key: 'sla_alert_escalated',
+    category: COMM_CATEGORIES.ADMIN,
+    priority: COMM_PRIORITIES.CRITICAL,
+    icon: 'alert',
+    channels: [COMM_CHANNELS.IN_APP, COMM_CHANNELS.PUSH, COMM_CHANNELS.ANALYTICS, COMM_CHANNELS.AUDIT],
+    deepLink: () => '/admin',
+    message: (p) => ({
+      title: p.title || `SLA escalado: ${p.channel || 'canal'}`,
+      body: p.body || 'Una alerta SLA sigue abierta sin reconocer tras 48 horas.',
+    }),
+  },
   communication_opened: {
     key: 'communication_opened',
     category: COMM_CATEGORIES.SYSTEM,
@@ -420,10 +535,19 @@ export function resolveEventMessage(eventKey, payload = {}) {
   return def.message(payload);
 }
 
+function withOrderId(payload = {}) {
+  const orderId = payload.orderId || payload.order_id;
+  return orderId ? { ...payload, orderId } : payload;
+}
+
 export function resolveDeepLink(eventKey, payload = {}) {
+  const normalized = withOrderId(payload);
   const def = getEventDef(eventKey);
-  if (payload.deepLink) return payload.deepLink;
-  if (payload.url) return payload.url;
-  if (!def?.deepLink) return payload.orderId ? `/pedidos/${payload.orderId}` : '/cuenta/notificaciones';
-  return def.deepLink(payload);
+  const explicit = normalized.deepLink || normalized.url;
+  if (explicit) return normalizeAppPath(explicit) || resolveOrderPath(normalized);
+  if (!def?.deepLink) {
+    return resolveOrderPath(normalized) || '/cuenta/notificaciones';
+  }
+  const path = def.deepLink(normalized);
+  return normalizeAppPath(path) || path;
 }

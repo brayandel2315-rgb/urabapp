@@ -7,8 +7,7 @@ import { getBusinesses } from '@/services/business.service';
 import { emitCommEvent } from '@/communication';
 import { getMarketplacePulse } from '@/services/marketplace.service';
 import { quoteCourierDelivery } from '@/services/courier.service';
-import { rankBusinessesByRating } from '@/utils/business-rating';
-import { isBusinessOpenNow } from '@/utils/schedule';
+import { enrichBusinessAvailability } from '@/utils/business-availability';
 import { sortBusinessesByBarrio } from '@/utils/barrio';
 import {
   getHomeDiscovery,
@@ -90,30 +89,7 @@ export async function homeNearbyBusinesses({
   const rows = await getBusinesses({ ...(getBusinessesParams || { catalog, municipio }), barrio });
   const sorted = sortBusinessesByBarrio(rows, barrio, catalog?.viewMunicipio || municipio);
 
-  const withMeta = sorted.map((b) => {
-    const open = isBusinessOpenNow(b);
-    let distanceKm = null;
-    if (coords?.latitude && b.latitude && b.longitude) {
-      const R = 6371;
-      const dLat = ((b.latitude - coords.latitude) * Math.PI) / 180;
-      const dLng = ((b.longitude - coords.longitude) * Math.PI) / 180;
-      const a =
-        Math.sin(dLat / 2) ** 2
-        + Math.cos((coords.latitude * Math.PI) / 180)
-        * Math.cos((b.latitude * Math.PI) / 180)
-        * Math.sin(dLng / 2) ** 2;
-      distanceKm = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    }
-    return {
-      ...b,
-      isOpen: open,
-      distanceKm,
-      etaMin: b.delivery_time || 25,
-      promoLabel: b.promo_is_active && b.promo_discount_value
-        ? `-${b.promo_discount_value}${b.promo_discount_type === 'percent' ? '%' : ''}`
-        : null,
-    };
-  });
+  const withMeta = sorted.map((b) => enrichBusinessAvailability(b, coords));
 
   if (coords?.latitude) {
     withMeta.sort((a, b) => (a.distanceKm ?? 99) - (b.distanceKm ?? 99));

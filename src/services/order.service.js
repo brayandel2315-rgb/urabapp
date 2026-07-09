@@ -17,7 +17,7 @@ import { validateAndPriceOrderItems } from '../utils/order-pricing';
 import { sanitizeText } from '../utils/validate';
 import { isBusinessOpenNow, isBusinessStoreLive } from '../utils/schedule';
 import { isWithinUraba } from '../utils/geo-bounds';
-import { STORE } from '../utils/marketplace-copy';
+import { RefundService } from '@/services/financial.service';
 
 const ORDER_PUBLIC_COLUMNS = `
   id, order_number, status, order_type, customer_id, business_id, driver_id,
@@ -394,12 +394,51 @@ export async function getOrderById(orderId, { viewerId } = {}) {
     return null;
   }
 
-  const { data: otpFields } = await supabase
-    .from('orders')
-    .select('delivery_otp, delivery_otp_verified_at')
-    .eq('id', orderId)
-    .single();
-  return { ...data, ...otpFields };
+  const handoff = await getCustomerDeliveryHandoff(orderId).catch(() => null);
+  if (handoff?.success && handoff.otp) {
+    return {
+      ...data,
+      delivery_otp: handoff.otp,
+      delivery_otp_verified_at: handoff.verified ? data.delivered_at : null,
+    };
+  }
+  return data;
+}
+
+export async function getCustomerDeliveryHandoff(orderId) {
+  if (!isSupabaseConfigured || !orderId || orderId.startsWith('local-')) {
+    const local = getLocalOrders().find((o) => o.id === orderId);
+    if (!local) return { success: false, reason: 'not_found' };
+    return {
+      success: true,
+      status: local.status,
+      otp: local.delivery_otp || (local.status === 'on_the_way' ? '1234' : null),
+      can_confirm: local.status === 'on_the_way' && Boolean(local.driver_id),
+      order_number: local.order_number,
+    };
+  }
+  const data = await sbFetch(
+    supabase.rpc('get_customer_delivery_handoff', { p_order_id: orderId }),
+    'Tiempo agotado cargando código de entrega',
+  );
+  return data ?? { success: false };
+}
+
+export async function confirmCustomerDelivery(orderId) {
+  if (!isSupabaseConfigured || orderId.startsWith('local-')) {
+    const orders = getLocalOrders().map((o) =>
+      o.id === orderId && o.status === 'on_the_way'
+        ? { ...o, status: 'delivered', delivered_at: new Date().toISOString() }
+        : o,
+    );
+    localStorage.setItem(LOCAL_ORDERS_KEY, JSON.stringify(orders));
+    return { success: true };
+  }
+  const data = await sbFetch(
+    supabase.rpc('customer_confirm_delivery', { p_order_id: orderId }),
+    'Tiempo agotado confirmando entrega',
+  );
+  return data ?? { success: false };
 }
 
 export async function updateOrderStatus(orderId, status, { driverId } = {}) {
@@ -443,6 +482,10 @@ export async function updateOrderStatus(orderId, status, { driverId } = {}) {
     }
   }
 
+  if (status === 'cancelled' && before.status === 'delivered') {
+    RefundService.processRefund(orderId, 'Pedido cancelado post-entrega').catch(() => {});
+  }
+
   if (before?.customer_id && before.status !== status) {
     const customerPayload = {
       orderId,
@@ -475,7 +518,7 @@ export async function updateOrderStatus(orderId, status, { driverId } = {}) {
         orderId,
         orderNumber: before.order_number,
         status,
-        url: '/comercio',
+        url: '/negocio',
       },
     }).catch(() => {});
   }

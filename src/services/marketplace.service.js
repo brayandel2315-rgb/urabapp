@@ -1,5 +1,5 @@
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
-import { isBusinessOpenNow } from '../utils/schedule';
+import { countOpenBusinesses, filterOpenBusinesses, averageOpenDeliveryMinutes } from '@/utils/business-availability';
 import { rankBusinessesByRating } from '../utils/business-rating';
 import { SEED_BUSINESSES } from '../data/seed';
 import { normalizeMunicipio } from '../utils/municipio';
@@ -72,7 +72,7 @@ export async function getMarketplacePulse({ municipio, barrio, zone, catalog, ge
   const promoBusinesses = businesses
     .filter((b) => b.promo_is_active && b.promo_discount_type && b.promo_discount_value)
     .slice(0, 8);
-  const openBusinesses = businesses.filter((b) => isBusinessOpenNow(b));
+  const openBusinesses = filterOpenBusinesses(businesses);
   const topRatedBusinesses = rankBusinessesByRating(openBusinesses, { limit: 3, requireReviews: true });
   const topRatedFallback = topRatedBusinesses.length
     ? topRatedBusinesses
@@ -86,11 +86,7 @@ export async function getMarketplacePulse({ municipio, barrio, zone, catalog, ge
     ? Math.round(deliveryTimes.reduce((a, b) => a + b, 0) / deliveryTimes.length)
     : null;
 
-  const avgBizDelivery = openBusinesses.length
-    ? Math.round(
-        openBusinesses.reduce((s, b) => s + (b.delivery_time || 25), 0) / openBusinesses.length
-      )
-    : 25;
+  const avgBizDelivery = averageOpenDeliveryMinutes(businesses);
 
   const recentActivity = (recentDeliveredRes.data ?? []).map((o) => ({
     id: o.id,
@@ -109,7 +105,7 @@ export async function getMarketplacePulse({ municipio, barrio, zone, catalog, ge
   return {
     ordersToday: ordersTodayRes.count ?? 0,
     deliveredToday: deliveredToday.length,
-    openBusinessesCount: openBusinesses.length,
+    openBusinessesCount: countOpenBusinesses(businesses),
     totalBusinessesCount: businesses.length,
     onlineRiders: ridersRes.count ?? 0,
     activeOrders: pendingRes.count ?? 0,
@@ -153,7 +149,7 @@ function getLocalPulseFallback(municipio, catalog) {
     };
   }
   const businesses = SEED_BUSINESSES.filter((b) => !municipio || b.municipio === municipio);
-  const openBusinesses = businesses.filter((b) => isBusinessOpenNow(b));
+  const openBusinesses = filterOpenBusinesses(businesses);
   return {
     ordersToday: 0,
     deliveredToday: 0,

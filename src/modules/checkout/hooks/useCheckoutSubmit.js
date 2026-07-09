@@ -195,7 +195,9 @@ export function useCheckoutSubmit({
       }
 
       clearCart();
-      toast(`¡Pedido confirmado! ${STORE.waitingConfirm}`);
+      toast.order('¡Pedido confirmado!', {
+        description: STORE.waitingConfirm,
+      });
       navigate(`/pedidos/${order.id}`);
       return true;
     } catch (err) {

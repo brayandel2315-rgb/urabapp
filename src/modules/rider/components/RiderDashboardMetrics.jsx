@@ -124,13 +124,18 @@ export default function RiderDashboardMetrics({ stats, wallet, driver }) {
   const onlineToday = formatOnlineTime(Number(driver?.total_online_seconds ?? 0));
   const activeOrders = stats?.activeOrders ?? 0;
   const earnedToday = wallet?.today ?? 0;
+  const pending = wallet?.wallet?.balance_pending ?? 0;
+  const available = wallet?.wallet?.balance_available ?? 0;
+  const nextSettlement = wallet?.next_settlement_date;
 
   const metrics = [
     {
       id: 'earnings',
       label: 'Ganado hoy',
       value: formatCOP(earnedToday),
-      hint: earnedToday > 0 ? 'Domicilios completados hoy' : 'Conéctate para empezar a ganar',
+      hint: pending > 0
+        ? `${formatCOP(pending)} pendiente · ${formatCOP(available)} disponible`
+        : earnedToday > 0 ? 'Domicilios completados hoy' : 'Conéctate para empezar a ganar',
       icon: 'money',
       tone: 'emerald',
       featured: true,
@@ -180,6 +185,11 @@ export default function RiderDashboardMetrics({ stats, wallet, driver }) {
             <h2 className="font-display text-base font-bold text-[#0D2B45] sm:text-lg">
               Tu jornada
             </h2>
+            {nextSettlement && (
+              <p className="mt-0.5 text-[10px] font-medium text-[#6B8499]">
+                Próxima liquidación: {new Date(nextSettlement).toLocaleDateString('es-CO')}
+              </p>
+            )}
           </div>
           <Link
             to="/domiciliario/ganancias"

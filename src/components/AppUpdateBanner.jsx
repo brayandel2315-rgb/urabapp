@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { toast } from 'sonner';
+import { toast } from '@/utils/toast';
 import Button from './ui/Button';
 import AppIcon from '@/design-system/icons/AppIcon';
 import { reloadForUpdate, subscribeSwUpdate } from '@/pwa/swUpdate';
@@ -13,11 +13,13 @@ export default function AppUpdateBanner() {
     if (!needsRefresh) return;
     setVisible(true);
     if (remoteId) setRemoteBuildId(remoteId);
-    toast.info('Nueva versión de UrabApp disponible', {
+    toast.info('Nueva versión disponible', {
       id: 'app-update',
       duration: Infinity,
+      description: 'Actualiza Urabapp para la mejor experiencia de entrega y pagos.',
+      trust: 'Actualización oficial',
       action: {
-        label: 'Actualizar',
+        label: 'Actualizar ahora',
         onClick: () => reloadForUpdate(),
       },
     });

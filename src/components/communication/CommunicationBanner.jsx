@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import AppIcon from '@/design-system/icons/AppIcon';
 import { useCommunicationBannerStore } from '@/store/communicationBannerStore';
+import { normalizeAppPath } from '@/utils/navigation';
 
 export default function CommunicationBanner() {
   const { visible, title, body, deepLink, dismiss } = useCommunicationBannerStore();
@@ -15,7 +16,7 @@ export default function CommunicationBanner() {
           <p className="text-sm font-semibold text-foreground">{title}</p>
           {body && <p className="text-xs text-muted-foreground">{body}</p>}
           {deepLink && (
-            <Link to={deepLink} onClick={dismiss} className="mt-1 inline-block text-xs font-semibold text-primary">
+            <Link to={normalizeAppPath(deepLink) || '/'} onClick={dismiss} className="mt-1 inline-block text-xs font-semibold text-primary">
               Ver más →
             </Link>
           )}

@@ -33,6 +33,9 @@ export function mapApiError(error) {
   if (msg.includes('row-level security') || msg.includes('permission')) {
     return 'No tienes permiso para esta acción.';
   }
+  if (msg.includes('order_events_actor_id_fkey') || msg.includes('violates foreign key constraint')) {
+    return 'No pudimos registrar el seguimiento del pedido. Intenta de nuevo en unos segundos.';
+  }
 
   return msg.length > 120 ? 'Error del servidor. Intenta más tarde.' : msg;
 }

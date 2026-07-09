@@ -70,7 +70,8 @@ export default function HomeMvpPage() {
       coords,
     }),
     placeholderData: () => getHomeDiscoveryPlaceholder(homeMunicipio),
-    staleTime: 45_000,
+    staleTime: 30_000,
+    refetchInterval: 60_000,
     retry: 1,
   });
 
@@ -95,14 +96,20 @@ export default function HomeMvpPage() {
     trackCategory(catId);
   }, [trackCategory]);
 
-  const pulse = discovery?.stats ? {
-    activeOrders: discovery.stats.activeOrders,
-    avgDeliveryMin: discovery.stats.avgDeliveryMin,
-    openBusinessesCount: discovery.featured?.length ?? 0,
+  const stats = discovery?.stats;
+  const pulse = stats ? {
+    activeOrders: stats.activeOrders,
+    avgDeliveryMin: stats.avgDeliveryMin,
+    avgBizDelivery: stats.avgBizDelivery,
+    openBusinessesCount: stats.openBusinessesCount ?? 0,
+    totalBusinessesCount: stats.totalBusinessesCount ?? 0,
+    ordersToday: stats.ordersToday,
+    shipmentsToday: stats.shipmentsToday,
+    businessPromos: discovery?.promotions,
   } : null;
 
   const firstName = profile?.full_name?.trim().split(/\s+/)[0];
-  const openNow = topRestaurants.filter((b) => b.isOpen).length || pulse?.openBusinessesCount || 0;
+  const openNow = stats?.openBusinessesCount ?? 0;
 
   return (
     <>
@@ -167,9 +174,11 @@ export default function HomeMvpPage() {
             <HomeSectionHeader
               title={`Abiertos en ${outsideCoverage ? homeMunicipio : viewMuni}`}
               subtitle={
-                topRestaurants.length > 0
-                  ? STORE.readyCount(topRestaurants.length)
-                  : 'Entrega local con seguimiento en vivo'
+                openNow > 0
+                  ? STORE.readyCount(openNow)
+                  : topRestaurants.length > 0
+                    ? 'Hay tiendas en tu zona, pero ninguna abierta ahora'
+                    : 'Entrega local con seguimiento en vivo'
               }
               variant="brand"
               aside={(
@@ -197,9 +206,11 @@ export default function HomeMvpPage() {
                 businesses={featuredBusinesses}
                 isLoading={discoveryLoading}
                 municipio={outsideCoverage ? homeMunicipio : viewMuni}
-                emptyMessage={noLocalBusinesses
-                  ? 'Activa envíos intermunicipales para ver tiendas que lleguen a tu ubicación.'
-                  : 'Pronto habrá más tiendas en tu zona. Mientras tanto, prueba Mensajería o Envíos.'}
+                emptyMessage={openNow === 0 && !noLocalBusinesses
+                  ? 'Ninguna tienda está abierta en este momento. Vuelve en su horario o prueba Mensajería.'
+                  : noLocalBusinesses
+                    ? 'Activa envíos intermunicipales para ver tiendas que lleguen a tu ubicación.'
+                    : 'Pronto habrá más tiendas en tu zona. Mientras tanto, prueba Mensajería o Envíos.'}
               />
             )}
           </section>

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getBusinessFinanceSummary } from '@/services/business.service';
+import { financialService } from '@/services/financial.service';
 import { formatCOP } from '@/utils/currency';
-import { ECONOMICS } from '@/utils/constants';
 import { PageState, PageLoader } from '@/design-system/patterns/PageState';
 import AppIcon from '@/design-system/icons/AppIcon';
 import { SurfaceCard, SectionTitle } from '@/design-system/patterns/SurfaceCard';
@@ -41,12 +41,21 @@ export default function BusinessFinancesPanel({ business }) {
     refetchInterval: 60000,
   });
 
+  const { data: walletFin } = useQuery({
+    queryKey: ['business-fin-wallet', business?.id],
+    queryFn: () => financialService.wallet.getBusinessDashboard(business.id),
+    enabled: !!business?.id,
+    refetchInterval: 60000,
+  });
+
   if (isLoading) {
     return <PageLoader rows={3} />;
   }
 
   const payoutMode = business.payout_mode || 'manual';
   const settlement = business.settlement_frequency || 'semanal';
+  const balancePending = Number(walletFin?.balance_pending ?? walletFin?.wallet?.balance_pending ?? 0);
+  const balanceAvailable = Number(walletFin?.balance_available ?? walletFin?.wallet?.balance_available ?? 0);
 
   return (
     <div className="space-y-4">
@@ -54,12 +63,22 @@ export default function BusinessFinancesPanel({ business }) {
         <MetricCard label="Neto hoy" value={formatCOP(data?.today?.net ?? 0)} icon="money" accent />
         <MetricCard label="Neto 7 días" value={formatCOP(data?.week?.net ?? 0)} icon="chart" />
         <MetricCard label="Neto 30 días" value={formatCOP(data?.month?.net ?? 0)} icon="store" />
-        <MetricCard
-          label="Comisión"
-          value={`${business.commission_pct ?? ECONOMICS.commissionPct}%`}
-          icon="card"
-        />
+        <MetricCard label="Saldo pendiente" value={formatCOP(balancePending)} icon="clock" />
       </MetricGrid>
+
+      <SurfaceCard className="space-y-2 text-sm">
+        <SectionTitle>Billetera UrabApp</SectionTitle>
+        <p className="text-muted-foreground">
+          Disponible: <strong className="text-primary">{formatCOP(balanceAvailable)}</strong>
+          {' · '}
+          Pendiente: <strong className="text-foreground">{formatCOP(balancePending)}</strong>
+        </p>
+        {walletFin?.next_settlement_date && (
+          <p className="text-xs text-primary">
+            Próxima liquidación: {new Date(walletFin.next_settlement_date).toLocaleDateString('es-CO')}
+          </p>
+        )}
+      </SurfaceCard>
 
       <PeriodBlock label="Hoy" data={data?.today ?? { orders: 0, revenue: 0, net: 0, commission: 0 }} />
       <PeriodBlock label="Últimos 7 días" data={data?.week ?? { orders: 0, revenue: 0, net: 0, commission: 0 }} />

@@ -6,8 +6,7 @@ import { attachRealtimeStatus } from './realtimeSubscribe';
 const DEBOUNCE_MS = 2_000;
 
 /**
- * Refresco suave del marketplace — debounce para evitar tormenta de invalidaciones
- * cuando hay muchos pedidos en la plataforma.
+ * Refresco suave del marketplace — pedidos, comercios y ofertas en tiempo real.
  */
 export function useMarketplaceLiveRefresh(municipio) {
   const queryClient = useQueryClient();
@@ -19,8 +18,8 @@ export function useMarketplaceLiveRefresh(municipio) {
     const scheduleRefresh = () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
       debounceRef.current = setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['marketplace-pulse', municipio] });
-        queryClient.invalidateQueries({ queryKey: ['home-discovery', municipio] });
+        queryClient.invalidateQueries({ queryKey: ['marketplace-pulse'] });
+        queryClient.invalidateQueries({ queryKey: ['home-discovery'] });
         queryClient.invalidateQueries({ queryKey: ['businesses'] });
         queryClient.invalidateQueries({ queryKey: ['offers-feed'] });
         queryClient.invalidateQueries({ queryKey: ['offers-feed-preview'] });
@@ -29,13 +28,28 @@ export function useMarketplaceLiveRefresh(municipio) {
 
     const channel = attachRealtimeStatus(
       supabase
-        .channel(`marketplace-pulse-${municipio || 'all'}`)
+        .channel(`marketplace-live-${municipio || 'all'}`)
         .on(
           'postgres_changes',
-          { event: 'UPDATE', schema: 'public', table: 'orders' },
+          { event: '*', schema: 'public', table: 'orders' },
+          scheduleRefresh,
+        )
+        .on(
+          'postgres_changes',
+          { event: 'UPDATE', schema: 'public', table: 'businesses' },
+          scheduleRefresh,
+        )
+        .on(
+          'postgres_changes',
+          { event: 'UPDATE', schema: 'public', table: 'drivers' },
+          scheduleRefresh,
+        )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'shipment_orders' },
           scheduleRefresh,
         ),
-      `marketplace-pulse-${municipio || 'all'}`,
+      `marketplace-live-${municipio || 'all'}`,
     );
 
     return () => {

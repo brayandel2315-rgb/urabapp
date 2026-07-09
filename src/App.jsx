@@ -13,7 +13,7 @@ import AppRoutes from './app/routes';
 import { useAuthInit } from './hooks/useAuth';
 import { useReferralCapture } from './hooks/useReferralCapture';
 import { initAnalytics } from './services/analytics.service';
-import { Toaster } from 'sonner';
+import UrabappToaster from './components/feedback/UrabappToaster';
 
 function App() {
   useAuthInit();
@@ -36,7 +36,7 @@ function App() {
         <AppRoutes />
       </Suspense>
       <LocalDevToolbar />
-      <Toaster position="top-center" richColors closeButton />
+      <UrabappToaster />
     </ErrorBoundary>
   );
 }

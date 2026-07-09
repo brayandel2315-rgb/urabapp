@@ -9,6 +9,7 @@ import ThemeToggle from '@/design-system/patterns/ThemeToggle';
 import RoleModeSwitcher from '@/components/roles/RoleModeSwitcher';
 import ClientHubShortcuts from '@/modules/client/components/ClientHubShortcuts';
 import ClientActiveOrderBanner from '@/modules/client/components/ClientActiveOrderBanner';
+import ClientDeliveryHandoffPanel from '@/components/tracking/ClientDeliveryHandoffPanel';
 import GuestOrderRecoveryCard from '@/modules/client/components/GuestOrderRecoveryCard';
 import DetectedLocationChip from '@/components/geo/DetectedLocationChip';
 import { useAuthStore } from '@/store/authStore';
@@ -38,7 +39,7 @@ export default function AccountProfilePage() {
   const [documentNumber, setDocumentNumber] = useState(profile?.document_number || '');
   const [saving, setSaving] = useState(false);
   const [savingDoc, setSavingDoc] = useState(false);
-  const { activeCount } = useClientActivity();
+  const { activeCount, primaryActivity } = useClientActivity();
 
   const { data: addresses = [] } = useQuery({
     queryKey: ['addresses', user?.id],
@@ -132,6 +133,12 @@ export default function AccountProfilePage() {
       </SurfaceCard>
 
       <ClientActiveOrderBanner />
+
+      {primaryActivity?.status === 'on_the_way'
+        && primaryActivity.service !== 'shipment'
+        && user?.id && (
+        <ClientDeliveryHandoffPanel orderId={primaryActivity.id} compact />
+      )}
 
       <GuestOrderRecoveryCard
         title="Recuperar pedidos de otro dispositivo"

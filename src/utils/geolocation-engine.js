@@ -176,7 +176,67 @@ export function getGeoFailureMessage(err, permissionState) {
 export function getGeoSuccessHint(position) {
   const tier = position?._accuracyTier || classifyAccuracy(position?.coords?.accuracy);
   if (tier === 'approximate' || tier === 'low' || tier === 'cached') {
-    return 'Ubicación aproximada — puedes afinarla en el mapa o reintentar al aire libre.';
+    return 'Ajusta el pin en el mapa para una entrega más precisa.';
+  }
+  if (tier === 'good') {
+    return 'Buena señal — revisa el punto en el mapa antes de confirmar.';
   }
   return null;
+}
+
+export function getGeoSuccessToast(position) {
+  const tier = position?._accuracyTier || classifyAccuracy(position?.coords?.accuracy);
+  if (tier === 'approximate' || tier === 'low' || tier === 'cached') {
+    return {
+      approximate: true,
+      title: 'Ubicación aproximada',
+      description: 'Detectamos tu zona. Ajusta el pin en el mapa para que el repartidor llegue exacto.',
+    };
+  }
+  if (tier === 'good') {
+    return {
+      approximate: false,
+      title: 'Ubicación detectada',
+      description: 'Buena señal GPS. Revisa el punto en el mapa antes de confirmar tu pedido.',
+      type: 'success',
+    };
+  }
+  return {
+    approximate: false,
+    title: 'Ubicación confirmada',
+    description: 'Señal GPS precisa. Tu repartidor llegará al punto que marques.',
+    type: 'trust',
+    trust: 'Ubicación verificada',
+  };
+}
+
+export function getGeoFailureToast(err, permissionState) {
+  const code = err?.code;
+  if (code === PERMISSION_DENIED || permissionState === 'denied') {
+    return {
+      title: 'Ubicación bloqueada',
+      description: 'En tu navegador: Configuración del sitio → Ubicación → Permitir, y vuelve a intentar.',
+      type: 'error',
+    };
+  }
+  if (code === POSITION_UNAVAILABLE) {
+    return {
+      title: 'Sin señal GPS',
+      description: 'Activa la ubicación en tu teléfono y acércate a una ventana o sal al exterior.',
+      type: 'warning',
+    };
+  }
+  if (code === TIMEOUT) {
+    return {
+      title: 'Seguimos buscando tu ubicación',
+      description: 'Urabapp prueba red y GPS automáticamente. Si persiste, marca el punto en el mapa manualmente.',
+      type: 'warning',
+      trust: 'Método automático',
+    };
+  }
+  return {
+    title: 'No pudimos ubicarte',
+    description: err?.message || 'Revisa permisos del navegador o ingresa la dirección a mano.',
+    type: 'error',
+  };
 }

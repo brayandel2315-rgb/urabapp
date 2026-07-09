@@ -72,7 +72,9 @@ export default function HomeDesktopView({
   const heroPulse = {
     activeOrders: user ? myActiveOrders : pulse?.activeOrders,
     avgDeliveryMin: pulse?.avgDeliveryMin,
+    avgBizDelivery: pulse?.avgBizDelivery,
     openBusinessesCount: openNow,
+    shipmentsToday: pulse?.shipmentsToday,
     businessPromos: discovery?.promotions,
   };
 
@@ -126,9 +128,11 @@ export default function HomeDesktopView({
           <HomeSectionHeader
             title={`Abiertos ahora en ${outsideCoverage ? homeMunicipio : viewMuni}`}
             subtitle={
-              stores.length > 0
-                ? STORE.readyCount(stores.length)
-                : 'Entrega local con seguimiento en vivo'
+              openNow > 0
+                ? STORE.readyCount(openNow)
+                : stores.length > 0
+                  ? 'Hay tiendas en tu zona, pero ninguna abierta ahora'
+                  : 'Entrega local con seguimiento en vivo'
             }
             variant="brand"
             aside={(
@@ -157,9 +161,11 @@ export default function HomeDesktopView({
               isLoading={discoveryLoading}
               municipio={outsideCoverage ? homeMunicipio : viewMuni}
               emptyMessage={
-                noLocalBusinesses
-                  ? 'Activa envíos intermunicipales para ver tiendas que lleguen a tu ubicación.'
-                  : 'Pronto habrá más tiendas en tu zona. Mientras tanto, prueba Mensajería o Envíos.'
+                openNow === 0 && !noLocalBusinesses
+                  ? 'Ninguna tienda está abierta en este momento. Vuelve en su horario o prueba Mensajería.'
+                  : noLocalBusinesses
+                    ? 'Activa envíos intermunicipales para ver tiendas que lleguen a tu ubicación.'
+                    : 'Pronto habrá más tiendas en tu zona. Mientras tanto, prueba Mensajería o Envíos.'
               }
             />
           )}

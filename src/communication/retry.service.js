@@ -11,6 +11,7 @@ export async function enqueueCommunicationRetry({
   payload = {},
   eventId = null,
   error = null,
+  priority = 'medium',
 }) {
   if (!isSupabaseConfigured || !recipientId || !RETRYABLE_CHANNELS.has(channel)) {
     return null;
@@ -24,6 +25,7 @@ export async function enqueueCommunicationRetry({
         p_payload: payload,
         p_event_id: eventId,
         p_error: error?.slice?.(0, 500) || error || null,
+        p_priority: priority,
       }),
       'retry enqueue',
     );

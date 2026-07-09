@@ -75,11 +75,18 @@ export async function markAllNotificationsRead(userId) {
   );
 }
 
+import { normalizeAppPath, resolveOrderPath, resolveShipmentPath } from '@/utils/navigation';
+
 export function notificationDeepLink(n) {
-  const url = n.data?.url || n.data?.deep_link;
-  if (typeof url === 'string' && url.startsWith('/')) return url;
-  if (n.data?.shipment_id) return `/envios/${n.data.shipment_id}`;
-  if (n.data?.order_id) return `/pedidos/${n.data.order_id}`;
+  const raw = n.data?.url || n.data?.deep_link || n.data?.deepLink;
+  const normalized = normalizeAppPath(raw);
+  if (normalized) return normalized;
+  if (n.data?.shipment_id || n.data?.shipmentId) {
+    return resolveShipmentPath(n.data);
+  }
+  if (n.data?.order_id || n.data?.orderId) {
+    return resolveOrderPath(n.data);
+  }
   if (n.type === 'support' || n.category === 'support') return '/soporte';
   if (n.type === 'shipment') return '/envios';
   return '/cuenta/notificaciones';

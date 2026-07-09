@@ -95,6 +95,8 @@ export default function AppRoutes() {
         <Route path="/envios" element={<Lazy><EnviosPage /></Lazy>} />
         <Route path="/envios/:id" element={<Lazy><ShipmentDetailPage /></Lazy>} />
         <Route path="/perfil" element={<Navigate to="/cuenta/perfil" replace />} />
+        <Route path="/comercio" element={<Navigate to="/negocio" replace />} />
+        <Route path="/comercio/*" element={<Navigate to="/negocio" replace />} />
         <Route
           path="/cuenta"
           element={

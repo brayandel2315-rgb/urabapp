@@ -27,7 +27,11 @@ self.addEventListener('push', (event) => {
 
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  const url = event.notification.data?.url || '/pedidos';
+  let url = event.notification.data?.url || '/pedidos';
+  if (url.startsWith('http')) {
+    try { url = new URL(url).pathname; } catch { url = '/pedidos'; }
+  }
+  if (url.startsWith('/comercio')) url = url.replace(/^\/comercio/, '/negocio');
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {
       const existing = list.find((c) => c.url.includes(self.location.origin));

@@ -56,6 +56,7 @@ export default function RiderEarnings() {
   });
 
   const available = Number(wallet?.wallet?.balance_available ?? 0);
+  const pending = Number(wallet?.wallet?.balance_pending ?? 0);
 
   const blocked = renderRiderProfileGate(driverQuery, { compactMissing: true });
   if (blocked) return blocked;
@@ -68,15 +69,20 @@ export default function RiderEarnings() {
         <MetricCard label="Hoy" value={formatCOP(wallet?.today ?? 0)} icon="money" accent trend="Ganancia del día" />
         <MetricCard label="Semana" value={formatCOP(wallet?.week ?? 0)} icon="calendar" trend="Lunes a hoy" />
         <MetricCard label="Mes" value={formatCOP(wallet?.month ?? 0)} icon="chart" trend="Mes en curso" />
-        <MetricCard label="Pendiente" value={formatCOP(wallet?.pendingOrders ?? 0)} icon="clock" trend="Por cobrar" />
+        <MetricCard label="Pendiente" value={formatCOP(pending)} icon="clock" trend="Liquidación semanal UrabApp" />
       </MetricGrid>
 
       <SurfaceCard>
         <SectionTitle>Saldo disponible</SectionTitle>
         <p className="mt-2 font-display text-3xl font-bold text-primary">{formatCOP(available)}</p>
         <p className="mt-1 text-xs text-muted-foreground">
-          Total histórico: {formatCOP(wallet?.wallet?.total_earned ?? 0)}
+          Pendiente: {formatCOP(pending)} · Total histórico: {formatCOP(wallet?.wallet?.total_earned ?? 0)}
         </p>
+        {wallet?.next_settlement_date && (
+          <p className="mt-1 text-xs text-primary">
+            Próxima liquidación: {new Date(wallet.next_settlement_date).toLocaleDateString('es-CO')}
+          </p>
+        )}
       </SurfaceCard>
 
       <SurfaceCard className="space-y-3">

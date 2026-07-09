@@ -127,6 +127,7 @@ SET search_path = public
 AS $$
 DECLARE
   v_actor UUID := auth.uid();
+  v_rider_user UUID;
   v_role TEXT := 'system';
 BEGIN
   IF TG_OP = 'INSERT' THEN
@@ -195,13 +196,17 @@ BEGIN
   END IF;
 
   IF OLD.driver_id IS NULL AND NEW.driver_id IS NOT NULL THEN
+    SELECT d.user_id INTO v_rider_user
+    FROM public.drivers d
+    WHERE d.id = NEW.driver_id;
+
     PERFORM public.log_order_event(
       NEW.id, 'rider_assigned', NULL, 'system',
       NULL, NULL, 'Repartidor asignado',
       jsonb_build_object('driver_id', NEW.driver_id)
     );
     PERFORM public.log_order_event(
-      NEW.id, 'rider_accepted', NEW.driver_id, 'rider',
+      NEW.id, 'rider_accepted', v_rider_user, 'rider',
       NULL, NULL, 'Repartidor aceptó el pedido',
       jsonb_build_object('driver_id', NEW.driver_id)
     );

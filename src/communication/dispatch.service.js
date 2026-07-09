@@ -152,6 +152,7 @@ export async function dispatchCommunication({ key, recipientId, actorId, payload
         eventId,
         payload: { title, body, deepLink, ...enrichedPayload },
         error: 'push_failed',
+        priority,
       });
     }
   }
@@ -189,6 +190,7 @@ export async function dispatchCommunication({ key, recipientId, actorId, payload
           eventId,
           payload: { to: email, subject: title, body: body || title },
           error: 'email_failed',
+          priority,
         });
       }
     }
@@ -215,6 +217,7 @@ export async function dispatchCommunication({ key, recipientId, actorId, payload
         eventId,
         payload: { phone: payload.phone, body, ...enrichedPayload },
         error: 'whatsapp_failed',
+        priority,
       });
     }
   }
@@ -248,6 +251,7 @@ export async function dispatchCommunication({ key, recipientId, actorId, payload
         eventId,
         payload: { phone: payload.phone, body: body || title },
         error: 'sms_failed',
+        priority,
       });
     }
   }
@@ -268,6 +272,7 @@ export async function dispatchCommunication({ key, recipientId, actorId, payload
         eventId,
         payload: enrichedPayload,
         error: 'webhook_failed',
+        priority,
       });
     }
   }

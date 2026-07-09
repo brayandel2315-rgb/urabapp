@@ -17,6 +17,18 @@ export const COMM_PRIORITY_LABELS = {
 
 export const COMM_PRIORITY_ORDER = ['critical', 'high', 'medium', 'low', 'silent'];
 
+export const COMM_PRIORITY_SCORES = {
+  critical: 4,
+  high: 3,
+  medium: 2,
+  low: 1,
+  silent: 0,
+};
+
+export function priorityToScore(priority) {
+  return COMM_PRIORITY_SCORES[priority] ?? COMM_PRIORITY_SCORES.medium;
+}
+
 /** Canales de entrega */
 export const COMM_CHANNELS = {
   PUSH: 'push',

@@ -31,7 +31,15 @@ export function useNotificationsRealtime(userId) {
             invalidate();
             const row = payload.new;
             if (row?.title) {
-              toast(row.body ? `${row.title} — ${row.body}` : row.title, 'info');
+              const isOrder = /pedido|entrega|repartidor|envío|envio/i.test(row.title + (row.body || ''));
+              if (isOrder) {
+                toast.trust(row.title, {
+                  description: row.body || undefined,
+                  trust: 'Notificación Urabapp',
+                });
+              } else {
+                toast.info(row.title, { description: row.body || undefined });
+              }
             }
           },
         )

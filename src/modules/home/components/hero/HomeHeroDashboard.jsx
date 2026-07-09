@@ -42,14 +42,17 @@ export default function HomeHeroDashboard({ pulse, municipio }) {
   const activeOrders = pulse?.activeOrders ?? 0;
   const eta = pulse?.avgDeliveryMin ?? pulse?.avgBizDelivery ?? 25;
   const openCount = pulse?.openBusinessesCount ?? 0;
+  const shipmentsToday = pulse?.shipmentsToday ?? 0;
   const route = INTERMUNICIPAL_ROUTES.find((r) => r.from === municipio || r.to === municipio)
     || INTERMUNICIPAL_ROUTES[0];
   const topPromo = pulse?.businessPromos?.[0] || pulse?.activeCoupons?.[0];
   const promoLabel = topPromo?.promo_discount_value
     ? `${topPromo.promo_discount_value}${topPromo.promo_discount_type === 'percent' ? '%' : ''} OFF`
-    : topPromo?.name
-      ? topPromo.name.slice(0, 18)
-      : '35% OFF';
+    : topPromo?.title
+      ? topPromo.title.slice(0, 22)
+      : topPromo?.name
+        ? topPromo.name.slice(0, 18)
+        : 'Ver ofertas';
 
   return (
     <div className="grid min-h-[300px] grid-cols-2 gap-3 sm:gap-4">
@@ -87,7 +90,10 @@ export default function HomeHeroDashboard({ pulse, municipio }) {
         </div>
         <div>
           <p className="font-display text-sm font-bold text-white">Envíos hoy</p>
-          <p className="mt-2 text-sm font-bold leading-snug text-white/95">
+          <p className="mt-2 text-2xl font-black tabular-nums leading-none text-white">
+            {shipmentsToday}
+          </p>
+          <p className="mt-1 text-[11px] font-medium text-white/75">
             {route.from} → {route.to}
           </p>
         </div>

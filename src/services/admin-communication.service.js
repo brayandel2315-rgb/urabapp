@@ -14,11 +14,22 @@ export async function getAdminCommunicationOverview() {
       webhooks_active: 0,
       templates_active: 0,
       retries_pending: 0,
+      retries_critical: 0,
+      marketing_opt_in: 0,
       digest_subscribers: 0,
       deliveries_7d: 0,
       delivery_success_rate: 0,
       ab_variants_active: 0,
       scheduled_pending: 0,
+      broadcasts_pending: 0,
+      sla_alerts_open: 0,
+      broadcasts_scheduled: 0,
+      sla_webhooks_active: 0,
+      broadcast_templates_active: 0,
+      sla_alerts_escalated: 0,
+      consent_webhooks_active: 0,
+      finance_events_7d: 0,
+      consent_changes_pending: 0,
       by_category: {},
       recent_events: [],
     };
@@ -164,4 +175,93 @@ export {
 export async function triggerScheduledProcessor() {
   if (!isSupabaseConfigured) throw new Error('Supabase no configurado');
   return invokeEdgeFunction('process-scheduled-comms', {});
+}
+
+export async function getAdminChannelSla(days = 7) {
+  if (!isSupabaseConfigured) return [];
+  const data = await sbFetch(
+    supabase.rpc('get_admin_channel_sla', { p_days: days }),
+    'Tiempo agotado cargando SLA por canal',
+  );
+  return Array.isArray(data) ? data : [];
+}
+
+export {
+  getCommunicationBroadcasts,
+  countBroadcastRecipients,
+  createCommunicationBroadcast,
+  cancelCommunicationBroadcast,
+  resendCommunicationBroadcast,
+} from '@/communication/broadcast.service';
+
+export {
+  previewTemplateLocal,
+  previewTemplateRemote,
+} from '@/communication/preview.service';
+
+export {
+  getTemplateVariablesForEvent,
+  insertTemplateVariable,
+} from '@/communication/template-variables.service';
+
+export {
+  getCommunicationSlaAlerts,
+  acknowledgeSlaAlert,
+} from '@/communication/sla.service';
+
+export async function triggerBroadcastProcessor() {
+  if (!isSupabaseConfigured) throw new Error('Supabase no configurado');
+  return invokeEdgeFunction('process-comm-broadcast', {});
+}
+
+export async function triggerSlaCheck() {
+  if (!isSupabaseConfigured) throw new Error('Supabase no configurado');
+  return invokeEdgeFunction('check-comm-sla', {});
+}
+
+export {
+  getSlaWebhooks,
+  upsertSlaWebhook,
+  deleteSlaWebhook,
+} from '@/communication/sla-webhook.service';
+
+export {
+  getWeeklyCommunicationReport,
+  downloadWeeklyReportMarkdown,
+} from '@/communication/report.service';
+
+export async function triggerWeeklyReport() {
+  if (!isSupabaseConfigured) throw new Error('Supabase no configurado');
+  return invokeEdgeFunction('send-comm-weekly-report', {});
+}
+
+export {
+  getBroadcastTemplates,
+  saveBroadcastTemplate,
+  createBroadcastFromTemplate,
+} from '@/communication/broadcast-template.service';
+
+export {
+  getCommunicationTrends,
+  mergeTrendSeries,
+} from '@/communication/trends.service';
+
+export {
+  getAdminConsentAudit,
+  getAdminRetryQueueStats,
+} from '@/communication/consent.service';
+
+export {
+  getConsentWebhooks,
+  upsertConsentWebhook,
+  deleteConsentWebhook,
+} from '@/communication/consent-webhook.service';
+
+export {
+  getAdminFinanceCommSummary,
+} from '@/communication/finance-comm.service';
+
+export async function triggerConsentWebhookProcessor() {
+  if (!isSupabaseConfigured) throw new Error('Supabase no configurado');
+  return invokeEdgeFunction('process-consent-webhooks', {});
 }

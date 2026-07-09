@@ -4,11 +4,10 @@ import {
   requestUserLocation,
   isGeolocationAvailable,
   isSecureContextForGeo,
-  getGeoErrorMessage,
   queryGeoPermission,
   GEO_PURPOSE,
 } from '@/services/location.service';
-import { getGeoSuccessHint } from '@/utils/geolocation-engine';
+import { getGeoSuccessToast, getGeoFailureToast } from '@/utils/geolocation-engine';
 import { toast } from '@/utils/toast';
 
 const STALE_MS = 5 * 60 * 1000;
@@ -62,13 +61,17 @@ export function useAutoLocation({ auto = false, deferMs = 0 } = {}) {
   const detect = useCallback(async (purpose = GEO_PURPOSE.DISCOVERY) => {
     try {
       const result = await requestUserLocation({ source: 'gps', purpose });
-      const hint = result.locationHint || getGeoSuccessHint({ _accuracyTier: result.accuracyTier });
-      if (hint) toast(hint, 'info');
-      else toast('Ubicación detectada');
+      const geoToast = getGeoSuccessToast({
+        _accuracyTier: result.accuracyTier,
+        coords: { accuracy: result.accuracy },
+      });
+      if (geoToast.approximate) toast.location(geoToast);
+      else toast.show({ ...geoToast, type: geoToast.type || 'success' });
       return result;
     } catch (err) {
       const permission = await queryGeoPermission();
-      toast(getGeoErrorMessage(err, permission), 'error');
+      const fail = getGeoFailureToast(err, permission);
+      toast.show(fail);
       return null;
     }
   }, []);

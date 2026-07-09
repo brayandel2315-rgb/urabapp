@@ -251,7 +251,7 @@ export default function RiderDashboard() {
         }).catch(() => {});
       }
     } catch (err) {
-      toast(err.message, 'error');
+      toast(courierOfferErrorMessage({ message: err.message }), 'error');
     } finally {
       setOfferLoading(false);
     }

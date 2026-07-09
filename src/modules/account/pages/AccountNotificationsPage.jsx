@@ -22,6 +22,7 @@ import {
   toggleMuteNotification,
   notificationDeepLink,
 } from '@/communication/inbox.service';
+import { normalizeAppPath } from '@/utils/navigation';
 import { getCommunicationStats, getCommunicationTimeline } from '@/communication/dispatch.service';
 import { getEngagementStats, trackCommunicationEngagement } from '@/communication/engagement.service';
 import CommunicationPreferencesPanel from '../components/CommunicationPreferencesPanel';
@@ -372,7 +373,7 @@ export default function AccountNotificationsPage() {
                   </div>
                   {ev.body && <p className="mt-1 text-muted-foreground">{ev.body}</p>}
                   {ev.deep_link && (
-                    <Link to={ev.deep_link} className="mt-2 inline-block text-xs font-semibold text-primary">
+                    <Link to={normalizeAppPath(ev.deep_link) || '/cuenta/notificaciones'} className="mt-2 inline-block text-xs font-semibold text-primary">
                       Abrir →
                     </Link>
                   )}

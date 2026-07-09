@@ -229,14 +229,22 @@ export async function getPendingCourierOffers(driverId) {
 
 export async function acceptCourierOffer(orderId, driverId) {
   if (!isSupabaseConfigured) return { success: true };
-  const data = await sbFetch(
-    supabase.rpc('accept_courier_offer', {
-      p_order_id: orderId,
-      p_driver_id: driverId,
-    }),
-    'Tiempo agotado aceptando oferta',
-  );
-  return parseCourierRpc(data);
+  try {
+    const data = await sbFetch(
+      supabase.rpc('accept_courier_offer', {
+        p_order_id: orderId,
+        p_driver_id: driverId,
+      }),
+      'Tiempo agotado aceptando oferta',
+    );
+    return parseCourierRpc(data);
+  } catch (err) {
+    const message = err?.message || '';
+    if (/order_events_actor_id_fkey|violates foreign key/i.test(message)) {
+      return { success: false, reason: 'tracking_error', message };
+    }
+    throw err;
+  }
 }
 
 export async function rejectCourierOffer(orderId, driverId) {

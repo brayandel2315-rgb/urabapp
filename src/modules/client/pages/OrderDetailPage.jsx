@@ -36,7 +36,7 @@ import OrderIncidentReport from '@/components/tracking/OrderIncidentReport';
 import DeliveryQrPanel from '@/components/tracking/DeliveryQrPanel';
 import OrderEtaHistoryChart from '@/components/tracking/OrderEtaHistoryChart';
 import OrderRiderCard from '@/components/tracking/OrderRiderCard';
-import DeliveryOtpPanel from '@/components/courier/DeliveryOtpPanel';
+import ClientDeliveryHandoffPanel from '@/components/tracking/ClientDeliveryHandoffPanel';
 import { getOrderEvents } from '@/services/order-tracking.service';
 import { useOrderEventsRealtime } from '@/hooks/useOrderEventsRealtime';
 import { useDriverLocationRealtime } from '../../../hooks/useDriverLocationRealtime';
@@ -288,6 +288,10 @@ export default function OrderDetailPage() {
         )}
 
         {order.status === 'on_the_way' && user?.id === order.customer_id && (
+          <ClientDeliveryHandoffPanel orderId={id} />
+        )}
+
+        {order.status === 'on_the_way' && user?.id === order.customer_id && (
           <DeliveryQrPanel orderId={id} />
         )}
 
@@ -311,10 +315,6 @@ export default function OrderDetailPage() {
 
         {isActive && user?.id === order.customer_id && (
           <OrderIncidentReport orderId={id} />
-        )}
-
-        {order.status === 'on_the_way' && user?.id === order.customer_id && order.delivery_otp && (
-          <DeliveryOtpPanel readOnlyCode={order.delivery_otp} />
         )}
 
         {isCourierOrder(order) && order.fare_breakdown && (

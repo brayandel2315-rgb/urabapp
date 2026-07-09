@@ -388,7 +388,7 @@ DECLARE
   v_wallet_platform UUID;
   v_idem TEXT;
   v_payment_ok BOOLEAN;
-  v_split_mode TEXT := 'internal';
+  v_business_status public.fin_status;
 BEGIN
   SELECT * INTO v_order FROM public.orders WHERE id = p_order_id FOR UPDATE;
   IF NOT FOUND THEN
@@ -432,6 +432,11 @@ BEGIN
     END IF;
   END IF;
 
+  v_business_status := CASE
+    WHEN v_split_mode = 'gateway_split' THEN 'SPLIT_PENDING'::public.fin_status
+    ELSE 'PENDING'::public.fin_status
+  END;
+
   INSERT INTO public.fin_settlements (
     order_id, financial_status, split_mode,
     gross_amount, subtotal_amount, delivery_amount, tip_amount,
@@ -462,7 +467,7 @@ BEGIN
   IF v_platform_amt > 0 THEN
     PERFORM public.fin_post_ledger(
       v_wallet_platform, v_settlement_id, p_order_id,
-      'platform_revenue', 'credit', v_platform_amt, 'available', 'SETTLED',
+      'platform_revenue', 'credit', v_platform_amt::BIGINT, 'available', 'SETTLED'::public.fin_status,
       'Comisión y margen pedido ' || COALESCE(v_order.order_number, p_order_id::TEXT),
       v_idem || ':platform'
     );
@@ -475,14 +480,12 @@ BEGIN
     v_wallet_business := public.fin_ensure_wallet('business', v_order.business_id);
     PERFORM public.fin_post_ledger(
       v_wallet_business, v_settlement_id, p_order_id,
-      'business_sale', 'credit', v_order.business_net, 'pending',
-      CASE WHEN v_split_mode = 'gateway_split' THEN 'SPLIT_PENDING' ELSE 'PENDING' END,
+      'business_sale', 'credit', v_order.business_net::BIGINT, 'pending', v_business_status,
       'Venta pedido ' || COALESCE(v_order.order_number, p_order_id::TEXT),
       v_idem || ':business'
     );
     INSERT INTO public.fin_settlement_lines (settlement_id, owner_type, owner_id, line_type, amount, financial_status)
-    VALUES (v_settlement_id, 'business', v_order.business_id, 'business_sale', v_order.business_net,
-      CASE WHEN v_split_mode = 'gateway_split' THEN 'SPLIT_PENDING' ELSE 'PENDING' END);
+    VALUES (v_settlement_id, 'business', v_order.business_id, 'business_sale', v_order.business_net, v_business_status);
   END IF;
 
   -- Mensajero: rider_payout → pending (no transferencia inmediata)
@@ -490,7 +493,7 @@ BEGIN
     v_wallet_rider := public.fin_ensure_wallet('rider', v_order.driver_id);
     PERFORM public.fin_post_ledger(
       v_wallet_rider, v_settlement_id, p_order_id,
-      'rider_delivery', 'credit', v_rider_amt, 'pending', 'PENDING',
+      'rider_delivery', 'credit', v_rider_amt::BIGINT, 'pending', 'PENDING'::public.fin_status,
       'Entrega pedido ' || COALESCE(v_order.order_number, p_order_id::TEXT),
       v_idem || ':rider'
     );
@@ -512,26 +515,28 @@ BEGIN
     jsonb_build_object('settlement_id', v_settlement_id, 'rider', v_rider_amt, 'business', v_order.business_net, 'platform', v_platform_amt)
   );
 
-  -- Notificación mensajero
+  -- Notificación mensajero (inserción directa — trigger sin auth.uid)
   IF v_order.driver_id IS NOT NULL THEN
-    PERFORM public.dispatch_user_notification(
-      (SELECT user_id FROM public.drivers WHERE id = v_order.driver_id),
+    INSERT INTO public.notifications (user_id, title, body, type, data)
+    SELECT d.user_id,
       'Nueva ganancia registrada',
       '+' || v_rider_amt::TEXT || ' COP pendientes de liquidación',
       'finance',
       jsonb_build_object('order_id', p_order_id, 'settlement_id', v_settlement_id, 'amount', v_rider_amt)
-    );
+    FROM public.drivers d
+    WHERE d.id = v_order.driver_id AND d.user_id IS NOT NULL;
   END IF;
 
   -- Notificación comercio
   IF v_order.business_id IS NOT NULL THEN
-    PERFORM public.dispatch_user_notification(
-      (SELECT owner_id FROM public.businesses WHERE id = v_order.business_id),
+    INSERT INTO public.notifications (user_id, title, body, type, data)
+    SELECT b.owner_id,
       'Venta liquidada',
       'Pedido ' || COALESCE(v_order.order_number, '') || ' — saldo pendiente actualizado',
       'finance',
       jsonb_build_object('order_id', p_order_id, 'business_net', v_order.business_net)
-    );
+    FROM public.businesses b
+    WHERE b.id = v_order.business_id AND b.owner_id IS NOT NULL;
   END IF;
 
   RETURN jsonb_build_object(

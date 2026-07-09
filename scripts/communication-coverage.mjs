@@ -10,7 +10,16 @@ const ROOT = join(fileURLToPath(import.meta.url), '..', '..');
 const SRC = join(ROOT, 'src');
 const LIB_PATH = join(SRC, 'communication', 'event-library.js');
 
-const EDGE_ONLY_EVENTS = ['daily_digest_sent', 'scheduled_communication_sent', 'system_announcement'];
+const EDGE_ONLY_EVENTS = [
+  'daily_digest_sent',
+  'scheduled_communication_sent',
+  'system_announcement',
+  'broadcast_segment_sent',
+  'sla_breach_alert',
+  'weekly_comm_report_sent',
+  'sla_alert_escalated',
+  'consent_preferences_changed',
+];
 
 const libSource = readFileSync(LIB_PATH, 'utf8');
 const definedEvents = [...libSource.matchAll(/^\s+([a-z][a-z0-9_]+):\s*\{/gm)].map((m) => m[1]);
@@ -26,6 +35,10 @@ const DYNAMIC_EMIT_EVENTS = [
   { fileHint: 'engagement.service.js', literal: 'communication_opened' },
   { fileHint: 'engagement.service.js', literal: 'communication_clicked' },
   { fileHint: 'business-campaign.service.js', literal: 'business_campaign_sent' },
+  { fileHint: 'financial-engine/index.js', literal: 'SETTLEMENT_CREATED' },
+  { fileHint: 'financial-engine/index.js', literal: 'PAYOUT_BATCH_RELEASED' },
+  { fileHint: 'financial-engine/index.js', literal: 'WALLET_AVAILABLE' },
+  { fileHint: 'financial-engine/index.js', literal: 'REFUND_PROCESSED' },
 ];
 
 function walk(dir, files = []) {
@@ -50,7 +63,7 @@ const legacyCalls = [];
 const moduleHits = Object.fromEntries(modules.map((m) => [m, { emits: 0, legacy: 0 }]));
 
 for (const file of files) {
-  const rel = relative(ROOT, file);
+  const rel = relative(ROOT, file).replace(/\\/g, '/');
   const content = readFileSync(file, 'utf8');
   const mod = modules.find((m) => rel.includes(`modules/${m}/`));
 
@@ -64,8 +77,15 @@ for (const file of files) {
   }
 
   for (const hint of DYNAMIC_EMIT_EVENTS) {
-    if (rel.endsWith(hint.fileHint) && content.includes(hint.literal) && content.includes('emitCommEvent')) {
-      wiredEvents.add(hint.literal);
+    if (rel.endsWith(hint.fileHint) && content.includes(hint.literal)
+      && (content.includes('emitCommEvent') || content.includes('emitFinEvent'))) {
+      const financeMap = {
+        SETTLEMENT_CREATED: 'finance_settlement_created',
+        PAYOUT_BATCH_RELEASED: 'finance_payout_batch_released',
+        WALLET_AVAILABLE: 'finance_wallet_available',
+        REFUND_PROCESSED: 'finance_refund_processed',
+      };
+      wiredEvents.add(financeMap[hint.literal] || hint.literal);
       if (mod) moduleHits[mod].emits += 1;
     }
   }
@@ -93,7 +113,7 @@ const adaptersPresent = ADAPTER_FILES.filter((f) =>
 
 const report = {
   generatedAt: new Date().toISOString(),
-  cycle: 10,
+  cycle: 16,
   modulesFound: modules.length,
   modules: modules,
   eventsDefined: definedEvents.length,
@@ -122,6 +142,24 @@ const report = {
     rateLimitsConfig: 'communication_rate_limits + upsert_communication_rate_limit',
     deliveryExport: 'get_admin_delivery_export CSV',
     scheduledComms: 'communication_scheduled + process-scheduled-comms',
+    segmentBroadcast: 'communication_broadcasts + process-comm-broadcast',
+    templatePreview: 'preview_communication_template + preview.service.js',
+    channelSla: 'communication_channel_sla + get_admin_channel_sla',
+    broadcastHistory: 'get_broadcast_history + resend_communication_broadcast',
+    templateVariables: 'get_template_variables_for_event + template-variables.service.js',
+    slaAlerts: 'communication_sla_alerts + check-comm-sla',
+    slaWebhooks: 'communication_sla_webhooks + check-comm-sla POST',
+    scheduledBroadcasts: 'communication_broadcasts.scheduled_at + claim_pending_broadcast',
+    weeklyReport: 'get_admin_communication_weekly_report + send-comm-weekly-report',
+    broadcastTemplates: 'communication_broadcast_templates + upsert_broadcast_template',
+    slaEscalation: 'escalate_stale_sla_alerts + sla_alert_escalated',
+    trends30d: 'get_admin_communication_trends + trends.service.js',
+    priorityQueue: 'communication_delivery_queue.priority + claim_communication_retries',
+    consentAudit: 'get_admin_consent_audit + consent.service.js',
+    financeEvents: 'financial-engine emitFinEvent hooks (settlement, payout, refund)',
+    legacyFinNotifications: 'trg_fin_settlement_emit_comms replaces direct notifications INSERT',
+    consentWebhooks: 'communication_consent_webhooks + process-consent-webhooks',
+    financeCommSummary: 'get_admin_finance_comm_summary + finance-comm.service.js',
   },
   pendingEvents,
   moduleHits,

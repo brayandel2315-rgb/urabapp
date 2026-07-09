@@ -6,7 +6,12 @@ import { sbQuery } from '@/lib/supabase-query';
 import { emitCommEvent } from '@/communication';
 import { getBusinesses } from '@/services/business.service';
 import { rankBusinessesByRating } from '@/utils/business-rating';
-import { isBusinessOpenNow } from '@/utils/schedule';
+import {
+  enrichBusinessAvailability,
+  countOpenBusinesses,
+  filterOpenBusinesses,
+  averageOpenDeliveryMinutes,
+} from '@/utils/business-availability';
 import { resolveCategoryFilter } from '@/data/category-catalog';
 import { DEFAULT_TRENDING } from '@/data/vertical-catalog';
 import { SEED_BUSINESSES } from '@/data/seed';
@@ -36,30 +41,7 @@ function normalizeQuery(q) {
   return String(q || '').trim().toLowerCase().replace(/\s+/g, ' ');
 }
 
-function enrichBusiness(b, coords) {
-  const open = isBusinessOpenNow(b);
-  let distanceKm = null;
-  if (coords?.latitude && b.latitude && b.longitude) {
-    const R = 6371;
-    const dLat = ((b.latitude - coords.latitude) * Math.PI) / 180;
-    const dLng = ((b.longitude - coords.longitude) * Math.PI) / 180;
-    const a =
-      Math.sin(dLat / 2) ** 2
-      + Math.cos((coords.latitude * Math.PI) / 180)
-      * Math.cos((b.latitude * Math.PI) / 180)
-      * Math.sin(dLng / 2) ** 2;
-    distanceKm = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  }
-  return {
-    ...b,
-    isOpen: open,
-    distanceKm,
-    etaMin: b.delivery_time || 25,
-    promoLabel: b.promo_is_active && b.promo_discount_value
-      ? `-${b.promo_discount_value}${b.promo_discount_type === 'percent' ? '%' : ''}`
-      : null,
-  };
-}
+const enrichBusiness = enrichBusinessAvailability;
 
 async function fetchBusinessPool({
   categories,
@@ -187,28 +169,51 @@ export async function trackSearchEvent({
   }
 }
 
-export async function getLightMarketStats(municipio) {
-  if (!isSupabaseConfigured) {
-    return { activeOrders: 0, onlineRiders: 0, ordersToday: 0, avgDeliveryMin: 25 };
+async function fetchShipmentsTodayCount(municipio, start) {
+  if (!isSupabaseConfigured) return 0;
+  let query = supabase
+    .from('shipment_orders')
+    .select('id', { count: 'exact', head: true })
+    .gte('created_at', start)
+    .neq('status', 'cancelled');
+  if (municipio) {
+    query = query.or(`origin_municipio.eq."${municipio}",dest_municipio.eq."${municipio}"`);
   }
+  const { count } = await sbQuery(query, 'Tiempo agotado cargando envíos del día');
+  return count ?? 0;
+}
+
+export async function getLightMarketStats(municipio) {
+  const empty = {
+    activeOrders: 0,
+    onlineRiders: 0,
+    ordersToday: 0,
+    shipmentsToday: 0,
+    avgDeliveryMin: 25,
+  };
+  if (!isSupabaseConfigured) return empty;
+
+  const start = todayStart();
   try {
     const { data, error } = await supabase.rpc('get_home_market_pulse', {
       p_municipio: municipio || null,
     });
     if (error) throw error;
     if (data) {
+      const shipmentsToday = await fetchShipmentsTodayCount(municipio, start);
       return {
         activeOrders: data.activeOrders ?? 0,
         onlineRiders: data.onlineRiders ?? 0,
         ordersToday: data.ordersToday ?? 0,
+        shipmentsToday,
         avgDeliveryMin: data.avgDeliveryMin ?? 25,
       };
     }
   } catch {
     /* fallback abajo */
   }
-  const start = todayStart();
-  const [pending, riders, ordersToday] = await Promise.all([
+
+  const [pending, riders, ordersToday, shipmentsToday] = await Promise.all([
     sbQuery(
       supabase.from('orders').select('id', { count: 'exact', head: true })
         .in('status', ['pending', 'accepted', 'preparing', 'on_the_way']),
@@ -223,11 +228,13 @@ export async function getLightMarketStats(municipio) {
         .gte('created_at', start).neq('status', 'cancelled'),
       'Tiempo agotado cargando pedidos del día',
     ),
+    fetchShipmentsTodayCount(municipio, start),
   ]);
   return {
     activeOrders: pending.count ?? 0,
     onlineRiders: riders.count ?? 0,
     ordersToday: ordersToday.count ?? 0,
+    shipmentsToday,
     avgDeliveryMin: 25,
   };
 }
@@ -240,13 +247,22 @@ function buildHomeDiscoveryFallback(municipio) {
   const muni = municipio || 'Apartadó';
   const rows = SEED_BUSINESSES.filter((b) => b.municipio === muni);
   const enriched = rows.map((b) => enrichBusiness(b, null));
-  const ranked = rankBusinessesByRating(enriched, { limit: 8, requireReviews: false });
+  const openRows = filterOpenBusinesses(enriched);
+  const ranked = rankBusinessesByRating(openRows, { limit: 8, requireReviews: false });
   return {
     featured: ranked,
     promotions: buildHomePromotionsFromOffers([]),
     promotionsByMerchant: [],
     trending: DEFAULT_TRENDING.slice(0, 8),
-    stats: { activeOrders: 0, onlineRiders: 0, ordersToday: 0, avgDeliveryMin: 25 },
+    stats: {
+      activeOrders: 0,
+      onlineRiders: 0,
+      ordersToday: 0,
+      shipmentsToday: 0,
+      avgDeliveryMin: averageOpenDeliveryMinutes(enriched),
+      openBusinessesCount: countOpenBusinesses(enriched),
+      totalBusinessesCount: enriched.length,
+    },
   };
 }
 
@@ -266,21 +282,23 @@ async function fetchHomeDiscovery({
   }
 
   const muni = catalog?.viewMunicipio || municipio;
-  const bizParams = { ...(getBusinessesParams || { catalog, municipio: muni }), barrio, limit: 24 };
+  const bizParams = { ...(getBusinessesParams || { catalog, municipio: muni }), barrio };
 
-  const [featuredRows, trending, stats] = await Promise.all([
+  const [catalogRows, trending, statsBase] = await Promise.all([
     getBusinesses(bizParams),
     withTimeout(getTrendingSearches(muni, 8), 5_000, DEFAULT_TRENDING.slice(0, 8)),
     withTimeout(getLightMarketStats(muni), 5_000, {
       activeOrders: 0,
       onlineRiders: 0,
       ordersToday: 0,
+      shipmentsToday: 0,
       avgDeliveryMin: 25,
     }),
   ]);
 
-  const enriched = featuredRows.map((b) => enrichBusiness(b, coords));
-  let ranked = rankBusinessesByRating(enriched, { limit: 12, requireReviews: false });
+  const enriched = catalogRows.map((b) => enrichBusiness(b, coords));
+  const openPool = filterOpenBusinesses(enriched);
+  let ranked = rankBusinessesByRating(openPool, { limit: 12, requireReviews: false });
   if (coords?.latitude) {
     ranked = [...ranked]
       .sort((a, b) => (a.distanceKm ?? 99) - (b.distanceKm ?? 99))
@@ -294,6 +312,14 @@ async function fetchHomeDiscovery({
     [],
   );
   const promotionsByMerchant = groupOffersByMerchant(promotions);
+
+  const stats = {
+    ...statsBase,
+    openBusinessesCount: countOpenBusinesses(enriched),
+    totalBusinessesCount: enriched.length,
+    avgBizDelivery: averageOpenDeliveryMinutes(enriched),
+    avgDeliveryMin: statsBase.avgDeliveryMin || averageOpenDeliveryMinutes(enriched),
+  };
 
   const data = {
     featured: ranked,

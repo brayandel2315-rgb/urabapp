@@ -1,11 +1,73 @@
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import { sbFetch } from '@/lib/supabase-query';
 import { mapApiError } from '@/utils/errors';
-import { WALLET_OWNER } from '../types';
+import { WALLET_OWNER } from './types';
 
 function parseRpc(data) {
   if (typeof data === 'string') return JSON.parse(data);
   return data;
+}
+
+async function loadOrderParties(orderId) {
+  if (!isSupabaseConfigured || !orderId) return null;
+  const { data, error } = await supabase
+    .from('orders')
+    .select('order_number, driver_id, business_id, customer_id, drivers(user_id), businesses(owner_id)')
+    .eq('id', orderId)
+    .maybeSingle();
+  if (error) throw new Error(mapApiError(error));
+  return data;
+}
+
+async function emitPayoutNotifications(batchId, total) {
+  if (!batchId) return;
+  const { emitFinEvent } = await import('./events');
+  const { data: items, error } = await supabase
+    .from('fin_payout_batch_items')
+    .select('owner_type, owner_id, amount')
+    .eq('batch_id', batchId);
+  if (error) return;
+
+  for (const item of items ?? []) {
+    let recipientId = null;
+    if (item.owner_type === 'rider' && item.owner_id) {
+      const { data: driver } = await supabase
+        .from('drivers')
+        .select('user_id')
+        .eq('id', item.owner_id)
+        .maybeSingle();
+      recipientId = driver?.user_id;
+      if (recipientId) {
+        await emitFinEvent('PAYOUT_BATCH_RELEASED', {
+          recipientId,
+          payload: { amount: item.amount, ownerType: item.owner_type, batchId, total },
+        });
+      }
+    } else if (item.owner_type === 'business' && item.owner_id) {
+      const { data: business } = await supabase
+        .from('businesses')
+        .select('owner_id')
+        .eq('id', item.owner_id)
+        .maybeSingle();
+      recipientId = business?.owner_id;
+      if (recipientId) {
+        await emitFinEvent('WALLET_AVAILABLE', {
+          recipientId,
+          payload: { amount: item.amount, ownerType: item.owner_type, batchId },
+        });
+      }
+    }
+  }
+}
+
+async function emitRefundNotification(orderId) {
+  const { emitFinEvent } = await import('./events');
+  const order = await loadOrderParties(orderId);
+  if (!order?.customer_id) return;
+  await emitFinEvent('REFUND_PROCESSED', {
+    recipientId: order.customer_id,
+    payload: { orderId, orderNumber: order.order_number },
+  });
 }
 
 export const WalletService = {
@@ -56,7 +118,8 @@ export const SettlementEngine = {
       supabase.rpc('fin_settle_order', { p_order_id: orderId }),
       'Error en liquidación del pedido',
     );
-    return parseRpc(data);
+    const result = parseRpc(data);
+    return result;
   },
 };
 
@@ -70,7 +133,11 @@ export const PayoutEngine = {
       }),
       'Error procesando lote de liquidación',
     );
-    return parseRpc(data);
+    const result = parseRpc(data);
+    if (result?.success) {
+      await emitPayoutNotifications(result.batch_id, result.total).catch(() => {});
+    }
+    return result;
   },
 };
 
@@ -84,7 +151,11 @@ export const RefundService = {
       }),
       'Error procesando reembolso',
     );
-    return parseRpc(data);
+    const result = parseRpc(data);
+    if (result?.success) {
+      await emitRefundNotification(orderId).catch(() => {});
+    }
+    return result;
   },
 };
 
@@ -161,11 +232,35 @@ export const TransactionService = {
 };
 
 export const FinanceNotificationService = {
-  async notifySettlement({ recipientId, orderNumber, amount, ownerType }) {
-    const { emitFinEvent } = await import('../events');
+  async notifySettlement({ recipientId, orderNumber, amount, ownerType, orderId }) {
+    const { emitFinEvent } = await import('./events');
     return emitFinEvent('SETTLEMENT_CREATED', {
       recipientId,
-      payload: { orderNumber, amount, ownerType },
+      payload: { orderNumber, amount, ownerType, orderId },
+    });
+  },
+
+  async notifyPayoutReleased({ recipientId, amount, ownerType, batchId }) {
+    const { emitFinEvent } = await import('./events');
+    return emitFinEvent('PAYOUT_BATCH_RELEASED', {
+      recipientId,
+      payload: { amount, ownerType, batchId },
+    });
+  },
+
+  async notifyWalletAvailable({ recipientId, amount, ownerType }) {
+    const { emitFinEvent } = await import('./events');
+    return emitFinEvent('WALLET_AVAILABLE', {
+      recipientId,
+      payload: { amount, ownerType },
+    });
+  },
+
+  async notifyRefund({ recipientId, orderId, orderNumber }) {
+    const { emitFinEvent } = await import('./events');
+    return emitFinEvent('REFUND_PROCESSED', {
+      recipientId,
+      payload: { orderId, orderNumber },
     });
   },
 };

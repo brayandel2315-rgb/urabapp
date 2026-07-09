@@ -22,7 +22,6 @@ import { useLocationStore, selectActiveBarrio } from '@/store/locationStore';
 import { useAuthStore } from '@/store/authStore';
 import { useOffersStore } from '@/store/offersStore';
 import { useOnlineStatus } from '@/hooks/useOnlineStatus';
-import { useMarketplaceLiveRefresh } from '@/hooks/useMarketplaceLiveRefresh';
 import { toast } from '@/utils/toast';
 import { OFFERS_FILTERS } from '@/data/offers-filters';
 import { WELCOME_BENEFIT } from '@/utils/constants';
@@ -41,8 +40,6 @@ export default function OffersPage() {
   const savedOfferIds = useOffersStore((s) => s.savedOfferIds);
   const toggleSave = useOffersStore((s) => s.toggleSave);
   const isSaved = useOffersStore((s) => s.isSaved);
-
-  useMarketplaceLiveRefresh(activeMunicipio);
 
   const { data: feed, isLoading, isError, refetch, isFetching } = useQuery({
     queryKey: ['offers-feed', ...businessQueryKey, activeBarrio, filterId, user?.id],

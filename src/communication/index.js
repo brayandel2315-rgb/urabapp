@@ -30,3 +30,47 @@ export {
   downloadDeliveryMetricsCsv,
   rowsToCsv,
 } from './schedule.service';
+export {
+  getCommunicationBroadcasts,
+  countBroadcastRecipients,
+  createCommunicationBroadcast,
+  cancelCommunicationBroadcast,
+  BROADCAST_SEGMENTS,
+  USER_ROLES,
+  MUNICIPIOS,
+} from './broadcast.service';
+export {
+  previewTemplateLocal,
+  previewTemplateRemote,
+  getPreviewPayloadForEvent,
+  TEMPLATE_PREVIEW_PAYLOADS,
+} from './preview.service';
+export {
+  getLocalTemplateVariables,
+  getTemplateVariablesForEvent,
+  insertTemplateVariable,
+} from './template-variables.service';
+export {
+  getCommunicationSlaAlerts,
+  acknowledgeSlaAlert,
+} from './sla.service';
+export {
+  getSlaWebhooks,
+  upsertSlaWebhook,
+  deleteSlaWebhook,
+} from './sla-webhook.service';
+export {
+  getWeeklyCommunicationReport,
+  downloadWeeklyReportMarkdown,
+  formatReportMarkdown,
+} from './report.service';
+export {
+  getBroadcastTemplates,
+  saveBroadcastTemplate,
+  createBroadcastFromTemplate,
+} from './broadcast-template.service';
+export {
+  getCommunicationTrends,
+  mergeTrendSeries,
+  getTrendMax,
+} from './trends.service';

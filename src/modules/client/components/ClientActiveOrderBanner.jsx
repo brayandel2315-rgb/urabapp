@@ -82,7 +82,9 @@ export default function ClientActiveOrderBanner({ className }) {
           />
         </div>
         <p className="mt-2 text-xs font-semibold text-primary">
-          Ver seguimiento →
+          {primaryActivity.status === 'on_the_way'
+            ? 'Ver código de entrega →'
+            : 'Ver seguimiento →'}
         </p>
       </Link>
     </motion.section>
