@@ -94,6 +94,101 @@ function sortPool(pool, type, coords) {
   }
 }
 
+export function mapPopularProductRow(row) {
+  if (!row?.product_id) return null;
+  return {
+    id: row.product_id,
+    name: row.product_name,
+    description: row.product_description,
+    emoji: row.product_emoji,
+    imageUrl: row.product_image_url,
+    price: row.product_price,
+    category: row.product_category,
+    businessId: row.business_id,
+    businessName: row.business_name,
+    businessSlug: row.business_slug,
+    businessCategory: row.business_category,
+    businessRating: Number(row.business_rating) || 0,
+    businessEmoji: row.business_emoji,
+    orderCount: Number(row.order_count) || 0,
+    orderLines: Number(row.order_lines) || 0,
+    rank: Number(row.rank_position) || 0,
+    isOrganic: Boolean(row.is_organic),
+  };
+}
+
+async function fetchCatalogPopularFallback(municipio, minResults = 10) {
+  const { data } = await sbQuery(
+    supabase
+      .from('products')
+      .select(`
+        id, name, description, emoji, image_url, price, category,
+        businesses!inner (id, name, slug, category, rating, emoji, municipio, is_active)
+      `)
+      .eq('is_available', true)
+      .eq('businesses.is_active', true)
+      .eq('businesses.municipio', municipio || 'Apartadó')
+      .order('sort_order', { ascending: true })
+      .limit(minResults),
+    'Tiempo agotado cargando catálogo local',
+  );
+
+  return (data ?? []).map((row, index) => ({
+    id: row.id,
+    name: row.name,
+    description: row.description,
+    emoji: row.emoji,
+    imageUrl: row.image_url,
+    price: row.price,
+    category: row.category,
+    businessId: row.businesses?.id,
+    businessName: row.businesses?.name,
+    businessSlug: row.businesses?.slug,
+    businessCategory: row.businesses?.category,
+    businessRating: Number(row.businesses?.rating) || 0,
+    businessEmoji: row.businesses?.emoji,
+    orderCount: 0,
+    orderLines: 0,
+    rank: index + 1,
+    isOrganic: false,
+  }));
+}
+
+export async function getPopularProducts(municipio, { limit = 12, minResults = 10, days = 30 } = {}) {
+  if (!isSupabaseConfigured) return [];
+
+  let products = [];
+  try {
+    const { data, error } = await supabase.rpc('get_popular_products', {
+      p_municipio: municipio || null,
+      p_days: days,
+      p_limit: limit,
+      p_min_results: minResults,
+    });
+    if (error) throw error;
+    products = (data ?? []).map(mapPopularProductRow).filter(Boolean);
+  } catch {
+    products = [];
+  }
+
+  if (products.length >= minResults) return products.slice(0, limit);
+
+  try {
+    const fallback = await fetchCatalogPopularFallback(municipio, minResults);
+    const seen = new Set(products.map((p) => p.id));
+    for (const item of fallback) {
+      if (seen.has(item.id)) continue;
+      products.push({ ...item, rank: products.length + 1 });
+      seen.add(item.id);
+      if (products.length >= minResults) break;
+    }
+  } catch {
+    /* sin catálogo local */
+  }
+
+  return products.slice(0, limit);
+}
+
 export async function getTrendingSearches(municipio, limit = 8) {
   if (!isSupabaseConfigured) {
     return DEFAULT_TRENDING.slice(0, limit);
@@ -254,6 +349,7 @@ function buildHomeDiscoveryFallback(municipio) {
     promotions: buildHomePromotionsFromOffers([]),
     promotionsByMerchant: [],
     trending: DEFAULT_TRENDING.slice(0, 8),
+    popularProducts: [],
     stats: {
       activeOrders: 0,
       onlineRiders: 0,
@@ -284,7 +380,7 @@ async function fetchHomeDiscovery({
   const muni = catalog?.viewMunicipio || municipio;
   const bizParams = { ...(getBusinessesParams || { catalog, municipio: muni }), barrio };
 
-  const [catalogRows, trending, statsBase] = await Promise.all([
+  const [catalogRows, trending, statsBase, popularProducts] = await Promise.all([
     getBusinesses(bizParams),
     withTimeout(getTrendingSearches(muni, 8), 5_000, DEFAULT_TRENDING.slice(0, 8)),
     withTimeout(getLightMarketStats(muni), 5_000, {
@@ -294,6 +390,7 @@ async function fetchHomeDiscovery({
       shipmentsToday: 0,
       avgDeliveryMin: 25,
     }),
+    withTimeout(getPopularProducts(muni, { limit: 12, minResults: 10 }), 6_000, []),
   ]);
 
   const enriched = catalogRows.map((b) => enrichBusiness(b, coords));
@@ -326,6 +423,7 @@ async function fetchHomeDiscovery({
     promotions,
     promotionsByMerchant,
     trending,
+    popularProducts,
     stats,
   };
   homeCache = { key, at: now, data };

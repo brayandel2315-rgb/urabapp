@@ -3,6 +3,7 @@ import ChatThread from '@/components/messaging/ChatThread';
 import { SurfaceCard, SectionTitle } from '@/design-system/patterns/SurfaceCard';
 import { Badge } from '@/design-system/ui/badge';
 import { supportTicketStatusLabel } from '@/modules/support/support-ticket-status';
+import { emitCommEvent } from '@/communication';
 
 /** Panel de chat de ticket activo — cliente y admin. */
 export default function SupportTicketChatPanel({
@@ -18,6 +19,18 @@ export default function SupportTicketChatPanel({
   initialBody = null,
 }) {
   if (!ticket) return null;
+
+  const handleSend = (body) => {
+    onSend?.(body);
+    if (currentUserId && ticket?.id) {
+      emitCommEvent('support_ticket_reply', {
+        recipientId: currentUserId,
+        actorId: currentUserId,
+        payload: { ticket_id: ticket.id, preview: String(body).slice(0, 80) },
+        push: false,
+      }).catch(() => {});
+    }
+  };
 
   return (
     <SurfaceCard className="space-y-3">
@@ -51,7 +64,7 @@ export default function SupportTicketChatPanel({
       <ChatThread
         messages={messages}
         currentUserId={currentUserId}
-        onSend={onSend}
+        onSend={handleSend}
         sending={sending}
         placeholder={placeholder}
       />

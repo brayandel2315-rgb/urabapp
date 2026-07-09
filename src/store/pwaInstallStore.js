@@ -4,6 +4,12 @@ import {
   detectInstallPlatform,
   isStandaloneMode,
 } from '@/pwa/install-detect';
+import {
+  markMobilePromptShown,
+  shouldAutoOpenMobileInstall,
+  shouldShowMobileBanner,
+  shouldShowMobileFab,
+} from '@/pwa/install-loop';
 import { toast } from '@/utils/toast';
 import { BRAND } from '@/utils/constants';
 
@@ -24,6 +30,38 @@ function bumpVisits() {
   return n;
 }
 
+function isMobilePlatform(platform) {
+  return platform === 'ios' || platform === 'ios-other' || platform === 'android';
+}
+
+function syncMobileSurfaces(get, set, partial = {}) {
+  const state = { ...get(), ...partial };
+  const dismissed = Date.now() < state.dismissUntil;
+  const mobile = isMobilePlatform(state.platform);
+
+  set({
+    ...partial,
+    fabVisible: mobile && shouldShowMobileFab({
+      isStandalone: state.isStandalone,
+      dismissed,
+      visitCount: state.visitCount,
+      platform: state.platform,
+    }),
+    mobileBannerVisible: mobile && shouldShowMobileBanner({
+      isStandalone: state.isStandalone,
+      dismissed,
+      visitCount: state.visitCount,
+      platform: state.platform,
+      sheetOpen: state.sheetOpen,
+    }),
+    bannerVisible: !mobile
+      && !state.isStandalone
+      && !dismissed
+      && state.visitCount >= 3
+      && state.visitCount <= 8,
+  });
+}
+
 export const usePwaInstallStore = create((set, get) => ({
   deferredPrompt: null,
   platform: 'other',
@@ -31,35 +69,48 @@ export const usePwaInstallStore = create((set, get) => ({
   visitCount: 0,
   sheetOpen: false,
   bannerVisible: false,
+  mobileBannerVisible: false,
   fabVisible: false,
   installing: false,
   justInstalled: false,
   dismissUntil: 0,
   iosStep: 0,
+  androidStep: 0,
 
   init() {
     const platform = detectInstallPlatform();
     const isStandalone = isStandaloneMode();
     const visitCount = bumpVisits();
     const dismissUntil = readDismissUntil();
-    const dismissed = Date.now() < dismissUntil;
 
-    set({
+    syncMobileSurfaces(get, set, {
       platform: isStandalone ? 'installed' : platform,
       isStandalone,
       visitCount,
       dismissUntil,
-      fabVisible: false,
-      bannerVisible: !isStandalone && !dismissed && visitCount >= 3 && visitCount <= 8,
     });
+
+    const dismissed = Date.now() < dismissUntil;
+    if (shouldAutoOpenMobileInstall({
+      isStandalone,
+      dismissed,
+      visitCount,
+      platform: isStandalone ? 'installed' : platform,
+    })) {
+      window.setTimeout(() => {
+        const s = get();
+        if (s.isStandalone || s.sheetOpen) return;
+        markMobilePromptShown();
+        get().openSheet();
+      }, 2800);
+    }
   },
 
   setDeferredPrompt(event) {
     const platform = get().platform;
-    set({
+    syncMobileSurfaces(get, set, {
       deferredPrompt: event,
-      fabVisible: false,
-      bannerVisible: get().visitCount >= 2 && canShowInstallUi(platform, true),
+      bannerVisible: get().visitCount >= 2 && canShowInstallUi(platform, true) && !isMobilePlatform(platform),
     });
   },
 
@@ -72,20 +123,30 @@ export const usePwaInstallStore = create((set, get) => ({
     set({
       sheetOpen: true,
       bannerVisible: false,
+      mobileBannerVisible: false,
       iosStep: platform === 'ios' || platform === 'ios-other' ? 0 : get().iosStep,
+      androidStep: platform === 'android' ? 0 : get().androidStep,
     });
   },
 
   closeSheet() {
-    set({ sheetOpen: false });
+    syncMobileSurfaces(get, set, { sheetOpen: false });
   },
 
   setIosStep(step) {
     set({ iosStep: step });
   },
 
+  setAndroidStep(step) {
+    set({ androidStep: step });
+  },
+
   resetIosWizard() {
     set({ iosStep: 0 });
+  },
+
+  resetAndroidWizard() {
+    set({ androidStep: 0 });
   },
 
   refreshStandalone() {
@@ -100,7 +161,12 @@ export const usePwaInstallStore = create((set, get) => ({
   dismissPrompt(days = 7) {
     const until = Date.now() + days * 24 * 60 * 60 * 1000;
     localStorage.setItem(DISMISS_KEY, String(until));
-    set({ dismissUntil: until, bannerVisible: false, fabVisible: false });
+    syncMobileSurfaces(get, set, {
+      dismissUntil: until,
+      bannerVisible: false,
+      fabVisible: false,
+      mobileBannerVisible: false,
+    });
   },
 
   markInstalled() {
@@ -111,6 +177,7 @@ export const usePwaInstallStore = create((set, get) => ({
       justInstalled: true,
       sheetOpen: false,
       bannerVisible: false,
+      mobileBannerVisible: false,
       fabVisible: false,
       deferredPrompt: null,
     });
@@ -122,23 +189,15 @@ export const usePwaInstallStore = create((set, get) => ({
   },
 
   showFab() {
-    /* FAB deshabilitado: instalar desde menú de servicios o preferencias */
+    syncMobileSurfaces(get, set);
   },
 
-  /** Instalación nativa en un toque (Chrome / Edge / Android). iOS → guía paso a paso. */
-  async triggerInstall() {
-    const { deferredPrompt, isStandalone, platform } = get();
-    if (isStandalone) return { outcome: 'already' };
-    if (platform === 'ios' || platform === 'ios-other') {
-      get().openSheet();
-      return { outcome: 'sheet' };
-    }
-    if (!deferredPrompt) {
-      get().openSheet();
-      return { outcome: 'sheet' };
-    }
+  /** Instalación nativa en un toque (Chrome / Edge / Android con prompt). */
+  async runNativeInstall() {
+    const { deferredPrompt, isStandalone } = get();
+    if (isStandalone || !deferredPrompt) return { outcome: 'unavailable' };
 
-    set({ installing: true, sheetOpen: false, bannerVisible: false });
+    set({ installing: true });
     try {
       await deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
@@ -149,10 +208,30 @@ export const usePwaInstallStore = create((set, get) => ({
       }
       return { outcome: 'dismissed' };
     } catch {
-      get().openSheet();
       return { outcome: 'error' };
     } finally {
       set({ installing: false });
     }
+  },
+
+  /** Abre guía visual o prompt nativo según plataforma. */
+  async triggerInstall() {
+    const { deferredPrompt, isStandalone, platform } = get();
+    if (isStandalone) return { outcome: 'already' };
+    if (platform === 'ios' || platform === 'ios-other') {
+      get().openSheet();
+      return { outcome: 'sheet' };
+    }
+    if (platform === 'android' && !deferredPrompt) {
+      get().openSheet();
+      return { outcome: 'sheet' };
+    }
+    if (!deferredPrompt) {
+      get().openSheet();
+      return { outcome: 'sheet' };
+    }
+
+    set({ sheetOpen: false, bannerVisible: false, mobileBannerVisible: false });
+    return get().runNativeInstall();
   },
 }));

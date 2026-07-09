@@ -4,6 +4,7 @@ import HomeMvpHero from './components/hero/HomeMvpHero';
 import HomeDiscoveryCategoryGrid from './components/categories/HomeDiscoveryCategoryGrid';
 import HomePromotionsStrip from './components/discovery/HomePromotionsStrip';
 import HomeFeaturedRow from './components/discovery/HomeFeaturedRow';
+import HomePopularProductsRow from './components/discovery/HomePopularProductsRow';
 import HomeTrendingChips from './components/trending/HomeTrendingChips';
 import HomeFeedbackCard from './components/feedback/HomeFeedbackCard';
 import HomeCatalogAwayBanner from './components/catalog/HomeCatalogAwayBanner';
@@ -34,6 +35,7 @@ export default function HomeDesktopView({
   onEnableIntermunicipal,
   onCategoryNavigate,
   onTrending,
+  onPopularProduct,
 }) {
   const [search, setSearch] = useState('');
 
@@ -139,11 +141,18 @@ export default function HomeDesktopView({
           <HomeDiscoveryCategoryGrid onNavigate={onCategoryNavigate} />
         </section>
 
+        <HomePopularProductsRow
+          products={discovery?.popularProducts ?? []}
+          isLoading={discoveryLoading}
+          municipio={viewMuni}
+          onProductClick={onPopularProduct}
+        />
+
         {(discovery?.trending?.length ?? 0) > 0 && (
           <section className="home-desktop__section">
             <HomeSectionHeader
-              title="Populares en tu zona"
-              subtitle="Lo más buscado hoy"
+              title="Búsquedas frecuentes"
+              subtitle="Lo que más buscan en Urabá hoy"
               variant="brand"
             />
             <HomeTrendingChips

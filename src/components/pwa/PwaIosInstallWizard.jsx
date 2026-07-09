@@ -10,11 +10,14 @@ import {
   IOS_WIZARD_STEPS,
 } from '@/pwa/install-detect';
 import PwaSafariCoachMark from './PwaSafariCoachMark';
+import PwaInstallBrushProgress, { PwaInstallBrushFrame } from './PwaInstallBrushProgress';
+import PwaInstallFeedback from './PwaInstallFeedback';
 import { toast } from '@/utils/toast';
 
 function HomeScreenPreview({ success = false }) {
   return (
-    <div className="mx-auto mt-4 w-full max-w-[220px] rounded-2xl bg-gradient-to-b from-slate-800 to-slate-900 p-4 shadow-inner">
+    <PwaInstallBrushFrame>
+      <div className="mx-auto w-full max-w-[220px] rounded-2xl bg-gradient-to-b from-slate-800 to-slate-900 p-4 shadow-inner">
       <div className="mb-3 grid grid-cols-4 gap-2.5">
         {[...Array(7)].map((_, i) => (
           <div key={i} className="aspect-square rounded-[14px] bg-white/10" />
@@ -40,14 +43,16 @@ function HomeScreenPreview({ success = false }) {
           )}
         </div>
       </div>
-      <p className="truncate text-center text-[10px] font-medium text-white/80">{BRAND.name}</p>
-    </div>
+        <p className="truncate text-center text-[10px] font-medium text-white/80">{BRAND.name}</p>
+      </div>
+    </PwaInstallBrushFrame>
   );
 }
 
 function ShareSheetMock() {
   return (
-    <div className="mt-4 overflow-hidden rounded-2xl border border-border/60 bg-muted/30">
+    <PwaInstallBrushFrame>
+      <div className="overflow-hidden rounded-2xl border border-border/60 bg-muted/30">
       <div className="border-b border-border/40 px-4 py-2 text-center text-xs font-semibold text-muted-foreground">
         Compartir
       </div>
@@ -71,12 +76,14 @@ function ShareSheetMock() {
         </motion.div>
       </div>
     </div>
+    </PwaInstallBrushFrame>
   );
 }
 
 function ConfirmSheetMock() {
   return (
-    <div className="mt-4 overflow-hidden rounded-2xl border border-border/60 bg-muted/30">
+    <PwaInstallBrushFrame>
+      <div className="overflow-hidden rounded-2xl border border-border/60 bg-muted/30">
       <div className="flex items-center justify-between border-b border-border/40 px-4 py-2.5">
         <span className="text-sm text-muted-foreground">Cancelar</span>
         <span className="text-sm font-bold text-foreground">Agregar a inicio</span>
@@ -102,6 +109,7 @@ function ConfirmSheetMock() {
         </p>
       </div>
     </div>
+    </PwaInstallBrushFrame>
   );
 }
 
@@ -197,17 +205,7 @@ export default function PwaIosInstallWizard({ platform, onClose, onDismiss }) {
       <PwaSafariCoachMark visible={showCoach} />
 
       <div className={showCoach ? 'pb-24' : ''}>
-        {/* Progreso */}
-        <div className="mb-4 flex items-center gap-1.5">
-          {IOS_WIZARD_STEPS.map((s, i) => (
-            <div
-              key={s.id}
-              className={`h-1 flex-1 rounded-full transition-colors ${
-                i <= iosStep ? 'bg-primary' : 'bg-muted'
-              }`}
-            />
-          ))}
-        </div>
+        <PwaInstallBrushProgress steps={IOS_WIZARD_STEPS} currentStep={iosStep} />
 
         <AnimatePresence mode="wait">
           <motion.div
@@ -240,6 +238,10 @@ export default function PwaIosInstallWizard({ platform, onClose, onDismiss }) {
             {step.mock === 'confirm-sheet' && <ConfirmSheetMock />}
           </motion.div>
         </AnimatePresence>
+
+        {step.id === 'done' && (
+          <PwaInstallFeedback platform="ios" stepReached={iosStep} />
+        )}
 
         <div className="mt-6 flex flex-col gap-2">
           <Button className="w-full" onClick={handleNext}>

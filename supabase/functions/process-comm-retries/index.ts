@@ -105,6 +105,10 @@ async function retryChannel(row: QueueRow): Promise<{ ok: boolean; error?: strin
   return { ok: false, error: 'unknown_channel' };
 }
 
+function isTrackingPush(row: QueueRow): boolean {
+  return row.event_key === 'order_tracking_update' && row.channel === 'push';
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders });
@@ -115,7 +119,7 @@ Deno.serve(async (req) => {
 
   try {
     const supabase = getServiceClient();
-    const { data: rows, error } = await supabase.rpc('claim_communication_retries', { p_limit: 25 });
+    const { data: rows, error } = await supabase.rpc('claim_communication_retries', { p_limit: 30 });
 
     if (error) {
       return jsonResponse({ error: error.message, processed: 0 }, 500);
@@ -123,22 +127,40 @@ Deno.serve(async (req) => {
 
     let completed = 0;
     let failed = 0;
+    let trackingCompleted = 0;
+    let trackingFailed = 0;
+    let trackingProcessed = 0;
 
     for (const row of (rows ?? []) as QueueRow[]) {
+      const tracking = isTrackingPush(row);
+      if (tracking) trackingProcessed += 1;
+
       const result = await retryChannel(row);
       await supabase.rpc('finish_communication_retry', {
         p_queue_id: row.id,
         p_success: result.ok,
         p_error: result.error ?? null,
       });
-      if (result.ok) completed += 1;
-      else failed += 1;
+
+      if (result.ok) {
+        completed += 1;
+        if (tracking) trackingCompleted += 1;
+      } else {
+        failed += 1;
+        if (tracking) trackingFailed += 1;
+      }
     }
 
     return jsonResponse({
       processed: (rows ?? []).length,
       completed,
       failed,
+      tracking: {
+        processed: trackingProcessed,
+        completed: trackingCompleted,
+        failed: trackingFailed,
+      },
+      unified_processor: true,
     });
   } catch (err) {
     return jsonResponse({ error: String(err), processed: 0 }, 500);

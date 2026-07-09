@@ -8,6 +8,7 @@ import {
   getCommunicationPreferences,
   upsertCommunicationPreferences,
 } from '@/communication/preferences.service';
+import { emitCommEvent } from '@/communication';
 import { toast } from '@/utils/toast';
 
 const PREF_CATEGORIES = [
@@ -51,6 +52,16 @@ export default function CommunicationPreferencesPanel() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['comm-prefs'] });
       toast('Preferencias de comunicación guardadas');
+      emitCommEvent('consent_preferences_changed', {
+        recipientId: user.id,
+        actorId: user.id,
+        payload: {
+          marketing_enabled: marketingEnabled,
+          daily_digest_enabled: dailyDigest,
+          categories,
+        },
+        push: false,
+      }).catch(() => {});
     },
     onError: (err) => toast(err.message, 'error'),
   });

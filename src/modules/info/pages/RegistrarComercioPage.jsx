@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { InfoLandingLayout } from './ComoFuncionaPage';
 import { SurfaceCard, SectionTitle } from '@/design-system/patterns/SurfaceCard';
 import { BUSINESS_MEDIA_SPECS, LEGAL_ENTITY_TYPES } from '@/utils/business-registration';
 import AppIcon from '@/design-system/icons/AppIcon';
 import { STORE } from '@/utils/marketplace-copy';
 import { buildLoginRedirect } from '@/utils/auth-routes';
+import { emitCommEvent } from '@/communication';
+import { useAuthStore } from '@/store/authStore';
 
 const CHECKLIST = [
   {
@@ -31,6 +34,18 @@ const CHECKLIST = [
 ];
 
 export default function RegistrarComercioPage() {
+  const user = useAuthStore((s) => s.user);
+
+  useEffect(() => {
+    if (!user?.id) return;
+    emitCommEvent('marketplace_analytics', {
+      recipientId: user.id,
+      actorId: user.id,
+      payload: { page: 'register_merchant' },
+      push: false,
+    }).catch(() => {});
+  }, [user?.id]);
+
   return (
     <InfoLandingLayout title={STORE.register} ctaTo="/negocio/onboarding" ctaLabel={STORE.registerCta}>
       <SurfaceCard className="space-y-4 p-6">

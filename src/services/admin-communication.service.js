@@ -27,6 +27,9 @@ export async function getAdminCommunicationOverview() {
       sla_webhooks_active: 0,
       broadcast_templates_active: 0,
       sla_alerts_escalated: 0,
+      queue_alerts_open: 0,
+      queue_snapshots_24h: 0,
+      queue_breaches_24h: 0,
       consent_webhooks_active: 0,
       finance_events_7d: 0,
       consent_changes_pending: 0,
@@ -247,6 +250,46 @@ export {
 } from '@/communication/trends.service';
 
 export {
+  getCommRetryProcessorStats,
+} from '@/communication/retry-processor.service';
+
+export {
+  getAdminQueueThresholds,
+  getAdminQueueHealth,
+  upsertQueueThreshold,
+} from '@/communication/queue-threshold.service';
+
+export {
+  getAdminQueueHealthHistory,
+  downloadQueueHealthCsv,
+  QUEUE_METRIC_LABELS,
+} from '@/communication/queue-health.service';
+
+export {
+  getQueueHealthWeeklyReport,
+  downloadQueueHealthReportMarkdown,
+  buildQueueHealthReportSummary,
+} from '@/communication/queue-health-report.service';
+
+export {
+  getAdminQueueRecoveryStats,
+  getAdminFailedQueueItems,
+  requeueFailedCommunications,
+  purgeFailedCommunications,
+  getAdminQueueArchiveStats,
+} from '@/communication/queue-recovery.service';
+
+export {
+  getAdminModuleEventStats,
+} from '@/communication/module-integration.service';
+
+export {
+  getAdminCommunicationClosureSummary,
+  downloadClosureReportMarkdown,
+  closureStatusLabel,
+} from '@/communication/closure.service';
+
+export {
   getAdminConsentAudit,
   getAdminRetryQueueStats,
 } from '@/communication/consent.service';
@@ -265,3 +308,23 @@ export async function triggerConsentWebhookProcessor() {
   if (!isSupabaseConfigured) throw new Error('Supabase no configurado');
   return invokeEdgeFunction('process-consent-webhooks', {});
 }
+
+export {
+  getConsentWeeklyDigest,
+  downloadConsentDigestMarkdown,
+  buildConsentDigestSummary,
+} from '@/communication/consent-report.service';
+
+export async function triggerConsentWeeklyDigest() {
+  if (!isSupabaseConfigured) throw new Error('Supabase no configurado');
+  return invokeEdgeFunction('send-consent-weekly-digest', {});
+}
+
+export async function triggerQueueHealthWeeklyReport() {
+  if (!isSupabaseConfigured) throw new Error('Supabase no configurado');
+  return invokeEdgeFunction('send-queue-health-weekly-report', {});
+}
+
+export {
+  getAdminLegacyCommMigrationStats,
+} from '@/communication/legacy-migration.service';

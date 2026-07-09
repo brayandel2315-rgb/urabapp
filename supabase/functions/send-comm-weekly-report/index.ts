@@ -16,6 +16,12 @@ type WeeklyReport = {
   broadcasts_completed?: number;
   sla_alerts_open?: number;
   retries_pending?: number;
+  queue_failed_now?: number;
+  queue_processing_now?: number;
+  queue_alerts_open?: number;
+  queue_breaches_7d?: number;
+  queue_snapshots_7d?: number;
+  queue_archived_7d?: number;
   by_channel?: Record<string, { total?: number; delivered?: number; failed?: number }>;
   by_category?: Record<string, number>;
   top_events?: Array<{ event_key: string; cnt: number }>;
@@ -39,6 +45,14 @@ function buildReportBody(report: WeeklyReport): string {
     `Engagement: ${report.engagement_total ?? 0} (${report.opened_total ?? 0} aperturas, ${report.clicked_total ?? 0} clics)`,
     `Broadcasts completados: ${report.broadcasts_completed ?? 0}`,
     `Alertas SLA abiertas: ${report.sla_alerts_open ?? 0}`,
+    `Reintentos pendientes: ${report.retries_pending ?? 0}`,
+    '',
+    'Cola de entregas:',
+    `  Fallidos: ${report.queue_failed_now ?? 0}`,
+    `  Processing: ${report.queue_processing_now ?? 0}`,
+    `  Alertas cola abiertas: ${report.queue_alerts_open ?? 0}`,
+    `  Snapshots 7d: ${report.queue_snapshots_7d ?? 0} (${report.queue_breaches_7d ?? 0} fuera de umbral)`,
+    `  Archivados 7d: ${report.queue_archived_7d ?? 0}`,
     '',
     'Por canal:',
   ];

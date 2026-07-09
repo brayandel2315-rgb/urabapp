@@ -51,7 +51,7 @@ export default function PwaInstallBootstrap() {
 
   useEffect(() => {
     if (isStandalone || SKIP_PREFIXES.some((p) => location.pathname.startsWith(p))) return;
-    const t = window.setTimeout(showFab, 12000);
+    const t = window.setTimeout(showFab, 4000);
     return () => window.clearTimeout(t);
   }, [location.pathname, isStandalone, showFab]);
 

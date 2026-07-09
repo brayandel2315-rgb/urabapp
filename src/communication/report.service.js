@@ -23,6 +23,13 @@ function formatReportMarkdown(report) {
     `- Alertas SLA abiertas: ${report.sla_alerts_open ?? 0}`,
     `- Reintentos pendientes: ${report.retries_pending ?? 0}`,
     '',
+    '## Cola de entregas',
+    `- Fallidos ahora: ${report.queue_failed_now ?? 0}`,
+    `- En processing: ${report.queue_processing_now ?? 0}`,
+    `- Alertas cola abiertas: ${report.queue_alerts_open ?? 0}`,
+    `- Snapshots 7d: ${report.queue_snapshots_7d ?? 0} (${report.queue_breaches_7d ?? 0} fuera de umbral)`,
+    `- Archivados 7d: ${report.queue_archived_7d ?? 0}`,
+    '',
     '## Entregas por canal',
   ];
 

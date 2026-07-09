@@ -71,8 +71,8 @@ const INTEGRATIONS = [
     steps: [
       'Genera claves: npx web-push generate-vapid-keys',
       'Cliente: VITE_VAPID_PUBLIC_KEY · Secrets Edge: VAPID_*',
-      'Despliega send-push y dispatch-tracking-push en Supabase',
-      'Cola automática en eventos de proximidad (tracking_push_outbox)',
+      'Solo process-comm-retries (~5 min) procesa cola push tracking y demás canales',
+      'dispatch-tracking-push es alias compat → process-comm-retries',
       'Admin → Tracking: botón "Procesar cola" o cron con service role',
       'Usuario activa push en Perfil → Notificaciones',
     ],

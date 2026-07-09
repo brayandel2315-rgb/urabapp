@@ -49,7 +49,7 @@ const supabase = createClient(url, key);
 async function flushTrackingPushQueue() {
   if (!serviceKey) return;
   try {
-    const res = await fetch(`${url}/functions/v1/dispatch-tracking-push`, {
+    const res = await fetch(`${url}/functions/v1/process-comm-retries`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${serviceKey}`,

@@ -354,6 +354,18 @@ export const EVENT_LIBRARY = {
       body: p.changeType ? `Cambio en ${p.changeType}` : 'El usuario actualizó sus preferencias de comunicación.',
     }),
   },
+  consent_weekly_digest_sent: {
+    key: 'consent_weekly_digest_sent',
+    category: COMM_CATEGORIES.ADMIN,
+    priority: COMM_PRIORITIES.SILENT,
+    icon: 'shield',
+    channels: [COMM_CHANNELS.IN_APP, COMM_CHANNELS.AUDIT, COMM_CHANNELS.ANALYTICS],
+    deepLink: () => '/admin',
+    message: (p) => ({
+      title: 'Informe semanal de consentimiento',
+      body: p.summary || 'Resumen de cambios de preferencias de la semana.',
+    }),
+  },
   discovery_search: {
     key: 'discovery_search',
     category: COMM_CATEGORIES.MARKETPLACE,
@@ -487,6 +499,78 @@ export const EVENT_LIBRARY = {
     message: (p) => ({
       title: p.title || `SLA escalado: ${p.channel || 'canal'}`,
       body: p.body || 'Una alerta SLA sigue abierta sin reconocer tras 48 horas.',
+    }),
+  },
+  queue_threshold_alert: {
+    key: 'queue_threshold_alert',
+    category: COMM_CATEGORIES.ADMIN,
+    priority: COMM_PRIORITIES.HIGH,
+    icon: 'alert',
+    channels: [COMM_CHANNELS.IN_APP, COMM_CHANNELS.PUSH, COMM_CHANNELS.ANALYTICS, COMM_CHANNELS.AUDIT],
+    deepLink: () => '/admin',
+    message: (p) => ({
+      title: p.title || 'Cola de comunicaciones saturada',
+      body: p.body || 'La cola de entregas superó un umbral configurado.',
+    }),
+  },
+  queue_threshold_resolved: {
+    key: 'queue_threshold_resolved',
+    category: COMM_CATEGORIES.ADMIN,
+    priority: COMM_PRIORITIES.LOW,
+    icon: 'check',
+    channels: [COMM_CHANNELS.IN_APP, COMM_CHANNELS.ANALYTICS, COMM_CHANNELS.AUDIT],
+    deepLink: () => '/admin',
+    message: (p) => ({
+      title: p.title || 'Cola normalizada',
+      body: p.body || 'Una alerta de umbral de cola se resolvió automáticamente.',
+    }),
+  },
+  queue_health_weekly_report_sent: {
+    key: 'queue_health_weekly_report_sent',
+    category: COMM_CATEGORIES.ADMIN,
+    priority: COMM_PRIORITIES.LOW,
+    icon: 'report',
+    channels: [COMM_CHANNELS.IN_APP, COMM_CHANNELS.PUSH, COMM_CHANNELS.ANALYTICS, COMM_CHANNELS.AUDIT],
+    deepLink: () => '/admin',
+    message: (p) => ({
+      title: p.title || 'Informe semanal de cola',
+      body: p.body || 'Resumen de salud de la cola de comunicaciones de los últimos 7 días.',
+    }),
+  },
+  queue_stale_reset: {
+    key: 'queue_stale_reset',
+    category: COMM_CATEGORIES.ADMIN,
+    priority: COMM_PRIORITIES.MEDIUM,
+    icon: 'refresh',
+    channels: [COMM_CHANNELS.IN_APP, COMM_CHANNELS.ANALYTICS, COMM_CHANNELS.AUDIT],
+    deepLink: () => '/admin',
+    message: (p) => ({
+      title: p.title || 'Cola recuperada',
+      body: p.body || 'Entregas atascadas en processing fueron devueltas a pending.',
+    }),
+  },
+  queue_failed_requeued: {
+    key: 'queue_failed_requeued',
+    category: COMM_CATEGORIES.ADMIN,
+    priority: COMM_PRIORITIES.LOW,
+    icon: 'refresh',
+    channels: [COMM_CHANNELS.IN_APP, COMM_CHANNELS.ANALYTICS, COMM_CHANNELS.AUDIT],
+    deepLink: () => '/admin',
+    message: (p) => ({
+      title: p.title || 'Fallidos reencolados',
+      body: p.body || 'Entregas fallidas devueltas a la cola para reintento.',
+    }),
+  },
+  queue_failed_purged: {
+    key: 'queue_failed_purged',
+    category: COMM_CATEGORIES.ADMIN,
+    priority: COMM_PRIORITIES.SILENT,
+    icon: 'trash',
+    channels: [COMM_CHANNELS.ANALYTICS, COMM_CHANNELS.AUDIT],
+    deepLink: () => '/admin',
+    message: (p) => ({
+      title: 'Fallidos archivados',
+      body: p.body || 'Entregas fallidas antiguas movidas al archivo.',
     }),
   },
   communication_opened: {

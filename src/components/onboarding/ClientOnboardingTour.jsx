@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import AppIcon from '@/design-system/icons/AppIcon';
 import { Button } from '@/design-system/ui/button';
 import { useOnboardingStore } from '@/store/onboardingStore';
+import { usePwaInstallStore } from '@/store/pwaInstallStore';
 import { useAutoLocation } from '@/hooks/useAutoLocation';
 import { useLocationStore, selectHomeMunicipio } from '@/store/locationStore';
 import { useSettingsStore } from '@/store/settingsStore';
@@ -44,6 +45,13 @@ const STEPS = [
     title: 'Sigue tu pedido en vivo',
     body: 'En Pedidos verás el mapa, el mensajero y el ETA. Puedes dejar propina al confirmar.',
   },
+  {
+    id: 'install',
+    icon: 'download',
+    title: 'Instala Urabapp en tu celular',
+    body: 'Te guiamos paso a paso con dibujos en pantalla — Android o iPhone, sin Play Store ni App Store.',
+    action: 'install',
+  },
 ];
 
 const SKIP_PATHS = ['/login', '/registro', '/checkout', '/carrito', '/negocio', '/domiciliario', '/admin'];
@@ -57,6 +65,8 @@ export default function ClientOnboardingTour() {
   const { detect, locationStatus } = useAutoLocation({ auto: false });
   const homeMunicipio = useLocationStore(selectHomeMunicipio);
   const setNotificationPref = useSettingsStore((s) => s.setNotificationPref);
+  const triggerInstall = usePwaInstallStore((s) => s.triggerInstall);
+  const isStandalone = usePwaInstallStore((s) => s.isStandalone);
 
   useEffect(() => {
     if (completed) return undefined;
@@ -64,6 +74,15 @@ export default function ClientOnboardingTour() {
     const timer = window.setTimeout(() => setOpen(true), 1400);
     return () => window.clearTimeout(timer);
   }, [completed, location.pathname]);
+
+  useEffect(() => {
+    if (!open || completed) return undefined;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [open, completed]);
 
   const current = STEPS[step];
   const isLast = step >= STEPS.length - 1;
@@ -75,6 +94,12 @@ export default function ClientOnboardingTour() {
     if (current.action === 'notifications') {
       setNotificationPref('orders', true);
       setNotificationPref('push', true);
+    }
+    if (current.action === 'install' && !isStandalone) {
+      complete();
+      setOpen(false);
+      triggerInstall();
+      return;
     }
     if (isLast) {
       complete();
@@ -137,6 +162,8 @@ export default function ClientOnboardingTour() {
             <Button type="button" className="w-full" onClick={handleNext}>
               {current.action === 'location' && locationStatus !== 'granted'
                 ? 'Activar ubicación'
+                : current.action === 'install'
+                  ? 'Ver guía de instalación'
                 : isLast
                   ? 'Empezar a pedir'
                   : 'Continuar'}

@@ -33,6 +33,7 @@ import BusinessProductCard from '../components/BusinessProductCard';
 import CartStoreSwitchModal from '@/components/cart/CartStoreSwitchModal';
 import { useAuthStore } from '../../../store/authStore';
 import { isBusinessFavorited, toggleFavoriteBusiness } from '../../../services/favorites.service';
+import { emitCommEvent } from '@/communication';
 import { iconForCategory } from '@/design-system/icons/icon-map';
 import { cn } from '@/lib/utils';
 import { STORE } from '@/utils/marketplace-copy';
@@ -85,6 +86,14 @@ export default function BusinessPage() {
       queryClient.setQueryData(['favorite-business', user?.id, business?.id], result.favorited);
       queryClient.invalidateQueries({ queryKey: ['favorites', user?.id] });
       toast(result.favorited ? 'Agregado a favoritos' : 'Quitado de favoritos');
+      if (result.favorited) {
+        emitCommEvent('account_favorite_added', {
+          recipientId: user.id,
+          actorId: user.id,
+          payload: { businessId: business.id, action: 'added' },
+          push: false,
+        }).catch(() => {});
+      }
     },
     onError: (err) => toast(err.message, 'error'),
   });

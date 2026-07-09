@@ -55,12 +55,35 @@ import {
   deleteConsentWebhook,
   getAdminFinanceCommSummary,
   triggerConsentWebhookProcessor,
+  getConsentWeeklyDigest,
+  downloadConsentDigestMarkdown,
+  triggerConsentWeeklyDigest,
+  getQueueHealthWeeklyReport,
+  downloadQueueHealthReportMarkdown,
+  triggerQueueHealthWeeklyReport,
+  getAdminQueueRecoveryStats,
+  getAdminFailedQueueItems,
+  requeueFailedCommunications,
+  purgeFailedCommunications,
+  getAdminQueueArchiveStats,
+  getAdminModuleEventStats,
+  getAdminCommunicationClosureSummary,
+  downloadClosureReportMarkdown,
+  closureStatusLabel,
+  getAdminLegacyCommMigrationStats,
+  getAdminQueueThresholds,
+  getAdminQueueHealth,
+  getAdminQueueHealthHistory,
+  downloadQueueHealthCsv,
+  QUEUE_METRIC_LABELS,
+  upsertQueueThreshold,
 } from '@/services/admin-communication.service';
-import { BROADCAST_SEGMENTS, USER_ROLES, MUNICIPIOS } from '@/communication';
+import { BROADCAST_SEGMENTS, USER_ROLES, MUNICIPIOS, emitCommEvent } from '@/communication';
 import { listEventKeys } from '@/communication';
 import { toast } from '@/utils/toast';
 import Loader from '@/components/ui/Loader';
 import { formatCOP } from '@/utils/currency';
+import { useAuthStore } from '@/store/authStore';
 
 const EMPTY_WEBHOOK = { name: '', url: '', eventKeys: '' };
 const EMPTY_TEMPLATE = { eventKey: '', titleTemplate: '', bodyTemplate: '' };
@@ -78,6 +101,7 @@ const RATE_CHANNELS = ['push', 'email', 'sms', 'whatsapp'];
 
 export default function AdminCommunicationsPanel() {
   const queryClient = useQueryClient();
+  const adminUser = useAuthStore((s) => s.user);
   const [form, setForm] = useState(EMPTY_WEBHOOK);
   const [slaWebhookForm, setSlaWebhookForm] = useState(EMPTY_SLA_WEBHOOK);
   const [consentWebhookForm, setConsentWebhookForm] = useState(EMPTY_CONSENT_WEBHOOK);
@@ -94,6 +118,7 @@ export default function AdminCommunicationsPanel() {
   const [tplField, setTplField] = useState('title');
   const [templateVariables, setTemplateVariables] = useState([]);
   const [rateLimits, setRateLimits] = useState({});
+  const [thresholdDrafts, setThresholdDrafts] = useState({});
 
   const { data: overview, isLoading } = useQuery({
     queryKey: ['admin-comm-overview'],
@@ -179,10 +204,76 @@ export default function AdminCommunicationsPanel() {
     refetchInterval: 120_000,
   });
 
+  const { data: consentDigest } = useQuery({
+    queryKey: ['admin-consent-weekly-digest'],
+    queryFn: getConsentWeeklyDigest,
+    refetchInterval: 300_000,
+  });
+
+  const { data: legacyMigration } = useQuery({
+    queryKey: ['admin-legacy-comm-migration'],
+    queryFn: getAdminLegacyCommMigrationStats,
+    refetchInterval: 120_000,
+  });
+
   const { data: retryQueue } = useQuery({
     queryKey: ['admin-comm-retry-queue'],
     queryFn: getAdminRetryQueueStats,
     refetchInterval: 60_000,
+  });
+
+  const { data: queueThresholds = [] } = useQuery({
+    queryKey: ['admin-queue-thresholds'],
+    queryFn: getAdminQueueThresholds,
+    refetchInterval: 300_000,
+  });
+
+  const { data: queueHealth = [] } = useQuery({
+    queryKey: ['admin-queue-health'],
+    queryFn: getAdminQueueHealth,
+    refetchInterval: 60_000,
+  });
+
+  const { data: queueHealthHistory } = useQuery({
+    queryKey: ['admin-queue-health-history'],
+    queryFn: () => getAdminQueueHealthHistory(24),
+    refetchInterval: 120_000,
+  });
+
+  const { data: queueHealthWeekly } = useQuery({
+    queryKey: ['admin-queue-health-weekly'],
+    queryFn: getQueueHealthWeeklyReport,
+    refetchInterval: 300_000,
+  });
+
+  const { data: queueRecovery } = useQuery({
+    queryKey: ['admin-queue-recovery'],
+    queryFn: getAdminQueueRecoveryStats,
+    refetchInterval: 60_000,
+  });
+
+  const { data: failedQueueItems = [] } = useQuery({
+    queryKey: ['admin-failed-queue-items'],
+    queryFn: () => getAdminFailedQueueItems(15),
+    refetchInterval: 60_000,
+  });
+
+  const { data: queueArchive } = useQuery({
+    queryKey: ['admin-queue-archive'],
+    queryFn: getAdminQueueArchiveStats,
+    refetchInterval: 120_000,
+  });
+
+  const { data: moduleEventStats } = useQuery({
+    queryKey: ['admin-module-event-stats'],
+    queryFn: getAdminModuleEventStats,
+    refetchInterval: 300_000,
+  });
+
+  const { data: closureSummary } = useQuery({
+    queryKey: ['admin-comm-closure'],
+    queryFn: getAdminCommunicationClosureSummary,
+    refetchInterval: 300_000,
   });
 
   const { data: consentWebhooks = [] } = useQuery({
@@ -209,6 +300,14 @@ export default function AdminCommunicationsPanel() {
       .then(setTemplateVariables)
       .catch(() => setTemplateVariables([]));
   }, [tplForm.eventKey]);
+
+  useEffect(() => {
+    const drafts = {};
+    queueThresholds.forEach((t) => {
+      drafts[t.metric_key] = t.threshold_value;
+    });
+    setThresholdDrafts(drafts);
+  }, [queueThresholds]);
 
   const eventKeys = listEventKeys();
 
@@ -299,6 +398,58 @@ export default function AdminCommunicationsPanel() {
     onError: (err) => toast(err.message, 'error'),
   });
 
+  const consentDigestMutation = useMutation({
+    mutationFn: triggerConsentWeeklyDigest,
+    onSuccess: (data) => {
+      toast(`Digest consentimiento enviado a ${data?.sent ?? 0} admins`);
+    },
+    onError: (err) => toast(err.message, 'error'),
+  });
+
+  const queueHealthReportMutation = useMutation({
+    mutationFn: triggerQueueHealthWeeklyReport,
+    onSuccess: (data) => toast(`Informe cola enviado a ${data?.sent ?? 0} admins`),
+    onError: (err) => toast(err.message, 'error'),
+  });
+
+  const requeueFailedMutation = useMutation({
+    mutationFn: () => requeueFailedCommunications(50),
+    onSuccess: async (count) => {
+      queryClient.invalidateQueries({ queryKey: ['admin-queue-recovery'] });
+      queryClient.invalidateQueries({ queryKey: ['admin-failed-queue-items'] });
+      queryClient.invalidateQueries({ queryKey: ['admin-comm-retry-queue'] });
+      queryClient.invalidateQueries({ queryKey: ['admin-comm-overview'] });
+      const n = Number(count) || 0;
+      if (n > 0) {
+        emitCommEvent('queue_failed_requeued', {
+          recipientId: adminUser?.id,
+          actorId: adminUser?.id,
+          payload: { count: n },
+        }).catch(() => {});
+      }
+      toast(n > 0 ? `${n} fallidos reencolados` : 'No hay fallidos para reencolar');
+    },
+    onError: (err) => toast(err.message, 'error'),
+  });
+
+  const purgeFailedMutation = useMutation({
+    mutationFn: () => purgeFailedCommunications(30),
+    onSuccess: (count) => {
+      queryClient.invalidateQueries({ queryKey: ['admin-queue-recovery'] });
+      queryClient.invalidateQueries({ queryKey: ['admin-failed-queue-items'] });
+      const n = Number(count) || 0;
+      if (n > 0) {
+        emitCommEvent('queue_failed_purged', {
+          recipientId: adminUser?.id,
+          actorId: adminUser?.id,
+          payload: { count: n },
+        }).catch(() => {});
+      }
+      toast(n > 0 ? `${n} fallidos archivados` : 'Nada que archivar (>30d)');
+    },
+    onError: (err) => toast(err.message, 'error'),
+  });
+
   const saveTplMutation = useMutation({
     mutationFn: () => saveCommunicationTemplate(tplForm),
     onSuccess: () => {
@@ -312,7 +463,22 @@ export default function AdminCommunicationsPanel() {
 
   const retryMutation = useMutation({
     mutationFn: triggerCommRetryProcessor,
-    onSuccess: (data) => toast(`Reintentos: ${data?.completed ?? 0} completados`),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['admin-comm-retry-queue'] });
+      queryClient.invalidateQueries({ queryKey: ['tracking-push-queue-stats'] });
+      const tracking = data?.tracking;
+      const completed = data?.completed ?? 0;
+      const processed = data?.processed ?? 0;
+      const trackingNote = tracking?.processed
+        ? ` (${tracking.completed ?? 0} tracking)`
+        : '';
+      toast(
+        processed > 0
+          ? `Cola unificada: ${completed} enviados de ${processed}${trackingNote}`
+          : 'Cola vacía — nada que procesar',
+        processed > 0 ? 'success' : 'info',
+      );
+    },
     onError: (err) => toast(err.message, 'error'),
   });
 
@@ -444,7 +610,22 @@ export default function AdminCommunicationsPanel() {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['admin-comm-sla-alerts'] });
       queryClient.invalidateQueries({ queryKey: ['admin-comm-overview'] });
-      toast(`SLA: ${data?.alerts ?? 0} alertas, ${data?.webhooks ?? 0} webhooks, ${data?.escalated ?? 0} escaladas`);
+      toast(
+        `SLA: ${data?.alerts ?? 0} canal, ${data?.queue_alerts ?? 0} cola`
+        + `, ${data?.queue_resolved ?? 0} resueltas · ${data?.webhooks ?? 0} webhooks`,
+      );
+    },
+    onError: (err) => toast(err.message, 'error'),
+  });
+
+  const saveThresholdMutation = useMutation({
+    mutationFn: ({ metricKey, value, isActive }) => upsertQueueThreshold(metricKey, value, isActive),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin-queue-thresholds'] });
+      queryClient.invalidateQueries({ queryKey: ['admin-queue-health'] });
+      queryClient.invalidateQueries({ queryKey: ['admin-queue-health-history'] });
+      queryClient.invalidateQueries({ queryKey: ['admin-comm-overview'] });
+      toast('Umbral de cola guardado');
     },
     onError: (err) => toast(err.message, 'error'),
   });
@@ -555,6 +736,33 @@ export default function AdminCommunicationsPanel() {
     }
   };
 
+  const exportConsentDigest = async () => {
+    try {
+      await downloadConsentDigestMarkdown();
+      toast('Informe consentimiento descargado');
+    } catch (err) {
+      toast(err.message, 'error');
+    }
+  };
+
+  const exportQueueHealth = async () => {
+    try {
+      await downloadQueueHealthCsv(168);
+      toast('Historial de cola descargado (7d)');
+    } catch (err) {
+      toast(err.message, 'error');
+    }
+  };
+
+  const exportQueueHealthReport = async () => {
+    try {
+      await downloadQueueHealthReportMarkdown();
+      toast('Informe semanal de cola descargado');
+    } catch (err) {
+      toast(err.message, 'error');
+    }
+  };
+
   if (isLoading) {
     return <div className="flex justify-center py-10"><Loader /></div>;
   }
@@ -571,6 +779,40 @@ export default function AdminCommunicationsPanel() {
           Eventos, engagement, campañas y webhooks salientes (últimos 7 días).
         </p>
       </SurfaceCard>
+
+      {closureSummary && (
+        <SurfaceCard className="space-y-3 p-5">
+          <SectionTitle>Cierre del Centro de Comunicación</SectionTitle>
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge variant={closureSummary.status === 'complete' ? 'default' : closureSummary.status === 'healthy' ? 'secondary' : 'destructive'}>
+              {closureStatusLabel(closureSummary.status)} — {closureSummary.closure_score ?? 0}/100
+            </Badge>
+            <span className="text-sm text-muted-foreground">{closureSummary.recommendation}</span>
+          </div>
+          <MetricGrid>
+            <MetricCard label="Eventos activos 7d" value={`${closureSummary.events_active_7d ?? 0}/${closureSummary.events_defined ?? 58}`} />
+            <MetricCard label="Cobertura eventos" value={`${closureSummary.events_coverage_pct ?? 0}%`} accent />
+            <MetricCard label="Módulos activos 7d" value={`${closureSummary.modules_active_7d ?? 0}/${closureSummary.modules_total ?? 11}`} />
+            <MetricCard label="Cobertura módulos" value={`${closureSummary.modules_coverage_pct ?? 0}%`} accent />
+            <MetricCard label="Unificación notif." value={`${closureSummary.unified_notification_pct ?? 0}%`} />
+            <MetricCard label="Alertas cola" value={closureSummary.queue_alerts_open ?? 0} accent={(closureSummary.queue_alerts_open ?? 0) > 0} />
+          </MetricGrid>
+          {moduleEventStats?.modules && (
+            <div className="flex flex-wrap gap-2">
+              {Object.entries(moduleEventStats.modules).map(([mod, cnt]) => (
+                <Badge key={mod} variant={cnt > 0 ? 'outline' : 'secondary'}>{mod}: {cnt}</Badge>
+              ))}
+            </div>
+          )}
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => downloadClosureReportMarkdown().then(() => toast('Informe de cierre descargado')).catch((e) => toast(e.message, 'error'))}
+          >
+            Descargar informe de cierre (.md)
+          </Button>
+        </SurfaceCard>
+      )}
 
       <MetricGrid>
         <MetricCard label="Eventos" value={overview?.events_7d ?? 0} accent />
@@ -592,6 +834,9 @@ export default function AdminCommunicationsPanel() {
         <MetricCard label="Prog. pendientes" value={overview?.scheduled_pending ?? 0} />
         <MetricCard label="Broadcasts activos" value={overview?.broadcasts_pending ?? 0} />
         <MetricCard label="Alertas SLA" value={overview?.sla_alerts_open ?? 0} />
+        <MetricCard label="Alertas cola" value={overview?.queue_alerts_open ?? 0} accent={overview?.queue_alerts_open > 0} />
+        <MetricCard label="Brechas cola 24h" value={overview?.queue_breaches_24h ?? 0} accent={overview?.queue_breaches_24h > 0} />
+        <MetricCard label="Snapshots cola 24h" value={overview?.queue_snapshots_24h ?? 0} />
         <MetricCard label="SLA escaladas" value={overview?.sla_alerts_escalated ?? 0} />
         <MetricCard label="Plantillas broadcast" value={overview?.broadcast_templates_active ?? 0} />
         <MetricCard label="Broadcasts prog." value={overview?.broadcasts_scheduled ?? 0} />
@@ -637,6 +882,31 @@ export default function AdminCommunicationsPanel() {
               </table>
             </div>
           )}
+          {consentDigest && (
+            <p className="text-xs text-muted-foreground">
+              Semana: {consentDigest.changes_total ?? 0} cambios
+              {' · '}marketing {consentDigest.marketing_changes ?? 0}
+              {' · '}digest {consentDigest.digest_changes ?? 0}
+            </p>
+          )}
+        </SurfaceCard>
+      )}
+
+      {legacyMigration && (
+        <SurfaceCard className="space-y-3 p-5">
+          <SectionTitle>Communication Center — tracking</SectionTitle>
+          <p className="text-sm text-muted-foreground">
+            Outbox legacy retirado (ciclo 20). Push vía communication_delivery_queue.
+            Notificaciones con event_id: {legacyMigration.unified_notification_pct ?? 0}%.
+          </p>
+          <MetricGrid>
+            <MetricCard label="Tracking events 7d" value={legacyMigration.tracking_events_7d ?? 0} accent />
+            <MetricCard label="Cola push tracking" value={legacyMigration.comm_queue_tracking_push_pending ?? 0} />
+            <MetricCard label="Archivo legacy" value={legacyMigration.tracking_outbox_archive_rows ?? 0} />
+            <MetricCard label="Notif. legacy 7d" value={legacyMigration.legacy_notifications_7d ?? 0} />
+            <MetricCard label="Variantes A/B tracking" value={legacyMigration.tracking_ab_variants_active ?? 0} />
+            <MetricCard label="Unificación" value={`${legacyMigration.unified_notification_pct ?? 0}%`} />
+          </MetricGrid>
         </SurfaceCard>
       )}
 
@@ -645,6 +915,7 @@ export default function AdminCommunicationsPanel() {
           <SectionTitle>Finance + Communication (7d)</SectionTitle>
           <p className="text-sm text-muted-foreground">
             Eventos financieros emitidos vía Communication Center y actividad del motor financiero.
+            Plantillas `finance_*` disponibles en la sección Plantillas.
           </p>
           <MetricGrid>
             <MetricCard label="Eventos finance" value={financeComm.finance_events_7d ?? 0} accent />
@@ -675,13 +946,37 @@ export default function AdminCommunicationsPanel() {
         </SurfaceCard>
       )}
 
-      {retryQueue && (retryQueue.pending_total > 0 || (retryQueue.recent?.length ?? 0) > 0) && (
+      {retryQueue && (
         <SurfaceCard className="space-y-3 p-5">
-          <SectionTitle>Cola prioritaria de reintentos</SectionTitle>
+          <SectionTitle>Procesador unificado — process-comm-retries</SectionTitle>
           <p className="text-sm text-muted-foreground">
-            Critical primero. Pendientes: {retryQueue.pending_total ?? 0}
-            {retryQueue.critical_pending > 0 ? ` · ${retryQueue.critical_pending} críticos` : ''}.
+            Push tracking, email, SMS, WhatsApp y webhooks en una sola cola prioritaria.
+            {retryQueue.oldest_pending_at
+              ? ` Más antiguo: ${new Date(retryQueue.oldest_pending_at).toLocaleString('es-CO')}.`
+              : ''}
           </p>
+          <MetricGrid>
+            <MetricCard label="Pendientes" value={retryQueue.pending_total ?? 0} accent />
+            <MetricCard label="Push tracking" value={retryQueue.tracking_push_pending ?? 0} />
+            <MetricCard label="Procesando" value={retryQueue.processing ?? 0} />
+            <MetricCard label="Completados 7d" value={retryQueue.completed_7d ?? 0} />
+            <MetricCard label="Fallidos 7d" value={retryQueue.failed_7d ?? 0} />
+            <MetricCard label="Críticos" value={retryQueue.critical_pending ?? 0} />
+          </MetricGrid>
+          {retryQueue.by_channel && Object.keys(retryQueue.by_channel).length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {Object.entries(retryQueue.by_channel).map(([ch, cnt]) => (
+                <Badge key={ch} variant="outline">{ch}: {cnt}</Badge>
+              ))}
+            </div>
+          )}
+          {retryQueue.by_event_key && Object.keys(retryQueue.by_event_key).length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {Object.entries(retryQueue.by_event_key).map(([key, cnt]) => (
+                <Badge key={key} variant="secondary">{key}: {cnt}</Badge>
+              ))}
+            </div>
+          )}
           {retryQueue.by_priority && Object.keys(retryQueue.by_priority).length > 0 && (
             <div className="flex flex-wrap gap-2">
               {Object.entries(retryQueue.by_priority).map(([prio, cnt]) => (
@@ -704,6 +999,230 @@ export default function AdminCommunicationsPanel() {
               ))}
             </ul>
           )}
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => retryMutation.mutate()}
+            loading={retryMutation.isPending}
+            disabled={(retryQueue.pending_total ?? 0) === 0}
+          >
+            Procesar cola ahora
+          </Button>
+        </SurfaceCard>
+      )}
+
+      {queueRecovery && (
+        <SurfaceCard className="space-y-3 p-5">
+          <SectionTitle>Recuperación de cola</SectionTitle>
+          <p className="text-sm text-muted-foreground">
+            check-comm-sla resetea processing atascado (&gt;15 min) y archiva fallidos &gt;30d automáticamente.
+          </p>
+          <MetricGrid>
+            <MetricCard label="Fallidos" value={queueRecovery.failed_total ?? 0} accent={(queueRecovery.failed_total ?? 0) > 0} />
+            <MetricCard label="Processing atascado" value={queueRecovery.stale_processing ?? 0} accent={(queueRecovery.stale_processing ?? 0) > 0} />
+            <MetricCard label="En processing" value={queueRecovery.processing_total ?? 0} />
+          </MetricGrid>
+          {queueArchive && (
+            <MetricGrid>
+              <MetricCard label="Archivo total" value={queueArchive.archived_total ?? 0} />
+              <MetricCard label="Archivados 7d" value={queueArchive.archived_7d ?? 0} />
+              <MetricCard label="Elegibles purge" value={queueArchive.eligible_for_purge ?? 0} accent={(queueArchive.eligible_for_purge ?? 0) > 0} />
+              <MetricCard label="Auto-purge 7d" value={queueArchive.auto_purged_7d ?? 0} />
+            </MetricGrid>
+          )}
+          {queueRecovery.by_event_key && Object.keys(queueRecovery.by_event_key).length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {Object.entries(queueRecovery.by_event_key).map(([key, cnt]) => (
+                <Badge key={key} variant="outline">{key}: {cnt} fallido</Badge>
+              ))}
+            </div>
+          )}
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => requeueFailedMutation.mutate()}
+            loading={requeueFailedMutation.isPending}
+            disabled={(queueRecovery.failed_total ?? 0) === 0}
+          >
+            Reencolar fallidos (máx 50)
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => purgeFailedMutation.mutate()}
+            loading={purgeFailedMutation.isPending}
+          >
+            Archivar fallidos &gt;30d
+          </Button>
+          {failedQueueItems.length > 0 && (
+            <ul className="space-y-1 text-xs text-muted-foreground">
+              {failedQueueItems.map((row) => (
+                <li key={row.id} className="flex flex-wrap gap-2 border-b border-border/30 py-1">
+                  <span className="font-medium text-foreground">{row.event_key}</span>
+                  <span>{row.channel}</span>
+                  <span>intento {row.attempt_count}/{row.max_attempts}</span>
+                  <span className="truncate max-w-[12rem]">{row.last_error || '—'}</span>
+                  <span>{new Date(row.updated_at).toLocaleString('es-CO')}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </SurfaceCard>
+      )}
+
+      {queueHealth.length > 0 && (
+        <SurfaceCard className="space-y-3 p-5">
+          <SectionTitle>Salud de cola — en vivo</SectionTitle>
+          <p className="text-sm text-muted-foreground">
+            Valores actuales vs umbrales. Warning al 80%. Auto-resolución cuando baja del umbral.
+          </p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {queueHealth.map((row) => {
+              const statusVariant = row.status === 'breach' ? 'destructive'
+                : row.status === 'warning' ? 'secondary' : 'default';
+              const statusLabel = row.status === 'breach' ? 'Fuera'
+                : row.status === 'warning' ? 'Atención'
+                  : row.status === 'disabled' ? 'Inactivo' : 'OK';
+              return (
+                <div key={row.metric_key} className="rounded-xl border border-border p-3 space-y-2">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="text-sm font-medium text-foreground">{row.label}</span>
+                    <Badge variant={statusVariant}>{statusLabel}</Badge>
+                  </div>
+                  <p className="text-2xl font-semibold tabular-nums">
+                    {row.current_value}
+                    <span className="text-sm font-normal text-muted-foreground"> / {row.threshold_value}</span>
+                  </p>
+                  <div className="h-2 overflow-hidden rounded-full bg-muted">
+                    <div
+                      className={`h-full rounded-full transition-all ${
+                        row.status === 'breach' ? 'bg-destructive'
+                          : row.status === 'warning' ? 'bg-amber-500' : 'bg-primary'
+                      }`}
+                      style={{ width: `${Math.min(row.utilization_pct ?? 0, 100)}%` }}
+                    />
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    {row.utilization_pct ?? 0}% del umbral
+                    {row.open_alert_id ? ' · alerta abierta' : ''}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </SurfaceCard>
+      )}
+
+      {queueHealthWeekly && (
+        <SurfaceCard className="space-y-2 p-4 text-sm">
+          <SectionTitle>Resumen semanal — cola</SectionTitle>
+          <p className="text-muted-foreground">
+            {queueHealthWeekly.snapshots_total ?? 0} snapshots
+            {' · '}{queueHealthWeekly.breaches_total ?? 0} brechas
+            {' · '}{queueHealthWeekly.queue_alerts_resolved_7d ?? 0} alertas resueltas
+            {' · '}cola actual {queueHealthWeekly.pending_total_now ?? 0}
+          </p>
+        </SurfaceCard>
+      )}
+
+      {queueHealthHistory?.series && Object.keys(queueHealthHistory.series).length > 0 && (
+        <SurfaceCard className="space-y-3 p-5">
+          <SectionTitle>Historial de cola — últimas {queueHealthHistory.hours ?? 24}h</SectionTitle>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className="text-sm text-muted-foreground">
+              Snapshots cada ~15 min vía check-comm-sla. Retención 7 días.
+              {' '}
+              {queueHealthHistory.snapshot_count ?? 0} puntos registrados.
+            </p>
+            <Button size="sm" variant="outline" onClick={exportQueueHealth}>
+              Exportar CSV (7d)
+            </Button>
+          </div>
+          <div className="grid gap-4 lg:grid-cols-2">
+            {Object.entries(queueHealthHistory.series).map(([metricKey, points]) => {
+              const rows = Array.isArray(points) ? points : [];
+              if (!rows.length) return null;
+              const maxVal = rows.reduce((m, r) => Math.max(m, r.current_value ?? 0, r.threshold_value ?? 0), 1);
+              const label = QUEUE_METRIC_LABELS[metricKey] || metricKey;
+              const latest = rows[rows.length - 1];
+              return (
+                <div key={metricKey} className="rounded-xl border border-border p-3 space-y-2">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="text-sm font-medium">{label}</span>
+                    <span className="text-xs text-muted-foreground">
+                      ahora: {latest?.current_value ?? 0} / umbral {latest?.threshold_value ?? '—'}
+                    </span>
+                  </div>
+                  <div className="flex items-end gap-0.5 h-16">
+                    {rows.slice(-48).map((pt, idx) => (
+                      <div
+                        key={`${metricKey}-${idx}`}
+                        title={`${new Date(pt.captured_at).toLocaleString('es-CO')}: ${pt.current_value}`}
+                        className={`flex-1 min-w-[2px] rounded-t ${
+                          pt.status === 'breach' ? 'bg-destructive'
+                            : pt.status === 'warning' ? 'bg-amber-500' : 'bg-primary/60'
+                        }`}
+                        style={{ height: `${Math.max(8, ((pt.current_value ?? 0) / maxVal) * 100)}%` }}
+                      />
+                    ))}
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    {rows.length} muestras · máx {maxVal}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </SurfaceCard>
+      )}
+
+      {queueThresholds.length > 0 && (
+        <SurfaceCard className="space-y-3 p-5">
+          <SectionTitle>Umbrales de alerta — cola</SectionTitle>
+          <p className="text-sm text-muted-foreground">
+            Si se supera el umbral, check-comm-sla crea alerta y notifica admins (dedup 2h).
+          </p>
+          <ul className="space-y-2">
+            {queueThresholds.map((t) => (
+              <li key={t.metric_key} className="flex flex-wrap items-center gap-2 text-sm">
+                <span className="min-w-[12rem] font-medium text-foreground">{t.label}</span>
+                <Input
+                  type="number"
+                  min={1}
+                  className="w-24"
+                  value={thresholdDrafts[t.metric_key] ?? t.threshold_value}
+                  onChange={(e) => setThresholdDrafts((prev) => ({
+                    ...prev,
+                    [t.metric_key]: Number(e.target.value),
+                  }))}
+                />
+                <Button
+                  size="sm"
+                  variant="outline"
+                  loading={saveThresholdMutation.isPending}
+                  onClick={() => saveThresholdMutation.mutate({
+                    metricKey: t.metric_key,
+                    value: thresholdDrafts[t.metric_key] ?? t.threshold_value,
+                    isActive: t.is_active,
+                  })}
+                >
+                  Guardar
+                </Button>
+                <Button
+                  size="sm"
+                  variant={t.is_active ? 'secondary' : 'outline'}
+                  loading={saveThresholdMutation.isPending}
+                  onClick={() => saveThresholdMutation.mutate({
+                    metricKey: t.metric_key,
+                    value: thresholdDrafts[t.metric_key] ?? t.threshold_value,
+                    isActive: !t.is_active,
+                  })}
+                >
+                  {t.is_active ? 'Activo' : 'Inactivo'}
+                </Button>
+              </li>
+            ))}
+          </ul>
         </SurfaceCard>
       )}
 
@@ -844,7 +1363,7 @@ export default function AdminCommunicationsPanel() {
           onClick={() => retryMutation.mutate()}
           loading={retryMutation.isPending}
         >
-          Procesar reintentos
+          Procesar cola unificada
         </Button>
         <Button
           size="sm"
@@ -889,6 +1408,17 @@ export default function AdminCommunicationsPanel() {
         >
           Enviar informe a admins
         </Button>
+        <Button size="sm" variant="outline" onClick={exportConsentDigest}>
+          Informe consent. (.md)
+        </Button>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => consentDigestMutation.mutate()}
+          loading={consentDigestMutation.isPending}
+        >
+          Enviar digest consent. a admins
+        </Button>
         <Button
           size="sm"
           variant="outline"
@@ -899,6 +1429,20 @@ export default function AdminCommunicationsPanel() {
         </Button>
         <Button size="sm" variant="outline" onClick={exportCsv}>
           Exportar CSV (7d)
+        </Button>
+        <Button size="sm" variant="outline" onClick={exportQueueHealth}>
+          Exportar cola (7d)
+        </Button>
+        <Button size="sm" variant="outline" onClick={exportQueueHealthReport}>
+          Informe cola (.md)
+        </Button>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => queueHealthReportMutation.mutate()}
+          loading={queueHealthReportMutation.isPending}
+        >
+          Enviar informe cola
         </Button>
       </div>
 

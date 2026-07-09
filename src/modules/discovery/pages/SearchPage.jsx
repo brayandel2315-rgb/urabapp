@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSearchParams, useLocation, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import PageLayout from '@/design-system/layouts/PageLayout';
@@ -18,6 +18,7 @@ import DiscoverSearchBar from '../components/DiscoverSearchBar';
 import DiscoverSearchHub from '../components/DiscoverSearchHub';
 import DiscoverSearchResults from '../components/DiscoverSearchResults';
 import { STORE } from '@/utils/marketplace-copy';
+import { emitCommEvent } from '@/communication';
 
 export default function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -74,6 +75,23 @@ export default function SearchPage() {
   };
 
   const showHub = debouncedQ.length < 2;
+  const lastTrackedQuery = useRef('');
+
+  useEffect(() => {
+    if (!user?.id || debouncedQ.length < 2 || isLoading || isError || !data) return;
+    if (lastTrackedQuery.current === debouncedQ) return;
+    lastTrackedQuery.current = debouncedQ;
+    emitCommEvent('discovery_search', {
+      recipientId: user.id,
+      actorId: user.id,
+      payload: {
+        q: debouncedQ,
+        municipio,
+        results: data.businesses?.length ?? data.total ?? 0,
+      },
+      push: false,
+    }).catch(() => {});
+  }, [user?.id, debouncedQ, data, isLoading, isError, municipio]);
 
   return (
     <PageLayout title={false} maxWidth="xl">

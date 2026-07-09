@@ -19,7 +19,7 @@ export default function HomeTrendingChips({ chips = [], onSelect, className, com
       )}
       {compact && (
         <p id="home-trending-title" className="mb-2 text-xs font-bold uppercase tracking-wide text-[#4A6278]">
-          Populares en tu zona
+          Búsquedas frecuentes
         </p>
       )}
       <div className="flex flex-wrap gap-2">

@@ -15,10 +15,13 @@ import ClientAppHeader from '../components/layout/ClientAppHeader';
 import ClientDesktopHeader from '../components/layout/ClientDesktopHeader';
 import GeoBootstrap from '../components/geo/GeoBootstrap';
 import ClientOnboardingTour from '../components/onboarding/ClientOnboardingTour';
+import PwaInstallFab from '../components/pwa/PwaInstallFab';
+import PwaMobileInstallBanner from '../components/pwa/PwaMobileInstallBanner';
 import { CLIENT_BOTTOM_TABS } from '@/app/clientNav';
 import { useClientLightTheme } from '@/hooks/useClientLightTheme';
 import { useMarketplaceLiveRefresh } from '@/hooks/useMarketplaceLiveRefresh';
 import { useCatalogLocation } from '@/hooks/useCatalogLocation';
+import { useUnlockDocumentScroll } from '@/hooks/useUnlockDocumentScroll';
 
 export default function ClientLayout() {
   const cartCount = useCartStore((s) => s.getItemCount());
@@ -27,6 +30,7 @@ export default function ClientLayout() {
   const communicationBadge = useCommunicationBadge(user?.id);
 
   useClientLightTheme();
+  useUnlockDocumentScroll();
   useNotificationsRealtime(user?.id);
   const { activeMunicipio } = useCatalogLocation();
   useMarketplaceLiveRefresh(activeMunicipio);
@@ -42,6 +46,8 @@ export default function ClientLayout() {
       <ClientDesktopHeader notificationCount={communicationBadge} />
       <GeoBootstrap />
       <ClientOnboardingTour />
+      <PwaMobileInstallBanner />
+      <PwaInstallFab />
       <OfflineBanner />
       <CommunicationBanner />
       <AbandonedCartSync />

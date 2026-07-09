@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { updateDriverLocation } from '../services/rider.service';
-import { recordOrderLocationPing, sendProximityPushToCustomer } from '../services/order-tracking.service';
+import { recordOrderLocationPing } from '../services/order-tracking.service';
 import { emitRiderLocation, isSocketEnabled } from '../services/socket.service';
 import { enqueueGpsPing, flushGpsQueue } from '../utils/gps-offline-queue';
 import { startAdaptiveWatch } from '@/utils/geolocation-engine';
@@ -50,10 +50,7 @@ export function useRiderLocationShare({
   const pushPing = useCallback(async (payload) => {
     if (!orderId) return;
     try {
-      const result = await recordOrderLocationPing(orderId, payload);
-      if (result?.proximity_event) {
-        sendProximityPushToCustomer(orderId, result.proximity_event).catch(() => {});
-      }
+      await recordOrderLocationPing(orderId, payload);
     } catch {
       enqueueGpsPing({ orderId, ...payload });
     }

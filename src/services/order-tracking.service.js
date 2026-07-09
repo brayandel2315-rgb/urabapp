@@ -151,43 +151,6 @@ export async function getActiveShipmentsForTracking({ municipio } = {}) {
   return data ?? [];
 }
 
-const PROXIMITY_PUSH_COPY = {
-  arriving_300m: { title: 'Tu pedido está cerca', body: 'El repartidor está a ~300 m' },
-  arriving_100m: { title: '¡Casi llega!', body: 'El repartidor está a ~100 m' },
-  arriving_50m: { title: 'A la vuelta de la esquina', body: 'El repartidor está muy cerca' },
-  arrived: { title: 'El repartidor llegó', body: 'Ya está en tu dirección' },
-  picked_up: { title: 'Pedido recogido', body: 'Va en camino hacia ti' },
-  en_route: { title: 'Va en camino', body: 'Tu pedido está en ruta' },
-  rider_assigned: { title: 'Repartidor asignado', body: 'Ya hay mensajero para tu pedido' },
-};
-
-export async function sendProximityPushToCustomer(orderId, eventType) {
-  if (!isSupabaseConfigured || !orderId || !PROXIMITY_PUSH_COPY[eventType]) return null;
-
-  const order = await sbFetch(
-    supabase.from('orders').select('customer_id, order_number').eq('id', orderId).single(),
-    'Tiempo agotado cargando pedido',
-  );
-  if (!order?.customer_id) return null;
-
-  const copy = PROXIMITY_PUSH_COPY[eventType];
-  try {
-    await invokeEdgeFunction('send-push', {
-      userId: order.customer_id,
-      title: copy.title,
-      body: `${copy.body}${order.order_number ? ` · ${order.order_number}` : ''}`,
-      data: { orderId, eventType, url: `/pedidos/${orderId}` },
-    });
-    await supabase.rpc('mark_tracking_push_sent', {
-      p_order_id: orderId,
-      p_event_type: eventType,
-    });
-  } catch {
-    /* in-app notification ya creada por trigger */
-  }
-  return { sent: true };
-}
-
 export async function ensureDeliveryQr(orderId) {
   if (!isSupabaseConfigured || !orderId) return null;
   const { data, error } = await supabase.rpc('ensure_delivery_qr', { p_order_id: orderId });
@@ -262,14 +225,38 @@ export async function getOrdersForTrackingAudit({ days = 7, limit = 40 } = {}) {
   return data ?? [];
 }
 
-export async function getTrackingPushOutboxStats() {
-  if (!isSupabaseConfigured) return { pending: 0, sent: 0, failed: 0 };
-  const { data, error } = await supabase.rpc('get_tracking_push_outbox_stats');
-  if (error) return { pending: 0, sent: 0, failed: 0 };
-  return typeof data === 'string' ? JSON.parse(data) : (data ?? { pending: 0, sent: 0, failed: 0 });
+export async function getTrackingPushQueueStats() {
+  if (!isSupabaseConfigured) {
+    return {
+      queue_pending: 0,
+      queue_processing: 0,
+      queue_completed_7d: 0,
+      queue_failed_7d: 0,
+      archive_rows: 0,
+      outbox_retired: true,
+    };
+  }
+  const { data, error } = await supabase.rpc('get_tracking_push_queue_stats');
+  if (error) {
+    return {
+      queue_pending: 0,
+      queue_processing: 0,
+      queue_completed_7d: 0,
+      queue_failed_7d: 0,
+      archive_rows: 0,
+      outbox_retired: true,
+    };
+  }
+  return typeof data === 'string' ? JSON.parse(data) : (data ?? { queue_pending: 0, outbox_retired: true });
 }
 
-export async function dispatchTrackingPushOutbox() {
+/** @deprecated usar getTrackingPushQueueStats */
+export const getTrackingPushOutboxStats = getTrackingPushQueueStats;
+
+export async function dispatchTrackingPushQueue() {
   if (!isSupabaseConfigured) return null;
-  return invokeEdgeFunction('dispatch-tracking-push', {});
+  return invokeEdgeFunction('process-comm-retries', {});
 }
+
+/** @deprecated usar dispatchTrackingPushQueue */
+export const dispatchTrackingPushOutbox = dispatchTrackingPushQueue;

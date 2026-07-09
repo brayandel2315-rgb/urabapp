@@ -108,7 +108,37 @@ Deno.serve(async (req) => {
       return jsonResponse({ error: error.message, alerts: 0 }, 500);
     }
 
+    const { data: queueAlerts, error: queueErr } = await supabase.rpc('check_communication_queue_thresholds');
+    if (queueErr) {
+      return jsonResponse({ error: queueErr.message, alerts: 0 }, 500);
+    }
+
+    const { data: resolvedQueueAlerts, error: resolveErr } = await supabase.rpc('auto_resolve_queue_threshold_alerts');
+    if (resolveErr) {
+      return jsonResponse({ error: resolveErr.message, alerts: 0 }, 500);
+    }
+
+    const { data: snapshotCount, error: snapErr } = await supabase.rpc('record_queue_health_snapshot');
+    if (snapErr) {
+      return jsonResponse({ error: snapErr.message, alerts: 0 }, 500);
+    }
+
+    const { data: staleReset, error: staleErr } = await supabase.rpc('reset_stale_communication_queue', {
+      p_stale_minutes: 15,
+    });
+    if (staleErr) {
+      return jsonResponse({ error: staleErr.message, alerts: 0 }, 500);
+    }
+
+    const { data: autoPurged, error: purgeErr } = await supabase.rpc('auto_purge_failed_communications', {
+      p_days: 30,
+    });
+    if (purgeErr) {
+      return jsonResponse({ error: purgeErr.message, alerts: 0 }, 500);
+    }
+
     const newAlerts = (alerts ?? []) as SlaAlert[];
+    const newQueueAlerts = (queueAlerts ?? []) as SlaAlert[];
     let notified = 0;
     let webhooks = 0;
 
@@ -117,6 +147,82 @@ Deno.serve(async (req) => {
       const title = `Alerta SLA: ${alert.channel}`;
       const body = alert.message || `Métrica fuera de objetivo en canal ${alert.channel}`;
       notified += await notifyAdminsForAlert(supabase, alert, 'sla_breach_alert', title, body);
+    }
+
+    let queueNotified = 0;
+    let queueWebhooks = 0;
+    for (const alert of newQueueAlerts) {
+      queueWebhooks += await deliverSlaWebhooks(supabase, alert, 'queue_threshold_alert');
+      const title = 'Alerta cola de comunicaciones';
+      const body = alert.message || `Umbral superado en métrica ${alert.alert_type}`;
+      queueNotified += await notifyAdminsForAlert(
+        supabase, alert, 'queue_threshold_alert', title, body,
+      );
+    }
+
+    const resolvedAlerts = (resolvedQueueAlerts ?? []) as SlaAlert[];
+    let resolvedNotified = 0;
+    for (const alert of resolvedAlerts) {
+      const title = 'Cola normalizada';
+      const body = alert.message
+        ? `${alert.message} — métrica por debajo del umbral`
+        : `Alerta ${alert.alert_type} resuelta automáticamente`;
+      resolvedNotified += await notifyAdminsForAlert(
+        supabase, alert, 'queue_threshold_resolved', title, body,
+      );
+    }
+
+    const staleResetCount = staleReset ?? 0;
+    let staleResetNotified = 0;
+    if (staleResetCount > 0) {
+      const title = 'Processing atascado recuperado';
+      const body = `${staleResetCount} entrega(s) devuelta(s) a pending tras >15 min en processing`;
+      const { data: admins } = await supabase.rpc('get_admin_user_ids');
+      for (const row of admins ?? []) {
+        const adminId = (row as { user_id: string }).user_id;
+        try {
+          await emitCommunicationEvent({
+            eventKey: 'queue_stale_reset',
+            recipientId: adminId,
+            category: 'admin',
+            priority: 'medium',
+            title,
+            body,
+            deepLink: '/admin',
+            payload: { reset_count: staleResetCount },
+          });
+          staleResetNotified += 1;
+        } catch {
+          /* ignore */
+        }
+      }
+    }
+
+    const autoPurgedCount = autoPurged ?? 0;
+    let autoPurgedNotified = 0;
+    if (autoPurgedCount > 0) {
+      const title = 'Fallidos archivados automáticamente';
+      const body = `${autoPurgedCount} entrega(s) fallida(s) >30d movidas al archivo por cron`;
+      const { data: admins } = await supabase.rpc('get_admin_user_ids');
+      for (const row of admins ?? []) {
+        const adminId = (row as { user_id: string }).user_id;
+        try {
+          await emitCommunicationEvent({
+            eventKey: 'queue_failed_purged',
+            recipientId: adminId,
+            category: 'admin',
+            priority: 'silent',
+            title,
+            body,
+            deepLink: '/admin',
+            payload: { purged_count: autoPurgedCount, source: 'auto_purge' },
+            push: false,
+          });
+          autoPurgedNotified += 1;
+        } catch {
+          /* ignore */
+        }
+      }
     }
 
     const { data: escalated, error: escErr } = await supabase.rpc('escalate_stale_sla_alerts', { p_hours: 48 });
@@ -144,6 +250,16 @@ Deno.serve(async (req) => {
       alerts: newAlerts.length,
       notified,
       webhooks,
+      queue_alerts: newQueueAlerts.length,
+      queue_notified: queueNotified,
+      queue_webhooks: queueWebhooks,
+      queue_resolved: resolvedAlerts.length,
+      queue_resolved_notified: resolvedNotified,
+      queue_snapshots_recorded: snapshotCount ?? 0,
+      queue_stale_reset: staleResetCount,
+      queue_stale_notified: staleResetNotified,
+      queue_auto_purged: autoPurgedCount,
+      queue_auto_purged_notified: autoPurgedNotified,
       escalated: escalatedAlerts.length,
       escalated_notified: escalatedNotified,
       escalated_webhooks: escalatedWebhooks,

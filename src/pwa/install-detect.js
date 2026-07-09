@@ -107,10 +107,60 @@ export const IOS_OTHER_STEP = {
   cta: 'Copiar enlace',
 };
 
+export const ANDROID_WIZARD_STEPS = [
+  {
+    id: 'welcome',
+    title: 'Urabapp en tu Android',
+    subtitle: 'Quedará con el icono verde en tu pantalla de inicio — sin Play Store.',
+    cta: 'Empezar guía',
+    showHomePreview: true,
+  },
+  {
+    id: 'chrome-menu',
+    title: 'Paso 1 · Menú del navegador',
+    subtitle: 'Toca los tres puntos ⋮ arriba a la derecha en Chrome.',
+    cta: 'Ya abrí el menú',
+    coach: 'chrome-menu',
+    hint: 'Están en la esquina superior derecha',
+  },
+  {
+    id: 'install-item',
+    title: 'Paso 2 · Instalar app',
+    subtitle: 'Busca «Instalar app» o «Agregar a pantalla de inicio» y tócala.',
+    cta: 'Ya la encontré',
+    mock: 'chrome-menu',
+    hint: 'Puede decir también «Instalar aplicación»',
+  },
+  {
+    id: 'confirm',
+    title: 'Paso 3 · Confirmar',
+    subtitle: 'Toca Instalar en el cuadro de confirmación.',
+    cta: 'Ya la instalé',
+    mock: 'confirm-dialog',
+    hint: 'Verás el icono verde de Urabapp antes de aceptar',
+  },
+  {
+    id: 'done',
+    title: '¡Listo!',
+    subtitle: 'Busca Urabapp en tu pantalla de inicio o en el cajón de apps.',
+    cta: 'Entendido',
+    showHomePreview: true,
+    success: true,
+    feedback: true,
+  },
+];
+
+export const ANDROID_ONE_TAP_STEP = {
+  id: 'one-tap',
+  title: 'Instalación en un toque',
+  subtitle: 'Tu navegador permite instalar Urabapp directamente — sin pasos manuales.',
+  cta: 'Instalar ahora',
+};
+
 export const INSTALL_COPY = {
   ios: {
     title: 'Agregar Urabapp a tu inicio',
-    subtitle: 'Te guiamos paso a paso — quedará con el icono de la app',
+    subtitle: 'Te guiamos paso a paso con dibujos en pantalla — como una app nativa',
     cta: 'Ver guía paso a paso',
   },
   'ios-other': {
@@ -120,8 +170,8 @@ export const INSTALL_COPY = {
   },
   android: {
     title: 'Instalar Urabapp',
-    subtitle: 'Acceso directo con icono en tu pantalla de inicio',
-    cta: 'Instalar ahora',
+    subtitle: 'Guía visual paso a paso — icono en tu pantalla de inicio',
+    cta: 'Ver guía paso a paso',
   },
   desktop: {
     title: 'Instalar Urabapp en tu PC',

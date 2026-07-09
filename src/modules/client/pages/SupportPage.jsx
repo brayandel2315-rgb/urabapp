@@ -17,6 +17,7 @@ import { useSupportMessagesRealtime } from '../../../hooks/useMessagesRealtime';
 import { useAuthStore } from '../../../store/authStore';
 import { isClientAuthenticated } from '@/app/client-auth-policy';
 import { toast } from '../../../utils/toast';
+import { emitCommEvent } from '@/communication';
 import { buildLoginRedirect } from '@/utils/auth-routes';
 import ServiceIconTile from '@/design-system/patterns/ServiceIconTile';
 import AppIcon from '@/design-system/icons/AppIcon';
@@ -62,6 +63,11 @@ export default function SupportPage() {
       setSubject('');
       setMessage('');
       toast('Consulta enviada — te respondemos aquí');
+      emitCommEvent('support_ticket_created', {
+        recipientId: user.id,
+        actorId: user.id,
+        payload: { ticket_id: ticket.id, subject: ticket.subject },
+      }).catch(() => {});
     },
     onError: (err) => toast(err.message, 'error'),
   });

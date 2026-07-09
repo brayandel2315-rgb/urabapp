@@ -23,12 +23,12 @@ export const CLIENT_SERVICE_LINKS = [
   { to: '/soporte', label: 'Ayuda', icon: 'headset', hint: 'Soporte en app' },
 ];
 
-/** Móvil: barra inferior uniforme — sin tab destacado que compita con la búsqueda */
+/** Móvil: dock con carrito central elevado (estilo delivery) */
 export const CLIENT_BOTTOM_TABS = [
   { to: CLIENT_HOME, icon: 'home', label: 'Inicio', exact: true },
   { to: CLIENT_SEARCH, icon: 'search', label: 'Explorar' },
+  { to: '/carrito', icon: 'cart', label: 'Carrito', badgeKey: 'cart', featured: true },
   { to: CLIENT_OFFERS, icon: 'tag', label: 'Ofertas' },
-  { to: '/carrito', icon: 'cart', label: 'Carrito', badgeKey: 'cart' },
   { to: CLIENT_ACCOUNT, icon: 'profile', label: 'Cuenta' },
 ];
 
@@ -39,6 +39,9 @@ export function isClientNavActive(pathname, to, exact = false) {
   }
   if (to === CLIENT_ACCOUNT) {
     return pathname.startsWith('/cuenta');
+  }
+  if (to === '/carrito') {
+    return pathname === '/carrito' || pathname === '/checkout';
   }
   return pathname === to || pathname.startsWith(`${to}/`);
 }

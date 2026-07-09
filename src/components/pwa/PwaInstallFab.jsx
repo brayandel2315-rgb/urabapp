@@ -23,7 +23,7 @@ export default function PwaInstallFab({ className }) {
     <div
       className={cn(
         'pointer-events-none fixed z-[55] flex flex-col items-end gap-2',
-        'bottom-[calc(4.75rem+env(safe-area-inset-bottom))] right-3',
+        'bottom-[calc(var(--mobile-nav-space,5.25rem)+0.5rem)] right-3',
         'lg:bottom-6 lg:right-6',
         className,
       )}
@@ -36,7 +36,7 @@ export default function PwaInstallFab({ className }) {
         aria-label="Instalar Urabapp en tu dispositivo"
       >
         <AppIcon name="download" size="sm" className="text-primary-foreground" />
-        {installing ? 'Instalando…' : isIos ? 'Agregar a inicio' : 'Instalar app'}
+        {installing ? 'Instalando…' : isIos ? 'Guía iPhone' : 'Instalar app'}
       </button>
       <button
         type="button"

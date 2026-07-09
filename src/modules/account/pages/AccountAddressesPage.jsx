@@ -9,6 +9,7 @@ import { useLocationStore, selectHomeMunicipio } from '@/store/locationStore';
 import { getUserAddresses, createAddress, deleteAddress, setDefaultAddress } from '@/services/address.service';
 import { isValidAddress } from '@/utils/validate';
 import { toast } from '@/utils/toast';
+import { emitCommEvent } from '@/communication';
 import PlacesAutocomplete from '@/components/geo/PlacesAutocomplete';
 import AppIcon from '@/design-system/icons/AppIcon';
 
@@ -43,6 +44,11 @@ export default function AccountAddressesPage() {
       queryClient.invalidateQueries({ queryKey: ['addresses'] });
       setNewAddr({ label: 'Casa', address: '', reference: '', barrio: '', latitude: null, longitude: null });
       toast('Dirección guardada');
+      emitCommEvent('account_address_added', {
+        recipientId: user.id,
+        actorId: user.id,
+        payload: { label: newAddr.label, municipio: homeMunicipio },
+      }).catch(() => {});
     },
     onError: (err) => toast(err.message, 'error'),
   });

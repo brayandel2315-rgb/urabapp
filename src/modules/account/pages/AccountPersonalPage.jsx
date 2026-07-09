@@ -7,6 +7,7 @@ import DetectedLocationChip from '@/components/geo/DetectedLocationChip';
 import { useAuthStore } from '@/store/authStore';
 import { useLocationStore, selectHomeMunicipio } from '@/store/locationStore';
 import { updateProfile } from '@/services/auth.service';
+import { emitCommEvent } from '@/communication';
 import { saveUserDocument } from '@/services/promo.service';
 import { formatCOP } from '@/utils/currency';
 import { WELCOME_BENEFIT } from '@/utils/constants';
@@ -34,6 +35,11 @@ export default function AccountPersonalPage() {
       if (updated) setProfile(updated);
       setEditing(false);
       toast('Perfil actualizado');
+      emitCommEvent('account_profile_updated', {
+        recipientId: user.id,
+        actorId: user.id,
+        payload: { fields: ['full_name', 'phone'] },
+      }).catch(() => {});
     } catch (err) {
       toast(err.message, 'error');
     } finally {

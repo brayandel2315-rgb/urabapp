@@ -8,7 +8,7 @@ import OrderGpsRouteReplay from '@/components/tracking/OrderGpsRouteReplay';
 import OrderEtaHistoryChart from '@/components/tracking/OrderEtaHistoryChart';
 import AdminOperationsMap from '@/components/tracking/AdminOperationsMap';
 import AdminTrackingAuditPanel from './AdminTrackingAuditPanel';
-import TrackingPushOutboxPanel from '@/components/tracking/TrackingPushOutboxPanel';
+import TrackingPushQueuePanel from '@/components/tracking/TrackingPushQueuePanel';
 import { useState } from 'react';
 
 function ActiveOrderRow({ order }) {
@@ -117,7 +117,7 @@ export default function AdminLiveTrackingPanel() {
         <AdminTrackingAuditPanel />
       ) : (
         <>
-      <TrackingPushOutboxPanel />
+      <TrackingPushQueuePanel />
       <div className="grid gap-3 sm:grid-cols-4">
         <MetricCard label="Pedidos activos" value={orders.length} icon="package" />
         <MetricCard label="Envíos activos" value={shipments.length} icon="envios" />

@@ -9,10 +9,10 @@ import { useCatalogLocation } from '@/hooks/useCatalogLocation';
 import { getHomeDiscovery, getHomeDiscoveryPlaceholder } from '@/services/discovery.service';
 import { useHomeAnalytics } from './hooks/useHomeAnalytics';
 import HomeCategoryRail from './components/categories/HomeCategoryRail';
-import HomeFooter from './components/footer/HomeFooter';
 import HomeCatalogAwayBanner from './components/catalog/HomeCatalogAwayBanner';
 import HomeFeaturedRow from './components/discovery/HomeFeaturedRow';
 import HomePromotionsStrip from './components/discovery/HomePromotionsStrip';
+import HomePopularProductsRow from './components/discovery/HomePopularProductsRow';
 import HomeTrendingChips from './components/trending/HomeTrendingChips';
 import HomeMarketPulse from './components/hero/HomeMarketPulse';
 import HomeFeedbackCard from './components/feedback/HomeFeedbackCard';
@@ -76,6 +76,7 @@ export default function HomeMvpPage() {
   const featuredBusinesses = discovery?.featured ?? [];
   const discoveryLoading = isFetching && featuredBusinesses.length === 0 && !isError;
   const hasPromos = (discovery?.promotionsByMerchant?.length ?? 0) > 0 || (discovery?.promotions?.length ?? 0) > 0;
+  const popularProducts = discovery?.popularProducts ?? [];
   const topRestaurants = featuredBusinesses.slice(0, 8);
 
   const headerLocation = useMemo(() => {
@@ -89,6 +90,14 @@ export default function HomeMvpPage() {
     trackConversion('trending_chip', { chip });
     navigate(`/search?q=${encodeURIComponent(chip)}`);
   }, [navigate, trackConversion]);
+
+  const handlePopularProduct = useCallback((product) => {
+    trackConversion('popular_product_click', {
+      productId: product.id,
+      businessId: product.businessId,
+      orderCount: product.orderCount,
+    });
+  }, [trackConversion]);
 
   const handleCategoryNavigate = useCallback((catId) => {
     trackCategory(catId);
@@ -211,6 +220,13 @@ export default function HomeMvpPage() {
 
           <HomeCategoryRail onNavigate={handleCategoryNavigate} variant="mobile" />
 
+          <HomePopularProductsRow
+            products={popularProducts}
+            isLoading={discoveryLoading}
+            municipio={viewMuni}
+            onProductClick={handlePopularProduct}
+          />
+
           {(discovery?.trending?.length ?? 0) > 0 && (
             <section className="home-surface-card">
               <HomeTrendingChips
@@ -223,8 +239,6 @@ export default function HomeMvpPage() {
 
           <HomeFeedbackCard deferUntilVisit={2} />
         </div>
-
-        <HomeFooter />
       </div>
 
       <div className="hidden lg:block">
@@ -249,6 +263,7 @@ export default function HomeMvpPage() {
           onEnableIntermunicipal={setIntermunicipalCatalog}
           onCategoryNavigate={handleCategoryNavigate}
           onTrending={handleTrending}
+          onPopularProduct={handlePopularProduct}
         />
       </div>
     </>

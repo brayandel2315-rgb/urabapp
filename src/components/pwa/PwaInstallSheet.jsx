@@ -7,6 +7,7 @@ import { BRAND } from '@/utils/constants';
 import { usePwaInstallStore } from '@/store/pwaInstallStore';
 import { APP_ICON_URL, INSTALL_COPY } from '@/pwa/install-detect';
 import PwaIosInstallWizard from './PwaIosInstallWizard';
+import PwaAndroidInstallWizard from './PwaAndroidInstallWizard';
 import { toast } from '@/utils/toast';
 
 export default function PwaInstallSheet() {
@@ -16,17 +17,21 @@ export default function PwaInstallSheet() {
   const deferredPrompt = usePwaInstallStore((s) => s.deferredPrompt);
   const installing = usePwaInstallStore((s) => s.installing);
   const triggerInstall = usePwaInstallStore((s) => s.triggerInstall);
+  const runNativeInstall = usePwaInstallStore((s) => s.runNativeInstall);
   const dismissPrompt = usePwaInstallStore((s) => s.dismissPrompt);
   const resetIosWizard = usePwaInstallStore((s) => s.resetIosWizard);
+  const resetAndroidWizard = usePwaInstallStore((s) => s.resetAndroidWizard);
 
   const isIosFlow = platform === 'ios' || platform === 'ios-other';
+  const isAndroidFlow = platform === 'android';
   const copyKey = deferredPrompt ? (platform === 'desktop' ? 'desktop' : 'android') : platform;
   const copy = INSTALL_COPY[copyKey] || INSTALL_COPY.other;
 
   const handleClose = useCallback(() => {
     closeSheet();
     if (isIosFlow) resetIosWizard();
-  }, [closeSheet, isIosFlow, resetIosWizard]);
+    if (isAndroidFlow) resetAndroidWizard();
+  }, [closeSheet, isIosFlow, isAndroidFlow, resetIosWizard, resetAndroidWizard]);
 
   const handleDismiss = useCallback(() => {
     dismissPrompt(14);
@@ -34,14 +39,19 @@ export default function PwaInstallSheet() {
   }, [dismissPrompt, handleClose]);
 
   const handleNativeInstall = useCallback(async () => {
-    const { outcome } = await triggerInstall();
-    closeSheet();
-    if (outcome === 'dismissed') {
-      toast('Puedes instalar cuando quieras desde el menú de servicios (ícono verde, abajo a la izquierda)', 'info');
-    } else if (outcome === 'error') {
-      toast('No se pudo abrir el instalador. Prueba desde el menú del navegador.', 'error');
+    const { outcome } = await runNativeInstall();
+    if (outcome === 'accepted') {
+      closeSheet();
+      return;
     }
-  }, [triggerInstall, closeSheet]);
+    if (outcome === 'dismissed') {
+      toast('Puedes seguir la guía paso a paso cuando quieras', 'info');
+      return;
+    }
+    if (outcome === 'error') {
+      toast('No se pudo abrir el instalador. Sigue la guía visual.', 'error');
+    }
+  }, [runNativeInstall, closeSheet]);
 
   if (platform === 'installed') return null;
 
@@ -74,6 +84,13 @@ export default function PwaInstallSheet() {
                 platform={platform}
                 onClose={handleClose}
                 onDismiss={handleDismiss}
+              />
+            ) : isAndroidFlow ? (
+              <PwaAndroidInstallWizard
+                onClose={handleClose}
+                onDismiss={handleDismiss}
+                hasNativePrompt={Boolean(deferredPrompt)}
+                onNativeInstall={handleNativeInstall}
               />
             ) : (
               <>
