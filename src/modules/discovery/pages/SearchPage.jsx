@@ -77,18 +77,14 @@ export default function SearchPage() {
 
   return (
     <PageLayout title={false} maxWidth="xl">
-      <div className="discover-page-hero">
-        <div className="discover-page-hero__glow" aria-hidden />
-        <div className="relative space-y-1">
-          <p className="text-xs font-bold uppercase tracking-widest text-primary">Descubre Urabá</p>
-          <h1 className="font-display text-[1.6rem] font-black leading-tight text-foreground sm:text-2xl">
-            ¿Qué se te antoja hoy?
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            {STORE.many}, productos y servicios en {municipio}
-          </p>
-        </div>
-        <DetectedLocationChip className="mt-3 max-w-xs" />
+      <div className="mb-4 space-y-2">
+        <h1 className="font-display text-2xl font-bold leading-tight text-[#0D2B45]">
+          ¿Qué se te antoja hoy?
+        </h1>
+        <p className="text-sm text-[#4A6278]">
+          {STORE.many} y productos en {municipio}
+        </p>
+        <DetectedLocationChip className="max-w-xs" />
       </div>
 
       <div className="sticky top-[3.25rem] z-30 -mx-4 bg-background/90 px-4 py-3 backdrop-blur-xl sm:top-16">
@@ -127,12 +123,9 @@ export default function SearchPage() {
                 title={`Sin resultados para “${debouncedQ}”`}
                 description="Prueba otra palabra, explora por categoría o pide un mandado."
                 action={(
-                  <div className="flex flex-wrap justify-center gap-2">
-                    <Button variant="outline" onClick={() => { setQ(''); setSearchParams({}, { replace: true }); }}>
-                      Limpiar búsqueda
-                    </Button>
-                    <Link to="/mandado"><Button variant="primary">Pedir mandado</Button></Link>
-                  </div>
+                  <Link to="/mandado">
+                    <Button variant="primary">Pedir mandado</Button>
+                  </Link>
                 )}
               />
             ) : null

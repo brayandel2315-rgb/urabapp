@@ -10,12 +10,10 @@ import OfferFeaturedGrid from '@/components/offers/OfferFeaturedGrid';
 import OfferFlashSection from '@/components/offers/OfferFlashSection';
 import OfferMerchantSection from '@/components/offers/OfferMerchantSection';
 import OfferBundlesSection from '@/components/offers/OfferBundlesSection';
-import OfferMissionsSection from '@/components/offers/OfferMissionsSection';
 import OffersSkeleton from '@/components/offers/OffersSkeleton';
 import { OffersEmptyState } from '@/components/offers/OffersEmptyState';
 import { SurfaceCard } from '@/design-system/patterns/SurfaceCard';
 import { Link } from 'react-router-dom';
-import Button from '@/components/ui/Button';
 import { getOffersFeed, trackOfferEvent } from '@/services/offers.service';
 import { useCatalogLocation } from '@/hooks/useCatalogLocation';
 import { useLocationStore, selectActiveBarrio } from '@/store/locationStore';
@@ -41,7 +39,7 @@ export default function OffersPage() {
   const toggleSave = useOffersStore((s) => s.toggleSave);
   const isSaved = useOffersStore((s) => s.isSaved);
 
-  const { data: feed, isLoading, isError, refetch, isFetching } = useQuery({
+  const { data: feed, isLoading, isError, refetch } = useQuery({
     queryKey: ['offers-feed', ...businessQueryKey, activeBarrio, filterId, user?.id],
     queryFn: () => getOffersFeed({
       municipio: catalog.viewMunicipio,
@@ -116,21 +114,10 @@ export default function OffersPage() {
   const showSaved = tab === 'guardadas';
 
   return (
-    <PageLayout title={false} maxWidth="full" contentClassName="space-y-8 pb-10">
-      <OffersHeader profile={profile} user={user} savedCount={savedOfferIds.length} />
+    <PageLayout title={false} maxWidth="full" contentClassName="space-y-5 pb-10">
+      <OffersHeader savedCount={savedOfferIds.length} municipio={activeMunicipio} />
 
-      <div className="flex items-center justify-between gap-2">
-        <OffersFiltersBar activeId={filterId} onChange={handleFilter} className="flex-1" />
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => refetch()}
-          disabled={isFetching}
-          className="shrink-0"
-        >
-          {isFetching ? '…' : '↻'}
-        </Button>
-      </div>
+      <OffersFiltersBar activeId={filterId} onChange={handleFilter} />
 
       <PageExperienceGuard
         online={online}
@@ -166,10 +153,9 @@ export default function OffersPage() {
                 <>
                   {feed.welcome && (
                     <Link to={feed.welcome.link || '/cuenta/perfil'}>
-                      <SurfaceCard variant="highlight" className="border-primary/20 bg-gradient-to-br from-primary/10 to-emerald-50 text-foreground dark:from-primary/20 dark:to-emerald-950/40">
-                        <p className="text-xs font-bold uppercase text-primary">Bienvenida Urabapp</p>
-                        <p className="text-subheading mt-1 text-foreground">{WELCOME_BENEFIT.title}</p>
-                        <p className="mt-1 text-sm text-muted-foreground">
+                      <SurfaceCard className="border border-[#D5E3EF] bg-white">
+                        <p className="text-sm font-semibold text-[#0D2B45]">{WELCOME_BENEFIT.title}</p>
+                        <p className="mt-1 text-sm text-[#4A6278]">
                           {feed.welcome.subtitle} · mín. {formatCOP(WELCOME_BENEFIT.minOrder)}
                         </p>
                       </SurfaceCard>
@@ -206,8 +192,6 @@ export default function OffersPage() {
                   {feed.bundles?.length > 0 && (
                     <OfferBundlesSection offers={feed.bundles} onOfferClick={trackClick} />
                   )}
-
-                  <OfferMissionsSection mission={feed.mission} />
                 </>
               )}
             </>

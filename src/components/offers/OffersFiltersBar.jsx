@@ -14,10 +14,10 @@ export default function OffersFiltersBar({ activeId, onChange, className }) {
               type="button"
               onClick={() => onChange(f.id)}
               className={cn(
-                'inline-flex shrink-0 snap-start items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-bold transition-all',
+                'inline-flex shrink-0 snap-start items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold transition-colors',
                 active
-                  ? 'bg-primary text-primary-foreground shadow-md'
-                  : 'bg-muted/80 text-muted-foreground hover:bg-primary/10 hover:text-primary'
+                  ? 'bg-[#0E6BA8] text-white'
+                  : 'border border-[#D8E2EC] bg-white text-[#0D2B45] hover:border-[#0E6BA8]/40'
               )}
             >
               <AppIcon name={f.icon} size="xs" />
