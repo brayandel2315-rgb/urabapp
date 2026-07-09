@@ -40,9 +40,9 @@ export default function AccountGuestPage() {
           <AppIcon name="profile" size="xl" className="text-primary" />
         </div>
         <div>
-          <h2 className="font-display text-xl font-bold text-foreground">Tu área de cliente</h2>
+          <h2 className="font-display text-xl font-bold text-foreground">Inicia sesión para ver tu perfil</h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Inicia sesión para pedir, seguir entregas y administrar direcciones, pagos y preferencias en un solo lugar.
+            Tu cuenta guarda pedidos, direcciones, pagos y preferencias. Sin sesión no podemos mostrar ni editar tu perfil.
           </p>
         </div>
         <div className="flex flex-col gap-2">

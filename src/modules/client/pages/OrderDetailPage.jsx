@@ -20,7 +20,6 @@ import AppIcon from '@/design-system/icons/AppIcon';
 import { ORDER_STATUS_LABELS } from '../../../utils/constants';
 import { formatCOP } from '../../../utils/currency';
 import { buildOrderUrl, copyToClipboard } from '../../../utils/app';
-import { buildLoginRedirect } from '@/utils/auth-routes';
 import OrderChat from '../../../components/messaging/OrderChat';
 import { useOrderRealtime } from '../../../hooks/useOrderRealtime';
 import { useOnlineStatus } from '../../../hooks/useOnlineStatus';
@@ -265,13 +264,8 @@ export default function OrderDetailPage() {
     return (
       <PageLayout title="Pedido" backTo="/pedidos" maxWidth="lg">
         <p className="py-8 text-center text-[#4A6278]">
-          {user ? 'Pedido no encontrado o no tienes permiso para verlo.' : 'Inicia sesión para ver el detalle de tu pedido.'}
+          Pedido no encontrado o no tienes permiso para verlo.
         </p>
-        {!user && (
-          <Link to={buildLoginRedirect(`/pedidos/${id}`)} className="mt-4 block text-center font-semibold text-[#0E6BA8]">
-            Entrar
-          </Link>
-        )}
       </PageLayout>
     );
   }

@@ -29,7 +29,7 @@ export default function ClientAuthGateCard({
         <Link to={loginTo}>
           <Button>Entrar o crear cuenta</Button>
         </Link>
-        <Link to="/cuenta/seguridad">
+        <Link to="/info/seguridad">
           <Button variant="outline">Por qué es seguro</Button>
         </Link>
       </div>

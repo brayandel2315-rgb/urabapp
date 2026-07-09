@@ -13,8 +13,6 @@ import ServiceJourneyShowcase from '@/components/services/ServiceJourneyShowcase
 import { formatCOP } from '@/utils/currency';
 import { isWompiEnabled, startShipmentWompiCheckout } from '@/services/wompi.service';
 import { toast } from '@/utils/toast';
-import { buildLoginRedirect } from '@/utils/auth-routes';
-
 function activeShipmentJourneyStep(shipment) {
   const status = shipment?.status;
   if (['delivered', 'completed'].includes(status)) return 'receive';
@@ -69,17 +67,6 @@ export default function ShipmentDetailPage() {
       setPaying(false);
     }
   };
-
-  if (!user) {
-    return (
-      <PageLayout title="Seguimiento" maxWidth="lg">
-        <p className="py-8 text-center text-muted-foreground">Inicia sesión para ver el detalle de tu envío.</p>
-        <Link to={buildLoginRedirect(`/envios/${id}`)} className="block text-center font-semibold text-primary">
-          Entrar
-        </Link>
-      </PageLayout>
-    );
-  }
 
   if (isLoading) {
     return (

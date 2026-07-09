@@ -2,6 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import PageLayout from '@/design-system/layouts/PageLayout';
 import { useAuthStore } from '@/store/authStore';
+import { isClientAuthenticated } from '@/app/client-auth-policy';
 import { getMyNotifications } from '@/services/notification.service';
 import AccountStatusGuard from './AccountStatusGuard';
 import AccountGuestPage from './components/AccountGuestPage';
@@ -22,7 +23,7 @@ export default function AccountLayout() {
   });
   const unreadCount = notifications.filter((n) => !n.is_read).length;
 
-  if (!user) {
+  if (!isClientAuthenticated(user)) {
     return (
       <PageLayout title="Mi cuenta" backTo="/" maxWidth="md">
         <AccountGuestPage />

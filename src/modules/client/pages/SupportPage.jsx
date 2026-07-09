@@ -15,6 +15,7 @@ import {
 } from '../../../services/messaging.service';
 import { useSupportMessagesRealtime } from '../../../hooks/useMessagesRealtime';
 import { useAuthStore } from '../../../store/authStore';
+import { isClientAuthenticated } from '@/app/client-auth-policy';
 import { toast } from '../../../utils/toast';
 import { buildLoginRedirect } from '@/utils/auth-routes';
 import ServiceIconTile from '@/design-system/patterns/ServiceIconTile';
@@ -79,7 +80,7 @@ export default function SupportPage() {
     onError: (err) => toast(err.message, 'error'),
   });
 
-  if (!user) {
+  if (!isClientAuthenticated(user)) {
     return (
       <PageLayout title="Soporte" backTo="/" maxWidth="lg">
         <SurfaceCard className="space-y-4 border border-[#D5E3EF] bg-white text-center">

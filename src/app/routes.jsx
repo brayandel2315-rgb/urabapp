@@ -7,7 +7,7 @@ import AdminLayout from '../layouts/AdminLayout';
 import PageLoader from '../components/PageLoader';
 import ProtectedRoute from './ProtectedRoute';
 import DevOnlyRoute from './DevOnlyRoute';
-import RequireOwnAccount from './RequireOwnAccount';
+import RequireClientAuth from './RequireClientAuth';
 import { ROLES } from '../utils/constants';
 
 import { CLIENT_HOME } from './clientNav';
@@ -90,23 +90,21 @@ export default function AppRoutes() {
         <Route path="/business/:id" element={<Lazy><BusinessPage /></Lazy>} />
         <Route path="/tienda/:id" element={<Lazy><BusinessPage /></Lazy>} />
         <Route path="/carrito" element={<Lazy><CartPage /></Lazy>} />
-        <Route path="/checkout" element={<ProtectedRoute requireAuth><Lazy><CheckoutPage /></Lazy></ProtectedRoute>} />
-        <Route path="/pedidos" element={<Lazy><OrdersPage /></Lazy>} />
-        <Route path="/pedidos/:id" element={<Lazy><OrderDetailPage /></Lazy>} />
+        <Route path="/checkout" element={<ProtectedRoute requireRealAuth><Lazy><CheckoutPage /></Lazy></ProtectedRoute>} />
+        <Route path="/pedidos" element={<RequireClientAuth><Lazy><OrdersPage /></Lazy></RequireClientAuth>} />
+        <Route path="/pedidos/:id" element={<RequireClientAuth><Lazy><OrderDetailPage /></Lazy></RequireClientAuth>} />
         <Route path="/mandado" element={<Lazy><MandadoPage /></Lazy>} />
         <Route path="/envios" element={<Lazy><EnviosPage /></Lazy>} />
-        <Route path="/envios/:id" element={<Lazy><ShipmentDetailPage /></Lazy>} />
+        <Route path="/envios/:id" element={<RequireClientAuth><Lazy><ShipmentDetailPage /></Lazy></RequireClientAuth>} />
         <Route path="/perfil" element={<Navigate to="/cuenta/perfil" replace />} />
         <Route path="/comercio" element={<Navigate to="/negocio" replace />} />
         <Route path="/comercio/*" element={<Navigate to="/negocio" replace />} />
         <Route
           path="/cuenta"
           element={
-            <RequireOwnAccount>
-              <Lazy>
-                <AccountLayout />
-              </Lazy>
-            </RequireOwnAccount>
+            <Lazy>
+              <AccountLayout />
+            </Lazy>
           }
         >
           <Route index element={<Navigate to="/cuenta/perfil" replace />} />

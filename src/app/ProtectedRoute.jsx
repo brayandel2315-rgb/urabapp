@@ -5,8 +5,14 @@ import ProfileBootstrap from '../components/auth/ProfileBootstrap';
 import { getRoleHome } from './roleConfig';
 import { canAccessRoles } from '@/utils/auth-rbac';
 import { buildLoginRedirect } from '@/utils/auth-routes';
+import { isClientAuthenticated } from '@/app/client-auth-policy';
 
-export default function ProtectedRoute({ children, roles, requireAuth = false }) {
+export default function ProtectedRoute({
+  children,
+  roles,
+  requireAuth = false,
+  requireRealAuth = false,
+}) {
   const { user, profile, loading } = useAuthStore();
   const location = useLocation();
 
@@ -18,7 +24,10 @@ export default function ProtectedRoute({ children, roles, requireAuth = false })
     );
   }
 
-  if ((requireAuth || roles) && !user) {
+  const needsAuth = requireAuth || requireRealAuth || roles;
+  const authed = requireRealAuth ? isClientAuthenticated(user) : Boolean(user);
+
+  if (needsAuth && !authed) {
     return <Navigate to={buildLoginRedirect(location.pathname, location.search)} replace />;
   }
 

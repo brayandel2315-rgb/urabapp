@@ -3,6 +3,7 @@ import AppIcon from '@/design-system/icons/AppIcon';
 import { Button } from '@/design-system/ui/button';
 import { CLIENT_ACCOUNT, CLIENT_NOTIFICATIONS } from '@/app/clientNav';
 import { buildLoginRedirect } from '@/utils/auth-routes';
+import { isClientAuthenticated } from '@/app/client-auth-policy';
 
 /** Notificaciones + cuenta (login si invitado). */
 export function ClientHeaderAuthActions({
@@ -11,8 +12,8 @@ export function ClientHeaderAuthActions({
   accountLabel = 'Mi cuenta',
   buttonClassName = '',
 }) {
-  const notificationsTo = user ? CLIENT_NOTIFICATIONS : buildLoginRedirect(CLIENT_NOTIFICATIONS);
-  const accountTo = user ? CLIENT_ACCOUNT : buildLoginRedirect(CLIENT_ACCOUNT);
+  const notificationsTo = isClientAuthenticated(user) ? CLIENT_NOTIFICATIONS : buildLoginRedirect(CLIENT_NOTIFICATIONS);
+  const accountTo = isClientAuthenticated(user) ? CLIENT_ACCOUNT : buildLoginRedirect(CLIENT_ACCOUNT);
 
   return (
     <>

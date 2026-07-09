@@ -16,7 +16,6 @@ import { useOrdersPolling } from '@/hooks/useOrderRealtime';
 import { useClientActivity } from '@/hooks/useClientActivity';
 import { useOnlineStatus } from '@/hooks/useOnlineStatus';
 import { CLIENT_ACCOUNT } from '@/app/clientNav';
-import { buildLoginRedirect } from '@/utils/auth-routes';
 import PanelTabBar from '@/design-system/patterns/PanelTabBar';
 
 const TABS = [
@@ -71,18 +70,7 @@ export default function OrdersPage() {
   const showPhoneRecovery = !hasGuestSession;
   const activeCount = activeActivities.length;
 
-  const ordersContent = !user ? (
-    <EmptyState
-      title="Entra para ver tu actividad"
-      description="Pedidos de comida, mensajería y envíos quedan en tu cuenta. Si pediste como invitado en este dispositivo, los vinculamos al entrar."
-      icon="orders"
-      action={(
-        <Link to={buildLoginRedirect(isHistorialRoute ? '/cuenta/historial' : '/pedidos')}>
-          <Button size="sm">Entrar</Button>
-        </Link>
-      )}
-    />
-  ) : (
+  const ordersContent = (
     <>
       {isHistorialRoute && showPhoneRecovery && (
         <GuestOrderRecoveryCard
@@ -157,11 +145,11 @@ export default function OrdersPage() {
       <ClientScreenHeader
         tag="Tus pedidos"
         title="Mis pedidos"
-        action={user ? (
+        action={(
           <Link to={CLIENT_ACCOUNT} className="text-xs font-semibold text-[#0E6BA8]">
             Mi cuenta
           </Link>
-        ) : null}
+        )}
       />
       {ordersContent}
     </PageLayout>

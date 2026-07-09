@@ -10,6 +10,7 @@ import {
 } from '../../services/messaging.service';
 import { useOrderMessagesRealtime } from '../../hooks/useMessagesRealtime';
 import { useAuthStore } from '../../store/authStore';
+import { buildLoginRedirect } from '@/utils/auth-routes';
 import { toast } from '../../utils/toast';
 import AppIcon from '@/design-system/icons/AppIcon';
 
@@ -46,7 +47,7 @@ export default function OrderChat({ order, compact = false }) {
   if (!user) {
     return (
       <SurfaceCard className="text-center text-sm text-muted">
-        <Link to="/login" className="font-semibold text-primary">Inicia sesión</Link> para chatear sobre este pedido.
+        <Link to={buildLoginRedirect(`/pedidos/${order?.id}`)} className="font-semibold text-primary">Inicia sesión</Link> para chatear sobre este pedido.
       </SurfaceCard>
     );
   }
