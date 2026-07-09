@@ -296,7 +296,7 @@ export default function BusinessPage() {
               </div>
             </div>
 
-            <div className="store-page-content w-full space-y-4 px-4 pb-4 pt-3 sm:px-5">
+            <div className="store-page-content w-full space-y-4 px-4 pb-4 pt-3 sm:px-5 lg:px-8">
               <BusinessStoreAlerts
                 business={business}
                 catalog={catalog}
@@ -306,7 +306,8 @@ export default function BusinessPage() {
                 promoText={storeActive ? promoText : null}
               />
 
-              <div className={cn('space-y-4', !storeActive && 'store-page-dimmed')}>
+              <div className="client-page-split client-page-split--store">
+              <div className={cn('min-w-0 space-y-4', !storeActive && 'store-page-dimmed')}>
                 <div className="flex flex-wrap items-center gap-2 text-sm text-[#4A6278]">
                   <CategoryBadge categoryId={business.category} />
                   {openNow ? (
@@ -381,7 +382,7 @@ export default function BusinessPage() {
                     <h2 className="font-display text-lg font-bold text-foreground">
                       {sectionTitle}
                     </h2>
-                    <div className="space-y-3">
+                    <div className="space-y-3 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0 xl:grid-cols-2">
                       {activeItems.map((p) => (
                         <BusinessProductCard
                           key={p.id}
@@ -399,11 +400,36 @@ export default function BusinessPage() {
                 )}
               </section>
               </div>
+
+              <aside className="client-sticky-panel hidden lg:block">
+                {itemCount > 0 ? (
+                  <SurfaceCard className="space-y-4 p-4">
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="font-display text-sm font-bold text-foreground">Tu pedido</p>
+                      <span className="rounded-full bg-[#E6F4FF] px-2.5 py-0.5 text-xs font-bold text-[#0E6BA8]">
+                        {itemCount}
+                      </span>
+                    </div>
+                    <p className="font-display text-2xl font-black text-foreground">{formatCOP(cartSubtotal)}</p>
+                    <p className="text-xs text-muted-foreground">~{etaMinutes} min · Domicilio {deliveryLabel}</p>
+                    <Link to="/carrito">
+                      <Button className="w-full rounded-2xl bg-[#0E6BA8] py-3 text-base font-bold text-white hover:bg-[#0B5A8C]">
+                        Ver carrito
+                      </Button>
+                    </Link>
+                  </SurfaceCard>
+                ) : (
+                  <SurfaceCard className="p-4 text-center text-sm text-muted-foreground">
+                    Agrega productos del menú para armar tu pedido.
+                  </SurfaceCard>
+                )}
+              </aside>
+              </div>
             </div>
 
             {itemCount > 0 && (
               <div
-                className="fixed left-4 right-4 z-40 mx-auto max-w-lg"
+                className="fixed left-4 right-4 z-40 mx-auto max-w-lg lg:hidden"
                 style={{ bottom: 'calc(5.5rem + env(safe-area-inset-bottom, 0px))' }}
               >
                 <Link to="/carrito">

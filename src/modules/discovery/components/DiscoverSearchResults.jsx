@@ -3,6 +3,10 @@ import BusinessCard from '@/components/BusinessCard';
 import AppIcon from '@/design-system/icons/AppIcon';
 import { formatCOP } from '@/utils/currency';
 import { cn } from '@/lib/utils';
+import {
+  VERTICAL_CATALOG_GRID,
+  VERTICAL_CATALOG_LIST,
+} from '@/modules/discovery/components/VerticalSectionRow';
 
 function ProductHit({ product }) {
   return (
@@ -46,7 +50,7 @@ export default function DiscoverSearchResults({
             <AppIcon name="package" size="sm" className="text-primary" />
             Productos
           </h2>
-          <div className="space-y-2">
+          <div className="space-y-2 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0 xl:grid-cols-3">
             {products.map((p) => (
               <ProductHit key={p.id} product={p} />
             ))}
@@ -60,9 +64,14 @@ export default function DiscoverSearchResults({
             <AppIcon name="store" size="sm" className="text-primary" />
             Tiendas
           </h2>
-          <div className="app-mobile-card-list">
+          <div className={VERTICAL_CATALOG_LIST}>
             {businesses.map((b, i) => (
               <BusinessCard key={b.id} business={b} layout="list" imageLoading={i < 3 ? 'eager' : 'lazy'} />
+            ))}
+          </div>
+          <div className={VERTICAL_CATALOG_GRID}>
+            {businesses.map((b, i) => (
+              <BusinessCard key={`${b.id}-grid`} business={b} layout="grid" imageLoading={i < 3 ? 'eager' : 'lazy'} />
             ))}
           </div>
         </section>

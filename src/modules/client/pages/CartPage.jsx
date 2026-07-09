@@ -149,7 +149,8 @@ export default function CartPage() {
         online={online}
         offlineDescription="Conéctate para revisar tu carrito y continuar al pago."
       >
-      <div className="space-y-3">
+      <div className="client-page-split client-page-split--cart">
+        <div className="min-w-0 space-y-3">
         {items.map((item) => (
           <SurfaceCard key={lineKey(item)} className="flex items-start gap-3 p-3">
             <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl">
@@ -188,18 +189,16 @@ export default function CartPage() {
             </div>
           </SurfaceCard>
         ))}
-      </div>
-
       {upsellProducts.length > 0 && (
         <SurfaceCard className="mt-4">
           <SectionTitle>Agrega algo más</SectionTitle>
-          <div className="mt-2 flex gap-2 overflow-x-auto pb-1">
+          <div className="mt-2 flex gap-2 overflow-x-auto pb-1 lg:grid lg:grid-cols-2 lg:overflow-visible lg:pb-0 xl:grid-cols-3">
             {upsellProducts.map((product) => (
               <button
                 key={product.id}
                 type="button"
                 onClick={() => handleQuickAdd(product)}
-                className="min-w-[132px] rounded-xl border border-border/50 bg-background p-3 text-left transition-colors hover:border-[#0E6BA8]/30"
+                className="min-w-[132px] rounded-xl border border-border/50 bg-background p-3 text-left transition-colors hover:border-[#0E6BA8]/30 lg:min-w-0"
               >
                 <p className="line-clamp-2 text-sm font-semibold text-foreground">{product.name}</p>
                 <p className="mt-1 text-sm font-bold text-[#0E6BA8]">{formatCOP(product.price)}</p>
@@ -208,7 +207,47 @@ export default function CartPage() {
           </div>
         </SurfaceCard>
       )}
+        </div>
 
+        <aside className="client-sticky-panel hidden space-y-4 lg:block">
+          <PriceSummary
+            rows={[
+              { label: 'Subtotal', value: formatCOP(subtotal) },
+              ...(savings > 0 ? [{ label: 'Ahorro en promos', value: `-${formatCOP(savings)}` }] : []),
+              { label: 'Domicilio', value: formatCOP(fee) },
+            ]}
+            totalLabel="Total estimado"
+            totalValue={formatCOP(subtotal + fee)}
+            footnote={`Llegada estimada ${etaMin}–${etaMax} min · ${STORE.partialFulfillment}`}
+          />
+
+          {belowMin && (
+            <SurfaceCard variant="accent" className="text-center text-sm font-semibold text-foreground">
+              Pedido mínimo: {formatCOP(minimum)} — te faltan {formatCOP(minimum - subtotal)}
+            </SurfaceCard>
+          )}
+
+          {!storeReady && cartBusiness && !belowMin && (
+            <SurfaceCard className="text-center text-sm text-muted-foreground">
+              La tienda está cerrada o no acepta pedidos en este momento.
+            </SurfaceCard>
+          )}
+
+          {canCheckout ? (
+            <Link to="/checkout">
+              <Button className="w-full rounded-2xl bg-[#0E6BA8] py-3.5 text-base font-bold hover:bg-[#0B5A8C]">
+                Ir a pagar
+              </Button>
+            </Link>
+          ) : (
+            <Button className="w-full rounded-2xl py-3.5 text-base font-bold" disabled>
+              {belowMin ? 'Pedido mínimo' : 'Tienda cerrada'}
+            </Button>
+          )}
+        </aside>
+      </div>
+
+      <div className="mt-4 lg:hidden">
       <PriceSummary
         className="mt-4"
         rows={[
@@ -232,6 +271,7 @@ export default function CartPage() {
           La tienda está cerrada o no acepta pedidos en este momento.
         </SurfaceCard>
       )}
+      </div>
 
       <MobileStickyCheckoutBar
         total={subtotal + fee}

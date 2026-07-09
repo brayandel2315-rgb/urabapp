@@ -133,7 +133,7 @@ export default function OrdersPage() {
           />
         )}
 
-        <div className="space-y-3">
+        <div className="space-y-3 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0 xl:grid-cols-2">
           {filtered.map((activity) => (
             activity.service === 'shipment' ? (
               <ShipmentCard key={`s-${activity.id}`} shipment={activity.raw} />
@@ -153,7 +153,7 @@ export default function OrdersPage() {
   }
 
   return (
-    <PageLayout title={false} maxWidth="lg">
+    <PageLayout title={false} maxWidth="xl">
       <ClientScreenHeader
         tag="Tus pedidos"
         title="Mis pedidos"

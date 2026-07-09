@@ -287,8 +287,9 @@ export default function OrderDetailPage() {
   const showTracking = !isCancelled && ['pending', 'accepted', 'preparing', 'on_the_way'].includes(order.status);
 
   return (
-    <PageLayout title={order.order_number || 'Pedido'} backTo="/pedidos" maxWidth="lg">
-      <div className="space-y-4">
+    <PageLayout title={order.order_number || 'Pedido'} backTo="/pedidos" maxWidth="xl">
+      <div className="client-page-split client-page-split--checkout">
+        <div className="min-w-0 space-y-4">
         {!online && isActive && (
           <p className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-center text-sm text-[#4A6278]">
             Sin conexión — el estado se actualizará al reconectar
@@ -367,6 +368,12 @@ export default function OrderDetailPage() {
           />
         )}
 
+        {!isCancelled && user?.id && (
+          <OrderChat order={order} />
+        )}
+        </div>
+
+        <aside className="client-sticky-panel space-y-4">
         <SurfaceCard className="space-y-3">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-[#4A6278]">Entrega</p>
@@ -455,10 +462,6 @@ export default function OrderDetailPage() {
           </SurfaceCard>
         )}
 
-        {!isCancelled && user?.id && (
-          <OrderChat order={order} />
-        )}
-
         <OrderDetailActions
           order={order}
           user={user}
@@ -474,6 +477,8 @@ export default function OrderDetailPage() {
             toast(ok ? 'Link copiado' : 'No se pudo copiar', ok ? 'info' : 'error');
           }}
         />
+        </aside>
+      </div>
 
         <ConfirmModal
           open={confirmCancel && canCancel}
@@ -502,7 +507,6 @@ export default function OrderDetailPage() {
             if (pending) finishReorder(pending.business, pending.lines, { replaceCart: true });
           }}
         />
-      </div>
     </PageLayout>
   );
 }

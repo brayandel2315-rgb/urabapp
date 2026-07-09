@@ -196,7 +196,7 @@ export default function EnviosPage() {
   };
 
   return (
-    <PageLayout title={false} maxWidth="lg" chrome="compact">
+    <PageLayout title={false} maxWidth="full" chrome="compact">
       <div className="space-y-5">
         {step === 'home' && (
           <>

@@ -35,7 +35,7 @@ export default function AccountLayout() {
       <PageLayout
         title={false}
         backTo={isProfileHome ? '/' : '/cuenta/perfil'}
-        maxWidth="lg"
+        maxWidth="full"
         contentClassName="pb-10"
       >
         <div className="lg:grid lg:grid-cols-[minmax(240px,272px)_1fr] lg:items-start lg:gap-8">

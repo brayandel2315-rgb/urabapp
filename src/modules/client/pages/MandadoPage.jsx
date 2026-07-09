@@ -169,7 +169,7 @@ export default function MandadoPage() {
 
   if (step === 'home') {
     return (
-      <div className="app-container space-y-5 py-4 pb-10">
+      <div className="client-page-body space-y-5 pb-10">
         <ServiceCommercialHero
           variant="courier"
           municipio={municipio}
@@ -206,7 +206,7 @@ export default function MandadoPage() {
   const journeyStep = step === 'quote' ? 'quote' : 'plan';
 
   return (
-    <div className="relative flex min-h-[calc(100dvh-8rem)] flex-col bg-background">
+    <div className="relative flex min-h-[calc(100dvh-8rem)] flex-col bg-background lg:mx-auto lg:max-w-7xl lg:flex-row lg:items-stretch lg:gap-6 lg:px-8 lg:py-6">
       <CourierRouteMap
         municipio={municipio}
         pickup={form.pickupCoords}
@@ -220,13 +220,13 @@ export default function MandadoPage() {
           update('dropoffCoords', c);
           if (c.label) update('dropoff', c.label);
         }}
-        className="h-[34vh] min-h-[200px] shrink-0 sm:h-[38vh]"
+        className="h-[34vh] min-h-[200px] shrink-0 sm:h-[38vh] lg:h-auto lg:min-h-[560px] lg:flex-1 lg:rounded-2xl lg:shadow-md"
       />
 
-      <div className="relative z-10 -mt-6 flex flex-1 flex-col rounded-t-3xl border border-border/40 bg-background/95 shadow-[0_-8px_32px_rgba(0,0,0,0.08)] backdrop-blur-xl">
-        <div className="mx-auto mt-2 h-1 w-10 rounded-full bg-border" />
+      <div className="relative z-10 -mt-6 flex flex-1 flex-col rounded-t-3xl border border-border/40 bg-background/95 shadow-[0_-8px_32px_rgba(0,0,0,0.08)] backdrop-blur-xl lg:mt-0 lg:max-w-[480px] lg:shrink-0 lg:rounded-2xl lg:shadow-lg">
+        <div className="mx-auto mt-2 h-1 w-10 rounded-full bg-border lg:hidden" />
 
-        <div className="app-container flex flex-1 flex-col gap-4 py-4">
+        <div className="flex flex-1 flex-col gap-4 overflow-y-auto px-4 py-4 sm:px-5 lg:px-6">
           <div className="flex items-center justify-between gap-2">
             <button
               type="button"

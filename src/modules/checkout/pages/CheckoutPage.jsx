@@ -33,6 +33,8 @@ import CheckoutStepper from '../components/CheckoutStepper';
 import CheckoutDeliveryStep from '../components/CheckoutDeliveryStep';
 import CheckoutPaymentStep from '../components/CheckoutPaymentStep';
 import CheckoutReviewStep from '../components/CheckoutReviewStep';
+import CheckoutOrderSummary from '../components/CheckoutOrderSummary';
+import { Button } from '@/design-system/ui/button';
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -48,6 +50,7 @@ export default function CheckoutPage() {
     deliveryFee: cartDeliveryFee,
     getSubtotal,
     clearCart,
+    getSavings,
   } = useCartStore();
   const online = useOnlineStatus();
 
@@ -77,6 +80,7 @@ export default function CheckoutPage() {
   const form = useCheckoutForm({ savedAddresses });
 
   const subtotal = getSubtotal();
+  const itemSavings = getSavings();
   const nominalDeliveryFee = cartBusiness?.delivery_fee ?? cartDeliveryFee ?? ECONOMICS.defaultDeliveryFee;
 
   const checkoutPromos = useMemo(
@@ -242,7 +246,8 @@ export default function CheckoutPage() {
         online={online}
         offlineDescription="Conéctate para confirmar tu pedido y pagar con seguridad."
       >
-      <div className="space-y-4">
+      <div className="client-page-split client-page-split--checkout">
+      <div className="min-w-0 space-y-4">
         <ClientScreenHeader
           tag="Checkout"
           title="Confirma tu pedido"
@@ -366,6 +371,27 @@ export default function CheckoutPage() {
           </form>
         </>
         )}
+      </div>
+
+      {isAuthed && (
+        <aside className="client-sticky-panel hidden space-y-4 lg:block">
+          <CheckoutOrderSummary
+            businessName={businessName || cartBusiness?.name}
+            items={items}
+            itemSavings={itemSavings}
+            total={total}
+            etaMinutes={etaMinutes}
+          />
+          <Button
+            type="button"
+            className="h-12 w-full rounded-2xl text-base font-bold shadow-glow"
+            disabled={loading || !online}
+            onClick={stickyAction}
+          >
+            {loading ? 'Procesando…' : stickyLabel}
+          </Button>
+        </aside>
+      )}
       </div>
 
       {isAuthed && (

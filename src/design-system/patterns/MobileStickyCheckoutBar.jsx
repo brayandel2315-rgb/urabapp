@@ -39,7 +39,7 @@ export default function MobileStickyCheckoutBar({
   return (
     <div
       className={cn(
-        'fixed left-0 right-0 z-40 border-t border-border/50 bg-background/95 shadow-lift backdrop-blur-xl',
+        'fixed left-0 right-0 z-40 border-t border-border/50 bg-background/95 shadow-lift backdrop-blur-xl lg:hidden',
         className
       )}
       style={{

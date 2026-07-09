@@ -87,7 +87,7 @@ export default function SearchPage() {
         <DetectedLocationChip className="max-w-xs" />
       </div>
 
-      <div className="sticky top-[3.25rem] z-30 -mx-4 bg-background/90 px-4 py-3 backdrop-blur-xl sm:top-16">
+      <div className="sticky top-[3.25rem] z-30 -mx-4 bg-background/90 px-4 py-3 backdrop-blur-xl sm:top-16 lg:top-[4.75rem] lg:-mx-8 lg:px-8">
         <DiscoverSearchBar
           value={q}
           onChange={setQ}

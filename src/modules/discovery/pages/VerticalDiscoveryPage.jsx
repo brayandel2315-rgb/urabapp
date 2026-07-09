@@ -111,7 +111,7 @@ export default function VerticalDiscoveryPage() {
         <DetectedLocationChip className="max-w-sm" />
       </div>
 
-      <div className="sticky top-[3.25rem] z-20 -mx-4 bg-[#F7FAFC]/95 px-4 py-3 backdrop-blur-md sm:top-16 lg:top-[4.5rem]">
+      <div className="sticky top-[3.25rem] z-20 -mx-4 bg-[#F7FAFC]/95 px-4 py-3 backdrop-blur-md sm:top-16 lg:top-[4.75rem] lg:-mx-8 lg:px-8">
         <VerticalFilters value={activeFilter} onChange={setActiveFilter} />
       </div>
 
