@@ -37,7 +37,7 @@ function StoreNotice({ tone = 'neutral', icon, title, children, action }) {
   return (
     <div
       className={cn(
-        'flex w-full gap-3 rounded-2xl border px-4 py-3.5 shadow-sm ring-1 ring-black/[0.03]',
+        'flex w-full gap-3 rounded-xl border px-3.5 py-3',
         styles.wrap,
       )}
     >
@@ -129,7 +129,7 @@ export default function BusinessStoreAlerts({
     );
   }
 
-  if (promoText) {
+  if (promoText && notices.length === 0) {
     notices.push(
       <StoreNotice key="promo" tone="promo" icon="tag" title="Promo activa">
         {promoText}
@@ -139,9 +139,11 @@ export default function BusinessStoreAlerts({
 
   if (!notices.length) return null;
 
+  const visible = notices.slice(0, 1);
+
   return (
     <div className={cn('store-page-alerts flex w-full flex-col gap-3', className)}>
-      {notices}
+      {visible}
     </div>
   );
 }

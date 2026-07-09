@@ -22,8 +22,8 @@ export default function BusinessProductCard({
   return (
     <article
       className={cn(
-        'relative overflow-hidden rounded-[1.35rem] bg-card p-3 shadow-sm ring-1 ring-border/40 transition-all duration-300',
-        justAdded && !inactive && 'scale-[1.01] ring-2 ring-primary shadow-glow-promo',
+        'relative overflow-hidden rounded-2xl bg-card p-3 ring-1 ring-border/30 transition-all duration-300',
+        justAdded && !inactive && 'ring-2 ring-[#0E6BA8]/40',
         inactive && 'store-product-card--off bg-[#F0F4F8] ring-[#D8E2EC]',
       )}
     >
@@ -43,9 +43,7 @@ export default function BusinessProductCard({
             {formatCOP(product.price)}
           </p>
           {customizable && (
-            <p className="mt-1 text-[11px] font-semibold text-primary/80">
-              Toca + para adiciones y bebidas
-            </p>
+            <p className="mt-1 text-[10px] text-muted-foreground">Personalizable</p>
           )}
         </div>
         <div className="h-24 w-24 shrink-0 overflow-hidden rounded-2xl bg-muted/20">
@@ -64,12 +62,12 @@ export default function BusinessProductCard({
         disabled={!canPurchase}
         aria-label={`Agregar ${product.name}`}
         className={cn(
-          'absolute bottom-3 right-3 flex h-11 w-11 items-center justify-center rounded-2xl text-lg font-bold text-white shadow-glow-promo transition-transform active:scale-95 disabled:cursor-not-allowed',
+          'absolute bottom-3 right-3 flex h-10 w-10 items-center justify-center rounded-xl text-lg font-bold text-white transition-transform active:scale-95 disabled:cursor-not-allowed',
           inactive
-            ? 'bg-[#94A3B8] opacity-60 shadow-none'
+            ? 'bg-[#94A3B8] opacity-60'
             : justAdded
-              ? 'bg-emerald-500'
-              : 'bg-gradient-promo',
+              ? 'bg-emerald-600'
+              : 'bg-[#0E6BA8] shadow-sm',
         )}
       >
         {justAdded ? '✓' : '+'}

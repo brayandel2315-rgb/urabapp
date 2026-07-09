@@ -20,15 +20,14 @@ import { openWhatsApp, buildBusinessWhatsAppMessage } from '../../../utils/whats
 import { Badge } from '@/design-system/ui/badge';
 import BusinessRating from '../../../components/reviews/BusinessRating';
 import CategoryBadge from '../../../components/marketplace/CategoryBadge';
-import { isBusinessOpenNow, isBusinessStoreLive, getBusinessEtaMinutes } from '../../../utils/schedule';
-import { resolveBusinessCover, resolveBusinessLogo } from '../../../utils/catalog-images';
+import { isBusinessOpenNow, isBusinessStoreLive, getBusinessEtaMinutes, formatBusinessHours } from '../../../utils/schedule';
+import { resolveBusinessCover } from '../../../utils/catalog-images';
 import { getBusinessCoverageForUser, isBusinessOrderableInCatalog } from '../../../utils/business-coverage';
 import { useCatalogLocation } from '../../../hooks/useCatalogLocation';
 import { useOnlineStatus } from '../../../hooks/useOnlineStatus';
 import { PageState } from '@/design-system/patterns/PageState';
 import AppIcon from '@/design-system/icons/AppIcon';
 import { formatBusinessPromoText } from '../../../utils/promo';
-import BusinessTrustPills from '@/modules/business/components/BusinessTrustPills';
 import BusinessStoreAlerts from '../components/BusinessStoreAlerts';
 import BusinessProductCard from '../components/BusinessProductCard';
 import CartStoreSwitchModal from '@/components/cart/CartStoreSwitchModal';
@@ -37,13 +36,6 @@ import { isBusinessFavorited, toggleFavoriteBusiness } from '../../../services/f
 import { iconForCategory } from '@/design-system/icons/icon-map';
 import { cn } from '@/lib/utils';
 import { STORE } from '@/utils/marketplace-copy';
-
-const CATEGORY_MENU_COPY = {
-  farmacia: 'Productos disponibles para pedir a domicilio.',
-  mercado: 'Artículos listos para agregar a tu pedido.',
-  comida: 'Platos listos para pedir con una mano.',
-  default: 'Catálogo disponible en tu zona.',
-};
 
 export default function BusinessPage() {
   const { id } = useParams();
@@ -115,14 +107,19 @@ export default function BusinessPage() {
   const storeActive = storeLive && openNow;
   const etaMinutes = business ? getBusinessEtaMinutes(business) : 25;
   const cover = business ? resolveBusinessCover(business) : null;
-  const logo = business ? resolveBusinessLogo(business) : null;
   const promoText = business ? formatBusinessPromoText(business) : null;
   const storeIcon = business ? iconForCategory(business.category) : 'store';
   const distanceLabel = business
     ? formatDistanceKm(business.distance_km ?? business.distanceKm) || 'Cerca de ti'
     : null;
   const activeItems = menuSections[activeSection]?.[1] ?? products;
-  const menuCopy = CATEGORY_MENU_COPY[business?.category] || CATEGORY_MENU_COPY.default;
+  const sectionTitle = menuSections[activeSection]?.[0] || 'Catálogo';
+  const deliveryLabel = Number(business?.delivery_fee) > 0
+    ? formatCOP(business.delivery_fee)
+    : 'gratis';
+  const minOrderLabel = Number(business?.min_order) > 0
+    ? ` · Mín. ${formatCOP(business.min_order)}`
+    : '';
 
   const flashAdded = (productId) => {
     setJustAddedId(productId);
@@ -299,7 +296,7 @@ export default function BusinessPage() {
               </div>
             </div>
 
-            <div className="store-page-content w-full space-y-4 px-4 pb-4 pt-4 sm:px-5">
+            <div className="store-page-content w-full space-y-4 px-4 pb-4 pt-3 sm:px-5">
               <BusinessStoreAlerts
                 business={business}
                 catalog={catalog}
@@ -310,51 +307,43 @@ export default function BusinessPage() {
               />
 
               <div className={cn('space-y-4', !storeActive && 'store-page-dimmed')}>
-              <SurfaceCard className="w-full space-y-4 rounded-2xl shadow-md ring-1 ring-border/40">
-                <div className="flex items-start gap-3">
-                  <div className="h-[72px] w-[72px] shrink-0 overflow-hidden rounded-2xl bg-muted/30 ring-2 ring-card shadow-sm">
-                    <CatalogImage src={logo || cover} emoji={storeIcon} alt="" size="lg" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <CategoryBadge categoryId={business.category} />
-                      {openNow ? <Badge variant="success">Abierto</Badge> : <Badge variant="destructive">Cerrado</Badge>}
-                      {coverage?.available && coverage.tier === 'intermunicipal' && (
-                        <Badge variant="secondary">{coverage.label}</Badge>
-                      )}
-                    </div>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      {business.description || 'Tienda local en Urabá'}
-                    </p>
-                    <div className="mt-3">
-                      <BusinessTrustPills business={business} ratingSummary={ratingSummary} />
-                    </div>
-                    <div className="mt-3 flex flex-wrap items-center gap-2">
-                      <BusinessRating business={business} ratingSummary={ratingSummary} size="sm" />
-                      <span className={cn(
-                        'rounded-full px-3 py-1 text-xs font-semibold',
-                        storeActive
-                          ? 'bg-primary-light text-primary-dark'
-                          : 'bg-muted text-muted-foreground',
-                      )}
-                      >
-                        {distanceLabel}
-                      </span>
-                      <span className={cn(
-                        'rounded-full px-3 py-1 text-xs font-semibold',
-                        storeActive
-                          ? 'bg-sky-light text-secondary'
-                          : 'bg-muted text-muted-foreground',
-                      )}
-                      >
-                        ~{etaMinutes} min
-                      </span>
-                      <span className="rounded-full bg-muted px-3 py-1 text-xs font-semibold text-secondary">
-                        Domicilio {Number(business.delivery_fee) > 0 ? formatCOP(business.delivery_fee) : 'gratis'}
-                      </span>
-                    </div>
-                  </div>
+                <div className="flex flex-wrap items-center gap-2 text-sm text-[#4A6278]">
+                  <CategoryBadge categoryId={business.category} />
+                  {openNow ? (
+                    <Badge variant="success">Abierto</Badge>
+                  ) : (
+                    <Badge variant="destructive">Cerrado</Badge>
+                  )}
+                  {coverage?.available && coverage.tier === 'intermunicipal' && (
+                    <Badge variant="secondary">{coverage.label}</Badge>
+                  )}
                 </div>
+
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[#4A6278]">
+                  <BusinessRating business={business} ratingSummary={ratingSummary} size="sm" />
+                  <span>·</span>
+                  <span>~{etaMinutes} min</span>
+                  <span>·</span>
+                  <span>Domicilio {deliveryLabel}{minOrderLabel}</span>
+                  {distanceLabel && (
+                    <>
+                      <span>·</span>
+                      <span>{distanceLabel}</span>
+                    </>
+                  )}
+                </div>
+
+                {storeActive && promoText && (
+                  <p className="rounded-xl border border-[#0E6BA8]/20 bg-[#E6F4FF]/60 px-3 py-2 text-sm font-semibold text-[#0D2B45]">
+                    Promo: {promoText}
+                  </p>
+                )}
+
+                {!storeActive && business.opens_at && business.closes_at && (
+                  <p className="text-xs text-muted-foreground">
+                    Horario: {formatBusinessHours(business)}
+                  </p>
+                )}
 
                 {menuSections.length > 1 && (
                   <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 hide-scrollbar">
@@ -364,12 +353,12 @@ export default function BusinessPage() {
                         type="button"
                         onClick={() => setActiveSection(index)}
                         className={cn(
-                          'shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition-colors',
+                          'shrink-0 rounded-full px-3.5 py-1.5 text-sm font-semibold transition-colors',
                           index === activeSection
                             ? storeActive
-                              ? 'bg-primary text-white shadow-sm'
+                              ? 'bg-[#0E6BA8] text-white'
                               : 'bg-[#94A3B8] text-white'
-                            : 'bg-muted/70 text-muted-foreground hover:bg-muted',
+                            : 'bg-[#EEF2F6] text-[#4A6278] hover:bg-[#E2EAF2]',
                         )}
                       >
                         {section}
@@ -377,7 +366,6 @@ export default function BusinessPage() {
                     ))}
                   </div>
                 )}
-              </SurfaceCard>
 
               <section className="space-y-3">
                 {products.length === 0 ? (
@@ -390,12 +378,9 @@ export default function BusinessPage() {
                   </SurfaceCard>
                 ) : (
                   <>
-                    <div>
-                      <h2 className="font-display text-lg font-bold text-foreground">
-                        {menuSections[activeSection]?.[0] || 'Catálogo'}
-                      </h2>
-                      <p className="text-sm text-muted-foreground">{menuCopy}</p>
-                    </div>
+                    <h2 className="font-display text-lg font-bold text-foreground">
+                      {sectionTitle}
+                    </h2>
                     <div className="space-y-3">
                       {activeItems.map((p) => (
                         <BusinessProductCard
@@ -422,7 +407,7 @@ export default function BusinessPage() {
                 style={{ bottom: 'calc(5.5rem + env(safe-area-inset-bottom, 0px))' }}
               >
                 <Link to="/carrito">
-                  <Button className="flex w-full items-center justify-between rounded-2xl bg-gradient-primary px-5 py-4 text-base font-bold text-white shadow-glow">
+                  <Button className="flex w-full items-center justify-between rounded-2xl bg-[#0E6BA8] px-5 py-3.5 text-base font-bold text-white shadow-md">
                     <span className="inline-flex items-center gap-2">
                       <AppIcon name="cart" />
                       Ver carrito · {itemCount}
