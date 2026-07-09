@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import PageLayout from '@/design-system/layouts/PageLayout';
 import Button from '@/components/ui/Button';
@@ -16,7 +16,10 @@ import { isValidColombianPhone, isValidName, isValidAddress, sanitizeText } from
 import { useOnlineStatus } from '@/hooks/useOnlineStatus';
 import { toast } from '@/utils/toast';
 import { isWompiEnabled, startShipmentWompiCheckout } from '@/services/wompi.service';
-import ShipmentHero from '@/components/shipment/ShipmentHero';
+import ServiceCommercialHero from '@/components/services/ServiceCommercialHero';
+import ServiceJourneyShowcase from '@/components/services/ServiceJourneyShowcase';
+import ServiceBookingStepper from '@/components/services/ServiceBookingStepper';
+import ServiceCrossSell from '@/components/services/ServiceCrossSell';
 import CustomerShipmentsPanel from '@/modules/client/components/CustomerShipmentsPanel';
 import ShipmentRouteCards from '@/components/shipment/ShipmentRouteCards';
 import ShipmentMunicipioPairPicker from '@/components/shipment/ShipmentMunicipioPairPicker';
@@ -45,6 +48,12 @@ const EMPTY_FORM = {
   deliveryReference: '',
   photoFile: null,
 };
+
+function journeyStepForBooking(step) {
+  if (step === 'quote') return 'pay';
+  if (step === 'form') return 'package';
+  return 'route';
+}
 
 export default function EnviosPage() {
   const navigate = useNavigate();
@@ -136,15 +145,13 @@ export default function EnviosPage() {
     }
     setLoading(true);
     try {
-      const customerId = user.id;
-
       let photoUrl = null;
       if (form.photoFile) {
         photoUrl = await uploadShipmentPhoto('draft', form.photoFile);
       }
 
       const shipment = await createShipment({
-        customerId,
+        customerId: user.id,
         quoteId: quote.id,
         quote,
         originMunicipio: form.originMunicipio,
@@ -189,29 +196,55 @@ export default function EnviosPage() {
   };
 
   return (
-    <PageLayout title="Envíos intermunicipales" maxWidth="lg" chrome={step === 'home' ? 'compact' : 'compact'}>
+    <PageLayout title={false} maxWidth="lg" chrome="compact">
       <div className="space-y-5">
         {step === 'home' && (
           <>
-            <ShipmentHero onCotizar={() => setStep('form')} />
+            <ServiceCommercialHero
+              variant="shipment"
+              municipio={municipio}
+              onPrimary={() => setStep('form')}
+            />
+
+            <ServiceJourneyShowcase variant="shipment" />
+
             <CustomerShipmentsPanel onNewShipment={() => setStep('form')} />
+
             {routesLoading ? (
               <div className="flex justify-center py-8"><Loader /></div>
             ) : routesError ? (
               <ErrorState onRetry={refetch} />
             ) : (
-              <>
-                <h2 className="section-title">Rutas activas</h2>
+              <section className="space-y-3">
+                <div>
+                  <h2 className="font-display text-lg font-bold text-[#0D2B45]">Rutas disponibles</h2>
+                  <p className="text-sm text-[#4A6278]">Toca una ruta para empezar con origen y destino listos</p>
+                </div>
                 <ShipmentRouteCards routes={routes} onSelect={handleRouteSelect} />
-              </>
+              </section>
             )}
+
+            <ServiceCrossSell variant="shipment" />
           </>
         )}
 
         {step !== 'home' && (
-          <Button type="button" variant="ghost" size="sm" onClick={() => setStep(step === 'quote' ? 'form' : 'home')}>
-            ← Volver
-          </Button>
+          <>
+            <button
+              type="button"
+              onClick={() => setStep(step === 'quote' ? 'form' : 'home')}
+              className="text-sm font-semibold text-[#0E6BA8]"
+            >
+              ← Volver
+            </button>
+
+            <ServiceBookingStepper variant="shipment" currentStep={step} />
+            <ServiceJourneyShowcase
+              variant="shipment"
+              activeStep={journeyStepForBooking(step)}
+              compact
+            />
+          </>
         )}
 
         {(step === 'form' || step === 'quote') && (
@@ -223,17 +256,16 @@ export default function EnviosPage() {
             }}
           >
             <SurfaceCard className="space-y-3">
-              <h2 className="section-title">Datos remitente</h2>
+              <h2 className="font-display text-base font-bold text-[#0D2B45]">Quién envía</h2>
               <Input label="Nombre" value={form.senderName} onChange={(e) => update('senderName', e.target.value)} required />
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <Input label="Celular" type="tel" value={form.senderPhone} onChange={(e) => update('senderPhone', e.target.value)} required />
                 <Input label="WhatsApp" type="tel" value={form.senderWhatsapp} onChange={(e) => update('senderWhatsapp', e.target.value)} />
               </div>
-              <Input label="Documento (opcional)" value={form.senderDocument} onChange={(e) => update('senderDocument', e.target.value)} />
             </SurfaceCard>
 
             <SurfaceCard className="space-y-3">
-              <h2 className="section-title">Envío</h2>
+              <h2 className="font-display text-base font-bold text-[#0D2B45]">Ruta del paquete</h2>
               <ShipmentMunicipioPairPicker
                 origin={form.originMunicipio}
                 dest={form.destMunicipio}
@@ -243,7 +275,7 @@ export default function EnviosPage() {
             </SurfaceCard>
 
             <SurfaceCard className="space-y-3">
-              <h2 className="section-title">Detalle paquete</h2>
+              <h2 className="font-display text-base font-bold text-[#0D2B45]">Qué envías</h2>
               <FormSelect label="Tipo" value={form.packageType} onChange={(e) => update('packageType', e.target.value)}>
                 {SHIPMENT_PACKAGE_TYPES.map((t) => (
                   <option key={t.id} value={t.id}>{t.label}</option>
@@ -254,9 +286,8 @@ export default function EnviosPage() {
                   <option key={t.id} value={t.id}>{t.label}</option>
                 ))}
               </FormSelect>
-              <Input label="Dimensiones (opcional)" value={form.dimensions} onChange={(e) => update('dimensions', e.target.value)} placeholder="30×20×15 cm" />
               <Input label="Valor declarado (COP)" type="number" value={form.declaredValue} onChange={(e) => update('declaredValue', e.target.value)} />
-              <Input label="Notas" value={form.packageNotes} onChange={(e) => update('packageNotes', e.target.value)} />
+              <Input label="Notas del paquete" value={form.packageNotes} onChange={(e) => update('packageNotes', e.target.value)} />
               <label className="block text-sm font-medium text-foreground">
                 Foto del paquete (opcional)
                 <input
@@ -269,7 +300,7 @@ export default function EnviosPage() {
             </SurfaceCard>
 
             <SurfaceCard className="space-y-3">
-              <h2 className="section-title">Direcciones</h2>
+              <h2 className="font-display text-base font-bold text-[#0D2B45]">Dónde recogemos y entregamos</h2>
               <Input label={`Recoger en ${form.originMunicipio || 'origen'}`} value={form.pickupAddress} onChange={(e) => update('pickupAddress', e.target.value)} required />
               <Input label="Referencia recogida" value={form.pickupReference} onChange={(e) => update('pickupReference', e.target.value)} />
               <Input label={`Entregar en ${form.destMunicipio || 'destino'}`} value={form.deliveryAddress} onChange={(e) => update('deliveryAddress', e.target.value)} required />
@@ -277,8 +308,8 @@ export default function EnviosPage() {
             </SurfaceCard>
 
             {step === 'form' && (
-              <Button type="submit" className="w-full" disabled={quoting || !online}>
-                {quoting ? 'Cotizando...' : !online ? 'Sin conexión' : 'Cotizar envío'}
+              <Button type="submit" className="w-full bg-[#0E6BA8] hover:bg-[#0B5A8C]" disabled={quoting || !online}>
+                {quoting ? 'Cotizando...' : !online ? 'Sin conexión' : 'Ver cotización'}
               </Button>
             )}
           </form>
@@ -301,6 +332,12 @@ export default function EnviosPage() {
               onPaymentMethodChange={setPaymentMethod}
               disabled={!user || !isRealAuthenticatedUser(user)}
             />
+            <p className="text-center text-xs text-[#4A6278]">
+              Tras confirmar, sigue el viaje de tu paquete en tiempo real
+            </p>
+            <Link to="/pedidos" className="block text-center text-sm font-semibold text-[#0E6BA8]">
+              Ver envíos en curso →
+            </Link>
           </>
         )}
       </div>

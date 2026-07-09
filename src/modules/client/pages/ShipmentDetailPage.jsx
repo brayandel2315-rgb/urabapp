@@ -9,10 +9,20 @@ import { getShipment, getShipmentEvents, getShipmentTracking, getShipmentPayment
 import { useShipmentRealtime } from '@/hooks/useShipmentRealtime';
 import { useAuthStore } from '@/store/authStore';
 import ShipmentTrackingPanel from '@/components/shipment/ShipmentTrackingPanel';
+import ServiceJourneyShowcase from '@/components/services/ServiceJourneyShowcase';
 import { formatCOP } from '@/utils/currency';
 import { isWompiEnabled, startShipmentWompiCheckout } from '@/services/wompi.service';
 import { toast } from '@/utils/toast';
 import { buildLoginRedirect } from '@/utils/auth-routes';
+
+function activeShipmentJourneyStep(shipment) {
+  const status = shipment?.status;
+  if (['delivered', 'completed'].includes(status)) return 'receive';
+  if (['arriving', 'in_transit', 'at_hub', 'pickup'].includes(status)) return 'transit';
+  if (shipment?.payment_status !== 'paid') return 'pay';
+  if (['accepted', 'searching_carrier'].includes(status)) return 'package';
+  return 'route';
+}
 
 export default function ShipmentDetailPage() {
   const { id } = useParams();
@@ -135,6 +145,13 @@ export default function ShipmentDetailPage() {
           )}
         </div>
       )}
+
+      <ServiceJourneyShowcase
+        variant="shipment"
+        activeStep={activeShipmentJourneyStep(shipment)}
+        compact
+        className="mb-4"
+      />
 
       <ShipmentTrackingPanel shipment={shipment} events={events} tracking={tracking} />
 

@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import Button from '../../../components/ui/Button';
 import Input from '../../../components/ui/Input';
 import { useLocationStore } from '../../../store/locationStore';
 import { useAuthStore } from '../../../store/authStore';
 import { isRealAuthenticatedUser } from '@/utils/auth-session';
 import ClientAuthGateCard from '@/components/client/ClientAuthGateCard';
+import ClientActiveOrderBanner from '@/modules/client/components/ClientActiveOrderBanner';
 import { quoteCourierDelivery, submitCourierRequest } from '../../../services/courier.service';
 import { geocodeAddress } from '../../../services/map.service';
 import { formatCOP } from '../../../utils/currency';
@@ -15,10 +16,19 @@ import { toast } from '../../../utils/toast';
 import CourierRouteMap from '@/components/courier/CourierRouteMap';
 import FareBreakdownCard from '@/components/courier/FareBreakdownCard';
 import CourierPackageForm from '@/components/courier/CourierPackageForm';
+import CourierUseCaseCards from '@/components/courier/CourierUseCaseCards';
+import ServiceCommercialHero from '@/components/services/ServiceCommercialHero';
+import ServiceJourneyShowcase from '@/components/services/ServiceJourneyShowcase';
+import ServiceBookingStepper from '@/components/services/ServiceBookingStepper';
+import ServiceCrossSell from '@/components/services/ServiceCrossSell';
 import AppIcon from '@/design-system/icons/AppIcon';
 import { buildLoginRedirect } from '@/utils/auth-routes';
 import { mergeContactPrefill } from '@/utils/profile-form';
 import { cn } from '@/lib/utils';
+
+function hasRoutePrefill(state) {
+  return Boolean(state?.pickup !== undefined || state?.dropoff !== undefined);
+}
 
 export default function MandadoPage() {
   const navigate = useNavigate();
@@ -27,7 +37,7 @@ export default function MandadoPage() {
   const { user, profile } = useAuthStore();
   const online = useOnlineStatus();
 
-  const [step, setStep] = useState('form');
+  const [step, setStep] = useState(() => (hasRoutePrefill(location.state) ? 'form' : 'home'));
   const [loading, setLoading] = useState(false);
   const [quoting, setQuoting] = useState(false);
   const [activePoint, setActivePoint] = useState('pickup');
@@ -50,12 +60,13 @@ export default function MandadoPage() {
     if (location.state?.municipio) {
       setMunicipio(location.state.municipio);
     }
-    if (location.state?.pickup !== undefined || location.state?.dropoff !== undefined) {
+    if (hasRoutePrefill(location.state)) {
       setForm((f) => ({
         ...f,
         pickup: location.state.pickup ?? f.pickup,
         dropoff: location.state.dropoff ?? f.dropoff,
       }));
+      setStep('form');
     }
   }, [location.state, setMunicipio]);
 
@@ -65,6 +76,11 @@ export default function MandadoPage() {
   }, [user, profile]);
 
   const update = (key, value) => setForm((f) => ({ ...f, [key]: value }));
+
+  const startWithPackageType = (packageType) => {
+    setForm((f) => ({ ...f, packageType }));
+    setStep('form');
+  };
 
   const handleCalculate = async () => {
     if (!isValidAddress(form.pickup) || !isValidAddress(form.dropoff)) {
@@ -117,8 +133,6 @@ export default function MandadoPage() {
 
     setLoading(true);
     try {
-      const customerId = user.id;
-
       const order = await submitCourierRequest(
         {
           ...form,
@@ -128,7 +142,7 @@ export default function MandadoPage() {
           pickupCoords: quote.pickup,
           dropoffCoords: quote.dropoff,
         },
-        { customerId, municipio }
+        { customerId: user.id, municipio },
       );
 
       toast('¡Buscando mensajero!');
@@ -153,6 +167,44 @@ export default function MandadoPage() {
     }
   }, [municipio, form.pickup, form.dropoff]);
 
+  if (step === 'home') {
+    return (
+      <div className="app-container space-y-5 py-4 pb-10">
+        <ServiceCommercialHero
+          variant="courier"
+          municipio={municipio}
+          onPrimary={() => setStep('form')}
+        />
+
+        <ClientActiveOrderBanner />
+
+        <ServiceJourneyShowcase variant="courier" />
+
+        <CourierUseCaseCards onSelect={startWithPackageType} />
+
+        <ServiceCrossSell variant="courier" />
+
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <Button
+            type="button"
+            className="w-full bg-[#0E6BA8] hover:bg-[#0B5A8C]"
+            size="lg"
+            onClick={() => setStep('form')}
+          >
+            Pedir mandado ahora
+          </Button>
+          <Link to="/pedidos" className="w-full">
+            <Button type="button" variant="outline" className="w-full">
+              Ver mis pedidos
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const journeyStep = step === 'quote' ? 'quote' : 'plan';
+
   return (
     <div className="relative flex min-h-[calc(100dvh-8rem)] flex-col bg-background">
       <CourierRouteMap
@@ -168,18 +220,30 @@ export default function MandadoPage() {
           update('dropoffCoords', c);
           if (c.label) update('dropoff', c.label);
         }}
-        className="h-[38vh] min-h-[220px] shrink-0 sm:h-[42vh]"
+        className="h-[34vh] min-h-[200px] shrink-0 sm:h-[38vh]"
       />
 
       <div className="relative z-10 -mt-6 flex flex-1 flex-col rounded-t-3xl border border-border/40 bg-background/95 shadow-[0_-8px_32px_rgba(0,0,0,0.08)] backdrop-blur-xl">
         <div className="mx-auto mt-2 h-1 w-10 rounded-full bg-border" />
 
         <div className="app-container flex flex-1 flex-col gap-4 py-4">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-primary">Mensajería Urabá</p>
-            <h1 className="font-display text-xl font-bold text-foreground sm:text-2xl">Solicitar mandado</h1>
-            <p className="text-sm text-muted-foreground">{municipio} · Entrega puerta a puerta</p>
+          <div className="flex items-center justify-between gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                if (step === 'quote') setStep('form');
+                else setStep('home');
+              }}
+              className="text-sm font-semibold text-[#0E6BA8]"
+            >
+              ← Volver
+            </button>
+            <p className="text-xs font-semibold text-[#4A6278]">{municipio}</p>
           </div>
+
+          <ServiceBookingStepper variant="courier" currentStep={step} />
+
+          <ServiceJourneyShowcase variant="courier" activeStep={journeyStep} compact />
 
           <div className="grid grid-cols-2 gap-2">
             {['pickup', 'dropoff'].map((point) => (
@@ -188,13 +252,13 @@ export default function MandadoPage() {
                 type="button"
                 onClick={() => setActivePoint(point)}
                 className={cn(
-                  'rounded-xl px-3 py-2 text-left text-xs font-bold transition-all',
+                  'rounded-xl px-3 py-2.5 text-left text-xs font-bold transition-colors',
                   activePoint === point
-                    ? 'bg-primary text-primary-foreground'
-                    : 'bg-muted text-muted-foreground'
+                    ? 'bg-[#0E6BA8] text-white'
+                    : 'border border-[#D8E2EC] bg-white text-[#4A6278]',
                 )}
               >
-                {point === 'pickup' ? 'Recoger en' : 'Entregar en'}
+                {point === 'pickup' ? '① Recoger en' : '② Entregar en'}
               </button>
             ))}
           </div>
@@ -232,9 +296,9 @@ export default function MandadoPage() {
                 <Input label="Tu nombre" value={form.fullName} onChange={(e) => update('fullName', e.target.value)} />
                 <Input label="WhatsApp" type="tel" value={form.phone} onChange={(e) => update('phone', e.target.value)} />
               </div>
-              <Button type="button" className="w-full" disabled={quoting} onClick={handleCalculate}>
+              <Button type="button" className="w-full bg-[#0E6BA8] hover:bg-[#0B5A8C]" disabled={quoting} onClick={handleCalculate}>
                 <AppIcon name="search" size="sm" className="mr-2 inline" />
-                {quoting ? 'Calculando...' : 'Calcular envío'}
+                {quoting ? 'Calculando...' : 'Ver precio y continuar'}
               </Button>
             </>
           )}
@@ -253,9 +317,18 @@ export default function MandadoPage() {
                   description="Los mandados requieren sesión verificada para proteger a mensajeros y tiendas."
                 />
               )}
-              <Button type="button" className="w-full rounded-2xl py-3.5 text-base font-bold shadow-glow" size="lg" disabled={loading || !online || !user || !isRealAuthenticatedUser(user)} onClick={handleSubmit}>
+              <Button
+                type="button"
+                className="w-full bg-[#0E6BA8] py-3.5 text-base font-bold hover:bg-[#0B5A8C]"
+                size="lg"
+                disabled={loading || !online || !user || !isRealAuthenticatedUser(user)}
+                onClick={handleSubmit}
+              >
                 {loading ? 'Publicando...' : `Buscar mensajero · ${formatCOP(quote.fare.total)}`}
               </Button>
+              <p className="text-center text-xs text-[#4A6278]">
+                Después podrás seguir el recorrido en vivo en Mis pedidos
+              </p>
               <Button type="button" variant="outline" className="w-full" onClick={() => setStep('form')}>
                 Editar direcciones
               </Button>

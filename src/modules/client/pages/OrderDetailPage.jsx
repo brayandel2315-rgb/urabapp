@@ -37,8 +37,18 @@ import ClientDeliveryHandoffPanel from '@/components/tracking/ClientDeliveryHand
 import { getOrderEvents } from '@/services/order-tracking.service';
 import { useOrderEventsRealtime } from '@/hooks/useOrderEventsRealtime';
 import FareBreakdownCard from '@/components/courier/FareBreakdownCard';
+import ServiceJourneyShowcase from '@/components/services/ServiceJourneyShowcase';
 import { startWompiCheckout, isWompiEnabled, isDigitalPayment } from '../../../services/wompi.service';
 import { toast } from '../../../utils/toast';
+
+function courierJourneyFromOrder(order) {
+  const phase = order?.courier_phase;
+  if (order?.status === 'delivered') return 'done';
+  if (['picked_up', 'en_route'].includes(phase) || order?.status === 'on_the_way') return 'track';
+  if (['assigned', 'arriving_pickup'].includes(phase)) return 'match';
+  if (phase === 'searching' || order?.status === 'pending') return 'match';
+  return 'plan';
+}
 
 function fulfillmentHint(order) {
   if (!order || order.driver_id) return null;
@@ -307,6 +317,13 @@ export default function OrderDetailPage() {
 
         {showTracking && (
           <div className="space-y-3">
+            {isCourierOrder(order) && (
+              <ServiceJourneyShowcase
+                variant="courier"
+                activeStep={courierJourneyFromOrder(order)}
+                compact
+              />
+            )}
             <UnifiedTrackingPanel
               type={isCourierOrder(order) ? 'courier' : 'order'}
               order={order}
