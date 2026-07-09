@@ -6,7 +6,6 @@ import CatalogImage from '@/components/ui/CatalogImage';
 import BusinessRating from '@/components/reviews/BusinessRating';
 import { resolveBusinessCover, resolveBusinessLogo } from '@/utils/catalog-images';
 import { isBusinessOpenNow } from '@/utils/schedule';
-import CategoryBadge from '@/components/marketplace/CategoryBadge';
 import { getBarrioDeliveryTier } from '@/utils/barrio';
 import { formatDistanceKm } from '@/utils/format-distance';
 
@@ -44,29 +43,43 @@ function OpenBadge({ open }) {
   return <Badge variant="destructive" className="text-[10px]">Cerrado</Badge>;
 }
 
-function DeliveryMeta({ business, className }) {
+function DeliveryMeta({ business, className, barrio, municipio, coverage }) {
   const time = business.delivery_time || 25;
   const fee = business.delivery_fee != null ? formatCOP(business.delivery_fee) : null;
   const distLabel = formatDistanceKm(business.distanceKm ?? business.distance_km);
+  const tier = barrio ? getBarrioDeliveryTier(business, barrio, municipio) : null;
+  const cov = coverage || business.coverage;
+  const coverageWarn = cov && !cov.available;
 
   return (
-    <div className={cn('space-y-1.5', className)}>
+    <div className={cn('flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-[#4A6278]', className)}>
       <BusinessRating business={business} size="sm" />
-      <p className="text-xs font-semibold text-muted-foreground">
-        {distLabel && (
-          <>
-            {distLabel}
-            <span className="mx-1.5 text-border">·</span>
-          </>
-        )}
-        {time} min
-        {fee && (
-          <>
-            <span className="mx-1.5 text-border">·</span>
-            {fee}
-          </>
-        )}
-      </p>
+      {distLabel && (
+        <>
+          <span className="text-[#D5E3EF]">·</span>
+          <span>{distLabel}</span>
+        </>
+      )}
+      <span className="text-[#D5E3EF]">·</span>
+      <span>~{time} min</span>
+      {fee && (
+        <>
+          <span className="text-[#D5E3EF]">·</span>
+          <span>{fee}</span>
+        </>
+      )}
+      {coverageWarn && (
+        <>
+          <span className="text-[#D5E3EF]">·</span>
+          <span className="font-semibold text-destructive">Sin cobertura</span>
+        </>
+      )}
+      {tier === 'local' && !coverageWarn && (
+        <>
+          <span className="text-[#D5E3EF]">·</span>
+          <span className="font-medium text-[#28B463]">En tu barrio</span>
+        </>
+      )}
     </div>
   );
 }
@@ -86,7 +99,7 @@ function CardImage({ business, open, rank, showLogo = false, imageLoading = 'laz
         loading={imageLoading}
         fetchPriority={imageLoading === 'eager' ? 'high' : undefined}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
       <RankBadge rank={rank} />
       <div className={cn('absolute z-[1]', rank ? 'left-11 top-2' : 'left-2 top-2')}>
         <OpenBadge open={open} />
@@ -100,32 +113,9 @@ function CardImage({ business, open, rank, showLogo = false, imageLoading = 'laz
   );
 }
 
-function BarrioDeliveryBadge({ tier, municipio }) {
-  if (!tier || tier === 'all' || tier === 'other') return null;
-  const label = tier === 'local' ? 'En tu barrio' : `Entrega en ${municipio}`;
-  return (
-    <Badge variant={tier === 'local' ? 'success' : 'secondary'} className="mt-1.5 w-fit text-[10px]">
-      {label}
-    </Badge>
-  );
-}
-
-function CoverageBadge({ coverage }) {
-  if (!coverage) return null;
-  return (
-    <Badge
-      variant={coverage.available ? 'success' : 'destructive'}
-      className="mt-1.5 w-fit text-[10px]"
-    >
-      {coverage.available ? 'Con cobertura' : 'Sin cobertura'}
-    </Badge>
-  );
-}
-
 function CardBody({ business, className, compact = false, barrio, municipio, coverage }) {
-  const tier = barrio ? getBarrioDeliveryTier(business, barrio, municipio) : null;
   return (
-    <div className={cn('flex flex-1 flex-col p-3', compact ? 'min-h-[88px]' : 'min-h-[100px]', className)}>
+    <div className={cn('flex flex-1 flex-col p-3', compact ? 'min-h-[80px]' : 'min-h-[92px]', className)}>
       <h3
         className={cn(
           'font-display font-bold leading-tight text-foreground',
@@ -134,16 +124,16 @@ function CardBody({ business, className, compact = false, barrio, municipio, cov
       >
         {business.name}
       </h3>
-      <CategoryBadge categoryId={business.category} size="xs" className="mt-1.5" />
       {!compact && business.description && (
-        <p className="mt-1 line-clamp-2 flex-1 text-sm text-muted-foreground">{business.description}</p>
+        <p className="mt-1 line-clamp-1 flex-1 text-sm text-muted-foreground">{business.description}</p>
       )}
-      <DeliveryMeta business={business} className="mt-auto pt-2" />
-      <BarrioDeliveryBadge tier={tier} municipio={municipio || business.municipio} />
-      <CoverageBadge coverage={coverage || business.coverage} />
-      {!compact && business.zone && (
-        <Badge variant="success" className="mt-2 w-fit text-[10px]">{business.zone}</Badge>
-      )}
+      <DeliveryMeta
+        business={business}
+        barrio={barrio}
+        municipio={municipio}
+        coverage={coverage}
+        className="mt-auto pt-1.5"
+      />
     </div>
   );
 }
@@ -186,15 +176,14 @@ function GridCard({ business, href, className, rank, barrio, municipio, imageLoa
 function ListCard({ business, href, className, rank, barrio, municipio }) {
   const cover = resolveBusinessCover(business);
   const open = isBusinessOpenNow(business);
-  const tier = barrio ? getBarrioDeliveryTier(business, barrio, municipio) : null;
 
   return (
     <Link to={href} className={cn('group block', className)}>
       <article className={cn(CARD_SHELL, 'flex gap-3 p-3', CARD_INTERACTIVE)}>
-        <div className="relative h-[120px] w-[120px] shrink-0 overflow-hidden rounded-2xl bg-muted/30 shadow-sm sm:h-[104px] sm:w-[104px] sm:rounded-xl">
+        <div className="relative h-[104px] w-[104px] shrink-0 overflow-hidden rounded-xl bg-muted/30 sm:h-[96px] sm:w-[96px]">
           <CatalogImage src={cover} emoji={business.emoji || 'store'} alt={business.name} size="lg" />
           {!open && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+            <div className="absolute inset-0 flex items-center justify-center bg-black/45">
               <span className="text-[10px] font-bold uppercase text-white">Cerrado</span>
             </div>
           )}
@@ -209,22 +198,26 @@ function ListCard({ business, href, className, rank, barrio, municipio }) {
             </span>
           )}
         </div>
-        <div className="flex min-w-0 flex-1 flex-col py-0.5">
-          <div className="flex items-start justify-between gap-2">
-            <h3 className="truncate font-display text-[17px] font-bold leading-tight text-foreground sm:text-base">
+        <div className="flex min-w-0 flex-1 flex-col justify-center py-0.5">
+          <div className="flex items-center gap-2">
+            <h3 className="truncate font-display text-base font-bold leading-tight text-foreground">
               {business.name}
             </h3>
+            {open ? (
+              <span className="shrink-0 text-[10px] font-bold text-[#28B463]">Abierto</span>
+            ) : (
+              <Badge variant="destructive" className="shrink-0 text-[10px]">Cerrado</Badge>
+            )}
           </div>
           {business.description && (
-            <p className="mt-1 line-clamp-2 text-sm leading-snug text-muted-foreground">{business.description}</p>
+            <p className="mt-0.5 line-clamp-1 text-sm text-muted-foreground">{business.description}</p>
           )}
-          <CategoryBadge categoryId={business.category} size="xs" className="mt-1" />
-          <DeliveryMeta business={business} className="mt-auto" />
-          <BarrioDeliveryBadge tier={tier} municipio={municipio || business.municipio} />
-          <CoverageBadge coverage={business.coverage} />
-          {business.zone && (
-            <p className="mt-1 text-[11px] font-semibold text-primary">{business.zone}</p>
-          )}
+          <DeliveryMeta
+            business={business}
+            barrio={barrio}
+            municipio={municipio}
+            className="mt-1.5"
+          />
         </div>
       </article>
     </Link>

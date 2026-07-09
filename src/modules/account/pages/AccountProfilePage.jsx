@@ -7,7 +7,6 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import ThemeToggle from '@/design-system/patterns/ThemeToggle';
 import RoleModeSwitcher from '@/components/roles/RoleModeSwitcher';
-import ClientHubShortcuts from '@/modules/client/components/ClientHubShortcuts';
 import ClientActiveOrderBanner from '@/modules/client/components/ClientActiveOrderBanner';
 import ClientDeliveryHandoffPanel from '@/components/tracking/ClientDeliveryHandoffPanel';
 import GuestOrderRecoveryCard from '@/modules/client/components/GuestOrderRecoveryCard';
@@ -27,7 +26,6 @@ import { ROLES } from '@/utils/constants';
 import { getRoleLabel } from '@/app/roleConfig';
 import { CLIENT_NOTIFICATIONS, CLIENT_ORDERS } from '@/app/clientNav';
 import { toast } from '@/utils/toast';
-import AppIcon from '@/design-system/icons/AppIcon';
 
 export default function AccountProfilePage() {
   const { user, profile, logout, setProfile } = useAuthStore();
@@ -62,12 +60,6 @@ export default function AccountProfilePage() {
 
   const unreadCount = notifications.filter((n) => !n.is_read).length;
   const couponCount = coupons.length;
-  const statusLabel = {
-    active: 'Activa',
-    pending: 'Pendiente verificación',
-    blocked: 'Bloqueada',
-    deleted: 'Eliminada',
-  }[profile?.account_status || 'active'];
 
   const handleSave = async () => {
     if (!user?.id) return;
@@ -111,23 +103,17 @@ export default function AccountProfilePage() {
 
   return (
     <div className="space-y-5">
-      <SurfaceCard className="space-y-4 p-5">
+      <SurfaceCard className="space-y-3 p-5">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-              Área de cliente
-            </p>
-            <h2 className="mt-1 truncate font-display text-xl font-bold">
+            <h2 className="truncate font-display text-xl font-bold text-[#0D2B45]">
               {profile?.full_name || 'Usuario'}
             </h2>
             <p className="truncate text-sm text-muted-foreground">{profile?.email || user.email}</p>
           </div>
-          <span className="shrink-0 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">
+          <span className="shrink-0 rounded-full bg-[#E6F4FF] px-2.5 py-1 text-xs font-semibold text-[#0E6BA8]">
             {getRoleLabel(role)}
           </span>
-        </div>
-        <div className="flex flex-wrap gap-2 text-xs">
-          <span className="rounded-full bg-muted px-2.5 py-1 font-medium">Cuenta {statusLabel.toLowerCase()}</span>
         </div>
         <RoleModeSwitcher />
       </SurfaceCard>
@@ -199,11 +185,6 @@ export default function AccountProfilePage() {
           />
         </Link>
       </MetricGrid>
-
-      <section className="space-y-2">
-        <SectionTitle>Accesos rápidos</SectionTitle>
-        <ClientHubShortcuts variant="compact" />
-      </section>
 
       <SurfaceCard className="space-y-3 p-5">
         <div className="flex items-center justify-between gap-3">
@@ -286,24 +267,6 @@ export default function AccountProfilePage() {
         </div>
         <ThemeToggle />
       </SurfaceCard>
-
-      <Link
-        to={CLIENT_NOTIFICATIONS}
-        className="flex items-center justify-between rounded-2xl border border-border bg-card p-4 transition hover:border-primary/30"
-      >
-        <div className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-            <AppIcon name="bell" size="sm" />
-          </span>
-          <div>
-            <p className="font-semibold">Centro de notificaciones</p>
-            <p className="text-sm text-muted-foreground">
-              {unreadCount > 0 ? `${unreadCount} sin leer` : 'Ver historial de avisos'}
-            </p>
-          </div>
-        </div>
-        <span className="text-muted-foreground" aria-hidden>›</span>
-      </Link>
 
       <Button variant="outline" className="w-full" onClick={handleLogout}>
         Cerrar sesión

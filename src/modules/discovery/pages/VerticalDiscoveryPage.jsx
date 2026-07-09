@@ -15,13 +15,11 @@ import VerticalSectionRow, {
 } from '../components/VerticalSectionRow';
 import VerticalFilters from '../components/VerticalFilters';
 import HomeCatalogAwayBanner from '@/modules/home/components/catalog/HomeCatalogAwayBanner';
-import LocationPromptBanner from '@/components/geo/LocationPromptBanner';
 import DetectedLocationChip from '@/components/geo/DetectedLocationChip';
 import { useAutoLocation } from '@/hooks/useAutoLocation';
 import Button from '@/components/ui/Button';
 import HomeSectionHeader from '@/modules/client/components/HomeSectionHeader';
 import BusinessCard from '@/components/BusinessCard';
-import AppIcon from '@/design-system/icons/AppIcon';
 
 const VERTICAL_EYEBROW = {
   tiendas: 'Tiendas locales',
@@ -29,14 +27,6 @@ const VERTICAL_EYEBROW = {
   mercado: 'Mercado',
   farmacia: 'Farmacia',
   mensajeria: 'Mensajería',
-};
-
-const VERTICAL_ICON = {
-  tiendas: 'tiendas',
-  restaurantes: 'comida',
-  mercado: 'market',
-  farmacia: 'pharmacy',
-  mensajeria: 'mensajeria',
 };
 
 export default function VerticalDiscoveryPage() {
@@ -112,25 +102,13 @@ export default function VerticalDiscoveryPage() {
 
   return (
     <PageLayout title={false} maxWidth="store">
-      <div className="discover-page-hero vertical-page-hero">
-        <div className="discover-page-hero__glow" aria-hidden />
-        <div className="relative flex items-start gap-3">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/20">
-            <AppIcon name={VERTICAL_ICON[vertical.id] || 'store'} size="md" className="text-primary" />
-          </div>
-          <div className="min-w-0 flex-1 space-y-1">
-            <p className="text-xs font-bold uppercase tracking-widest text-primary">{eyebrow}</p>
-            <h1 className="font-display text-[1.45rem] font-black leading-tight text-[#0D2B45] sm:text-2xl">
-              {vertical.title}
-            </h1>
-            <p className="text-sm font-medium text-[#4A6278]">{vertical.subtitle}</p>
-          </div>
-        </div>
-        <DetectedLocationChip className="mt-3 max-w-sm" />
-      </div>
-
-      <div className="vertical-page-location mb-4 space-y-3">
-        <LocationPromptBanner />
+      <div className="mb-4 space-y-2">
+        <p className="text-xs font-semibold text-[#4A6278]">{eyebrow}</p>
+        <h1 className="font-display text-2xl font-bold leading-tight text-[#0D2B45]">
+          {vertical.title}
+        </h1>
+        <p className="text-sm text-[#4A6278]">{vertical.subtitle}</p>
+        <DetectedLocationChip className="max-w-sm" />
       </div>
 
       <div className="sticky top-[3.25rem] z-20 -mx-4 bg-[#F7FAFC]/95 px-4 py-3 backdrop-blur-md sm:top-16 lg:top-[4.5rem]">
@@ -150,14 +128,9 @@ export default function VerticalDiscoveryPage() {
             title={`Sin comercios en ${catalog.detected || 'tu zona'}`}
             description="Activa el catálogo intermunicipal o actualiza tu ubicación para ver tiendas disponibles en tu municipio."
             action={(
-              <div className="flex flex-wrap justify-center gap-2">
-                <Button variant="primary" onClick={() => setIntermunicipalCatalog(true)}>
-                  Ver catálogo intermunicipal
-                </Button>
-                <Button variant="outline" onClick={detect}>
-                  Actualizar ubicación
-                </Button>
-              </div>
+              <Button variant="primary" onClick={() => setIntermunicipalCatalog(true)}>
+                Ver catálogo intermunicipal
+              </Button>
             )}
           />
         ) : (
@@ -176,14 +149,9 @@ export default function VerticalDiscoveryPage() {
                   title="Aún no hay comercios aquí"
                   description={`No encontramos ${eyebrow.toLowerCase()} en ${municipio} por ahora. Explora otras categorías o vuelve pronto.`}
                   action={(
-                    <div className="flex flex-wrap justify-center gap-2">
-                      <Link to="/search">
-                        <Button variant="primary">Buscar en Urabá</Button>
-                      </Link>
-                      <Link to="/">
-                        <Button variant="outline">Volver al inicio</Button>
-                      </Link>
-                    </div>
+                    <Link to="/search">
+                      <Button variant="primary">Buscar en Urabá</Button>
+                    </Link>
                   )}
                 />
               ) : null

@@ -12,28 +12,28 @@ function valueTypography(value) {
 
 const ACCOUNT_TONE_STYLES = {
   green: {
-    card: 'lg:border-[#28B463]/18 lg:bg-gradient-to-br lg:from-[#E8F9EE]/90 lg:via-white lg:to-white lg:before:bg-[#28B463]',
-    icon: 'lg:bg-[#28B463]/12 lg:text-[#28B463] lg:ring-1 lg:ring-[#28B463]/18',
+    card: 'lg:border-[#D5E3EF] lg:bg-white',
+    icon: 'lg:bg-[#E6F4FF] lg:text-[#0E6BA8]',
     value: 'lg:text-[#0D2B45]',
-    valueAccent: 'lg:text-[#1C9A55]',
+    valueAccent: 'lg:text-[#0E6BA8]',
   },
   blue: {
-    card: 'lg:border-[#0E6BA8]/18 lg:bg-gradient-to-br lg:from-[#E6F4FF]/90 lg:via-white lg:to-white lg:before:bg-[#0E6BA8]',
-    icon: 'lg:bg-[#0E6BA8]/12 lg:text-[#0E6BA8] lg:ring-1 lg:ring-[#0E6BA8]/18',
+    card: 'lg:border-[#D5E3EF] lg:bg-white',
+    icon: 'lg:bg-[#E6F4FF] lg:text-[#0E6BA8]',
     value: 'lg:text-[#0D2B45]',
     valueAccent: 'lg:text-[#0E6BA8]',
   },
   sky: {
-    card: 'lg:border-[#D5E3EF] lg:bg-gradient-to-br lg:from-[#F4F9FD] lg:via-white lg:to-white lg:before:bg-[#0E6BA8]/70',
-    icon: 'lg:bg-[#E6F4FF] lg:text-[#0E6BA8] lg:ring-1 lg:ring-[#D5E3EF]',
+    card: 'lg:border-[#D5E3EF] lg:bg-white',
+    icon: 'lg:bg-[#E6F4FF] lg:text-[#0E6BA8]',
     value: 'lg:text-[#0D2B45]',
     valueAccent: 'lg:text-[#0E6BA8]',
   },
   promo: {
-    card: 'lg:border-[#A8D60E]/28 lg:bg-gradient-to-br lg:from-[#F7FAE8]/95 lg:via-white lg:to-white lg:before:bg-[#A8D60E]',
-    icon: 'lg:bg-[#A8D60E]/18 lg:text-[#6B8F00] lg:ring-1 lg:ring-[#A8D60E]/25',
+    card: 'lg:border-[#D5E3EF] lg:bg-white',
+    icon: 'lg:bg-[#E6F4FF] lg:text-[#0E6BA8]',
     value: 'lg:text-[#0D2B45]',
-    valueAccent: 'lg:text-[#6B8F00]',
+    valueAccent: 'lg:text-[#0E6BA8]',
   },
 };
 
@@ -105,11 +105,11 @@ export function MetricCard({
       className={cn(
         'flex h-full min-h-[6.75rem] flex-col overflow-hidden sm:min-h-[7.25rem]',
         isAccount && [
-          'lg:relative lg:min-h-[11rem] lg:rounded-3xl lg:shadow-soft lg:before:absolute lg:before:inset-x-0 lg:before:top-0 lg:before:h-1 lg:before:rounded-t-3xl',
+          'lg:relative lg:min-h-[10rem] lg:rounded-2xl lg:shadow-card',
           toneStyle.card,
         ],
-        interactive && 'transition-shadow hover:border-primary/30 hover:shadow-soft',
-        interactive && isAccount && 'lg:transition-all lg:duration-200 lg:hover:-translate-y-1 lg:hover:shadow-lift lg:hover:border-primary/25',
+        interactive && 'transition-shadow hover:border-[#0E6BA8]/30 hover:shadow-soft',
+        interactive && isAccount && 'lg:hover:border-[#0E6BA8]/25',
         className,
       )}
     >

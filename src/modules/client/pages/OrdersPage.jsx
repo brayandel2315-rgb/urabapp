@@ -7,7 +7,6 @@ import PageExperienceGuard from '@/design-system/patterns/PageExperienceGuard';
 import OrderCard from '@/components/OrderCard';
 import ShipmentCard from '@/modules/client/components/ShipmentCard';
 import ClientActiveOrderBanner from '@/modules/client/components/ClientActiveOrderBanner';
-import GuestClaimBanner from '@/modules/client/components/GuestClaimBanner';
 import GuestOrderRecoveryCard from '@/modules/client/components/GuestOrderRecoveryCard';
 import { peekGuestUserId } from '@/services/guest-merge.service';
 import EmptyState from '@/components/ui/EmptyState';
@@ -61,6 +60,12 @@ export default function OrdersPage() {
     return visibleActivities.filter((a) => a.service === serviceFilter);
   }, [visibleActivities, serviceFilter]);
 
+  const serviceTypes = useMemo(
+    () => new Set(visibleActivities.map((a) => a.service)),
+    [visibleActivities],
+  );
+  const showServiceFilter = serviceTypes.size > 1;
+
   const hasAny = orders.length > 0 || shipments.length > 0;
   const hasGuestSession = !!peekGuestUserId();
   const showPhoneRecovery = !hasGuestSession;
@@ -107,7 +112,6 @@ export default function OrdersPage() {
       >
         {hasAny && (
         <>
-        <GuestClaimBanner className="mb-4" />
         <ClientActiveOrderBanner className="mb-4" />
 
         <PanelTabBar
@@ -120,12 +124,14 @@ export default function OrdersPage() {
           onChange={setTab}
         />
 
-        <PanelTabBar
-          className="mb-4"
-          tabs={SERVICE_FILTERS}
-          value={serviceFilter}
-          onChange={setServiceFilter}
-        />
+        {showServiceFilter && (
+          <PanelTabBar
+            className="mb-4"
+            tabs={SERVICE_FILTERS}
+            value={serviceFilter}
+            onChange={setServiceFilter}
+          />
+        )}
 
         <div className="space-y-3">
           {filtered.map((activity) => (
@@ -150,10 +156,9 @@ export default function OrdersPage() {
     <PageLayout title={false} maxWidth="lg">
       <ClientScreenHeader
         tag="Tus pedidos"
-        title="Seguimiento en vivo"
-        subtitle="Comida, mandados y envíos intermunicipales en un solo lugar."
+        title="Mis pedidos"
         action={user ? (
-          <Link to={CLIENT_ACCOUNT} className="text-xs font-bold text-[#28B463]">
+          <Link to={CLIENT_ACCOUNT} className="text-xs font-semibold text-[#0E6BA8]">
             Mi cuenta
           </Link>
         ) : null}

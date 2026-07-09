@@ -48,40 +48,36 @@ export default function ClientActiveOrderBanner({ className }) {
     >
       <Link
         to={primaryActivity.href}
-        className="group block overflow-hidden rounded-2xl border border-[#28B463]/25 bg-gradient-to-br from-[#E6F4FF] via-white to-[#E8F9EE] p-4 shadow-soft transition hover:border-[#28B463]/40 hover:shadow-md"
+        className="group block overflow-hidden rounded-2xl border border-[#D5E3EF] bg-white p-4 shadow-card transition hover:border-[#0E6BA8]/30"
       >
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary">
-                En curso
-              </p>
               <Badge variant={badge.variant}>{badge.label}</Badge>
+              <p className="text-sm font-semibold text-[#4A6278]">
+                {statusLabel(primaryActivity)}
+              </p>
             </div>
-            <p className="mt-1 truncate font-display text-base font-bold text-[#0D2B45] group-hover:text-primary">
+            <p className="mt-1 truncate font-display text-base font-bold text-[#0D2B45]">
               {primaryActivity.title}
             </p>
-            <p className="mt-0.5 text-sm text-[#4A6278]">
-              {statusLabel(primaryActivity)}
-              {primaryActivity.amount != null && (
-                <>
-                  {' · '}
-                  {formatCOP(primaryActivity.amount)}
-                </>
-              )}
-            </p>
+            {primaryActivity.amount != null && (
+              <p className="mt-0.5 text-sm text-[#4A6278]">
+                {formatCOP(primaryActivity.amount)}
+              </p>
+            )}
           </div>
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#0E6BA8] text-white">
             <AppIcon name={primaryActivity.service === 'shipment' ? 'envios' : 'orders'} size="sm" />
           </span>
         </div>
-        <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-[#E6F4FF]">
+        <div className="mt-3 h-1 overflow-hidden rounded-full bg-[#E6F4FF]">
           <div
-            className="h-full rounded-full bg-primary transition-all duration-500"
+            className="h-full rounded-full bg-[#0E6BA8] transition-all duration-500"
             style={{ width: `${progress}%` }}
           />
         </div>
-        <p className="mt-2 text-xs font-semibold text-primary">
+        <p className="mt-2 text-xs font-semibold text-[#0E6BA8]">
           {primaryActivity.status === 'on_the_way'
             ? 'Ver código de entrega →'
             : 'Ver seguimiento →'}
