@@ -96,13 +96,13 @@ export function getRouteAvailability(route) {
 
 /** Centros aproximados municipios Urabá [lat, lng] */
 export const MUNICIPALITY_COORDS = {
-  'Necoclí': { lat: 8.6603, lng: -76.7894 },
+  'Necoclí': { lat: 8.6593, lng: -76.7894 },
   Turbo: { lat: 8.0925, lng: -76.7289 },
-  Apartadó: { lat: 7.8837, lng: -76.6319 },
+  Apartadó: { lat: 7.8839, lng: -76.6312 },
   Carepa: { lat: 7.8044, lng: -76.6803 },
   Chigorodó: { lat: 7.6669, lng: -76.6803 },
-  'San Pedro': { lat: 8.0000, lng: -76.2000 },
-  Arboletes: { lat: 8.8500, lng: -76.4300 },
+  'San Pedro': { lat: 8.2764, lng: -76.3775 },
+  Arboletes: { lat: 8.8503, lng: -76.4269 },
 };
 
 export function getMunicipioCoords(municipio) {

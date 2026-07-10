@@ -5,7 +5,8 @@ import { SurfaceCard } from '@/design-system/patterns/SurfaceCard';
 import { ECONOMICS, RIDER_BONUSES } from '@/utils/constants';
 import { formatCOP } from '@/utils/currency';
 import { useAuthStore } from '@/store/authStore';
-import { buildLoginRedirect } from '@/utils/auth-routes';
+import { buildRegisterRedirect, buildLoginRedirect } from '@/utils/auth-routes';
+import { AUTH_INTENT } from '@/auth/auth-intents';
 import { cn } from '@/lib/utils';
 
 const STEPS = [
@@ -39,7 +40,7 @@ const BENEFITS = [
 
 export default function RiderJoinHero({ className, compact = false }) {
   const { user } = useAuthStore();
-  const ctaTo = user ? '/domiciliario/registro' : buildLoginRedirect('/domiciliario/registro');
+  const ctaTo = user ? '/domiciliario/registro' : buildRegisterRedirect('/domiciliario/registro', AUTH_INTENT.RIDER);
 
   return (
     <div className={cn('space-y-4', className)}>
@@ -66,13 +67,13 @@ export default function RiderJoinHero({ className, compact = false }) {
           </div>
           <Link to={ctaTo} className="mt-5 block">
             <Button size="lg" className="w-full border-0 bg-white text-primary hover:bg-white/90">
-              {user ? 'Empezar registro' : 'Iniciar sesión y registrarme'}
+              {user ? 'Empezar registro' : 'Crear cuenta de domiciliario'}
             </Button>
           </Link>
           {!user && (
             <p className="mt-3 text-center text-xs text-white/80">
               ¿Ya eres mensajero?{' '}
-              <Link to={buildLoginRedirect('/domiciliario')} className="font-bold underline">
+              <Link to={buildLoginRedirect('/domiciliario', '', AUTH_INTENT.RIDER)} className="font-bold underline">
                 Entrar
               </Link>
             </p>

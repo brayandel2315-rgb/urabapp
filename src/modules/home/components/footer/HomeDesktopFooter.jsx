@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import logo from '@/assets/logo/logo-icon.svg';
+import BrandLogo from '@/components/brand/BrandLogo';
 import { BRAND } from '@/utils/constants';
 import { HOME_FOOTER_COLUMNS } from '@/modules/home/constants/footer-links';
 import AppIcon from '@/design-system/icons/AppIcon';
@@ -20,7 +20,7 @@ export default function HomeDesktopFooter() {
         <div className="urabapp-desktop-footer__main">
           <div className="urabapp-desktop-footer__brand">
             <Link to="/" className="urabapp-desktop-footer__logo-link">
-              <img src={logo} alt="" className="urabapp-desktop-footer__logo" />
+              <BrandLogo variant="footer" alt="" className="urabapp-desktop-footer__logo" />
               <span>
                 <span className="urabapp-desktop-footer__name">{BRAND.name}</span>
                 <span className="urabapp-desktop-footer__tagline">{BRAND.shortTagline}</span>

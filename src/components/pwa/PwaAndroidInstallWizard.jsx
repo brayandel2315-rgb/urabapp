@@ -22,7 +22,7 @@ function HomeScreenPreview({ success = false }) {
             <motion.img
               src={APP_ICON_URL}
               alt=""
-              className="h-full w-full rounded-[14px] object-cover shadow-lg ring-1 ring-white/20"
+              className="h-full w-full rounded-[14px] object-contain bg-transparent shadow-lg ring-1 ring-white/20"
               initial={success ? { scale: 0.6, opacity: 0 } : false}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: 'spring', stiffness: 320, damping: 22 }}
@@ -87,7 +87,7 @@ function ConfirmDialogMock() {
           <img
             src={APP_ICON_URL}
             alt=""
-            className="h-16 w-16 rounded-2xl object-cover shadow-lg ring-2 ring-primary/25"
+            className="h-16 w-16 rounded-2xl object-contain bg-transparent shadow-lg ring-2 ring-primary/25"
           />
           <p className="text-center text-sm font-bold text-foreground">¿Instalar Urabapp?</p>
           <p className="text-center text-xs text-muted-foreground">
@@ -169,7 +169,7 @@ export default function PwaAndroidInstallWizard({ onClose, onDismiss, hasNativeP
               <img
                 src={APP_ICON_URL}
                 alt=""
-                className="h-14 w-14 shrink-0 rounded-2xl object-cover shadow-md ring-2 ring-primary/20"
+                className="h-14 w-14 shrink-0 rounded-2xl object-contain bg-transparent shadow-md ring-2 ring-primary/20"
               />
               <div className="min-w-0">
                 <p className="font-display text-lg font-bold text-foreground">{step.title}</p>

@@ -56,7 +56,7 @@ export function canShowInstallUi(platform, hasDeferredPrompt) {
 }
 
 /** Ruta pública del icono de la app (manifest + apple-touch-icon) */
-export const APP_ICON_URL = '/app-icon.svg';
+export const APP_ICON_URL = '/app-icon.png';
 
 export const IOS_WIZARD_STEPS = [
   {

@@ -1,13 +1,40 @@
 import { MUNICIPALITIES } from './constants';
 import { tryNormalizeMunicipio } from './municipio';
 
-/** Centros aproximados municipios Urabá [lat, lng] */
+/** Centros municipios Urabá — verificados (lat, lng) */
 export const MUNICIPIO_CENTERS = {
-  Necoclí: { lat: 8.4267, lng: -76.7892, radiusKm: 18 },
-  Turbo: { lat: 8.0927, lng: -76.7289, radiusKm: 15 },
-  Apartadó: { lat: 7.8837, lng: -75.7536, radiusKm: 20 },
-  Carepa: { lat: 7.7583, lng: -76.6525, radiusKm: 12 },
-  Chigorodó: { lat: 7.6667, lng: -76.6833, radiusKm: 14 },
+  Necoclí: { lat: 8.6593, lng: -76.7894, radiusKm: 18 },
+  Turbo: { lat: 8.0925, lng: -76.7289, radiusKm: 15 },
+  Apartadó: { lat: 7.8839, lng: -76.6312, radiusKm: 20 },
+  Carepa: { lat: 7.8044, lng: -76.6803, radiusKm: 12 },
+  Chigorodó: { lat: 7.6669, lng: -76.6803, radiusKm: 14 },
+  'San Pedro': { lat: 8.2764, lng: -76.3775, radiusKm: 14 },
+  Arboletes: { lat: 8.8503, lng: -76.4269, radiusKm: 14 },
+};
+
+/** Lista para mapas (marcadores en orden de cobertura). */
+export const URABA_MUNICIPIO_MARKERS = MUNICIPALITIES.map((name) => ({
+  name,
+  ...MUNICIPIO_CENTERS[name],
+})).filter((m) => m.lat != null);
+
+/** Recorte suave alrededor de los marcadores de cobertura. */
+export function getUrabaMapBounds(padding = { lat: 0.07, lng: 0.06 }) {
+  const lats = URABA_MUNICIPIO_MARKERS.map((m) => m.lat);
+  const lngs = URABA_MUNICIPIO_MARKERS.map((m) => m.lng);
+  return {
+    south: Math.min(...lats) - padding.lat,
+    west: Math.min(...lngs) - padding.lng,
+    north: Math.max(...lats) + padding.lat,
+    east: Math.max(...lngs) + padding.lng,
+  };
+}
+
+/** Centro y zoom para embed / vista regional. */
+export const URABA_REGION_VIEW = {
+  lat: 8.08,
+  lng: -76.61,
+  zoom: 9,
 };
 
 function haversineKm(lat1, lng1, lat2, lng2) {

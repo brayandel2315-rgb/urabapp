@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
-import logo from '@/assets/logo/logo-icon.svg';
+import BrandLogo from '@/components/brand/BrandLogo';
 import { CLIENT_HOME } from '@/app/clientNav';
-import { BRAND } from '@/utils/constants';
 import { cn } from '@/lib/utils';
 import AppIcon from '@/design-system/icons/AppIcon';
 import ThemeToggle from '@/design-system/patterns/ThemeToggle';
@@ -22,8 +21,7 @@ export default function Topbar({
     <header className={cn('sticky top-0 z-50 border-b border-border/60 bg-background/90 backdrop-blur-xl', className)}>
       <div className="mx-auto flex h-16 w-full max-w-6xl min-w-0 items-center gap-4 px-4 sm:px-6 lg:px-8">
         <Link to={CLIENT_HOME} className="flex shrink-0 items-center gap-2.5">
-          <img src={logo} alt={BRAND.name} className="h-9 w-9 rounded-full object-cover ring-2 ring-primary/30" />
-          <span className="font-display hidden text-sm font-extrabold tracking-tight sm:block">{BRAND.name}</span>
+          <BrandLogo variant="compact" />
         </Link>
 
         {navLinks.length > 0 && (

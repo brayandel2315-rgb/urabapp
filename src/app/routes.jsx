@@ -126,10 +126,11 @@ export default function AppRoutes() {
         <Route path="/soporte" element={<Lazy><SupportPage /></Lazy>} />
         <Route path="/quienes-somos" element={<Lazy><QuienesSomosPage /></Lazy>} />
         <Route path="/ofertas" element={<Lazy><OffersPage /></Lazy>} />
-        <Route path="/recuperar-cuenta" element={<Lazy><RecoverAccount /></Lazy>} />
       </Route>
 
       <Route path="/login" element={<Login />} />
+      <Route path="/registro" element={<Login />} />
+      <Route path="/recuperar-cuenta" element={<Lazy><RecoverAccount /></Lazy>} />
 
       <Route path="/legal/:docId" element={<Lazy><LegalPage /></Lazy>} />
       <Route path="/info/como-funciona" element={<Lazy><ComoFuncionaPage /></Lazy>} />

@@ -16,15 +16,15 @@ export default function HomeMarketPulse({
 
   if (!parts.length) {
     return (
-      <p className={cn('text-sm text-[#4A6278]', className)}>
-        {STORE.many} locales de {municipio || 'Urabá'} · entrega a domicilio
+      <p className={cn('text-sm text-[#4B5563]', className)}>
+        {STORE.many} locales de {municipio || 'Urabá'} · logística local
       </p>
     );
   }
 
   return (
-    <p className={cn('flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-[#4A6278]', className)}>
-      <AppIcon name="delivery" size="xs" className="text-[#28B463]" />
+    <p className={cn('flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-[#4B5563]', className)}>
+      <AppIcon name="delivery" size="xs" className="text-[#2E7D32]" />
       <span>{parts.join(' · ')}</span>
     </p>
   );

@@ -17,8 +17,8 @@ self.addEventListener('push', (event) => {
   event.waitUntil(
     self.registration.showNotification(payload.title, {
       body: payload.body,
-      icon: '/app-icon.svg',
-      badge: '/app-icon.svg',
+      icon: '/app-icon.png',
+      badge: '/app-icon.png',
       data: { url: payload.url || '/pedidos' },
       tag: payload.tag || 'urabapp',
     })

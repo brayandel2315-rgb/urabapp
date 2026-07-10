@@ -2,17 +2,21 @@ import { Link } from 'react-router-dom';
 import { SurfaceCard } from '@/design-system/patterns/SurfaceCard';
 import Button from '@/components/ui/Button';
 import AppIcon from '@/design-system/icons/AppIcon';
-import { buildLoginRedirect } from '@/utils/auth-routes';
+import { buildLoginRedirect, buildRegisterRedirect } from '@/utils/auth-routes';
+import { AUTH_INTENT } from '@/auth/auth-intents';
 import { STORE } from '@/utils/marketplace-copy';
 
 /** Puerta de autenticación antes de operaciones sensibles (mandado, envíos, pago). */
 export default function ClientAuthGateCard({
-  title = 'Inicia sesión para continuar',
-  description = `Por tu seguridad y la de la ${STORE.oneLower}, necesitamos verificar tu identidad antes de confirmar.`,
+  title = 'Necesitas una cuenta de cliente',
+  description = `Para continuar crea tu perfil de cliente o entra si ya tienes cuenta. Vender o repartir usa otro registro.`,
   redirectPath,
   icon = 'lock',
+  intent = AUTH_INTENT.CLIENT,
 }) {
-  const loginTo = buildLoginRedirect(redirectPath || '/');
+  const target = redirectPath || '/';
+  const registerTo = buildRegisterRedirect(target, intent);
+  const loginTo = buildLoginRedirect(target, '', intent);
 
   return (
     <SurfaceCard className="space-y-4 border border-primary/20 bg-primary/[0.04] p-5">
@@ -25,14 +29,24 @@ export default function ClientAuthGateCard({
           <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{description}</p>
         </div>
       </div>
-      <div className="flex flex-wrap gap-2">
-        <Link to={loginTo}>
-          <Button>Entrar o crear cuenta</Button>
+      <div className="flex flex-col gap-2 sm:flex-row">
+        <Link to={registerTo} className="sm:flex-1">
+          <Button className="w-full">Crear cuenta de cliente</Button>
         </Link>
-        <Link to="/info/seguridad">
-          <Button variant="outline">Por qué es seguro</Button>
+        <Link to={loginTo} className="sm:flex-1">
+          <Button variant="outline" className="w-full">Ya tengo cuenta</Button>
         </Link>
       </div>
+      <p className="text-center text-xs text-muted-foreground">
+        ¿{STORE.register} o ser domiciliario?{' '}
+        <Link to={buildRegisterRedirect('/negocio/onboarding', AUTH_INTENT.BUSINESS)} className="font-semibold text-primary">
+          Comercio
+        </Link>
+        {' · '}
+        <Link to={buildRegisterRedirect('/domiciliario/registro', AUTH_INTENT.RIDER)} className="font-semibold text-primary">
+          Domiciliario
+        </Link>
+      </p>
     </SurfaceCard>
   );
 }

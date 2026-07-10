@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import logo from '@/assets/logo/logo-icon.svg';
+import BrandLogo from '@/components/brand/BrandLogo';
 import AppIcon from '@/design-system/icons/AppIcon';
 import Button from '@/components/ui/Button';
 import { BRAND } from '@/utils/constants';
 import { usePwaInstallStore } from '@/store/pwaInstallStore';
-import { APP_ICON_URL, INSTALL_COPY } from '@/pwa/install-detect';
+import { INSTALL_COPY } from '@/pwa/install-detect';
 import PwaIosInstallWizard from './PwaIosInstallWizard';
 import PwaAndroidInstallWizard from './PwaAndroidInstallWizard';
 import { toast } from '@/utils/toast';
@@ -95,11 +95,7 @@ export default function PwaInstallSheet() {
             ) : (
               <>
                 <div className="flex items-start gap-4">
-                  <img
-                    src={APP_ICON_URL || logo}
-                    alt=""
-                    className="h-16 w-16 shrink-0 rounded-2xl object-cover shadow-md ring-2 ring-primary/20"
-                  />
+                  <BrandLogo variant="icon" alt="" className="h-16 w-16 shrink-0 object-contain bg-transparent shadow-md ring-2 ring-primary/20" />
                   <div className="min-w-0">
                     <p id="pwa-install-title" className="font-display text-lg font-bold text-foreground">
                       {copy.title}

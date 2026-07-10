@@ -6,7 +6,7 @@
   "installCommand": "npm install",
   "rewrites": [
     {
-      "source": "/((?!assets/|sw\\.js|workbox-.*\\.js|manifest\\.webmanifest|app-icon\\.svg|favicon\\.svg|og-image\\.png|logo\\.jpeg|push-sw\\.js|app-version\\.json).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ],

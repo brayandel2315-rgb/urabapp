@@ -2,27 +2,34 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
-import { SurfaceCard } from '@/design-system/patterns/SurfaceCard';
+import AppIcon from '@/design-system/icons/AppIcon';
 import { signInWithPassword, signUpWithPassword, getProfile } from '@/services/auth.service';
 import { useAuthStore } from '@/store/authStore';
 import { toast } from '@/utils/toast';
 import { isSupabaseConfigured } from '@/lib/supabase';
+import { getAuthIntentMeta, AUTH_INTENT } from '@/auth/auth-intents';
+import { buildAuthEntryUrl } from '@/utils/auth-routes';
 
 /**
- * Paso previo al registro de comercio o mensajero — cuenta con email + contraseña.
+ * Registro / login para comercio o domiciliario — paso previo al onboarding.
  */
 export default function JoinAuthPanel({
-  title = 'Crea tu cuenta Urabapp',
-  subtitle = 'Con email y contraseña. Luego completas tu registro.',
-  loginHint = '¿Ya tienes cuenta? Inicia sesión abajo.',
+  intent = AUTH_INTENT.BUSINESS,
+  title,
+  subtitle,
+  redirectPath,
+  defaultMode = 'signup',
+  onAuthenticated,
+  embedded = true,
 }) {
+  const meta = getAuthIntentMeta(intent);
   const { user, setUser, setProfile } = useAuthStore();
-  const [mode, setMode] = useState('signup');
+  const [mode, setMode] = useState(defaultMode);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  if (user) return null;
+  if (user && embedded) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,16 +55,18 @@ export default function JoinAuthPanel({
         const { session } = await signInWithPassword(email, password);
         setUser(session.user);
       }
+      let profile = null;
       const currentUser = useAuthStore.getState().user;
       if (currentUser?.id) {
         try {
-          const profile = await getProfile(currentUser.id);
+          profile = await getProfile(currentUser.id);
           if (profile) setProfile(profile);
         } catch {
           /* useAuth completará el perfil */
         }
       }
-      toast(mode === 'signup' ? 'Cuenta creada' : 'Sesión iniciada');
+      toast(mode === 'signup' ? 'Cuenta creada — sigue con tu registro' : 'Sesión iniciada');
+      onAuthenticated?.(profile);
     } catch (err) {
       toast(err.message || 'No se pudo entrar', 'error');
     } finally {
@@ -65,12 +74,27 @@ export default function JoinAuthPanel({
     }
   };
 
+  const panelTitle = title || (mode === 'signup' ? meta.signupTitle : meta.loginTitle);
+  const panelSubtitle = subtitle || `Paso 1 de 2 · Luego completas tu registro de ${meta.label.toLowerCase()}.`;
+
   return (
-    <SurfaceCard className="space-y-4 border-primary/20 bg-primary/[0.03]">
+    <div className="space-y-4 rounded-2xl border border-primary/20 bg-primary/[0.03] p-4">
       <div>
-        <h2 className="font-display text-lg font-bold text-foreground">{title}</h2>
-        <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
+        <p className="text-[11px] font-bold uppercase tracking-wider text-primary">Paso 1 · Tu cuenta Urabapp</p>
+        <h3 className="font-display text-lg font-bold text-foreground">{panelTitle}</h3>
+        <p className="mt-1 text-sm text-muted-foreground">{panelSubtitle}</p>
       </div>
+
+      <ol className="space-y-2 rounded-xl bg-muted/30 p-3 text-xs text-muted-foreground">
+        <li className="flex gap-2">
+          <span className="font-bold text-primary">1.</span>
+          Crea o entra con email y contraseña (ahora)
+        </li>
+        <li className="flex gap-2">
+          <span className="font-bold text-primary">2.</span>
+          Completas el registro de {meta.label.toLowerCase()} en la siguiente pantalla
+        </li>
+      </ol>
 
       <div className="flex gap-2">
         {[
@@ -111,16 +135,24 @@ export default function JoinAuthPanel({
           autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
         />
         <Button type="submit" className="w-full" disabled={loading}>
-          {loading ? 'Procesando…' : mode === 'signup' ? 'Crear cuenta y continuar' : 'Entrar y continuar'}
+          <AppIcon name="profile" size="sm" className="mr-2" />
+          {loading
+            ? 'Procesando…'
+            : mode === 'signup'
+              ? `Crear cuenta y continuar como ${meta.label.toLowerCase()}`
+              : 'Entrar y continuar'}
         </Button>
       </form>
 
       <p className="text-center text-xs text-muted-foreground">
-        {loginHint}{' '}
-        <Link to="/login" className="font-semibold text-primary hover:underline">
-          Otras formas de entrar
+        ¿Eres cliente y solo quieres pedir?{' '}
+        <Link
+          to={buildAuthEntryUrl({ basePath: '/registro', redirect: redirectPath, intent: AUTH_INTENT.CLIENT, mode: 'signup' })}
+          className="font-semibold text-primary hover:underline"
+        >
+          Registro de cliente
         </Link>
       </p>
-    </SurfaceCard>
+    </div>
   );
 }

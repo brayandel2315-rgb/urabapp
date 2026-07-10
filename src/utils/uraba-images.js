@@ -14,6 +14,8 @@ const WIKI = {
   camaraComercio: `${W}/7/7e/Camara_de_Comercio_de_Urab%C3%A1.jpg/1280px-Camara_de_Comercio_de_Urab%C3%A1.jpg`,
   bananoCultivo: `${W}/d/dc/Colbanana09.jpg/1280px-Colbanana09.jpg`,
   golfoUraba: `${W}/4/4a/Golfo_de_Urab%C3%A1_y_delta_del_Atrato.JPG/1280px-Golfo_de_Urab%C3%A1_y_delta_del_Atrato.JPG`,
+  /** Mapa regional satelital — NASA, dominio público (local UHD en public/uraba) */
+  mapaUrabaUhd: '/uraba/mapa-uraba-uhd.jpg',
   carepaAeropuerto: `${W}/3/3d/Carepa_Aeropuerto.JPG/1280px-Carepa_Aeropuerto.JPG`,
 };
 
@@ -69,6 +71,7 @@ export const URABA_HERO_IMAGES = {
   turbo: WIKI.turboCosta,
   bananoFarm: WIKI.bananoCultivo,
   golfo: WIKI.golfoUraba,
+  regionMap: WIKI.mapaUrabaUhd,
   troncal: WIKI.turboCosta,
   nuestroUraba: WIKI.camaraComercio,
 };

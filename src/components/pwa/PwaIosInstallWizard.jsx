@@ -26,7 +26,7 @@ function HomeScreenPreview({ success = false }) {
           <motion.img
             src={APP_ICON_URL}
             alt=""
-            className="h-full w-full rounded-[14px] object-cover shadow-lg ring-1 ring-white/20"
+            className="h-full w-full rounded-[14px] object-contain bg-transparent shadow-lg ring-1 ring-white/20"
             initial={success ? { scale: 0.6, opacity: 0 } : false}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: 'spring', stiffness: 320, damping: 22 }}
@@ -99,7 +99,7 @@ function ConfirmSheetMock() {
         <img
           src={APP_ICON_URL}
           alt=""
-          className="h-20 w-20 rounded-[22px] object-cover shadow-lg ring-2 ring-primary/25"
+          className="h-20 w-20 rounded-[22px] object-contain bg-transparent shadow-lg ring-2 ring-primary/25"
         />
         <div className="w-full rounded-xl border border-border/50 bg-background px-3 py-2 text-center text-sm font-semibold">
           {BRAND.name}
@@ -186,7 +186,7 @@ export default function PwaIosInstallWizard({ platform, onClose, onDismiss }) {
     return (
       <div>
         <div className="flex items-start gap-4">
-          <img src={APP_ICON_URL} alt="" className="h-16 w-16 shrink-0 rounded-2xl shadow-md ring-2 ring-primary/20" />
+          <img src={APP_ICON_URL} alt="" className="h-16 w-16 shrink-0 rounded-2xl object-contain bg-transparent shadow-md ring-2 ring-primary/20" />
           <div>
             <p className="font-display text-lg font-bold">{IOS_OTHER_STEP.title}</p>
             <p className="mt-1 text-sm text-muted-foreground">{IOS_OTHER_STEP.subtitle}</p>
@@ -219,7 +219,7 @@ export default function PwaIosInstallWizard({ platform, onClose, onDismiss }) {
               <img
                 src={APP_ICON_URL}
                 alt=""
-                className="h-14 w-14 shrink-0 rounded-2xl object-cover shadow-md ring-2 ring-primary/20"
+                className="h-14 w-14 shrink-0 rounded-2xl object-contain bg-transparent shadow-md ring-2 ring-primary/20"
               />
               <div className="min-w-0">
                 <p className="font-display text-lg font-bold text-foreground">{step.title}</p>

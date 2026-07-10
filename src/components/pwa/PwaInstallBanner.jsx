@@ -25,7 +25,7 @@ export default function PwaInstallBanner() {
   return (
     <div className="fixed bottom-6 left-6 z-[45] hidden w-full max-w-sm lg:block">
       <div className="flex items-center gap-3 rounded-2xl border border-primary/25 bg-card/95 p-3 shadow-lift backdrop-blur-md">
-        <img src={APP_ICON_URL} alt="" className="h-11 w-11 shrink-0 rounded-xl object-cover ring-1 ring-primary/20" />
+        <img src={APP_ICON_URL} alt="" className="h-11 w-11 shrink-0 rounded-xl object-contain bg-transparent ring-1 ring-primary/20" />
         <div className="min-w-0 flex-1">
           <p className="font-display text-sm font-bold text-foreground">
             {deferredPrompt ? 'Instala con un toque' : isIos ? 'Agregar a inicio' : `App ${BRAND.name}`}

@@ -2,13 +2,23 @@
   /* ─── Brandboard Urabapp — tropical-tech ─────────────────────────────── */
   --brand-navy: 207 68% 16%;       /* #0D2B45 */
   --brand-blue: 203 85% 36%;       /* #0E6BA8 */
-  --brand-green: 145 64% 43%;      /* #28B463 */
-  --brand-lime: 72 88% 45%;        /* #A8D60E */
-  --brand-sky: 204 100% 95%;       /* #E6F4FF */
+  --brand-green: 122 47% 34%;      /* #2E7D32 — verde principal V2 */
+  --brand-lime: 122 39% 49%;       /* #66BB6A — verde claro V2 */
+  --brand-sky: 0 0% 97%;           /* #F7F7F7 */
+
+  /* Paleta Home V2 */
+  --urab-black: #111111;
+  --urab-green-deep: #1B5E20;
+  --urab-green: #2E7D32;
+  --urab-green-success: #43A047;
+  --urab-green-light: #66BB6A;
+  --urab-gray-50: #F7F7F7;
+  --urab-gray-100: #EFEFEF;
+  --urab-gray-200: #D9D9D9;
 
   /* Semánticos */
-  --background: 210 29% 98%;       /* #F7FAFC */
-  --foreground: 207 68% 16%;       /* #0D2B45 */
+  --background: 0 0% 97%;          /* #F7F7F7 */
+  --foreground: 0 0% 7%;           /* #111111 */
 
   --card: 0 0% 100%;
   --card-foreground: 207 68% 16%;
@@ -16,7 +26,7 @@
   --popover: 0 0% 100%;
   --popover-foreground: 207 68% 16%;
 
-  --primary: 145 64% 43%;          /* #28B463 */
+  --primary: 122 47% 34%;          /* #2E7D32 */
   --primary-foreground: 0 0% 100%;
 
   --secondary: 207 68% 16%;        /* #0D2B45 */

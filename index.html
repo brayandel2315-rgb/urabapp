@@ -2,12 +2,12 @@
 <html lang="es-CO">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Urabapp — Conexión local y envíos en Urabá</title>
-    <link rel="icon" type="image/svg+xml" href="/app-icon.svg" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/app-icon.svg" />
-    <link rel="apple-touch-icon" sizes="192x192" href="/app-icon.svg" />
-    <link rel="apple-touch-icon" sizes="512x512" href="/app-icon.svg" />
+    <link rel="icon" type="image/png" href="/app-icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/app-icon.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/app-icon.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="/app-icon.png" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="description" content="Urabapp — Conectamos lo que importa. Impulsamos lo local. Comida, mensajería, tiendas y envíos en Apartadó y municipios del Urabá." />
     <meta name="keywords" content="Urabá, Apartadó, domicilios, mensajería, comida, delivery" />
@@ -47,16 +47,11 @@
       }
       html.dark #urabapp-boot { background: #061525; color: #F7FAFC; }
       #urabapp-boot .logo {
-        width: 3.5rem;
-        height: 3.5rem;
-        border-radius: 1rem;
-        background: #28B463;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        font-weight: 800;
-        font-size: 1.25rem;
+        width: 4.5rem;
+        height: auto;
+        max-height: 4.5rem;
+        object-fit: contain;
+        background: transparent;
       }
       #urabapp-boot .spinner {
         width: 1.75rem;
@@ -136,15 +131,20 @@
         window.setTimeout(function () {
           var boot = document.getElementById('urabapp-boot');
           if (boot) {
-            boot.innerHTML = '<div class="logo">U</div><p style="margin:0;font-size:14px;text-align:center">Actualizando Urabapp…</p><div class="spinner"></div>';
+            boot.innerHTML = '<img class="logo" src="/app-icon.png" alt="Urabapp" width="72" height="72" /><p style="margin:0;font-size:14px;text-align:center">Actualizando Urabapp…</p><div class="spinner"></div>';
             window.__urabappRecover();
           }
         }, 14000);
+
+        // Evitar zoom con dos dedos en iOS (complementa viewport user-scalable=no).
+        ['gesturestart', 'gesturechange', 'gestureend'].forEach(function (evt) {
+          document.addEventListener(evt, function (e) { e.preventDefault(); }, { passive: false });
+        });
       })();
     </script>
     <div id="root">
       <div id="urabapp-boot" role="status" aria-live="polite">
-        <div class="logo">U</div>
+        <img class="logo" src="/app-icon.png" alt="Urabapp" width="72" height="72" />
         <p style="margin:0;font-size:15px;font-weight:600">Cargando Urabapp…</p>
         <div class="spinner" aria-hidden="true"></div>
       </div>

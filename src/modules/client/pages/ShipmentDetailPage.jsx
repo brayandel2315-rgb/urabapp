@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, Link, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import PageLayout from '@/design-system/layouts/PageLayout';
@@ -13,6 +13,7 @@ import ServiceJourneyShowcase from '@/components/services/ServiceJourneyShowcase
 import { formatCOP } from '@/utils/currency';
 import { isWompiEnabled, startShipmentWompiCheckout } from '@/services/wompi.service';
 import { toast } from '@/utils/toast';
+import { useAppExperienceRatingStore } from '@/store/appExperienceRatingStore';
 function activeShipmentJourneyStep(shipment) {
   const status = shipment?.status;
   if (['delivered', 'completed'].includes(status)) return 'receive';
@@ -27,6 +28,8 @@ export default function ShipmentDetailPage() {
   const { user } = useAuthStore();
   const [searchParams] = useSearchParams();
   const [paying, setPaying] = useState(false);
+  const deliveredRatingQueuedRef = useRef(false);
+  const requestAppRating = useAppExperienceRatingStore((s) => s.requestRating);
   useShipmentRealtime(id);
 
   const { data: shipment, isLoading, isError, refetch } = useQuery({
@@ -53,6 +56,30 @@ export default function ShipmentDetailPage() {
     queryFn: () => getShipmentPayment(id),
     enabled: !!id,
   });
+
+  useEffect(() => {
+    if (!shipment || deliveredRatingQueuedRef.current) return;
+    if (!['delivered', 'completed'].includes(shipment.status)) return;
+    if (user?.id !== shipment.customer_id) return;
+
+    deliveredRatingQueuedRef.current = true;
+    requestAppRating({
+      id: `shipment:${shipment.id}`,
+      kind: 'shipment',
+      label: `envío a ${shipment.dest_municipio || 'destino'}`,
+      deliveredAt: shipment.delivered_at || shipment.updated_at,
+    });
+  }, [
+    shipment?.status,
+    shipment?.id,
+    shipment?.customer_id,
+    shipment?.dest_municipio,
+    shipment?.delivered_at,
+    shipment?.updated_at,
+    requestAppRating,
+    user?.id,
+    shipment,
+  ]);
 
   const handlePay = async () => {
     if (!id) return;

@@ -1,8 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
-import logo from '@/assets/logo/logo-icon.svg';
-import { BRAND } from '@/utils/constants';
 import { cn } from '@/lib/utils';
 import AppIcon from '@/design-system/icons/AppIcon';
+import BrandLogo from '@/components/brand/BrandLogo';
 import DiscoverSearchTrigger from '@/modules/discovery/components/DiscoverSearchTrigger';
 import { useCatalogLocation } from '@/hooks/useCatalogLocation';
 import { Button } from '@/design-system/ui/button';
@@ -20,6 +19,7 @@ import { useCartStore } from '@/store/cartStore';
 export default function ClientDesktopHeader({ notificationCount = 0 }) {
   const { pathname } = useLocation();
   const user = useAuthStore((s) => s.user);
+  const profile = useAuthStore((s) => s.profile);
   const cartCount = useCartStore((s) => s.getItemCount());
   const { catalog, homeMunicipio } = useCatalogLocation();
   const municipio = catalog.viewMunicipio || homeMunicipio;
@@ -35,13 +35,7 @@ export default function ClientDesktopHeader({ notificationCount = 0 }) {
     >
       <div className="client-desktop-header__inner">
         <Link to={CLIENT_HOME} className="client-desktop-header__brand">
-          <img src={logo} alt={BRAND.name} className="h-11 w-11 rounded-full object-cover ring-2 ring-white/40 shadow-soft" />
-          <span className="min-w-0">
-            <span className="block font-display text-base font-black tracking-tight">{BRAND.name}</span>
-            <span className="block text-[10px] font-semibold uppercase tracking-[0.16em] opacity-80">
-              Urabá · delivery local
-            </span>
-          </span>
+          <BrandLogo variant="desktop-nav" className="client-desktop-header__logo" alt="Urabapp" />
         </Link>
 
         <nav className="client-desktop-header__nav" aria-label="Navegación principal">
@@ -66,7 +60,10 @@ export default function ClientDesktopHeader({ notificationCount = 0 }) {
 
           <ClientHeaderAuthActions
             user={user}
+            profile={profile}
             notificationCount={notificationCount}
+            layout="desktop"
+            headerTone={isHome ? 'home' : 'inner'}
             buttonClassName="client-desktop-header__icon-btn"
           />
 

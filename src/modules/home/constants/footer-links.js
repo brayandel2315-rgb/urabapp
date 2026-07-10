@@ -33,7 +33,7 @@ export const HOME_FOOTER_COLUMNS = [
     title: 'Únete',
     links: [
       { label: STORE.register, to: '/info/registrar-comercio' },
-      { label: 'Ser mensajero', to: '/domiciliario' },
+      { label: 'Ser domiciliario', to: '/domiciliario/registro' },
     ],
   },
 ];

@@ -2,6 +2,7 @@ import {
   Home,
   ClipboardList,
   ShoppingCart,
+  ShoppingBag,
   User,
   Search,
   UtensilsCrossed,
@@ -68,6 +69,8 @@ import { BRAND_ICON_KEYS } from './brand/UrabappBrandIcon';
 export const LUCIDE_ICONS = {
   home: Home,
   orders: ClipboardList,
+  pedidos: ShoppingBag,
+  bag: ShoppingBag,
   cart: ShoppingCart,
   profile: User,
   search: Search,

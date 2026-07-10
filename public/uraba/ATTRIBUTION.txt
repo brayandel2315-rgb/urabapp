@@ -8,6 +8,7 @@ Archivos locales:
 - nuestro-uraba.jpg — Centro Comercial Nuestro Urabá (MateoPuertaL, CC BY-SA 4.0)
 - via-troncal-turbo.jpg — Vía Turbo, carretera regional (panoramio, CC BY-SA 3.0)
 - necocli-costa.jpg — Costa caribeña, Necoclí (Wikimedia Commons)
+- mapa-uraba-uhd.jpg — Golfo de Urabá y delta del Atrato (NASA/Expedition 16, dominio público)
 
 Otras imágenes se cargan vía miniaturas oficiales de Wikimedia Commons.
 Ver src/utils/uraba-images.js para la lista completa y créditos.

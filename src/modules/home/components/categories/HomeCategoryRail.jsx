@@ -16,6 +16,17 @@ const CATEGORY_ICON_TONE = {
   more: 'green',
 };
 
+const CATEGORY_HINTS = {
+  restaurantes: 'Restaurantes',
+  mercado: 'Súper y más',
+  farmacia: 'Salud',
+  mensajeria: 'Mandados',
+  tiendas: 'Comercios',
+  envios: 'Paquetes',
+  ofertas: 'Descuentos',
+  more: 'Todo Urabá',
+};
+
 const ROUTE_OVERRIDES = {
   mensajeria: '/mandado',
   ofertas: '/ofertas',
@@ -28,8 +39,8 @@ export default function HomeCategoryRail({ onNavigate, className, variant = 'mob
     <section aria-labelledby="home-services-title" className={cn('min-w-0', className)}>
       <HomeSectionHeader
         id="home-services-title"
-        title="Categorías"
-        subtitle="Elige qué necesitas"
+        title="Servicios rápidos"
+        subtitle="Todo lo que Urabá necesita, en un solo lugar"
         variant="brand"
       />
       <div className="grid grid-cols-3 gap-3 sm:grid-cols-6 sm:gap-4">
@@ -41,12 +52,17 @@ export default function HomeCategoryRail({ onNavigate, className, variant = 'mob
               key={cat.id}
               to={to}
               onClick={() => onNavigate?.(cat.id)}
-              className="service-grid-item group flex flex-col items-center gap-2 text-center"
+              className="home-service-card group"
             >
               <ServiceIconTile serviceId={cat.id} name={cat.icon || cat.id} tone={tone} />
-              <p className="text-[11px] font-semibold leading-tight text-[#0D2B45] group-active:text-[#28B463]">
-                {cat.label}
-              </p>
+              <div>
+                <p className="home-service-card__label group-hover:text-[#2E7D32]">
+                  {cat.label}
+                </p>
+                <p className="home-service-card__hint">
+                  {CATEGORY_HINTS[cat.id] || 'Explorar'}
+                </p>
+              </div>
             </Link>
           );
         })}

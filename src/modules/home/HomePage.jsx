@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Link } from 'react-router-dom';
+import HomeIntermunicipalBlock from './components/shipment/HomeIntermunicipalBlock';
 import { useLocationStore, selectActiveBarrio } from '@/store/locationStore';
 import { useAuthStore } from '@/store/authStore';
 import { useAutoLocation } from '@/hooks/useAutoLocation';
@@ -10,18 +10,14 @@ import { getHomeDiscovery, getHomeDiscoveryPlaceholder } from '@/services/discov
 import { useHomeAnalytics } from './hooks/useHomeAnalytics';
 import HomeCategoryRail from './components/categories/HomeCategoryRail';
 import HomeCatalogAwayBanner from './components/catalog/HomeCatalogAwayBanner';
-import HomeFeaturedRow from './components/discovery/HomeFeaturedRow';
+import HomeOpenStoresSection from './components/discovery/HomeOpenStoresSection';
 import HomePromotionsStrip from './components/discovery/HomePromotionsStrip';
 import HomePopularProductsRow from './components/discovery/HomePopularProductsRow';
 import HomeTrendingChips from './components/trending/HomeTrendingChips';
-import HomeMarketPulse from './components/hero/HomeMarketPulse';
-import HomeFeedbackCard from './components/feedback/HomeFeedbackCard';
-import AppIcon from '@/design-system/icons/AppIcon';
-import HomeSectionHeader from '@/modules/client/components/HomeSectionHeader';
+import HomeMobileUnifiedHero from './components/hero/HomeMobileUnifiedHero';
 import ClientActiveOrderBanner from '@/modules/client/components/ClientActiveOrderBanner';
-import BusinessCard from '@/components/BusinessCard';
 import { useClientActivity } from '@/hooks/useClientActivity';
-import { STORE } from '@/utils/marketplace-copy';
+import { useCommunicationBadge } from '@/hooks/useCommunicationBadge';
 import HomeDesktopView from './HomeDesktopView';
 
 export default function HomeMvpPage() {
@@ -43,6 +39,7 @@ export default function HomeMvpPage() {
   const { detect } = useAutoLocation({ auto: false });
   const { trackCategory, trackConversion } = useHomeAnalytics(user?.id, activeMunicipio);
   const { activeCount: myActiveOrders } = useClientActivity({ enabled: !!user?.id });
+  const communicationBadge = useCommunicationBadge(user?.id);
 
   const noLocalBusinesses = catalog.noLocalBusinesses;
   const outsideCoverage = catalog.outsideCoverage;
@@ -77,7 +74,7 @@ export default function HomeMvpPage() {
   const discoveryLoading = isFetching && featuredBusinesses.length === 0 && !isError;
   const hasPromos = (discovery?.promotionsByMerchant?.length ?? 0) > 0 || (discovery?.promotions?.length ?? 0) > 0;
   const popularProducts = discovery?.popularProducts ?? [];
-  const topRestaurants = featuredBusinesses.slice(0, 8);
+  const topRestaurants = featuredBusinesses.slice(0, 16);
 
   const headerLocation = useMemo(() => {
     if (catalog?.viewMunicipio && catalog?.viewMunicipio !== 'Apartadó') {
@@ -122,37 +119,43 @@ export default function HomeMvpPage() {
   return (
     <>
       <div className="w-full min-w-0 mobile-app-bg lg:hidden">
-        <div className="app-container space-y-6 py-4 sm:py-5">
-          <section className="home-hero-card">
-            <button
-              type="button"
-              onClick={detect}
-              className="home-location-chip"
-            >
-              <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#4A6278]">
-                Entregar en
-              </span>
-              <span className="flex min-w-0 items-center gap-1.5 text-[#0D2B45]">
-                <AppIcon name="map" size={16} className="shrink-0 text-[#0E6BA8]" />
-                <span className="truncate font-semibold">{headerLocation}</span>
-                <AppIcon name="chevronDown" size={14} className="shrink-0 text-[#4A6278]" />
-              </span>
-            </button>
+        <div className="app-container space-y-7 pb-4 pt-0 sm:space-y-7 sm:pb-6">
+          <HomeMobileUnifiedHero
+            user={user}
+            profile={profile}
+            firstName={firstName}
+            headerLocation={headerLocation}
+            notificationCount={communicationBadge}
+            onDetectLocation={detect}
+            onQuickSearch={handleTrending}
+            viewMuni={viewMuni}
+            openCount={openNow}
+            avgDeliveryMin={pulse?.avgDeliveryMin}
+            activeOrders={user ? myActiveOrders : pulse?.activeOrders}
+          />
 
-            <h1 className="mt-3 font-display text-xl font-black leading-tight text-[#0D2B45] sm:text-2xl">
-              {user && firstName
-                ? `${firstName}, ¿qué pedimos hoy?`
-                : `Lo mejor de ${viewMuni}, a tu puerta`}
-            </h1>
-
-            <HomeMarketPulse
-              className="mt-2"
-              municipio={viewMuni}
-              openCount={openNow}
-              avgDeliveryMin={pulse?.avgDeliveryMin}
-              activeOrders={user ? myActiveOrders : pulse?.activeOrders}
-            />
-          </section>
+          <div className="home-trust-row" aria-label="Indicadores de confianza">
+            <div className="home-trust-pill">
+              <span className="home-trust-pill__icon" aria-hidden>⭐</span>
+              <span className="home-trust-pill__value">4.9</span>
+              <span className="home-trust-pill__label">Calificación</span>
+            </div>
+            <div className="home-trust-pill">
+              <span className="home-trust-pill__icon" aria-hidden>🏪</span>
+              <span className="home-trust-pill__value">+320</span>
+              <span className="home-trust-pill__label">Comercios</span>
+            </div>
+            <div className="home-trust-pill">
+              <span className="home-trust-pill__icon" aria-hidden>🏍️</span>
+              <span className="home-trust-pill__value">+40</span>
+              <span className="home-trust-pill__label">Mensajeros</span>
+            </div>
+            <div className="home-trust-pill">
+              <span className="home-trust-pill__icon" aria-hidden>✅</span>
+              <span className="home-trust-pill__value">Seguro</span>
+              <span className="home-trust-pill__label">Pago protegido</span>
+            </div>
+          </div>
 
           {user && <ClientActiveOrderBanner />}
 
@@ -164,50 +167,20 @@ export default function HomeMvpPage() {
             />
           )}
 
-          <section className="space-y-3">
-            <HomeSectionHeader
-              title={`Abiertos en ${outsideCoverage ? homeMunicipio : viewMuni}`}
-              subtitle={
-                openNow > 0
-                  ? STORE.readyCount(openNow)
-                  : topRestaurants.length > 0
-                    ? 'Hay tiendas en tu zona, pero ninguna abierta ahora'
-                    : 'Entrega local con seguimiento en vivo'
-              }
-              variant="brand"
-              aside={(
-                <Link to="/restaurantes" className="home-cta-link">
-                  Ver todos
-                </Link>
-              )}
-            />
-
-            {topRestaurants.length > 0 ? (
-              <div className="home-store-carousel">
-                {topRestaurants.map((business, i) => (
-                  <div key={business.id} className="home-store-carousel__item">
-                    <BusinessCard
-                      business={business}
-                      layout="compact"
-                      rank={i < 3 ? i + 1 : undefined}
-                      imageLoading={i < 2 ? 'eager' : 'lazy'}
-                    />
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <HomeFeaturedRow
-                businesses={featuredBusinesses}
-                isLoading={discoveryLoading}
-                municipio={outsideCoverage ? homeMunicipio : viewMuni}
-                emptyMessage={openNow === 0 && !noLocalBusinesses
-                  ? 'Ninguna tienda está abierta en este momento. Vuelve en su horario o usa el botón de servicios.'
-                  : noLocalBusinesses
-                    ? 'Activa envíos intermunicipales para ver tiendas que lleguen a tu ubicación.'
-                    : 'Pronto habrá más tiendas en tu zona.'}
-              />
-            )}
-          </section>
+          <HomeOpenStoresSection
+            municipio={outsideCoverage ? homeMunicipio : viewMuni}
+            openNow={openNow}
+            businesses={topRestaurants}
+            isLoading={discoveryLoading && topRestaurants.length === 0}
+            emptyMessage={
+              openNow === 0 && !noLocalBusinesses
+                ? 'Ninguna tienda está abierta en este momento. Vuelve en su horario o usa el botón de servicios.'
+                : noLocalBusinesses
+                  ? 'Activa envíos intermunicipales para ver tiendas que lleguen a tu ubicación.'
+                  : 'Pronto habrá más tiendas en tu zona.'
+            }
+            variant="mobile"
+          />
 
           {(hasPromos || discoveryLoading) && (
             <HomePromotionsStrip
@@ -237,7 +210,7 @@ export default function HomeMvpPage() {
             </section>
           )}
 
-          <HomeFeedbackCard deferUntilVisit={2} />
+          <HomeIntermunicipalBlock originMunicipio={viewMuni} />
         </div>
       </div>
 

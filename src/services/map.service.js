@@ -1,4 +1,5 @@
 import { isSupabaseConfigured } from '../lib/supabase';
+import { isGoogleMapsEnabled } from '@/lib/google-maps-loader';
 import { invokeEdgeFunction } from './edge.service';
 import {
   buildDirectRoute,
@@ -9,7 +10,7 @@ import {
   setCachedRoute,
 } from '../utils/routing';
 
-const DEFAULT_CENTER = [-75.7536, 7.8837]; // Apartadó [lng, lat]
+const DEFAULT_CENTER = [-76.6312, 7.8839]; // Apartadó [lng, lat]
 const NOMINATIM = 'https://nominatim.openstreetmap.org';
 const PHOTON = 'https://photon.komoot.io/api';
 const APP_NAME = 'Urabapp';
@@ -21,7 +22,7 @@ export function isMapsEnabled() {
 }
 
 export function isGoogleMapsActive() {
-  return false;
+  return isGoogleMapsEnabled();
 }
 
 /** @deprecated alias */

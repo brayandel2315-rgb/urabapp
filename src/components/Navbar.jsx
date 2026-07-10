@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import logo from '../assets/logo/logo-icon.svg';
+import BrandLogo from '@/components/brand/BrandLogo';
 import AppIcon from '@/design-system/icons/AppIcon';
 import ThemeToggle from '@/design-system/patterns/ThemeToggle';
 
@@ -21,8 +21,7 @@ export default function Navbar({ title, backTo = CLIENT_HOME, right }) {
             <h1 className="truncate font-display text-base font-bold text-foreground">{title}</h1>
           ) : (
             <Link to={CLIENT_HOME} className="flex items-center gap-2">
-              <img src={logo} alt="Urabapp" className="h-8 w-8 rounded-full object-cover ring-2 ring-primary/30" />
-              <span className="font-display text-sm font-bold text-foreground">Urabapp</span>
+              <BrandLogo variant="compact" alt="Urabapp" />
             </Link>
           )}
         </div>

@@ -205,7 +205,12 @@ export default function RiderOnboarding() {
           title="Sé repartidor en Urabá"
           subtitle={`${formatCOP(ECONOMICS.riderPayout)} por entrega · Horario flexible`}
         />
-        <JoinAuthPanel title="Crea tu cuenta" subtitle="Email y contraseña para empezar." />
+        <JoinAuthPanel
+          intent="rider"
+          redirectPath="/domiciliario/registro"
+          title="Primero, tu cuenta de domiciliario"
+          subtitle="Email y contraseña — luego completas tu perfil de repartidor."
+        />
       </div>
     );
   }

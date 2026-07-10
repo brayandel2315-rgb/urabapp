@@ -19,6 +19,10 @@ const FILES = [
   { name: 'banano-cultivo.jpg', url: 'https://upload.wikimedia.org/wikipedia/commons/d/dc/Colbanana09.jpg' },
   { name: 'via-troncal-turbo.jpg', url: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Via_turbo_-_panoramio.jpg' },
   { name: 'necocli-costa.jpg', url: 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Wedding_Sunset_Sea_%28214618179%29.jpeg' },
+  {
+    name: 'mapa-uraba-uhd.jpg',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Golfo_de_Urab%C3%A1_y_delta_del_Atrato.JPG/1280px-Golfo_de_Urab%C3%A1_y_delta_del_Atrato.JPG',
+  },
 ];
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

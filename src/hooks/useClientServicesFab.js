@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { CLIENT_HOME } from '@/app/clientNav';
+import { useClientServicesPanelStore } from '@/store/clientServicesPanelStore';
 
 const DISMISS_KEY = 'urabapp-services-fab-dismiss';
 const PEEK_KEY = 'urabapp-services-fab-peeked';
@@ -33,7 +34,9 @@ function markPeeked() {
 
 export function useClientServicesFab() {
   const { pathname } = useLocation();
-  const [open, setOpen] = useState(false);
+  const open = useClientServicesPanelStore((s) => s.open);
+  const toggle = useClientServicesPanelStore((s) => s.toggle);
+  const close = useClientServicesPanelStore((s) => s.close);
   const [scrollVisible, setScrollVisible] = useState(true);
   const [dismissedUntil, setDismissedUntil] = useState(readDismissUntil);
   const [visitCount, setVisitCount] = useState(() => Number(localStorage.getItem(VISIT_KEY) || 0));
@@ -51,26 +54,17 @@ export function useClientServicesFab() {
     const until = Date.now() + days * 24 * 60 * 60 * 1000;
     localStorage.setItem(DISMISS_KEY, String(until));
     setDismissedUntil(until);
-    setOpen(false);
+    close();
     setShowTeaser(false);
-  }, []);
-
-  const toggle = useCallback(() => {
-    setOpen((v) => !v);
-    setShowTeaser(false);
-  }, []);
-
-  const close = useCallback(() => {
-    setOpen(false);
-  }, []);
+  }, [close]);
 
   useEffect(() => {
-    setOpen(false);
+    close();
     setScrollVisible(true);
     lastY.current = window.scrollY;
     const visits = bumpVisits();
     setVisitCount(visits);
-  }, [pathname]);
+  }, [pathname, close]);
 
   useEffect(() => {
     const onScroll = () => {

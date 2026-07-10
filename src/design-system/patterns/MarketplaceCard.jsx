@@ -172,6 +172,44 @@ function GridCard({ business, href, className, rank, barrio, municipio, imageLoa
   );
 }
 
+/** Tile compacto — carrusel de tiendas en home */
+function StoreTileCard({ business, href, className, barrio, municipio, imageLoading = 'lazy' }) {
+  const cover = resolveBusinessCover(business);
+  const open = isBusinessOpenNow(business);
+  const time = business.delivery_time || 25;
+
+  return (
+    <Link to={href} className={cn('home-store-tile-link block min-w-0', className)}>
+      <article className="home-store-tile">
+        <div className="home-store-tile__media">
+          <CatalogImage
+            src={cover}
+            emoji={business.emoji || 'store'}
+            alt={business.name}
+            rounded="none"
+            size="lg"
+            loading={imageLoading}
+            fetchPriority={imageLoading === 'eager' ? 'high' : undefined}
+          />
+          {open ? (
+            <span className="home-store-tile__badge">Abierto</span>
+          ) : (
+            <span className="home-store-tile__badge home-store-tile__badge--closed">Cerrado</span>
+          )}
+        </div>
+        <div className="home-store-tile__body">
+          <h3 className="home-store-tile__name">{business.name}</h3>
+          <div className="home-store-tile__meta">
+            <BusinessRating business={business} size="sm" />
+            <span className="home-store-tile__dot" aria-hidden>·</span>
+            <span>~{time} min</span>
+          </div>
+        </div>
+      </article>
+    </Link>
+  );
+}
+
 /** Lista vertical — feed principal móvil */
 function ListCard({ business, href, className, rank, barrio, municipio }) {
   const cover = resolveBusinessCover(business);
@@ -246,6 +284,18 @@ export default function MarketplaceCard({
         href={href}
         className={className}
         rank={rank}
+        barrio={barrio}
+        municipio={muni}
+        imageLoading={imageLoading}
+      />
+    );
+  }
+  if (layout === 'store-tile') {
+    return (
+      <StoreTileCard
+        business={business}
+        href={href}
+        className={className}
         barrio={barrio}
         municipio={muni}
         imageLoading={imageLoading}

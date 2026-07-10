@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
-import AppIcon from '@/design-system/icons/AppIcon';
+import BottomNavIcon from '@/design-system/icons/BottomNavIcon';
 
 /** Tab del dock inferior móvil */
 export default function ActionButton({
   to,
   onClick,
   sticker: icon,
+  customIcon,
   label,
   badge,
   active = false,
@@ -15,73 +15,66 @@ export default function ActionButton({
   className,
   type = 'button',
 }) {
-  if (featured) {
-    return (
-      <motion.div
-        whileTap={{ scale: 0.96 }}
-        className="bottom-nav-tab bottom-nav-tab--featured relative flex min-w-0 flex-1 flex-col items-center justify-end"
-      >
-        <Link
-          to={to}
-          className={cn(
-            'flex flex-col items-center gap-1',
-            active && 'bottom-nav-tab--featured-active',
+  const pill = (
+    <span
+      className={cn(
+        'bottom-nav-tab__pill',
+        featured && 'bottom-nav-tab__pill--featured',
+        active && 'bottom-nav-tab__pill--active',
+      )}
+    >
+      {featured ? (
+        <span className={cn('bottom-nav-featured-btn', active && 'bottom-nav-featured-btn--active')}>
+          <BottomNavIcon name={icon} size={20} active={active} featured />
+          {badge > 0 && (
+            <span className="bottom-nav-badge absolute -right-0.5 -top-0.5">
+              {badge > 9 ? '9+' : badge}
+            </span>
           )}
-          aria-label={label}
-          aria-current={active ? 'page' : undefined}
-        >
-          <span className="bottom-nav-featured-btn relative flex items-center justify-center">
-            <AppIcon name={icon} size={26} className="text-white" />
-            {badge > 0 && (
-              <span className="bottom-nav-badge absolute -right-0.5 -top-0.5">
-                {badge > 9 ? '9+' : badge}
-              </span>
-            )}
-          </span>
-          <span className="bottom-nav-tab__label bottom-nav-tab__label--featured">{label}</span>
-        </Link>
-      </motion.div>
+        </span>
+      ) : (
+        <span className="bottom-nav-tab__icon relative flex h-5 w-5 items-center justify-center">
+          {customIcon || <BottomNavIcon name={icon} size={20} active={active} />}
+          {badge > 0 && (
+            <span className="bottom-nav-badge absolute -right-1.5 -top-1">
+              {badge > 9 ? '9+' : badge}
+            </span>
+          )}
+        </span>
+      )}
+      <span className={cn('bottom-nav-tab__label', active && 'bottom-nav-tab__label--active')}>
+        {label}
+      </span>
+    </span>
+  );
+
+  const classes = cn('bottom-nav-tab', featured && 'bottom-nav-tab--featured', className);
+
+  if (featured && onClick) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className={classes}
+        aria-label={label}
+        aria-expanded={active}
+      >
+        {pill}
+      </button>
     );
   }
 
-  const content = (
-    <>
-      <span
-        className={cn(
-          'bottom-nav-tab__icon relative flex h-10 w-10 items-center justify-center rounded-xl',
-          active && 'bottom-nav-tab__icon--active',
-        )}
-      >
-        <AppIcon name={icon} size={22} className="bottom-nav-tab__icon-svg" />
-        {badge > 0 && (
-          <span className="bottom-nav-badge absolute -right-0.5 -top-0.5">
-            {badge > 9 ? '9+' : badge}
-          </span>
-        )}
-      </span>
-      <span className="bottom-nav-tab__label">{label}</span>
-    </>
-  );
-
-  const classes = cn(
-    'bottom-nav-tab relative flex min-h-[3.25rem] min-w-0 flex-1 flex-col items-center justify-center gap-1 px-1 py-1.5',
-    active && 'bottom-nav-tab--active',
-    className,
-  );
-
   if (to) {
     return (
-      <motion.div whileTap={{ scale: 0.97 }} className="flex min-w-0 flex-1">
-        <Link to={to} className={classes} aria-current={active ? 'page' : undefined}>
-          {content}
-        </Link>
-      </motion.div>
+      <Link to={to} className={classes} aria-current={active ? 'page' : undefined}>
+        {pill}
+      </Link>
     );
   }
 
   return (
-    <motion.button type={type} whileTap={{ scale: 0.97 }} onClick={onClick} className={classes}>
-      {content}
-    </motion.button>
+    <button type={type} onClick={onClick} className={classes}>
+      {pill}
+    </button>
   );
 }

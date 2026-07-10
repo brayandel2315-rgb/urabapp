@@ -1,19 +1,15 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import HomeMvpHero from './components/hero/HomeMvpHero';
 import HomeDiscoveryCategoryGrid from './components/categories/HomeDiscoveryCategoryGrid';
 import HomePromotionsStrip from './components/discovery/HomePromotionsStrip';
-import HomeFeaturedRow from './components/discovery/HomeFeaturedRow';
+import HomeOpenStoresSection from './components/discovery/HomeOpenStoresSection';
 import HomePopularProductsRow from './components/discovery/HomePopularProductsRow';
 import HomeTrendingChips from './components/trending/HomeTrendingChips';
-import HomeFeedbackCard from './components/feedback/HomeFeedbackCard';
 import HomeCatalogAwayBanner from './components/catalog/HomeCatalogAwayBanner';
+import HomeIntermunicipalBlock from './components/shipment/HomeIntermunicipalBlock';
 import HomeDesktopFooter from './components/footer/HomeDesktopFooter';
 import HomeSectionHeader from '@/modules/client/components/HomeSectionHeader';
 import ClientActiveOrderBanner from '@/modules/client/components/ClientActiveOrderBanner';
-import BusinessCard from '@/components/BusinessCard';
-import AppIcon from '@/design-system/icons/AppIcon';
-import { STORE } from '@/utils/marketplace-copy';
 
 export default function HomeDesktopView({
   user,
@@ -48,7 +44,7 @@ export default function HomeDesktopView({
     businessPromos: discovery?.promotions,
   };
 
-  const stores = topRestaurants.slice(0, 9);
+  const stores = topRestaurants;
   const showAwayBanner = catalog?.awayFromHome || catalog?.mode === 'out_of_coverage';
 
   return (
@@ -80,50 +76,20 @@ export default function HomeDesktopView({
         )}
 
         <section className="home-desktop__section">
-          <HomeSectionHeader
-            title={`Abiertos ahora en ${outsideCoverage ? homeMunicipio : viewMuni}`}
-            subtitle={
-              openNow > 0
-                ? STORE.readyCount(openNow)
-                : stores.length > 0
-                  ? 'Hay tiendas en tu zona, pero ninguna abierta ahora'
-                  : 'Entrega local con seguimiento en vivo'
-            }
-            variant="brand"
-            aside={(
-              <Link to="/restaurantes" className="home-desktop-cta">
-                Ver todas las tiendas
-                <AppIcon name="back" size={14} className="rotate-180" />
-              </Link>
-            )}
+          <HomeOpenStoresSection
+            municipio={outsideCoverage ? homeMunicipio : viewMuni}
+            openNow={openNow}
+            businesses={stores}
+            isLoading={discoveryLoading && stores.length === 0}
+            emptyMessage={
+            openNow === 0 && !noLocalBusinesses
+              ? 'Ninguna tienda está abierta en este momento. Vuelve en su horario o usa mensajería.'
+              : noLocalBusinesses
+                ? 'Activa envíos intermunicipales para ver tiendas que lleguen a tu ubicación.'
+                : 'Pronto habrá más tiendas en tu zona.'
+          }
+          variant="desktop"
           />
-
-          {stores.length > 0 ? (
-            <div className="home-desktop-stores-grid">
-              {stores.map((business, i) => (
-                <BusinessCard
-                  key={business.id}
-                  business={business}
-                  layout="grid"
-                  rank={i < 3 ? i + 1 : undefined}
-                  imageLoading={i < 4 ? 'eager' : 'lazy'}
-                />
-              ))}
-            </div>
-          ) : (
-            <HomeFeaturedRow
-              businesses={featuredBusinesses}
-              isLoading={discoveryLoading}
-              municipio={outsideCoverage ? homeMunicipio : viewMuni}
-              emptyMessage={
-                openNow === 0 && !noLocalBusinesses
-                  ? 'Ninguna tienda está abierta en este momento. Vuelve en su horario o usa mensajería.'
-                  : noLocalBusinesses
-                    ? 'Activa envíos intermunicipales para ver tiendas que lleguen a tu ubicación.'
-                    : 'Pronto habrá más tiendas en tu zona.'
-              }
-            />
-          )}
         </section>
 
         {(hasPromos || discoveryLoading) && (
@@ -163,7 +129,7 @@ export default function HomeDesktopView({
         )}
 
         <section className="home-desktop__section">
-          <HomeFeedbackCard deferUntilVisit={2} />
+          <HomeIntermunicipalBlock originMunicipio={outsideCoverage ? homeMunicipio : viewMuni} />
         </section>
       </div>
 

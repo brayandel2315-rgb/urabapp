@@ -38,7 +38,7 @@ import { useOrderEventsRealtime } from '@/hooks/useOrderEventsRealtime';
 import FareBreakdownCard from '@/components/courier/FareBreakdownCard';
 import ServiceJourneyShowcase from '@/components/services/ServiceJourneyShowcase';
 import { startWompiCheckout, isWompiEnabled, isDigitalPayment } from '../../../services/wompi.service';
-import { toast } from '../../../utils/toast';
+import { useAppExperienceRatingStore } from '@/store/appExperienceRatingStore';
 
 function courierJourneyFromOrder(order) {
   const phase = order?.courier_phase;
@@ -148,6 +148,8 @@ export default function OrderDetailPage() {
   const [confirmCancel, setConfirmCancel] = useState(false);
   const [storeConflict, setStoreConflict] = useState(null);
   const pendingReorderRef = useRef(null);
+  const deliveredRatingQueuedRef = useRef(false);
+  const requestAppRating = useAppExperienceRatingStore((s) => s.requestRating);
   const online = useOnlineStatus();
 
   const { data: order, isLoading } = useQuery({
@@ -194,6 +196,23 @@ export default function OrderDetailPage() {
       toast('¡Pago confirmado!');
     }
   }, [order?.payment_status, searchParams]);
+
+  useEffect(() => {
+    if (
+      order?.status !== 'delivered'
+      || user?.id !== order?.customer_id
+      || deliveredRatingQueuedRef.current
+    ) {
+      return;
+    }
+    deliveredRatingQueuedRef.current = true;
+    requestAppRating({
+      id: `order:${order.id}`,
+      kind: 'order',
+      label: order.businesses?.name || 'tu pedido',
+      deliveredAt: order.delivered_at || order.updated_at,
+    });
+  }, [order?.status, order?.customer_id, order?.id, order?.businesses?.name, order?.delivered_at, order?.updated_at, requestAppRating, user?.id]);
 
   const cancelMutation = useMutation({
     mutationFn: () => cancelOrderByCustomer(id, user.id),

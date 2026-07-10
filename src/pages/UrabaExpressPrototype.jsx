@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { SurfaceCard } from '@/design-system/patterns/SurfaceCard';
 import AppIcon from '@/design-system/icons/AppIcon';
 import Button from '@/components/ui/Button';
-import logo from '@/assets/logo/logo-icon.svg';
+import BrandLogo from '@/components/brand/BrandLogo';
 
 const promoSlides = [
   { title: 'Viernes de pescado frito', subtitle: '-20% en combos del golfo', tone: 'from-[#1C8238] to-[#30D158]' },
@@ -122,7 +122,7 @@ export default function UrabaExpressPrototype() {
           <div className="flex flex-col gap-6 px-5 py-6 sm:px-8 md:flex-row md:items-center md:justify-between">
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-3 rounded-full bg-white/10 px-3 py-2 backdrop-blur">
-                <img src={logo} alt="Urabapp" className="h-10 w-10 rounded-full object-cover ring-2 ring-white/40" />
+                <BrandLogo variant="icon" alt="Urabapp" className="ring-2 ring-white/40" />
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sky">Urabapp vision</p>
                   <p className="font-display text-lg font-bold">Urabá Express</p>

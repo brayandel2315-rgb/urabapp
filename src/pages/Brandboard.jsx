@@ -5,7 +5,8 @@ import AppIcon from '@/design-system/icons/AppIcon';
 import Input from '../components/ui/Input';
 import Loader from '../components/ui/Loader';
 import EmptyState from '../components/ui/EmptyState';
-import logo from '../assets/logo/logo-icon.svg';
+import BrandLogo from '@/components/brand/BrandLogo';
+import { BRAND_LOGO_SRC } from '@/assets/logo/brand';
 
 const colors = [
   { name: 'Azul marino', hex: '#0D2B45', token: 'secondary', usage: 'Headers, splash, textos principales' },
@@ -91,7 +92,7 @@ export default function Brandboard() {
       <header className="sticky top-0 z-50 border-b border-border bg-surface/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
-            <img src={logo} alt="Urabapp" className="h-10 w-10 rounded-full object-cover" />
+            <BrandLogo variant="compact" alt="Urabapp" />
             <span className="text-brand text-lg text-secondary">Urabapp</span>
           </div>
           <Link to="/" className="text-sm font-semibold text-primary hover:text-primary-dark">
@@ -103,7 +104,7 @@ export default function Brandboard() {
       <main className="mx-auto max-w-5xl space-y-16 px-6 py-10 animate-fade-in">
         <div className="overflow-hidden rounded-3xl bg-secondary p-8 text-white md:p-12">
           <div className="flex flex-col items-center gap-8 md:flex-row md:items-start">
-            <img src={logo} alt="Logo Urabapp" className="h-40 w-40 shrink-0 rounded-full object-cover ring-4 ring-primary shadow-lift" />
+            <img src={BRAND_LOGO_SRC} alt="Logo Urabapp" className="h-auto w-full max-w-md shrink-0 object-contain" />
             <div>
               <p className="text-tagline text-sky-light">Brandboard oficial</p>
               <h1 className="text-brand mt-2 text-4xl md:text-5xl">Urabapp</h1>
@@ -124,11 +125,11 @@ export default function Brandboard() {
 
         <Section
           title="Logo oficial"
-          subtitle="Domiciliario en moto, plátano, olas del mar, pin de ubicación y señal Wi-Fi."
+          subtitle="Bolsa delivery, rayo de velocidad y hojas tropicales — Lo que mueve Urabá."
         >
           <div className="grid gap-4 md:grid-cols-2">
             <SurfaceCard className="flex flex-col items-center gap-4 p-8 text-center">
-              <img src={logo} alt="Logo circular Urabapp" className="h-48 w-48 rounded-full object-cover shadow-soft" />
+              <img src={BRAND_LOGO_SRC} alt="Logo Urabapp" className="h-auto w-full max-w-sm object-contain shadow-soft" />
               <div>
                 <p className="font-semibold text-secondary">Logo principal</p>
                 <p className="text-xs text-muted">App, favicon, PWA, redes sociales</p>
@@ -136,14 +137,14 @@ export default function Brandboard() {
             </SurfaceCard>
             <SurfaceCard className="flex flex-col justify-center gap-6 p-8">
               <div className="flex items-center gap-4 rounded-2xl bg-sky-light p-4">
-                <img src={logo} alt="" className="h-14 w-14 rounded-full object-cover" />
+                <BrandLogo variant="compact" alt="" />
                 <div>
                   <p className="text-brand text-xl text-secondary">Urabapp</p>
                   <p className="text-tagline text-muted">Conexión local y envíos</p>
                 </div>
               </div>
               <div className="flex items-center gap-4 rounded-2xl bg-secondary p-4">
-                <img src={logo} alt="" className="h-14 w-14 rounded-full object-cover ring-2 ring-primary" />
+                <BrandLogo variant="compact" alt="" className="ring-2 ring-primary" />
                 <div>
                   <p className="text-brand text-xl text-white">Urabapp</p>
                   <p className="text-tagline text-sky">Sobre fondo oscuro</p>

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { CLIENT_SEARCH } from '@/app/clientNav';
-import logo from '../assets/logo/logo-icon.svg';
+import BrandLogo from '@/components/brand/BrandLogo';
 import Button from '../components/ui/Button';
 import AppIcon from '@/design-system/icons/AppIcon';
 import {
@@ -38,7 +38,7 @@ export default function Landing() {
       <header className="sticky top-0 z-40 border-b border-border/40 bg-surface/90 backdrop-blur-xl">
         <div className="app-container flex items-center justify-between py-3">
           <div className="flex items-center gap-3">
-            <img src={logo} alt={BRAND.name} className="h-10 w-10 rounded-full object-cover ring-2 ring-primary shadow-glow" />
+            <BrandLogo variant="full" alt={BRAND.name} className="h-10 max-w-[10rem]" />
             <div>
               <p className="text-brand text-base leading-none lg:text-lg">{BRAND.name}</p>
               <p className="text-caption text-muted hidden sm:block">{BRAND.shortTagline}</p>
@@ -160,7 +160,7 @@ export default function Landing() {
       <footer className="border-t border-border bg-surface py-10">
         <div className="app-container flex flex-col items-center justify-between gap-6 sm:flex-row">
           <div className="flex items-center gap-3">
-            <img src={logo} alt="" className="h-10 w-10 rounded-full object-cover ring-2 ring-primary" />
+            <BrandLogo variant="footer" alt="" />
             <div>
               <p className="text-brand text-secondary">{BRAND.name}</p>
               <p className="text-xs text-muted">{BRAND.tagline}</p>

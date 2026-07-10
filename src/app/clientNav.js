@@ -23,25 +23,65 @@ export const CLIENT_SERVICE_LINKS = [
   { to: '/soporte', label: 'Ayuda', icon: 'headset', hint: 'Soporte en app' },
 ];
 
-/** Móvil: dock con carrito central elevado (estilo delivery) */
+/** Móvil: dock estilo app premium — Inicio · Explorar · Servicios · Pedidos · Mi cuenta */
 export const CLIENT_BOTTOM_TABS = [
   { to: CLIENT_HOME, icon: 'home', label: 'Inicio', exact: true },
   { to: CLIENT_SEARCH, icon: 'search', label: 'Explorar' },
-  { to: '/carrito', icon: 'cart', label: 'Carrito', badgeKey: 'cart', featured: true },
-  { to: CLIENT_OFFERS, icon: 'tag', label: 'Ofertas' },
-  { to: CLIENT_ACCOUNT, icon: 'profile', label: 'Cuenta' },
+  { to: '/mandado', icon: 'services', label: 'Servicios', featured: true, action: 'services' },
+  { to: CLIENT_ORDERS, icon: 'pedidos', label: 'Pedidos' },
+  { to: CLIENT_ACCOUNT, icon: 'profile', label: 'Mi cuenta' },
 ];
 
+/** Rutas que pertenecen a Explorar (búsqueda y verticales) */
+const CLIENT_EXPLORE_PREFIXES = [
+  '/search',
+  '/restaurantes',
+  '/mercado',
+  '/farmacia',
+  '/mensajeria',
+  '/tiendas',
+  '/ofertas',
+  '/carrito',
+];
+
+function isExploreRoute(pathname) {
+  if (CLIENT_EXPLORE_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))) {
+    return true;
+  }
+  return pathname.startsWith('/business/') || pathname.startsWith('/tienda/');
+}
+
+function isServicesRoute(pathname) {
+  return pathname === '/mandado'
+    || pathname.startsWith('/mandado/')
+    || pathname === '/envios'
+    || pathname.startsWith('/envios/')
+    || pathname === '/soporte'
+    || pathname.startsWith('/soporte/');
+}
+
+function isOrdersRoute(pathname) {
+  return pathname === '/pedidos' || pathname.startsWith('/pedidos/');
+}
+
 export function isClientNavActive(pathname, to, exact = false) {
-  if (exact || to === CLIENT_HOME) {
-    return pathname === to
-      || (to === CLIENT_HOME && (pathname.startsWith('/tienda') || pathname.startsWith('/business')));
+  if (to === CLIENT_HOME || exact) {
+    return pathname === CLIENT_HOME;
+  }
+  if (to === CLIENT_SEARCH) {
+    return isExploreRoute(pathname);
   }
   if (to === CLIENT_ACCOUNT) {
     return pathname.startsWith('/cuenta');
   }
+  if (to === CLIENT_ORDERS) {
+    return isOrdersRoute(pathname);
+  }
   if (to === '/carrito') {
     return pathname === '/carrito' || pathname === '/checkout';
+  }
+  if (to === '/mandado' || to === '/envios' || to === '/soporte') {
+    return isServicesRoute(pathname);
   }
   return pathname === to || pathname.startsWith(`${to}/`);
 }

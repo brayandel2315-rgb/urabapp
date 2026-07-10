@@ -262,8 +262,10 @@ export default function BusinessOnboarding() {
           subtitle="Cuenta + datos legales colombianos + imágenes estandarizadas"
         />
         <JoinAuthPanel
-          title="Primero, tu cuenta de tienda"
-          subtitle="Email y contraseña para gestionar pedidos y catálogo."
+          intent="business"
+          redirectPath="/negocio/onboarding"
+          title="Primero, tu cuenta de comercio"
+          subtitle="Email y contraseña — luego completas los datos de tu tienda."
         />
       </div>
     );

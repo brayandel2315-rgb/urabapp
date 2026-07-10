@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import logo from '../assets/logo/logo-icon.svg';
+import BrandLogo from '@/components/brand/BrandLogo';
 import Loader from '../components/ui/Loader';
 import LaunchChecklist from '../modules/admin/components/LaunchChecklist';
 import { useAuthStore } from '../store/authStore';
@@ -72,7 +72,7 @@ export default function Informe() {
             {isAdmin && (
               <Link to="/admin" className="text-sm font-semibold text-secondary">Admin →</Link>
             )}
-            <img src={logo} alt="" className="h-8 w-8 rounded-full object-cover" />
+            <BrandLogo variant="compact" alt="" className="h-8" />
           </div>
         </div>
       </header>

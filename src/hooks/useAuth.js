@@ -10,6 +10,11 @@ import { identifyUser, resetAnalytics } from '../services/analytics.service';
 import { emitCommEvent } from '@/communication';
 import { syncLocalPrefsToServer } from '@/communication/preferences.service';
 import { normalizeMunicipio } from '../utils/municipio';
+import {
+  clearAuthSessionFlag,
+  markAuthSessionActive,
+  recordLoginIfNewSession,
+} from '../utils/greeting-session';
 
 function syncHomeFromProfile(profile) {
   if (profile?.municipio) {
@@ -81,6 +86,8 @@ export function useAuthInit() {
           return;
         }
 
+        markAuthSessionActive(session.user.id);
+
         deferAuthSideEffect(() => {
           loadProfileForUser(session.user, {
             setProfile,
@@ -99,6 +106,7 @@ export function useAuthInit() {
       if (event === 'SIGNED_OUT') {
         const prevId = useAuthStore.getState().user?.id;
         if (prevId) {
+          clearAuthSessionFlag(prevId);
           emitCommEvent('auth_sign_out', {
             recipientId: prevId,
             actorId: prevId,
@@ -113,6 +121,12 @@ export function useAuthInit() {
         resetAnalytics();
         setLoading(false);
         return;
+      }
+
+      if (event === 'SIGNED_IN') {
+        recordLoginIfNewSession(session.user.id);
+      } else if (event === 'INITIAL_SESSION') {
+        markAuthSessionActive(session.user.id);
       }
 
       deferAuthSideEffect(() => {

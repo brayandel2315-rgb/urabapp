@@ -15,6 +15,7 @@ import ClientAppHeader from '../components/layout/ClientAppHeader';
 import ClientDesktopHeader from '../components/layout/ClientDesktopHeader';
 import GeoBootstrap from '../components/geo/GeoBootstrap';
 import ClientOnboardingTour from '../components/onboarding/ClientOnboardingTour';
+import AppExperienceRatingHost from '../components/feedback/AppExperienceRatingHost';
 import PwaInstallFab from '../components/pwa/PwaInstallFab';
 import PwaMobileInstallBanner from '../components/pwa/PwaMobileInstallBanner';
 import { CLIENT_BOTTOM_TABS } from '@/app/clientNav';
@@ -46,6 +47,7 @@ export default function ClientLayout() {
       <ClientDesktopHeader notificationCount={communicationBadge} />
       <GeoBootstrap />
       <ClientOnboardingTour />
+      <AppExperienceRatingHost />
       <PwaMobileInstallBanner />
       <PwaInstallFab />
       <OfflineBanner />

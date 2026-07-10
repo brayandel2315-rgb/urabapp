@@ -1,52 +1,58 @@
 import { useLocation } from 'react-router-dom';
-import { motion } from 'motion/react';
 import ActionButton from '@/design-system/patterns/ActionButton';
-import { isClientNavActive } from '@/app/clientNav';
-import { useAutoHideBottomNav } from '@/hooks/useAutoHideBottomNav';
-
-const spring = { type: 'spring', damping: 30, stiffness: 380 };
+import { isClientNavActive, CLIENT_ACCOUNT } from '@/app/clientNav';
+import { useClientServicesPanelStore } from '@/store/clientServicesPanelStore';
+import { useAuthStore } from '@/store/authStore';
+import { isClientAuthenticated } from '@/app/client-auth-policy';
+import ClientUserAvatar from '@/components/layout/ClientUserAvatar';
 
 export default function BottomNavigation({ tabs, badges = {} }) {
   const location = useLocation();
-  const { visible } = useAutoHideBottomNav();
+  const toggleServices = useClientServicesPanelStore((s) => s.toggle);
+  const user = useAuthStore((s) => s.user);
+  const profile = useAuthStore((s) => s.profile);
+  const authed = isClientAuthenticated(user);
 
   return (
-    <>
-      <motion.nav
-        data-role="client"
-        aria-label="Navegación principal"
-        aria-hidden={!visible}
-        initial={false}
-        animate={{
-          y: visible ? 0 : 'calc(100% + 2rem)',
-          opacity: visible ? 1 : 0,
-        }}
-        transition={spring}
-        className="bottom-nav-dock pointer-events-none fixed inset-x-0 bottom-0 z-50 lg:hidden"
-        style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
-      >
-        <div className="bottom-nav-dock__shell pointer-events-auto mx-auto w-full px-4 pb-3">
-          <div className="bottom-nav-dock__panel">
-            <div className="bottom-nav-dock__grid">
-              {tabs.map((tab) => {
-                const active = isClientNavActive(location.pathname, tab.to, tab.exact);
-                const badge = tab.badgeKey ? badges[tab.badgeKey] : 0;
-                return (
-                  <ActionButton
-                    key={tab.to}
-                    to={tab.to}
-                    sticker={tab.icon}
-                    label={tab.label}
-                    badge={badge}
-                    active={active}
-                    featured={tab.featured}
-                  />
-                );
-              })}
-            </div>
+    <nav
+      data-role="client"
+      aria-label="Navegación principal"
+      className="bottom-nav-dock fixed inset-x-0 bottom-0 z-50 lg:hidden"
+    >
+      <div className="bottom-nav-dock__shell w-full">
+        <div className="bottom-nav-dock__panel">
+          <div className="bottom-nav-dock__grid">
+            {tabs.map((tab) => {
+              const active = isClientNavActive(location.pathname, tab.to, tab.exact);
+              const badge = tab.badgeKey ? badges[tab.badgeKey] : 0;
+              const isAccountTab = tab.to === CLIENT_ACCOUNT;
+              const accountIcon = authed && isAccountTab ? (
+                <ClientUserAvatar
+                  profile={profile}
+                  user={user}
+                  size="bottomNav"
+                  showOnline
+                  active={active}
+                />
+              ) : null;
+
+              return (
+                <ActionButton
+                  key={tab.to + tab.label}
+                  to={tab.action === 'services' ? undefined : tab.to}
+                  onClick={tab.action === 'services' ? toggleServices : undefined}
+                  sticker={tab.icon}
+                  customIcon={accountIcon}
+                  label={tab.label}
+                  badge={badge}
+                  active={active}
+                  featured={tab.featured}
+                />
+              );
+            })}
           </div>
         </div>
-      </motion.nav>
-    </>
+      </div>
+    </nav>
   );
 }

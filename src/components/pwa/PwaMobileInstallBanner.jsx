@@ -30,7 +30,7 @@ export default function PwaMobileInstallBanner() {
         style={{ bottom: 'calc(var(--mobile-nav-space, 5.25rem) + 0.35rem)' }}
       >
         <div className="flex items-center gap-3 rounded-2xl border border-primary/30 bg-card/95 p-3 shadow-lift backdrop-blur-md">
-          <img src={APP_ICON_URL} alt="" className="h-11 w-11 shrink-0 rounded-xl object-cover ring-1 ring-primary/20" />
+          <img src={APP_ICON_URL} alt="" className="h-11 w-11 shrink-0 rounded-xl object-contain bg-transparent ring-1 ring-primary/20" />
           <div className="min-w-0 flex-1">
             <p className="font-display text-sm font-bold text-foreground">
               {isIos ? 'Agregar Urabapp al inicio' : `Instala ${BRAND.name}`}

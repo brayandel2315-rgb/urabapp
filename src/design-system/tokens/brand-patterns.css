@@ -42,7 +42,7 @@
   width: 3rem;
   height: 4px;
   border-radius: 999px;
-  background: linear-gradient(90deg, hsl(var(--brand-blue)) 0%, hsl(var(--brand-lime)) 50%, hsl(var(--brand-green)) 100%);
+  background: linear-gradient(90deg, var(--urab-green-deep) 0%, var(--urab-green) 50%, var(--urab-green-light) 100%);
 }
 
 .brand-banner {
@@ -161,12 +161,12 @@
 }
 
 .urabapp-desktop-footer__logo {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 9999px;
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.35),
-    0 0 0 2px rgba(255, 255, 255, 0.15);
+  width: auto;
+  max-width: 9rem;
+  height: auto;
+  max-height: 3.5rem;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.35));
 }
 
 .urabapp-desktop-footer__name {

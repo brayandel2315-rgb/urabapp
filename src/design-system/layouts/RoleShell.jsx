@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import logo from '@/assets/logo/logo-icon.svg';
+import BrandLogo from '@/components/brand/BrandLogo';
 import { cn } from '@/lib/utils';
 import AppShell from './AppShell';
 import { Button } from '@/design-system/ui/button';
@@ -69,7 +69,7 @@ export default function RoleShell({ role }) {
               <AppIcon name="lock" size="xs" className="shrink-0 text-[var(--role-accent)]" />
               <span>{meta.securityNote}</span>
               {isAdmin && (
-                <img src={logo} alt="" className="ml-auto h-6 w-6 rounded-full opacity-80" />
+                <BrandLogo variant="icon" alt="" className="ml-auto h-6 w-6 opacity-80" />
               )}
             </div>
           )}
