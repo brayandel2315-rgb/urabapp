@@ -13,7 +13,7 @@
     "dev:loop": "node scripts/dev-keep-alive.mjs",
     "dev:free-port": "powershell -ExecutionPolicy Bypass -File scripts/dev-free-port.ps1",
     "dev:restart": "npm run dev:free-port && npm run dev",
-    "prebuild": "node scripts/generate-app-version.mjs && node scripts/process-hero-bag.mjs && node scripts/process-brand-logo.mjs",
+    "prebuild": "node scripts/generate-app-version.mjs && node scripts/process-hero-bag.mjs && node scripts/process-hero-rider.mjs && node scripts/process-brand-logo.mjs",
     "build": "vite build",
     "brand:assets": "node scripts/generate-brand-assets.mjs",
     "lint": "eslint .",
@@ -24,6 +24,7 @@
     "setup:vapid": "node scripts/setup-vapid.mjs",
     "process:brand-logo": "node scripts/process-brand-logo.mjs",
     "deploy:functions": "powershell -ExecutionPolicy Bypass -File scripts/deploy-edge-functions.ps1",
+    "seed:uraba-marketplace": "node scripts/generate-uraba-marketplace-seed.mjs",
     "build:sql": "node scripts/build-production-sql.mjs",
     "sync:supabase": "powershell -ExecutionPolicy Bypass -File scripts/sync-supabase.ps1",
     "sync:netlify": "powershell -ExecutionPolicy Bypass -File scripts/sync-netlify-supabase.ps1",
@@ -40,6 +41,7 @@
     "keep-alive:supabase": "node scripts/keep-supabase-alive.mjs --once",
     "keep-alive:supabase:loop": "node scripts/keep-supabase-alive.mjs --interval=20",
     "test:smoke": "node scripts/smoke-tests.mjs",
+    "test:e2e:order": "node scripts/e2e-order-flow.mjs",
     "report:health": "node scripts/app-health-report.mjs"
   },
   "dependencies": {

@@ -9,7 +9,8 @@ import { isBusinessOpenNow } from '@/utils/schedule';
 import { getBarrioDeliveryTier } from '@/utils/barrio';
 import { formatDistanceKm } from '@/utils/format-distance';
 
-import { CARD_SHELL, CARD_INTERACTIVE, IMAGE_ASPECT } from '@/design-system/patterns/commerce-card-tokens';
+import AppIcon from '@/design-system/icons/AppIcon';
+import { CARD_SHELL, CARD_INTERACTIVE, IMAGE_ASPECT, ETA_CHIP } from '@/design-system/patterns/commerce-card-tokens';
 
 const RANK_STYLES = {
   1: 'bg-amber-400 text-amber-950 ring-amber-300',
@@ -52,32 +53,34 @@ function DeliveryMeta({ business, className, barrio, municipio, coverage }) {
   const coverageWarn = cov && !cov.available;
 
   return (
-    <div className={cn('flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-[#4A6278]', className)}>
+    <div className={cn('flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground', className)}>
       <BusinessRating business={business} size="sm" />
       {distLabel && (
         <>
-          <span className="text-[#D5E3EF]">·</span>
+          <span className="text-border" aria-hidden>·</span>
           <span>{distLabel}</span>
         </>
       )}
-      <span className="text-[#D5E3EF]">·</span>
-      <span>~{time} min</span>
+      <span className={ETA_CHIP}>
+        <AppIcon name="pending" size={11} aria-hidden />
+        ~{time} min
+      </span>
       {fee && (
         <>
-          <span className="text-[#D5E3EF]">·</span>
+          <span className="text-border" aria-hidden>·</span>
           <span>{fee}</span>
         </>
       )}
       {coverageWarn && (
         <>
-          <span className="text-[#D5E3EF]">·</span>
+          <span className="text-border" aria-hidden>·</span>
           <span className="font-semibold text-destructive">Sin cobertura</span>
         </>
       )}
       {tier === 'local' && !coverageWarn && (
         <>
-          <span className="text-[#D5E3EF]">·</span>
-          <span className="font-medium text-[#28B463]">En tu barrio</span>
+          <span className="text-border" aria-hidden>·</span>
+          <span className="font-medium text-primary">En tu barrio</span>
         </>
       )}
     </div>
@@ -201,8 +204,7 @@ function StoreTileCard({ business, href, className, barrio, municipio, imageLoad
           <h3 className="home-store-tile__name">{business.name}</h3>
           <div className="home-store-tile__meta">
             <BusinessRating business={business} size="sm" />
-            <span className="home-store-tile__dot" aria-hidden>·</span>
-            <span>~{time} min</span>
+            <span className="home-store-tile__eta">~{time} min</span>
           </div>
         </div>
       </article>
@@ -242,7 +244,7 @@ function ListCard({ business, href, className, rank, barrio, municipio }) {
               {business.name}
             </h3>
             {open ? (
-              <span className="shrink-0 text-[10px] font-bold text-[#28B463]">Abierto</span>
+              <span className="shrink-0 text-[10px] font-bold text-primary">Abierto</span>
             ) : (
               <Badge variant="destructive" className="shrink-0 text-[10px]">Cerrado</Badge>
             )}

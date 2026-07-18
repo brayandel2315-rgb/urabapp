@@ -170,9 +170,23 @@ export default function CartPage() {
             </div>
             <div className="flex flex-col items-end gap-2">
               <div className="flex items-center gap-2">
-                <button type="button" onClick={() => updateQuantity(lineKey(item), item.quantity - 1)} className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary-light font-bold text-primary" aria-label="Menos">−</button>
-                <span className="w-6 text-center font-semibold">{item.quantity}</span>
-                <button type="button" onClick={() => updateQuantity(lineKey(item), item.quantity + 1)} className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary-light font-bold text-primary" aria-label="Más">+</button>
+                <button
+                  type="button"
+                  onClick={() => updateQuantity(lineKey(item), item.quantity - 1)}
+                  className="flex h-11 w-11 items-center justify-center rounded-[var(--radius-component)] bg-primary/10 text-lg font-bold text-primary"
+                  aria-label="Menos"
+                >
+                  −
+                </button>
+                <span className="w-6 text-center font-semibold tabular-nums">{item.quantity}</span>
+                <button
+                  type="button"
+                  onClick={() => updateQuantity(lineKey(item), item.quantity + 1)}
+                  className="flex h-11 w-11 items-center justify-center rounded-[var(--radius-component)] bg-primary/10 text-lg font-bold text-primary"
+                  aria-label="Más"
+                >
+                  +
+                </button>
               </div>
               <button type="button" onClick={() => removeItem(lineKey(item))} className="text-xs font-medium text-muted-foreground hover:text-destructive">
                 Quitar
@@ -181,7 +195,7 @@ export default function CartPage() {
                 <button
                   type="button"
                   onClick={() => handleEditLine(item)}
-                  className="text-xs font-medium text-[#0E6BA8]"
+                  className="text-xs font-semibold text-primary"
                 >
                   Editar
                 </button>
@@ -198,10 +212,10 @@ export default function CartPage() {
                 key={product.id}
                 type="button"
                 onClick={() => handleQuickAdd(product)}
-                className="min-w-[132px] rounded-xl border border-border/50 bg-background p-3 text-left transition-colors hover:border-[#0E6BA8]/30 lg:min-w-0"
+                className="min-w-[132px] rounded-[var(--radius-component)] border border-border/50 bg-background p-3 text-left transition-colors hover:border-primary/30 lg:min-w-0"
               >
                 <p className="line-clamp-2 text-sm font-semibold text-foreground">{product.name}</p>
-                <p className="mt-1 text-sm font-bold text-[#0E6BA8]">{formatCOP(product.price)}</p>
+                <p className="mt-1 text-sm font-bold text-primary">{formatCOP(product.price)}</p>
               </button>
             ))}
           </div>
@@ -213,17 +227,36 @@ export default function CartPage() {
           <PriceSummary
             rows={[
               { label: 'Subtotal', value: formatCOP(subtotal) },
-              ...(savings > 0 ? [{ label: 'Ahorro en promos', value: `-${formatCOP(savings)}` }] : []),
-              { label: 'Domicilio', value: formatCOP(fee) },
+              ...(savings > 0 ? [{ label: 'Ahorro en promos', value: `-${formatCOP(savings)}`, accent: true }] : []),
+              {
+                label: 'Domicilio',
+                value: fee === 0 ? 'Gratis' : formatCOP(fee),
+                accent: fee === 0,
+              },
             ]}
             totalLabel="Total estimado"
             totalValue={formatCOP(subtotal + fee)}
-            footnote={`Llegada estimada ${etaMin}–${etaMax} min · ${STORE.partialFulfillment}`}
+            etaLabel={`${etaMin}–${etaMax} min`}
+            footnote={STORE.partialFulfillment}
           />
 
-          {belowMin && (
-            <SurfaceCard variant="accent" className="text-center text-sm font-semibold text-foreground">
-              Pedido mínimo: {formatCOP(minimum)} — te faltan {formatCOP(minimum - subtotal)}
+          {minimum > 0 && (
+            <SurfaceCard className="space-y-2 rounded-[var(--radius-component)]">
+              <div className="flex items-center justify-between gap-2 text-sm">
+                <span className="font-semibold text-foreground">Pedido mínimo</span>
+                <span className="tabular-nums text-muted-foreground">{formatCOP(minimum)}</span>
+              </div>
+              <div className="h-2 overflow-hidden rounded-full bg-muted">
+                <div
+                  className="h-full rounded-full bg-primary transition-all duration-300"
+                  style={{ width: `${Math.min(100, (subtotal / minimum) * 100)}%` }}
+                />
+              </div>
+              <p className="text-xs font-semibold text-foreground">
+                {belowMin
+                  ? `Te faltan ${formatCOP(minimum - subtotal)}`
+                  : 'Listo para pagar'}
+              </p>
             </SurfaceCard>
           )}
 
@@ -235,39 +268,57 @@ export default function CartPage() {
 
           {canCheckout ? (
             <Link to="/checkout">
-              <Button className="w-full rounded-2xl bg-[#0E6BA8] py-3.5 text-base font-bold hover:bg-[#0B5A8C]">
+              <Button className="h-12 w-full rounded-[var(--radius-component)] py-3.5 text-base font-bold">
                 Ir a pagar
               </Button>
             </Link>
           ) : (
-            <Button className="w-full rounded-2xl py-3.5 text-base font-bold" disabled>
+            <Button className="h-12 w-full rounded-[var(--radius-component)] py-3.5 text-base font-bold" disabled>
               {belowMin ? 'Pedido mínimo' : 'Tienda cerrada'}
             </Button>
           )}
         </aside>
       </div>
 
-      <div className="mt-4 lg:hidden">
+      <div className="mt-4 space-y-3 lg:hidden">
       <PriceSummary
-        className="mt-4"
         rows={[
           { label: 'Subtotal', value: formatCOP(subtotal) },
-          ...(savings > 0 ? [{ label: 'Ahorro en promos', value: `-${formatCOP(savings)}` }] : []),
-          { label: 'Domicilio', value: formatCOP(fee) },
+          ...(savings > 0 ? [{ label: 'Ahorro en promos', value: `-${formatCOP(savings)}`, accent: true }] : []),
+          {
+            label: 'Domicilio',
+            value: fee === 0 ? 'Gratis' : formatCOP(fee),
+            accent: fee === 0,
+          },
         ]}
         totalLabel="Total estimado"
         totalValue={formatCOP(subtotal + fee)}
-        footnote={`Llegada estimada ${etaMin}–${etaMax} min · ${STORE.partialFulfillment}`}
+        etaLabel={`${etaMin}–${etaMax} min`}
+        footnote={STORE.partialFulfillment}
       />
 
-      {belowMin && (
-        <SurfaceCard variant="accent" className="mt-3 text-center text-sm font-semibold text-foreground">
-          Pedido mínimo: {formatCOP(minimum)} — te faltan {formatCOP(minimum - subtotal)}
+      {minimum > 0 && (
+        <SurfaceCard className="space-y-2 rounded-[var(--radius-component)]">
+          <div className="flex items-center justify-between gap-2 text-sm">
+            <span className="font-semibold text-foreground">Pedido mínimo</span>
+            <span className="tabular-nums text-muted-foreground">{formatCOP(minimum)}</span>
+          </div>
+          <div className="h-2 overflow-hidden rounded-full bg-muted">
+            <div
+              className="h-full rounded-full bg-primary transition-all duration-300"
+              style={{ width: `${Math.min(100, (subtotal / minimum) * 100)}%` }}
+            />
+          </div>
+          <p className="text-xs font-semibold text-foreground">
+            {belowMin
+              ? `Te faltan ${formatCOP(minimum - subtotal)}`
+              : 'Listo para pagar'}
+          </p>
         </SurfaceCard>
       )}
 
       {!storeReady && cartBusiness && !belowMin && (
-        <SurfaceCard className="mt-3 text-center text-sm text-muted-foreground">
+        <SurfaceCard className="text-center text-sm text-muted-foreground">
           La tienda está cerrada o no acepta pedidos en este momento.
         </SurfaceCard>
       )}

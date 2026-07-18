@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from 'motion/react';
 import AppIcon from '@/design-system/icons/AppIcon';
 import {
   formatArrivalTime,
@@ -6,6 +7,7 @@ import {
   ROUTE_PROVIDER,
 } from '@/utils/routing';
 import { cn } from '@/lib/utils';
+import { spring } from '@/design-system/motion/presets';
 
 /**
  * Barra de ETA unificada — pedidos, mandados y envíos.
@@ -19,7 +21,7 @@ export default function RouteEtaPanel({
 }) {
   if (loading) {
     return (
-      <div className={cn('flex items-center gap-2 rounded-xl bg-muted/40 px-3 py-2 text-sm text-muted-foreground', className)}>
+      <div className={cn('flex items-center gap-2 rounded-[var(--radius-component)] bg-muted/40 px-3 py-2 text-sm text-muted-foreground', className)}>
         <AppIcon name="loading" size="sm" spin className="text-primary" />
         Calculando ruta…
       </div>
@@ -38,7 +40,7 @@ export default function RouteEtaPanel({
   return (
     <div
       className={cn(
-        'rounded-xl border px-3 py-2.5',
+        'rounded-[var(--radius-component)] border px-3 py-2.5',
         isOrs
           ? 'border-primary/25 bg-primary/[0.06]'
           : 'border-border/60 bg-muted/30',
@@ -47,15 +49,24 @@ export default function RouteEtaPanel({
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+          <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary/10">
             <AppIcon name="mensajeria" size="sm" className="text-primary" />
           </span>
           <div>
-            {etaLabel && (
-              <p className="font-display text-sm font-bold text-foreground">
-                {compact ? etaLabel : `Llegada ${etaLabel}`}
-              </p>
-            )}
+            <AnimatePresence mode="wait">
+              {etaLabel ? (
+                <motion.p
+                  key={etaLabel}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -3 }}
+                  transition={spring}
+                  className="font-display text-sm font-bold text-foreground"
+                >
+                  {compact ? etaLabel : `Llegada ${etaLabel}`}
+                </motion.p>
+              ) : null}
+            </AnimatePresence>
             <p className="text-xs text-muted-foreground">
               {route.km != null && `${route.km} km`}
               {route.km != null && arrival && ' · '}

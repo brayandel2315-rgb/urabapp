@@ -12,13 +12,13 @@ function ProductHit({ product }) {
   return (
     <Link
       to={product.to}
-      className="flex items-center gap-3 rounded-2xl bg-card p-3 ring-1 ring-border/50 transition-colors hover:ring-primary/25"
+      className="flex items-center gap-3 rounded-[var(--radius-component)] border border-border bg-card p-3 shadow-soft transition hover:border-primary/30 hover:shadow-card"
     >
-      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-muted/60 text-lg">
-        <AppIcon name={product.emoji || 'package'} size="md" />
+      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-lg">
+        <AppIcon name={product.emoji || 'package'} size="md" className="text-primary" />
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block truncate font-semibold text-foreground">{product.name}</span>
+        <span className="block truncate font-display font-semibold text-foreground">{product.name}</span>
         <span className="block truncate text-xs text-muted-foreground">{product.businessName}</span>
       </span>
       <span className="shrink-0 text-sm font-bold text-primary">{formatCOP(product.price)}</span>

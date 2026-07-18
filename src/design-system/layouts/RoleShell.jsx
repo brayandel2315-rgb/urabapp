@@ -5,6 +5,7 @@ import AppShell from './AppShell';
 import { Button } from '@/design-system/ui/button';
 import AppIcon from '@/design-system/icons/AppIcon';
 import ThemeToggle from '@/design-system/patterns/ThemeToggle';
+import SkipToContent from '@/design-system/patterns/SkipToContent';
 import { getRoleMeta } from '@/app/roleConfig';
 import { ROLES } from '@/utils/constants';
 import RiderBottomNav from '@/modules/rider/components/RiderBottomNav';
@@ -20,6 +21,7 @@ export default function RoleShell({ role }) {
 
   return (
     <AppShell data-role={meta.dataRole} className="role-shell">
+      <SkipToContent />
       <header className={cn('role-shell-header border-b border-black/10 shadow-soft', (isRider || isBusinessPanel) && 'pb-3')}>
         <div className={cn('app-container flex flex-col gap-3', (isRider || isBusinessPanel) ? 'py-3' : 'py-4')}>
           <div className="flex items-start justify-between gap-3">
@@ -100,10 +102,13 @@ export default function RoleShell({ role }) {
         </div>
       </header>
 
-      <main className={cn(
-        'app-container min-w-0 bg-[#F7FAFC] p-4 text-[#0D2B45] lg:p-6',
-        showRiderBottomNav || isBusinessPanel ? 'pb-24' : 'pb-8',
-      )}
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className={cn(
+          'app-container min-w-0 bg-background p-4 text-foreground outline-none lg:p-6',
+          showRiderBottomNav || isBusinessPanel ? 'pb-24' : 'pb-8',
+        )}
       >
         <Outlet />
       </main>

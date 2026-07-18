@@ -1,5 +1,4 @@
 import { cn } from '@/lib/utils';
-import AppIcon from '@/design-system/icons/AppIcon';
 import { STORE } from '@/utils/marketplace-copy';
 
 export default function HomeMarketPulse({
@@ -8,7 +7,39 @@ export default function HomeMarketPulse({
   avgDeliveryMin,
   activeOrders,
   className,
+  variant = 'default',
 }) {
+  if (variant === 'hero') {
+    if (!avgDeliveryMin && !openCount) {
+      return (
+        <p className={cn('home-hero-pulse', className)}>
+          Locales de {municipio || 'Urabá'} · logística local
+        </p>
+      );
+    }
+
+    return (
+      <p className={cn('home-hero-pulse', className)}>
+        <span className="home-hero-pulse__mark" aria-hidden>
+          🕒
+        </span>
+        {avgDeliveryMin ? (
+          <>
+            Entrega en{' '}
+            <span className="home-hero-pulse__highlight">~{avgDeliveryMin} min</span>
+            {openCount > 0 ? (
+              <span className="home-hero-pulse__sep"> · {openCount} abiertos</span>
+            ) : null}
+          </>
+        ) : (
+          <span>
+            {openCount} abierto{openCount !== 1 ? 's' : ''} ahora
+          </span>
+        )}
+      </p>
+    );
+  }
+
   const parts = [];
   if (openCount > 0) parts.push(`${openCount} abierto${openCount !== 1 ? 's' : ''} ahora`);
   if (avgDeliveryMin) parts.push(`~${avgDeliveryMin} min de entrega`);
@@ -16,16 +47,15 @@ export default function HomeMarketPulse({
 
   if (!parts.length) {
     return (
-      <p className={cn('text-sm text-[#4B5563]', className)}>
+      <p className={cn('text-sm text-muted-foreground', className)}>
         {STORE.many} locales de {municipio || 'Urabá'} · logística local
       </p>
     );
   }
 
   return (
-    <p className={cn('flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-[#4B5563]', className)}>
-      <AppIcon name="delivery" size="xs" className="text-[#2E7D32]" />
-      <span>{parts.join(' · ')}</span>
+    <p className={cn('text-sm text-muted-foreground', className)}>
+      {parts.join(' · ')}
     </p>
   );
 }

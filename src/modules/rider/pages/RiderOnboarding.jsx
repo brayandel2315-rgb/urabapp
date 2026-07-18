@@ -18,6 +18,7 @@ import {
   submitCourierForReview,
 } from '@/services/courier-panel.service';
 import { getProfile } from '@/services/auth.service';
+import { recordRequiredSignupConsents } from '@/services/legal.service';
 import { emitCommEvent } from '@/communication';
 import { useAuthStore } from '@/store/authStore';
 import { useLocationStore } from '@/store/locationStore';
@@ -173,6 +174,7 @@ export default function RiderOnboarding() {
       return submitCourierForReview();
     },
     onSuccess: async () => {
+      await recordRequiredSignupConsents(user.id).catch(() => {});
       const nextProfile = await getProfile(user.id);
       if (nextProfile) setProfile(nextProfile);
       emitCommEvent('rider_registered', {

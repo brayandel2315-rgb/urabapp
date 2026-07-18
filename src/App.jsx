@@ -4,6 +4,7 @@ import ConfigBanner from './components/ConfigBanner';
 import LocalDevToolbar from './components/LocalDevToolbar';
 import OfflineBanner from './components/OfflineBanner';
 import AppUpdateBanner from './components/AppUpdateBanner';
+import CookieConsentBanner from './components/legal/CookieConsentBanner';
 import PwaInstallBootstrap from './components/pwa/PwaInstallBootstrap';
 import PwaInstallSheet from './components/pwa/PwaInstallSheet';
 import PwaInstallBanner from './components/pwa/PwaInstallBanner';
@@ -13,6 +14,7 @@ import AppRoutes from './app/routes';
 import { useAuthInit } from './hooks/useAuth';
 import { useReferralCapture } from './hooks/useReferralCapture';
 import { initAnalytics } from './services/analytics.service';
+import { hasAnalyticsConsent } from './utils/cookie-consent';
 import UrabappToaster from './components/feedback/UrabappToaster';
 
 function App() {
@@ -20,7 +22,10 @@ function App() {
   useReferralCapture();
 
   useEffect(() => {
-    initAnalytics();
+    // PostHog solo con consentimiento de cookies no esenciales (Ley 1581 / Decreto 1377)
+    if (hasAnalyticsConsent()) {
+      initAnalytics().catch(() => {});
+    }
   }, []);
 
   return (
@@ -35,6 +40,7 @@ function App() {
       <Suspense fallback={<PageLoader />}>
         <AppRoutes />
       </Suspense>
+      <CookieConsentBanner />
       <LocalDevToolbar />
       <UrabappToaster />
     </ErrorBoundary>

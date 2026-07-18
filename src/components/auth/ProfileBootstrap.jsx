@@ -68,9 +68,5 @@ export default function ProfileBootstrap({ children }) {
     );
   }
 
-  return (
-    <div className="flex min-h-screen items-center justify-center">
-      <Loader size="lg" />
-    </div>
-  );
+  return <Loader size="lg" message="Preparando tu perfil…" />;
 }

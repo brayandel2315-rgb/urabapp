@@ -26,6 +26,7 @@ function loadEnv() {
 const env = loadEnv();
 const url = env.VITE_SUPABASE_URL;
 const key = env.VITE_SUPABASE_ANON_KEY;
+const serviceKey = env.SUPABASE_SECRET_KEY || env.SUPABASE_SERVICE_ROLE_KEY;
 const generatedAt = new Date().toISOString();
 
 let prodVersion = null;
@@ -70,14 +71,19 @@ const report = {
 };
 
 if (url && key) {
-  const supabase = createClient(url, key);
+  // Prefer service role for accurate admin metrics; fall back to anon (RLS may hide rows).
+  const supabase = createClient(url, serviceKey || key, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
   const tables = [
     'users', 'businesses', 'products', 'orders', 'drivers', 'shipment_orders',
     'reviews', 'membership_plans', 'courier_wallet',
   ];
+  const idColumn = { courier_wallet: 'driver_id' };
   const tableChecks = {};
   for (const table of tables) {
-    const { error } = await supabase.from(table).select('id').limit(1);
+    const col = idColumn[table] || 'id';
+    const { error } = await supabase.from(table).select(col).limit(1);
     tableChecks[table] = !error;
   }
 

@@ -21,14 +21,14 @@ export default function MobileStickyCheckoutBar({
   hint,
 }) {
   const action = href ? (
-    <Button asChild className="h-12 min-w-[9.5rem] rounded-2xl px-5 text-base font-bold shadow-glow" disabled={disabled}>
+    <Button asChild className="h-12 min-h-11 min-w-[9.5rem] rounded-[var(--radius-component)] px-5 text-base font-bold" disabled={disabled}>
       <Link to={href}>{actionLabel}</Link>
     </Button>
   ) : (
     <Button
       type={type}
       form={form}
-      className="h-12 min-w-[9.5rem] rounded-2xl px-5 text-base font-bold shadow-glow"
+      className="h-12 min-h-11 min-w-[9.5rem] rounded-[var(--radius-component)] px-5 text-base font-bold"
       disabled={disabled || loading}
       onClick={onAction}
     >
@@ -39,7 +39,7 @@ export default function MobileStickyCheckoutBar({
   return (
     <div
       className={cn(
-        'fixed left-0 right-0 z-40 border-t border-border/50 bg-background/95 shadow-lift backdrop-blur-xl lg:hidden',
+        'fixed left-0 right-0 z-40 border-t border-border/60 bg-background/95 shadow-float backdrop-blur-xl lg:hidden',
         className
       )}
       style={{
@@ -49,8 +49,8 @@ export default function MobileStickyCheckoutBar({
       <div className="mx-auto flex max-w-lg items-center justify-between gap-3 px-4 py-3">
         <div className="min-w-0">
           <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">{totalLabel}</p>
-          <p className="font-display text-xl font-black text-foreground">{formatCOP(total)}</p>
-          {hint ? <p className="truncate text-[11px] text-muted-foreground">{hint}</p> : null}
+          <p className="font-display text-xl font-black tabular-nums text-foreground">{formatCOP(total)}</p>
+          {hint ? <p className="truncate text-[11px] font-medium text-primary">{hint}</p> : null}
         </div>
         {action}
       </div>

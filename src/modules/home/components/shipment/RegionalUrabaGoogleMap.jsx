@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import BrandedLoadingScreen from '@/components/feedback/BrandedLoadingScreen';
 import AppIcon from '@/design-system/icons/AppIcon';
 import { createMapProvider } from '@/lib/map-provider';
 import { getGoogleMapsApiKey, isGoogleMapsEnabled, loadGoogleMaps } from '@/lib/google-maps-loader';
@@ -208,8 +209,7 @@ export default function RegionalUrabaGoogleMap({ originMunicipio, className }) {
         <div ref={containerRef} className="home-regional-map__canvas" aria-label="Mapa de cobertura Urabá" />
         {mode === 'loading' && (
           <div className="home-regional-map__loading">
-            <AppIcon name="loading" size="md" className="animate-spin text-[#2E7D32]" />
-            <span>Cargando mapa…</span>
+            <BrandedLoadingScreen variant="overlay" message="Cargando mapa…" className="min-h-0" />
           </div>
         )}
       </MapChrome>

@@ -75,10 +75,10 @@ function OrderDetailActions({
     && user?.id === order.customer_id;
 
   return (
-    <div className="space-y-3 border-t border-[#D5E3EF] pt-4">
+    <div className="space-y-3 border-t border-border/60 pt-4">
       {showWompi && isWompiEnabled() && (
         <Button
-          className="w-full bg-[#0E6BA8] hover:bg-[#0B5A8C]"
+          className="w-full"
           disabled={payingWompi}
           onClick={async () => {
             setPayingWompi(true);
@@ -116,18 +116,18 @@ function OrderDetailActions({
         {showWompi && (
           <button
             type="button"
-            className="font-semibold text-[#0E6BA8]"
+            className="font-semibold text-primary"
             onClick={onRefreshPayment}
           >
             Actualizar pago
           </button>
         )}
-        <Link to="/soporte" className="font-semibold text-[#0E6BA8]">
+        <Link to="/soporte" className="font-semibold text-primary">
           Ayuda
         </Link>
         <button
           type="button"
-          className="font-semibold text-[#4A6278]"
+          className="font-semibold text-muted-foreground"
           onClick={onCopyLink}
         >
           Copiar link
@@ -272,17 +272,13 @@ export default function OrderDetailPage() {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex min-h-[50vh] items-center justify-center bg-[#F7FAFC]">
-        <Loader size="lg" />
-      </div>
-    );
+    return <Loader variant="page" message="Cargando tu pedido…" />;
   }
 
   if (!order) {
     return (
       <PageLayout title="Pedido" backTo="/pedidos" maxWidth="lg">
-        <p className="py-8 text-center text-[#4A6278]">
+        <p className="py-8 text-center text-muted-foreground">
           Pedido no encontrado o no tienes permiso para verlo.
         </p>
       </PageLayout>
@@ -304,12 +300,12 @@ export default function OrderDetailPage() {
       <div className="client-page-split client-page-split--checkout">
         <div className="min-w-0 space-y-4">
         {!online && isActive && (
-          <p className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-center text-sm text-[#4A6278]">
+          <p className="rounded-[var(--radius-component)] border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-center text-sm text-muted-foreground">
             Sin conexión — el estado se actualizará al reconectar
           </p>
         )}
 
-        <SurfaceCard className="space-y-2">
+        <SurfaceCard className="space-y-2 rounded-[var(--radius-component)]">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <Badge variant={isCancelled ? 'destructive' : 'success'}>
               {ORDER_STATUS_LABELS[order.status]}
@@ -320,12 +316,12 @@ export default function OrderDetailPage() {
               </Badge>
             )}
           </div>
-          <p className="font-display text-2xl font-bold text-[#0D2B45]">{formatCOP(order.total)}</p>
+          <p className="font-display text-2xl font-bold tabular-nums text-foreground">{formatCOP(order.total)}</p>
           {hint && (
-            <p className="text-sm text-[#4A6278]">{hint}</p>
+            <p className="text-sm text-muted-foreground">{hint}</p>
           )}
           {order.driver_id && order.business_id && order.status === 'preparing' && (
-            <p className="text-sm text-[#4A6278]">{STORE.riderAssignedToStore}</p>
+            <p className="text-sm text-muted-foreground">{STORE.riderAssignedToStore}</p>
           )}
         </SurfaceCard>
 
@@ -356,7 +352,7 @@ export default function OrderDetailPage() {
         {isCancelled ? (
           <SurfaceCard className="text-center text-sm text-muted">
             Este pedido fue cancelado. Si necesitas ayuda, usa el{' '}
-            <Link to="/soporte" className="font-semibold text-[#0E6BA8]">centro de soporte</Link>.
+            <Link to="/soporte" className="font-semibold text-primary">centro de soporte</Link>.
           </SurfaceCard>
         ) : (
           <OrderTimeline events={orderEvents} />
@@ -387,15 +383,15 @@ export default function OrderDetailPage() {
         </div>
 
         <aside className="client-sticky-panel space-y-4">
-        <SurfaceCard className="space-y-3">
+        <SurfaceCard className="space-y-3 rounded-[var(--radius-component)]">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-[#4A6278]">Entrega</p>
-            <p className="mt-1 font-semibold text-[#0D2B45]">{order.dest_address}</p>
-            <p className="text-sm text-[#4A6278]">{order.dest_municipio}</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Entrega</p>
+            <p className="mt-1 font-semibold text-foreground">{order.dest_address}</p>
+            <p className="text-sm text-muted-foreground">{order.dest_municipio}</p>
           </div>
 
-          <div className="border-t border-[#D5E3EF] pt-3">
-            <p className="text-xs font-semibold uppercase tracking-wide text-[#4A6278]">Resumen</p>
+          <div className="border-t border-border/60 pt-3">
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Resumen</p>
             {(order.items || order.order_items || []).map((item) => {
               const fulfillment = item.fulfillment_status;
               const fulfillmentLabel = FULFILLMENT_STATUS_LABELS[fulfillment];
@@ -439,7 +435,7 @@ export default function OrderDetailPage() {
               </div>
             )}
             {order.discount > 0 && (
-              <div className="mt-1 flex justify-between text-sm text-[#0E6BA8]">
+              <div className="mt-1 flex justify-between text-sm font-semibold text-primary">
                 <span>Descuento</span>
                 <span>-{formatCOP(order.discount)}</span>
               </div>
@@ -450,7 +446,7 @@ export default function OrderDetailPage() {
                 <span>{formatCOP(tipAmount)}</span>
               </div>
             )}
-            <div className="mt-3 flex justify-between border-t border-[#D5E3EF] pt-3 font-bold text-[#0D2B45]">
+            <div className="mt-3 flex justify-between border-t border-border/60 pt-3 font-bold tabular-nums text-foreground">
               <span>Total</span>
               <span>{formatCOP(order.total)}</span>
             </div>
@@ -463,7 +459,7 @@ export default function OrderDetailPage() {
 
         {review && (
           <SurfaceCard className="space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-wide text-[#4A6278]">Tu calificación</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Tu calificación</p>
             <p className="text-sm text-foreground">Tienda:</p>
             <StarRating value={review.business_rating} readOnly size="sm" />
             {review.driver_rating && (

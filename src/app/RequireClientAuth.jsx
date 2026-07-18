@@ -13,11 +13,7 @@ export default function RequireClientAuth({ children }) {
   const location = useLocation();
 
   if (loading) {
-    return (
-      <div className="flex min-h-[40vh] items-center justify-center">
-        <Loader size="lg" />
-      </div>
-    );
+    return <Loader variant="page" message="Verificando sesión…" className="min-h-[40vh]" />;
   }
 
   if (!isClientAuthenticated(user)) {

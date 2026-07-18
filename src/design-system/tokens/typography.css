@@ -10,10 +10,19 @@
   --text-2xl: 1.5rem;
   --text-3xl: 1.875rem;
   --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+
+  --leading-tight: 1.15;
+  --leading-snug: 1.35;
+  --leading-body: 1.5;
+
+  --tracking-tight: -0.02em;
+  --tracking-display: -0.03em;
 }
 
 .font-display {
   font-family: var(--font-display);
+  letter-spacing: var(--tracking-display);
 }
 
 .font-body {
@@ -31,5 +40,12 @@
 .text-brand {
   font-family: var(--font-display);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-tight);
+}
+
+/* Utility: large accessible body */
+.text-body-lg {
+  font-size: var(--text-lg);
+  line-height: var(--leading-body);
+  color: hsl(var(--foreground));
 }

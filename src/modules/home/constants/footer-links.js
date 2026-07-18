@@ -23,6 +23,8 @@ export const HOME_FOOTER_COLUMNS = [
     title: 'Legal',
     links: [
       { label: 'Privacidad', to: '/legal/privacidad' },
+      { label: 'Tratamiento de datos', to: '/legal/datos' },
+      { label: 'Terceros / encargados', to: '/legal/terceros' },
       { label: 'Términos', to: '/legal/terminos' },
       { label: 'Cookies', to: '/legal/cookies' },
       { label: 'Seguridad', to: '/info/seguridad' },

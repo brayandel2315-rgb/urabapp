@@ -2,6 +2,8 @@ import { formatCOP } from '@/utils/currency';
 import { SHIPMENT_STATUS } from '@/data/shipment-catalog';
 import { SurfaceCard } from '@/design-system/patterns/SurfaceCard';
 import OrderTimeline, { mapShipmentEventsToTimeline } from '@/components/tracking/OrderTimeline';
+import UnifiedTrackingPanel from '@/components/tracking/UnifiedTrackingPanel';
+import AppIcon from '@/design-system/icons/AppIcon';
 
 function formatEta(etaAt) {
   if (!etaAt) return 'Calculando...';

@@ -1,7 +1,8 @@
 /**
- * Tracking unificado — pedido, mandado y envío (estándar Rappi/Uber/Didi).
+ * Tracking unificado — pedido, mandado y envío.
  */
 import { useState } from 'react';
+import { motion } from 'motion/react';
 import OrderTrackingMap from '@/components/maps/OrderTrackingMap';
 import ShipmentTrackingMap from '@/components/shipment/ShipmentTrackingMap';
 import CourierTrackingSteps from '@/components/courier/CourierTrackingSteps';
@@ -10,6 +11,7 @@ import LiveTrackingHeader from '@/components/tracking/LiveTrackingHeader';
 import NavigationLaunchBar from '@/components/tracking/NavigationLaunchBar';
 import { useTrackingMap } from '@/hooks/useTrackingMap';
 import { SurfaceCard } from '@/design-system/patterns/SurfaceCard';
+import { tween } from '@/design-system/motion/presets';
 
 export default function UnifiedTrackingPanel({
   type = 'order',
@@ -64,7 +66,12 @@ export default function UnifiedTrackingPanel({
 
   if (type === 'shipment' && shipment) {
     return (
-      <div className="space-y-3">
+      <motion.div
+        className="space-y-3"
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={tween}
+      >
         <LiveTrackingHeader
           title="Envío intermunicipal"
           subtitle={`${shipment.origin_municipio} → ${shipment.dest_municipio}`}
@@ -74,7 +81,7 @@ export default function UnifiedTrackingPanel({
           isActive={isActiveShipment}
         />
         <ShipmentStatusSteps status={shipment.status} />
-        <SurfaceCard className="overflow-hidden p-0">
+        <SurfaceCard className="overflow-hidden rounded-[var(--radius-component)] p-0">
           <ShipmentTrackingMap
             shipment={shipment}
             className="h-64 w-full rounded-none sm:h-72"
@@ -84,13 +91,18 @@ export default function UnifiedTrackingPanel({
         {isActiveShipment && viewer === 'client' && (
           <NavigationLaunchBar destination={dest} label="Seguir envío en mapa externo" />
         )}
-      </div>
+      </motion.div>
     );
   }
 
   if (type === 'courier' || order?.order_type === 'courier') {
     return (
-      <div className="space-y-3">
+      <motion.div
+        className="space-y-3"
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={tween}
+      >
         <LiveTrackingHeader
           title="Mandado urbano"
           subtitle={order?.pickup_address ? `Recoger en ${order.pickup_municipio || 'Urabá'}` : undefined}
@@ -100,7 +112,7 @@ export default function UnifiedTrackingPanel({
           isActive={isActiveOrder}
         />
         <CourierTrackingSteps phase={courierPhase || order?.courier_phase} status={order?.status} />
-        <SurfaceCard className="overflow-hidden p-0">
+        <SurfaceCard className="overflow-hidden rounded-[var(--radius-component)] p-0">
           <OrderTrackingMap
             className="h-64 w-full sm:h-72"
             order={order}
@@ -122,12 +134,17 @@ export default function UnifiedTrackingPanel({
             label={viewer === 'rider' ? 'Navegar con Waze' : 'Ver ruta en Waze'}
           />
         )}
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="space-y-3">
+    <motion.div
+      className="space-y-3"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={tween}
+    >
       <LiveTrackingHeader
         title="Tu pedido va en camino"
         subtitle={order?.businesses?.name || order?.business?.name}
@@ -136,7 +153,7 @@ export default function UnifiedTrackingPanel({
         route={routeMeta}
         isActive={isActiveOrder}
       />
-      <SurfaceCard className="overflow-hidden p-0">
+      <SurfaceCard className="overflow-hidden rounded-[var(--radius-component)] p-0">
         <OrderTrackingMap
           className="h-64 w-full sm:h-72"
           order={order}
@@ -155,6 +172,6 @@ export default function UnifiedTrackingPanel({
       {isActive && (
         <NavigationLaunchBar destination={dest} label="Abrir entrega en Waze" />
       )}
-    </div>
+    </motion.div>
   );
 }

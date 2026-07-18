@@ -106,7 +106,7 @@ BEGIN
     p_order_id,
     'customer_confirmed_delivery',
     auth.uid(),
-    'customer',
+    'client',
     v_order.dest_latitude,
     v_order.dest_longitude,
     'Cliente confirmó que recibió el pedido',

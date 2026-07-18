@@ -13,40 +13,53 @@ export default function BusinessProductCard({
   storeInactive = false,
   justAdded,
   onAdd,
+  featured = false,
 }) {
   const image = resolveProductImage(product, business?.category, business?.slug) || coverFallback;
   const icon = iconForCategory(business?.category) || business?.emoji || 'store';
   const inactive = storeInactive || !canPurchase;
   const customizable = canPurchase && isDishLikeProduct(product, business?.category);
+  const hasDeal = Number(product.compare_at_price) > Number(product.price);
 
   return (
     <article
       className={cn(
-        'relative overflow-hidden rounded-2xl bg-card p-3 ring-1 ring-border/30 transition-all duration-300',
-        justAdded && !inactive && 'ring-2 ring-[#0E6BA8]/40',
-        inactive && 'store-product-card--off bg-[#F0F4F8] ring-[#D8E2EC]',
+        'relative overflow-hidden rounded-[var(--radius-component)] border border-border bg-card p-3 shadow-soft transition-all duration-300',
+        featured && 'ring-1 ring-primary/20',
+        justAdded && !inactive && 'ring-2 ring-primary/45',
+        inactive && 'store-product-card--off bg-muted/50 border-border opacity-90',
       )}
     >
       <div className="flex gap-3">
         <div className="min-w-0 flex-1">
+          {featured && (
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-wide text-primary">Popular</p>
+          )}
           <h4 className="pr-8 font-display text-[15px] font-bold leading-tight text-foreground">
             {product.name}
           </h4>
           {product.description && (
             <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{product.description}</p>
           )}
-          <p className={cn(
-            'mt-3 text-base font-black',
-            inactive ? 'text-muted-foreground' : 'text-primary-dark',
-          )}
-          >
-            {formatCOP(product.price)}
-          </p>
+          <div className="mt-3 flex flex-wrap items-baseline gap-2">
+            <p className={cn(
+              'text-base font-black',
+              inactive ? 'text-muted-foreground' : 'text-primary',
+            )}
+            >
+              {formatCOP(product.price)}
+            </p>
+            {hasDeal && (
+              <p className="text-xs font-semibold text-muted-foreground line-through">
+                {formatCOP(product.compare_at_price)}
+              </p>
+            )}
+          </div>
           {customizable && (
-            <p className="mt-1 text-[10px] text-muted-foreground">Personalizable</p>
+            <p className="mt-1 text-[10px] font-medium text-muted-foreground">Personalizable</p>
           )}
         </div>
-        <div className="h-24 w-24 shrink-0 overflow-hidden rounded-2xl bg-muted/20">
+        <div className="h-24 w-24 shrink-0 overflow-hidden rounded-[1.1rem] bg-muted/40">
           <CatalogImage
             src={image}
             emoji={icon}
@@ -62,12 +75,12 @@ export default function BusinessProductCard({
         disabled={!canPurchase}
         aria-label={`Agregar ${product.name}`}
         className={cn(
-          'absolute bottom-3 right-3 flex h-10 w-10 items-center justify-center rounded-xl text-lg font-bold text-white transition-transform active:scale-95 disabled:cursor-not-allowed',
+          'absolute bottom-3 right-3 flex h-11 w-11 min-h-[var(--touch-min)] min-w-[var(--touch-min)] items-center justify-center rounded-[0.9rem] text-lg font-bold text-primary-foreground transition-transform active:scale-95 disabled:cursor-not-allowed',
           inactive
-            ? 'bg-[#94A3B8] opacity-60'
+            ? 'bg-muted-foreground/50 opacity-70'
             : justAdded
-              ? 'bg-emerald-600'
-              : 'bg-[#0E6BA8] shadow-sm',
+              ? 'bg-primary'
+              : 'bg-primary shadow-soft',
         )}
       >
         {justAdded ? '✓' : '+'}

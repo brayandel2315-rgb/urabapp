@@ -272,7 +272,7 @@ export default function BusinessOnboarding() {
   }
 
   if (checkingBusiness) {
-    return <div className="flex justify-center py-20"><Loader size="lg" /></div>;
+    return <Loader variant="page" message="Preparando tu comercio…" />;
   }
 
   if (existingBusinesses.length > 0) {

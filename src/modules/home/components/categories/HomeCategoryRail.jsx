@@ -3,6 +3,7 @@ import { HOME_CATEGORY_TILES, HOME_CATEGORY_TILES_MOBILE } from '@/data/vertical
 import { cn } from '@/lib/utils';
 import ServiceIconTile from '@/design-system/patterns/ServiceIconTile';
 import HomeSectionHeader from '@/modules/client/components/HomeSectionHeader';
+import { getContextualServicesSubtitle } from '@/modules/home/utils/home-context';
 
 const CATEGORY_ICON_TONE = {
   restaurantes: 'green',
@@ -34,13 +35,14 @@ const ROUTE_OVERRIDES = {
 
 export default function HomeCategoryRail({ onNavigate, className, variant = 'mobile' }) {
   const tiles = variant === 'desktop' ? HOME_CATEGORY_TILES : HOME_CATEGORY_TILES_MOBILE;
+  const subtitle = getContextualServicesSubtitle();
 
   return (
     <section aria-labelledby="home-services-title" className={cn('min-w-0', className)}>
       <HomeSectionHeader
         id="home-services-title"
         title="Servicios rápidos"
-        subtitle="Todo lo que Urabá necesita, en un solo lugar"
+        subtitle={subtitle}
         variant="brand"
       />
       <div className="grid grid-cols-3 gap-3 sm:grid-cols-6 sm:gap-4">
@@ -56,7 +58,7 @@ export default function HomeCategoryRail({ onNavigate, className, variant = 'mob
             >
               <ServiceIconTile serviceId={cat.id} name={cat.icon || cat.id} tone={tone} />
               <div>
-                <p className="home-service-card__label group-hover:text-[#2E7D32]">
+                <p className="home-service-card__label group-hover:text-primary">
                   {cat.label}
                 </p>
                 <p className="home-service-card__hint">

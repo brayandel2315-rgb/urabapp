@@ -54,6 +54,8 @@ const FUNCTIONS = [
 for (const name of FUNCTIONS) {
   const body = name === 'openroute-directions'
     ? { start: [-75.75, 7.88], end: [-75.76, 7.89] }
+    : name === 'geocode-proxy'
+      ? { action: 'reverse', lat: 7.8829, lon: -76.6259 }
     : name === 'auto-assign-rider'
       ? { orderId: '00000000-0000-0000-0000-000000000000' }
       : name === 'send-push'

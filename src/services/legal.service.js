@@ -1,17 +1,26 @@
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { sbFetch } from '@/lib/supabase-query';
 
+export const LEGAL_DOC_ALIASES = {
+  privacidad: 'privacy',
+  terminos: 'terms',
+  cookies: 'cookies',
+  datos: 'data',
+  condiciones: 'conditions',
+  comercio: 'merchant',
+  terceros: 'processors',
+};
+
+/** Documentos mínimos a registrar al crear cuenta (Ley 1581). */
+export const REQUIRED_SIGNUP_DOC_IDS = ['privacy', 'terms', 'data', 'cookies'];
+
+export function resolveLegalDocId(docId) {
+  return LEGAL_DOC_ALIASES[docId] || docId;
+}
+
 export async function getLegalDocument(docId) {
   if (!isSupabaseConfigured) return null;
-  const LEGAL_DOC_ALIASES = {
-    privacidad: 'privacy',
-    terminos: 'terms',
-    cookies: 'cookies',
-    datos: 'data',
-    condiciones: 'conditions',
-    comercio: 'merchant',
-  };
-  const resolvedId = LEGAL_DOC_ALIASES[docId] || docId;
+  const resolvedId = resolveLegalDocId(docId);
   const { data } = await supabase
     .from('legal_documents')
     .select('*')
@@ -20,6 +29,45 @@ export async function getLegalDocument(docId) {
     .limit(1)
     .maybeSingle();
   return data;
+}
+
+/** Registra aceptación de privacidad, términos, aviso de datos y cookies. */
+export async function recordRequiredSignupConsents(userId) {
+  if (!isSupabaseConfigured || !userId) return [];
+  const results = [];
+  for (const docId of REQUIRED_SIGNUP_DOC_IDS) {
+    try {
+      const doc = await getLegalDocument(docId);
+      if (!doc?.id) continue;
+      const row = await recordConsent(userId, doc.id, doc.version);
+      if (row) results.push(row);
+    } catch {
+      /* no bloquear registro si falla un doc */
+    }
+  }
+  return results;
+}
+
+export async function submitPrivacyRequest({ userId, requestType, notes }) {
+  if (!isSupabaseConfigured || !userId) throw new Error('Debes iniciar sesión');
+  return sbFetch(
+    supabase.rpc('submit_privacy_request', {
+      p_request_type: requestType,
+      p_notes: notes || null,
+    }),
+    'Tiempo agotado enviando solicitud de habeas data',
+  );
+}
+
+export async function getMyPrivacyRequests(userId) {
+  if (!isSupabaseConfigured || !userId) return [];
+  const { data } = await supabase
+    .from('privacy_requests')
+    .select('*')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+    .limit(20);
+  return data ?? [];
 }
 
 export async function getAllLegalDocuments() {

@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import PageLayout from '@/design-system/layouts/PageLayout';
 import { SurfaceCard, SectionTitle } from '@/design-system/patterns/SurfaceCard';
 import Button from '../../../components/ui/Button';
+import Loader from '../../../components/ui/Loader';
 import Input from '../../../components/ui/Input';
 import SupportTicketChatPanel from '@/modules/support/SupportTicketChatPanel';
 import { supportTicketStatusLabel } from '@/modules/support/support-ticket-status';
@@ -149,7 +150,7 @@ export default function SupportPage() {
         )}
 
         {isLoading ? (
-          <p className="text-center text-sm text-muted">Cargando…</p>
+          <Loader variant="section" message="Cargando consultas…" className="min-h-[10rem]" />
         ) : tickets.length === 0 ? (
           <SurfaceCard className="text-center text-sm text-muted">
             No tienes consultas aún. Usa el botón de arriba para hablar con soporte.

@@ -20,6 +20,7 @@ import { useAutoLocation } from '@/hooks/useAutoLocation';
 import Button from '@/components/ui/Button';
 import HomeSectionHeader from '@/modules/client/components/HomeSectionHeader';
 import BusinessCard from '@/components/BusinessCard';
+import DiscoverCatalogSkeleton from '../components/DiscoverCatalogSkeleton';
 
 const VERTICAL_EYEBROW = {
   tiendas: 'Tiendas locales',
@@ -103,15 +104,15 @@ export default function VerticalDiscoveryPage() {
   return (
     <PageLayout title={false} maxWidth="store">
       <div className="mb-4 space-y-2">
-        <p className="text-xs font-semibold text-[#4A6278]">{eyebrow}</p>
-        <h1 className="font-display text-2xl font-bold leading-tight text-[#0D2B45]">
+        <p className="text-xs font-semibold text-muted-foreground">{eyebrow}</p>
+        <h1 className="font-display text-2xl font-bold leading-tight text-foreground">
           {vertical.title}
         </h1>
-        <p className="text-sm text-[#4A6278]">{vertical.subtitle}</p>
+        <p className="text-sm text-muted-foreground">{vertical.subtitle}</p>
         <DetectedLocationChip className="max-w-sm" />
       </div>
 
-      <div className="sticky top-[3.25rem] z-20 -mx-4 bg-[#F7FAFC]/95 px-4 py-3 backdrop-blur-md sm:top-16 lg:top-[4.75rem] lg:-mx-8 lg:px-8">
+      <div className="sticky top-[3.25rem] z-20 -mx-4 bg-background/90 px-4 py-3 backdrop-blur-md sm:top-16 lg:top-[4.75rem] lg:-mx-8 lg:px-8">
         <VerticalFilters value={activeFilter} onChange={setActiveFilter} />
       </div>
 
@@ -140,6 +141,7 @@ export default function VerticalDiscoveryPage() {
             isError={isError}
             onRetry={refetch}
             loadingRows={5}
+            loadingFallback={<DiscoverCatalogSkeleton rows={5} />}
             errorDescription="No pudimos cargar los comercios. Revisa tu conexión e intenta de nuevo."
             empty={
               !sectionsLoading && !isError && !showFilteredList && !hasSections ? (

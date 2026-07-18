@@ -1,7 +1,8 @@
 import { cn } from '@/lib/utils';
 import AppIcon from '@/design-system/icons/AppIcon';
+import BrandedLoadingScreen from '@/components/feedback/BrandedLoadingScreen';
 import { Button } from '@/design-system/ui/button';
-import { Skeleton, SkeletonCard } from '@/design-system/ui/skeleton';
+import { Skeleton } from '@/design-system/ui/skeleton';
 import { SlideUp } from '@/design-system/motion/Fade';
 
 const STATE_CONFIG = {
@@ -29,6 +30,16 @@ export function PageState({
   const config = STATE_CONFIG[type] || STATE_CONFIG.empty;
   const iconName = icon || sticker || config.icon;
 
+  if (type === 'loading') {
+    return (
+      <BrandedLoadingScreen
+        variant="page"
+        message={title || config.defaultTitle}
+        className={className}
+      />
+    );
+  }
+
   return (
     <SlideUp className={cn('flex flex-col items-center justify-center px-6 py-16 text-center', className)}>
       <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-3xl bg-muted/80 shadow-soft">
@@ -46,14 +57,9 @@ export function PageState({
   );
 }
 
-export function PageLoader({ rows = 4 }) {
-  return (
-    <div className="space-y-3 p-4">
-      {Array.from({ length: rows }).map((_, i) => (
-        <SkeletonCard key={i} />
-      ))}
-    </div>
-  );
+export function PageLoader({ rows = 4, message = 'Cargando…' }) {
+  void rows;
+  return <BrandedLoadingScreen variant="section" message={message} />;
 }
 
 export function SearchBar({ value, onChange, placeholder = 'Buscar...', className, onSubmit }) {

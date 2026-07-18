@@ -27,9 +27,12 @@ export default function BusinessOverviewPanel({
         <button
           type="button"
           onClick={() => onTabChange('orders')}
-          className="flex w-full items-center gap-3 rounded-2xl bg-amber-500 px-4 py-3.5 text-left text-white shadow-soft transition-opacity hover:opacity-95"
+          className="flex min-h-14 w-full items-center gap-3 rounded-[var(--radius-component)] bg-urgency px-4 py-3.5 text-left text-urgency-foreground shadow-soft transition hover:opacity-95 active:scale-[0.99]"
         >
-          <AppIcon name="bell" size="sm" />
+          <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/15">
+            <span className="absolute inset-0 animate-ping rounded-xl bg-white/20" aria-hidden />
+            <AppIcon name="bell" size="sm" className="relative" />
+          </span>
           <div className="min-w-0 flex-1">
             <p className="font-semibold">{pendingCount} pedido{pendingCount !== 1 ? 's' : ''} por confirmar</p>
             <p className="text-xs text-white/85">Toca para gestionar ahora</p>

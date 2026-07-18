@@ -25,8 +25,8 @@ export default function VerticalFilters({ value = 'all', onChange, className }) 
           className={cn(
             'shrink-0 rounded-full px-3.5 py-2 text-xs font-semibold transition-colors',
             value === opt.id
-              ? 'bg-[#0E6BA8] text-white'
-              : 'border border-[#D8E2EC] bg-white text-[#0D2B45] hover:border-[#0E6BA8]/40',
+              ? 'bg-primary text-primary-foreground shadow-soft'
+              : 'border border-border bg-card text-foreground hover:border-primary/40',
           )}
         >
           {opt.label}

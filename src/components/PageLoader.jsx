@@ -1,5 +1,5 @@
-import { PageLoader } from '@/design-system/patterns/PageState';
+import BrandedLoadingScreen from '@/components/feedback/BrandedLoadingScreen';
 
-export default function PageLoaderWrapper() {
-  return <PageLoader rows={5} />;
+export default function PageLoader({ message = 'Cargando…' }) {
+  return <BrandedLoadingScreen variant="screen" message={message} />;
 }

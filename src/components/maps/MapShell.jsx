@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { isWebGLSupported } from '@/lib/maplibre';
 import StaticMapFallback from './StaticMapFallback';
-import AppIcon from '@/design-system/icons/AppIcon';
+import BrandedLoadingScreen from '@/components/feedback/BrandedLoadingScreen';
 
 /**
  * Contenedor de mapa con fallback WebGL → OSM estático.
@@ -29,9 +29,8 @@ export default function MapShell({
   return (
     <div className={cn('relative overflow-hidden rounded-xl border border-border/70 bg-muted/20 shadow-soft', className)}>
       {!mapReady && webglOk !== false && (
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-muted/40 backdrop-blur-[1px]">
-          <AppIcon name="loading" size="lg" className="animate-spin text-primary" />
-          <p className="text-xs font-medium text-muted-foreground">Cargando mapa…</p>
+        <div className="absolute inset-0 z-10 overflow-hidden rounded-[inherit]">
+          <BrandedLoadingScreen variant="overlay" message="Cargando mapa…" className="h-full min-h-0" />
         </div>
       )}
       {children}

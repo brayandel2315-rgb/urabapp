@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import PageLayout from '@/design-system/layouts/PageLayout';
 import { SurfaceCard } from '@/design-system/patterns/SurfaceCard';
 import Button from '@/components/ui/Button';
+import Loader from '@/components/ui/Loader';
 import { getLegalDocument, recordConsent } from '@/services/legal.service';
 import { emitCommEvent } from '@/communication';
 import { useAuthStore } from '@/store/authStore';
@@ -12,9 +13,10 @@ const DOC_TITLES = {
   privacidad: 'Política de privacidad',
   terminos: 'Términos y condiciones',
   cookies: 'Política de cookies',
-  datos: 'Tratamiento de datos',
+  datos: 'Aviso de tratamiento de datos (Ley 1581)',
   condiciones: 'Condiciones del marketplace',
   comercio: 'Acuerdo de comercio aliado',
+  terceros: 'Encargados y terceros del tratamiento',
 };
 
 export default function LegalPage() {
@@ -43,7 +45,7 @@ export default function LegalPage() {
     <PageLayout title={title} backTo="/" maxWidth="md">
       <SurfaceCard className="space-y-4 p-6">
         {isLoading ? (
-          <p className="text-sm text-muted-foreground">Cargando…</p>
+          <Loader variant="section" message="Cargando documento…" className="min-h-[10rem]" />
         ) : !doc ? (
           <p className="text-sm">Documento no encontrado.</p>
         ) : (

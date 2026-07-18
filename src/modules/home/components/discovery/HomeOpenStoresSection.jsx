@@ -74,6 +74,8 @@ export default function HomeOpenStoresSection({
   emptyMessage,
   variant = 'mobile',
   limit = variant === 'desktop' ? 24 : 12,
+  title,
+  subtitle: subtitleProp,
 }) {
   const items = businesses.slice(0, limit);
 
@@ -81,11 +83,12 @@ export default function HomeOpenStoresSection({
     return null;
   }
 
-  const subtitle = openNow > 0
-    ? STORE.openNowSubtitle
-    : items.length > 0
-      ? STORE.openNowSubtitleClosed
-      : STORE.openNowSubtitleFallback;
+  const subtitle = subtitleProp
+    || (openNow > 0
+      ? STORE.openNowSubtitle
+      : items.length > 0
+        ? STORE.openNowSubtitleClosed
+        : STORE.openNowSubtitleFallback);
 
   return (
     <section
@@ -100,7 +103,7 @@ export default function HomeOpenStoresSection({
           </p>
           <div className="home-open-stores__title-row">
             <h2 id="home-open-stores-title" className="home-open-stores__title">
-              {STORE.openNowTitle(municipio)}
+              {title || STORE.openNowTitle(municipio)}
             </h2>
             {openNow > 0 && (
               <span className="home-open-stores__count" aria-label={STORE.openNowCount(openNow)}>

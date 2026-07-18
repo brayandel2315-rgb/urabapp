@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { useEffect, useId, useRef, useState } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { formatCOP } from '@/utils/currency';
 import Button from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
+import { getTransition } from '@/design-system/motion/presets';
 
 const OFFER_TTL_SEC = 480;
 
 export default function ShipmentOfferModal({ offer, onAccept, onReject, loading }) {
   const [secondsLeft, setSecondsLeft] = useState(OFFER_TTL_SEC);
+  const panelRef = useRef(null);
+  const titleId = useId();
+  const reduceMotion = useReducedMotion();
   const shipment = offer?.shipment_orders;
 
   useEffect(() => {
@@ -22,6 +26,19 @@ export default function ShipmentOfferModal({ offer, onAccept, onReject, loading 
     return () => clearInterval(id);
   }, [offer?.expires_at, offer, onReject]);
 
+  useEffect(() => {
+    if (!offer || !shipment) return undefined;
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        onReject?.(offer, false);
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    panelRef.current?.focus?.();
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [offer, shipment, onReject]);
+
   if (!offer || !shipment) return null;
 
   const payout = shipment.price_breakdown?.riderPayout
@@ -33,21 +50,29 @@ export default function ShipmentOfferModal({ offer, onAccept, onReject, loading 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
+        transition={getTransition(reduceMotion)}
         className="fixed inset-0 z-[60] flex items-end justify-center bg-black/50 p-4 backdrop-blur-sm sm:items-center"
+        role="presentation"
       >
         <motion.div
-          initial={{ y: 40, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 40, opacity: 0 }}
-          className="w-full max-w-md overflow-hidden rounded-3xl border border-border/40 bg-card shadow-2xl"
+          ref={panelRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={titleId}
+          tabIndex={-1}
+          initial={reduceMotion ? { opacity: 0 } : { y: 40, opacity: 0 }}
+          animate={reduceMotion ? { opacity: 1 } : { y: 0, opacity: 1 }}
+          exit={reduceMotion ? { opacity: 0 } : { y: 40, opacity: 0 }}
+          transition={getTransition(reduceMotion)}
+          className="w-full max-w-md overflow-hidden rounded-[var(--radius-component)] border border-border/40 bg-card shadow-2xl outline-none"
         >
           <div className="bg-gradient-to-br from-teal-500/20 to-teal-500/5 px-5 py-4">
             <div className="flex items-center justify-between">
-              <p className="font-display text-lg font-bold text-foreground">Envío intermunicipal</p>
+              <p id={titleId} className="font-display text-lg font-bold text-foreground">Envío intermunicipal</p>
               <span
                 className={cn(
                   'rounded-full px-2.5 py-1 font-mono text-sm font-bold',
-                  secondsLeft <= 30 ? 'bg-destructive text-destructive-foreground' : 'bg-teal-600 text-white',
+                  secondsLeft <= 30 ? 'animate-pulse bg-urgency text-urgency-foreground' : 'bg-teal-600 text-white',
                 )}
               >
                 {secondsLeft > 60 ? `${Math.ceil(secondsLeft / 60)}m` : `${secondsLeft}s`}
@@ -77,10 +102,10 @@ export default function ShipmentOfferModal({ offer, onAccept, onReject, loading 
           </div>
 
           <div className="grid grid-cols-2 gap-3 border-t border-border/50 p-4">
-            <Button variant="outline" disabled={loading} onClick={() => onReject(offer, false)}>
+            <Button className="h-12 min-h-11" variant="outline" disabled={loading} onClick={() => onReject(offer, false)}>
               Rechazar
             </Button>
-            <Button disabled={loading || secondsLeft <= 0} onClick={() => onAccept(offer)}>
+            <Button className="h-12 min-h-11 text-base font-bold" disabled={loading || secondsLeft <= 0} onClick={() => onAccept(offer)}>
               {loading ? 'Aceptando...' : 'Aceptar envío'}
             </Button>
           </div>

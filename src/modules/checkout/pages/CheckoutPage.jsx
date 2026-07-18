@@ -381,10 +381,13 @@ export default function CheckoutPage() {
             itemSavings={itemSavings}
             total={total}
             etaMinutes={etaMinutes}
+            subtotal={subtotal}
+            deliveryFee={customerDeliveryFee}
+            deliveryFeeNote={welcomeDeliveryApplied ? 'gratis' : undefined}
           />
           <Button
             type="button"
-            className="h-12 w-full rounded-2xl text-base font-bold shadow-glow"
+            className="h-12 w-full rounded-[var(--radius-component)] text-base font-bold"
             disabled={loading || !online}
             onClick={stickyAction}
           >

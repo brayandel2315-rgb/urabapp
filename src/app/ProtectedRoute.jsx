@@ -17,11 +17,7 @@ export default function ProtectedRoute({
   const location = useLocation();
 
   if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <Loader size="lg" />
-      </div>
-    );
+    return <Loader size="lg" message="Verificando sesión…" />;
   }
 
   const needsAuth = requireAuth || requireRealAuth || roles;

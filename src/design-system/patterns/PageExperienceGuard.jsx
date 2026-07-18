@@ -1,4 +1,5 @@
-import { PageState, PageLoader, RetryButton } from '@/design-system/patterns/PageState';
+import BrandedLoadingScreen from '@/components/feedback/BrandedLoadingScreen';
+import { PageState, RetryButton } from '@/design-system/patterns/PageState';
 
 /**
  * Estados de red/carga unificados — patrón CX para toda el área cliente.
@@ -10,6 +11,7 @@ export default function PageExperienceGuard({
   onRetry,
   children,
   loadingRows = 4,
+  loadingFallback = null,
   offlineDescription = 'Conéctate a internet para continuar.',
   errorDescription = 'No pudimos cargar la información. Intenta de nuevo.',
   empty,
@@ -26,7 +28,8 @@ export default function PageExperienceGuard({
   }
 
   if (isLoading) {
-    return <PageLoader rows={loadingRows} />;
+    if (loadingFallback) return loadingFallback;
+    return <BrandedLoadingScreen variant="page" message="Cargando…" />;
   }
 
   if (isError) {

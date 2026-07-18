@@ -17,9 +17,6 @@ import { formatDistanceKm } from '@/utils/format-distance';
 import { isDishLikeProduct } from '@/utils/product-modifiers';
 import { buildBusinessUrl, copyToClipboard } from '../../../utils/app';
 import { openWhatsApp, buildBusinessWhatsAppMessage } from '../../../utils/whatsapp';
-import { Badge } from '@/design-system/ui/badge';
-import BusinessRating from '../../../components/reviews/BusinessRating';
-import CategoryBadge from '../../../components/marketplace/CategoryBadge';
 import { isBusinessOpenNow, isBusinessStoreLive, getBusinessEtaMinutes, formatBusinessHours } from '../../../utils/schedule';
 import { resolveBusinessCover } from '../../../utils/catalog-images';
 import { getBusinessCoverageForUser, isBusinessOrderableInCatalog } from '../../../utils/business-coverage';
@@ -29,8 +26,10 @@ import { PageState } from '@/design-system/patterns/PageState';
 import AppIcon from '@/design-system/icons/AppIcon';
 import { formatBusinessPromoText } from '../../../utils/promo';
 import BusinessStoreAlerts from '../components/BusinessStoreAlerts';
+import BusinessStoreMeta from '../components/BusinessStoreMeta';
 import BusinessProductCard from '../components/BusinessProductCard';
 import CartStoreSwitchModal from '@/components/cart/CartStoreSwitchModal';
+import MobileStickyCheckoutBar from '@/design-system/patterns/MobileStickyCheckoutBar';
 import { useAuthStore } from '../../../store/authStore';
 import { isBusinessFavorited, toggleFavoriteBusiness } from '../../../services/favorites.service';
 import { emitCommEvent } from '@/communication';
@@ -106,6 +105,18 @@ export default function BusinessPage() {
       groups[key].push(product);
     }
     return Object.entries(groups);
+  }, [products]);
+
+  const popularProducts = useMemo(() => {
+    if (products.length < 4) return [];
+    return [...products]
+      .sort((a, b) => {
+        const dealA = Number(a.compare_at_price) > Number(a.price) ? 1 : 0;
+        const dealB = Number(b.compare_at_price) > Number(b.price) ? 1 : 0;
+        if (dealB !== dealA) return dealB - dealA;
+        return Number(a.price) - Number(b.price);
+      })
+      .slice(0, 4);
   }, [products]);
 
   const openNow = business ? isBusinessOpenNow(business) : false;
@@ -257,14 +268,14 @@ export default function BusinessPage() {
               />
               <div
                 className={cn(
-                  'absolute inset-0 bg-gradient-to-t from-[#0D2B45]/95 via-black/55 to-black/15',
-                  !storeActive && 'from-slate-900/90 via-slate-800/70',
+                  'absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/45 to-foreground/10',
+                  !storeActive && 'from-foreground/80 via-foreground/50',
                 )}
               />
               <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4">
                 <Link
                   to="/"
-                  className="flex h-11 w-11 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur-md"
+                  className="flex h-11 w-11 items-center justify-center rounded-full bg-foreground/35 text-white backdrop-blur-md"
                   aria-label="Volver"
                 >
                   <AppIcon name="chevronDown" className="rotate-90 text-white" />
@@ -273,20 +284,20 @@ export default function BusinessPage() {
                   {user?.id && (
                     <button
                       type="button"
-                      className="flex h-11 w-11 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur-md"
+                      className="flex h-11 w-11 items-center justify-center rounded-full bg-foreground/35 text-white backdrop-blur-md"
                       onClick={() => favoriteMutation.mutate()}
                       disabled={favoriteMutation.isPending}
                       aria-label={isFavorited ? 'Quitar de favoritos' : 'Agregar a favoritos'}
                     >
                       <AppIcon
                         name="star"
-                        className={isFavorited ? 'text-yellow-300' : 'text-white'}
+                        className={isFavorited ? 'text-accent' : 'text-white'}
                       />
                     </button>
                   )}
                   <button
                     type="button"
-                    className="flex h-11 w-11 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur-md"
+                    className="flex h-11 w-11 items-center justify-center rounded-full bg-foreground/35 text-white backdrop-blur-md"
                     onClick={handleShare}
                     aria-label="Compartir menú"
                   >
@@ -294,60 +305,44 @@ export default function BusinessPage() {
                   </button>
                 </div>
               </div>
-              <div className="on-media absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/40 to-transparent p-4 pb-5 sm:p-5">
-                <h1 className="font-display text-2xl font-black leading-tight sm:text-3xl">
+              <div className="on-media absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/50 to-transparent p-4 pb-5 sm:p-5">
+                <h1 className="font-display text-2xl font-black leading-tight text-white sm:text-3xl">
                   {business.name}
                 </h1>
-                <p className="mt-1 text-sm font-medium">
+                <p className="mt-1 text-sm font-medium text-white/90">
                   {business.municipio}
                   {business.zone ? ` · ${business.zone}` : ''}
+                  {openNow ? ' · Abierto' : ' · Cerrado'}
+                  {' · '}
+                  ~{etaMinutes} min
                 </p>
               </div>
             </div>
 
-            <div className="store-page-content w-full space-y-4 px-4 pb-4 pt-3 sm:px-5 lg:px-8">
+            <div className="store-page-content w-full space-y-4 px-4 pb-28 pt-3 sm:px-5 lg:px-8 lg:pb-4">
               <BusinessStoreAlerts
                 business={business}
                 catalog={catalog}
                 canOrder={canOrder}
                 openNow={openNow}
                 storeLive={storeLive}
-                promoText={storeActive ? promoText : null}
+                promoText={null}
               />
 
               <div className="client-page-split client-page-split--store">
               <div className={cn('min-w-0 space-y-4', !storeActive && 'store-page-dimmed')}>
-                <div className="flex flex-wrap items-center gap-2 text-sm text-[#4A6278]">
-                  <CategoryBadge categoryId={business.category} />
-                  {openNow ? (
-                    <Badge variant="success">Abierto</Badge>
-                  ) : (
-                    <Badge variant="destructive">Cerrado</Badge>
-                  )}
-                  {coverage?.available && coverage.tier === 'intermunicipal' && (
-                    <Badge variant="secondary">{coverage.label}</Badge>
-                  )}
-                </div>
-
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[#4A6278]">
-                  <BusinessRating business={business} ratingSummary={ratingSummary} size="sm" />
-                  <span>·</span>
-                  <span>~{etaMinutes} min</span>
-                  <span>·</span>
-                  <span>Domicilio {deliveryLabel}{minOrderLabel}</span>
-                  {distanceLabel && (
-                    <>
-                      <span>·</span>
-                      <span>{distanceLabel}</span>
-                    </>
-                  )}
-                </div>
-
-                {storeActive && promoText && (
-                  <p className="rounded-xl border border-[#0E6BA8]/20 bg-[#E6F4FF]/60 px-3 py-2 text-sm font-semibold text-[#0D2B45]">
-                    Promo: {promoText}
-                  </p>
-                )}
+                <BusinessStoreMeta
+                  business={business}
+                  ratingSummary={ratingSummary}
+                  openNow={openNow}
+                  coverage={coverage}
+                  etaMinutes={etaMinutes}
+                  deliveryLabel={deliveryLabel}
+                  minOrderLabel={minOrderLabel}
+                  distanceLabel={distanceLabel}
+                  promoText={promoText}
+                  storeActive={storeActive}
+                />
 
                 {!storeActive && business.opens_at && business.closes_at && (
                   <p className="text-xs text-muted-foreground">
@@ -355,20 +350,45 @@ export default function BusinessPage() {
                   </p>
                 )}
 
+                {popularProducts.length > 0 && (
+                  <section className="space-y-3" aria-labelledby="store-popular-title">
+                    <h2 id="store-popular-title" className="font-display text-lg font-bold text-foreground">
+                      Populares
+                    </h2>
+                    <div className="space-y-3 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0">
+                      {popularProducts.map((p) => (
+                        <BusinessProductCard
+                          key={`popular-${p.id}`}
+                          product={p}
+                          business={business}
+                          coverFallback={cover}
+                          canPurchase={canPurchase}
+                          storeInactive={!storeActive}
+                          justAdded={justAddedId === p.id}
+                          featured
+                          onAdd={() => handleAdd(p)}
+                        />
+                      ))}
+                    </div>
+                  </section>
+                )}
+
                 {menuSections.length > 1 && (
-                  <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 hide-scrollbar">
+                  <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 hide-scrollbar" role="tablist" aria-label="Secciones del menú">
                     {menuSections.map(([section], index) => (
                       <button
                         key={section}
                         type="button"
+                        role="tab"
+                        aria-selected={index === activeSection}
                         onClick={() => setActiveSection(index)}
                         className={cn(
                           'shrink-0 rounded-full px-3.5 py-1.5 text-sm font-semibold transition-colors',
                           index === activeSection
                             ? storeActive
-                              ? 'bg-[#0E6BA8] text-white'
-                              : 'bg-[#94A3B8] text-white'
-                            : 'bg-[#EEF2F6] text-[#4A6278] hover:bg-[#E2EAF2]',
+                              ? 'bg-primary text-primary-foreground shadow-soft'
+                              : 'bg-muted-foreground text-card'
+                            : 'border border-border bg-card text-muted-foreground hover:border-primary/35',
                         )}
                       >
                         {section}
@@ -415,14 +435,14 @@ export default function BusinessPage() {
                   <SurfaceCard className="space-y-4 p-4">
                     <div className="flex items-center justify-between gap-2">
                       <p className="font-display text-sm font-bold text-foreground">Tu pedido</p>
-                      <span className="rounded-full bg-[#E6F4FF] px-2.5 py-0.5 text-xs font-bold text-[#0E6BA8]">
+                      <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-bold text-primary">
                         {itemCount}
                       </span>
                     </div>
                     <p className="font-display text-2xl font-black text-foreground">{formatCOP(cartSubtotal)}</p>
                     <p className="text-xs text-muted-foreground">~{etaMinutes} min · Domicilio {deliveryLabel}</p>
                     <Link to="/carrito">
-                      <Button className="w-full rounded-2xl bg-[#0E6BA8] py-3 text-base font-bold text-white hover:bg-[#0B5A8C]">
+                      <Button className="w-full rounded-[var(--radius-component)] py-3 text-base font-bold">
                         Ver carrito
                       </Button>
                     </Link>
@@ -430,6 +450,7 @@ export default function BusinessPage() {
                 ) : (
                   <SurfaceCard className="p-4 text-center text-sm text-muted-foreground">
                     Agrega productos del menú para armar tu pedido.
+                    <span className="mt-1 block text-xs">Entrega estimada ~{etaMinutes} min</span>
                   </SurfaceCard>
                 )}
               </aside>
@@ -437,20 +458,13 @@ export default function BusinessPage() {
             </div>
 
             {itemCount > 0 && (
-              <div
-                className="fixed left-4 right-4 z-40 mx-auto max-w-lg lg:hidden"
-                style={{ bottom: 'calc(5.5rem + env(safe-area-inset-bottom, 0px))' }}
-              >
-                <Link to="/carrito">
-                  <Button className="flex w-full items-center justify-between rounded-2xl bg-[#0E6BA8] px-5 py-3.5 text-base font-bold text-white shadow-md">
-                    <span className="inline-flex items-center gap-2">
-                      <AppIcon name="cart" />
-                      Ver carrito · {itemCount}
-                    </span>
-                    <span>{formatCOP(cartSubtotal)}</span>
-                  </Button>
-                </Link>
-              </div>
+              <MobileStickyCheckoutBar
+                total={cartSubtotal}
+                totalLabel={`Carrito · ${itemCount}`}
+                actionLabel="Ver carrito"
+                href="/carrito"
+                hint={`~${etaMinutes} min · Domicilio ${deliveryLabel}`}
+              />
             )}
 
             <ProductCustomizerModal

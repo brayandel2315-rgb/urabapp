@@ -34,8 +34,8 @@ export default function CheckoutStepper({ currentStep, onStepClick, completedSte
                 <span
                   className={cn(
                     'flex h-9 w-9 items-center justify-center rounded-full border-2 text-sm font-bold transition-all',
-                    active && 'border-[#0E6BA8] bg-[#0E6BA8] text-white',
-                    done && !active && 'border-[#0E6BA8]/30 bg-[#E6F4FF] text-[#0E6BA8]',
+                    active && 'border-primary bg-primary text-primary-foreground shadow-soft',
+                    done && !active && 'border-primary/30 bg-primary/10 text-primary',
                     !done && !active && 'border-border bg-muted/30 text-muted-foreground'
                   )}
                 >

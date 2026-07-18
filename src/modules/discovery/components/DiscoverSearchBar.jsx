@@ -4,10 +4,10 @@ import AppIcon from '@/design-system/icons/AppIcon';
 import { cn } from '@/lib/utils';
 import { useHomeSearch } from '@/modules/home/hooks/useHomeSearch';
 import { formatCOP } from '@/utils/currency';
+import { getContextualSearchHints } from '@/modules/home/utils/home-context';
 
-const PLACEHOLDERS = [
+const BASE_PLACEHOLDERS = [
   'Busca comida, mercado, farmacia…',
-  '¿Patacón, sancocho o jugo?',
   'Tiendas y productos locales…',
   'Mandados y envíos…',
 ];
@@ -41,6 +41,10 @@ export default function DiscoverSearchBar({
   const wrapRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [placeholderIdx, setPlaceholderIdx] = useState(0);
+  const placeholders = [
+    ...getContextualSearchHints(municipio).hints.slice(0, 2).map((h) => `Buscar “${h}”…`),
+    ...BASE_PLACEHOLDERS,
+  ];
 
   const { results, history, isLoading, isEmpty, commitSearch, debouncedQuery } = useHomeSearch({
     query: value,
@@ -59,9 +63,9 @@ export default function DiscoverSearchBar({
   }, [autoFocus]);
 
   useEffect(() => {
-    const id = setInterval(() => setPlaceholderIdx((i) => (i + 1) % PLACEHOLDERS.length), 3200);
+    const id = setInterval(() => setPlaceholderIdx((i) => (i + 1) % placeholders.length), 3200);
     return () => clearInterval(id);
-  }, []);
+  }, [placeholders.length]);
 
   useEffect(() => {
     const onDoc = (e) => {
@@ -110,7 +114,7 @@ export default function DiscoverSearchBar({
             setOpen(true);
           }}
           onFocus={() => setOpen(true)}
-          placeholder={PLACEHOLDERS[placeholderIdx]}
+          placeholder={placeholders[placeholderIdx]}
           aria-label="Buscar tiendas, productos y servicios"
           aria-expanded={showPanel}
           aria-autocomplete="list"

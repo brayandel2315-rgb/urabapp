@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { SurfaceCard, SectionTitle } from '@/design-system/patterns/SurfaceCard';
 import Button from '@/components/ui/Button';
+import Loader from '@/components/ui/Loader';
 import ShipmentCard from '@/modules/client/components/ShipmentCard';
 import { useAuthStore } from '@/store/authStore';
 import { getCustomerShipments } from '@/services/shipment.service';
@@ -63,7 +64,7 @@ export default function CustomerShipmentsPanel({ onNewShipment, className }) {
           )}
         </div>
         {isLoading ? (
-          <p className="text-sm text-muted-foreground">Cargando…</p>
+          <Loader variant="section" message="Cargando envíos…" className="min-h-[8rem]" />
         ) : shipments.length === 0 ? (
           <p className="text-sm text-muted-foreground">
             Aún no tienes envíos. Cotiza una ruta intermunicipal y sigue el paquete desde aquí.

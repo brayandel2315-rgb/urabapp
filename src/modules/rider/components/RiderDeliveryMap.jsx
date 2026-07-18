@@ -17,7 +17,7 @@ export default function RiderDeliveryMap({ order, driverCoords, className }) {
   return (
     <SurfaceCard className={className}>
       <p className="mb-2 text-xs font-bold uppercase text-muted-foreground">Ruta en vivo · actualiza cada 3s</p>
-      <Suspense fallback={<div className="flex h-48 items-center justify-center"><Loader /></div>}>
+      <Suspense fallback={<Loader variant="section" message="Cargando mapa…" className="h-48" />}>
         <MapInner pickup={pickup} dropoff={dropoff} rider={driverCoords} />
       </Suspense>
       {order.estimated_minutes && (

@@ -6,7 +6,7 @@ import { ORDER_STATUS_LABELS } from '@/utils/constants';
 import { SHIPMENT_STATUS } from '@/data/shipment-catalog';
 import { formatCOP } from '@/utils/currency';
 import { useClientActivity } from '@/hooks/useClientActivity';
-import { tween } from '@/design-system/motion/presets';
+import { spring, tween } from '@/design-system/motion/presets';
 
 const ORDER_STEPS = ['pending', 'accepted', 'preparing', 'on_the_way', 'delivered'];
 const SHIPMENT_STEPS = ['created', 'searching_carrier', 'accepted', 'pickup', 'in_transit', 'arriving', 'delivered'];
@@ -37,6 +37,9 @@ export default function ClientActiveOrderBanner({ className }) {
 
   const badge = SERVICE_BADGE[primaryActivity.service] || SERVICE_BADGE.food;
   const progress = progressFor(primaryActivity);
+  const isOnTheWay = primaryActivity.status === 'on_the_way'
+    || primaryActivity.status === 'in_transit'
+    || primaryActivity.status === 'arriving';
 
   return (
     <motion.section
@@ -48,36 +51,54 @@ export default function ClientActiveOrderBanner({ className }) {
     >
       <Link
         to={primaryActivity.href}
-        className="group block overflow-hidden rounded-2xl border border-[#D5E3EF] bg-white p-4 shadow-card transition hover:border-[#0E6BA8]/30"
+        className="group block overflow-hidden rounded-[var(--radius-component)] border border-border/60 bg-card p-4 shadow-card transition hover:border-primary/35 hover:shadow-soft"
       >
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
               <Badge variant={badge.variant}>{badge.label}</Badge>
-              <p className="text-sm font-semibold text-[#4A6278]">
+              <p className="text-sm font-semibold text-muted-foreground">
                 {statusLabel(primaryActivity)}
               </p>
+              {isOnTheWay && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-primary">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="absolute inset-0 animate-ping rounded-full bg-primary/60" aria-hidden />
+                    <span className="relative h-1.5 w-1.5 rounded-full bg-primary" />
+                  </span>
+                  En vivo
+                </span>
+              )}
             </div>
-            <p className="mt-1 truncate font-display text-base font-bold text-[#0D2B45]">
+            <p className="mt-1 truncate font-display text-base font-bold text-foreground">
               {primaryActivity.title}
             </p>
             {primaryActivity.amount != null && (
-              <p className="mt-0.5 text-sm text-[#4A6278]">
+              <p className="mt-0.5 text-sm tabular-nums text-muted-foreground">
                 {formatCOP(primaryActivity.amount)}
               </p>
             )}
           </div>
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#0E6BA8] text-white">
-            <AppIcon name={primaryActivity.service === 'shipment' ? 'envios' : 'orders'} size="sm" />
+          <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-soft">
+            {isOnTheWay && (
+              <span className="absolute inset-0 animate-ping rounded-xl bg-primary/30" aria-hidden />
+            )}
+            <AppIcon
+              name={primaryActivity.service === 'shipment' ? 'envios' : 'orders'}
+              size="sm"
+              className="relative"
+            />
           </span>
         </div>
-        <div className="mt-3 h-1 overflow-hidden rounded-full bg-[#E6F4FF]">
-          <div
-            className="h-full rounded-full bg-[#0E6BA8] transition-all duration-500"
-            style={{ width: `${progress}%` }}
+        <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-primary/10">
+          <motion.div
+            className="h-full rounded-full bg-primary"
+            initial={false}
+            animate={{ width: `${progress}%` }}
+            transition={spring}
           />
         </div>
-        <p className="mt-2 text-xs font-semibold text-[#0E6BA8]">
+        <p className="mt-2 text-xs font-semibold text-primary">
           {primaryActivity.status === 'on_the_way'
             ? 'Ver código de entrega →'
             : 'Ver seguimiento →'}

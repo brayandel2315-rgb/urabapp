@@ -16,7 +16,7 @@ export default function AdminExecutivePanel() {
     refetchInterval: 60000,
   });
 
-  if (isLoading) return <div className="flex justify-center py-12"><Loader size="lg" /></div>;
+  if (isLoading) return <Loader variant="section" message="Cargando métricas…" />;
   if (isError || !data) {
     return (
       <SurfaceCard className="text-center">
@@ -62,7 +62,7 @@ export default function AdminExecutivePanel() {
         <MetricCard label="NPS proxy" value={data.npsProxy != null ? `${data.npsProxy}%` : '—'} trend="reseñas de 4 estrellas o más" />
       </MetricGrid>
 
-      <Suspense fallback={<div className="flex justify-center py-8"><Loader /></div>}>
+      <Suspense fallback={<Loader variant="section" message="Cargando gráficos…" className="py-8" />}>
         <AdminExecutiveCharts zoneGmv={data.zoneGmv} segmentCounts={data.segmentCounts} />
       </Suspense>
 

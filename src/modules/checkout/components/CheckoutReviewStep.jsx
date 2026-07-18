@@ -128,16 +128,17 @@ export default function CheckoutReviewStep({
             { label: 'Subtotal', value: formatCOP(subtotal) },
             {
               label: welcomeDeliveryApplied ? 'Domicilio (gratis)' : 'Domicilio',
-              value: welcomeDeliveryApplied ? `${formatCOP(nominalDeliveryFee)} → $0` : formatCOP(customerDeliveryFee),
+              value: welcomeDeliveryApplied ? `${formatCOP(nominalDeliveryFee)} → Gratis` : formatCOP(customerDeliveryFee),
+              accent: welcomeDeliveryApplied || customerDeliveryFee === 0,
             },
-            ...(cartBusiness ? [{ label: 'Tiempo estimado', value: `~${getBusinessEtaMinutes(cartBusiness)} min` }] : []),
-            ...(proDeliveryDiscount > 0 ? [{ label: 'Pro', value: `-${formatCOP(proDeliveryDiscount)}` }] : []),
-            ...(businessDiscount > 0 ? [{ label: STORE.promo, value: `-${formatCOP(businessDiscount)}` }] : []),
-            ...(couponDiscount > 0 ? [{ label: 'Cupón', value: `-${formatCOP(couponDiscount)}` }] : []),
+            ...(proDeliveryDiscount > 0 ? [{ label: 'Pro', value: `-${formatCOP(proDeliveryDiscount)}`, accent: true }] : []),
+            ...(businessDiscount > 0 ? [{ label: STORE.promo, value: `-${formatCOP(businessDiscount)}`, accent: true }] : []),
+            ...(couponDiscount > 0 ? [{ label: 'Cupón', value: `-${formatCOP(couponDiscount)}`, accent: true }] : []),
             ...(tipAmount > 0 ? [{ label: 'Propina', value: formatCOP(tipAmount) }] : []),
           ]}
           totalLabel="Total"
           totalValue={formatCOP(total)}
+          etaLabel={cartBusiness ? `~${getBusinessEtaMinutes(cartBusiness)} min` : undefined}
         />
       </SurfaceCard>
     </div>

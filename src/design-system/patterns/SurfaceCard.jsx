@@ -20,7 +20,7 @@ export function SurfaceCard({
   return (
     <Comp
       className={cn(
-        'overflow-hidden rounded-2xl shadow-card ring-1',
+        'overflow-hidden rounded-[var(--radius-component)] shadow-card ring-1',
         VARIANTS[variant] || VARIANTS.default,
         padding && 'p-4',
         className

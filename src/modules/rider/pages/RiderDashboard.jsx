@@ -415,7 +415,7 @@ export default function RiderDashboard() {
                     {shipment.origin_municipio} → {shipment.dest_municipio}
                   </p>
                   <p className="font-semibold text-primary">{formatCOP(shipment.total_cop)}</p>
-                  <p className="text-xs text-[#4A6278]">{SHIPMENT_STATUS[shipment.status] || shipment.status}</p>
+                  <p className="text-xs text-muted-foreground">{SHIPMENT_STATUS[shipment.status] || shipment.status}</p>
                   {SHIPMENT_RIDER_ACTION_LABELS[shipment.status] && (
                     <Button size="sm" className="mt-3" onClick={() => handleAdvanceShipment(shipment.id)}>
                       {SHIPMENT_RIDER_ACTION_LABELS[shipment.status]}
@@ -432,9 +432,9 @@ export default function RiderDashboard() {
                 <div className="flex items-start justify-between gap-2">
                   <div>
                     <p className="font-bold text-foreground">{order.order_number || order.id.slice(0, 8)}</p>
-                    <p className="text-sm text-[#4A6278]">{order.dest_address}</p>
+                    <p className="text-sm text-muted-foreground">{order.dest_address}</p>
                     <p className="font-semibold text-primary">{formatCOP(order.rider_payout ?? ECONOMICS.riderPayout)}</p>
-                    <p className="text-xs text-[#4A6278]">{ORDER_STATUS_LABELS[order.status]}</p>
+                    <p className="text-xs text-muted-foreground">{ORDER_STATUS_LABELS[order.status]}</p>
                   </div>
                   <Link to={`/domiciliario/entrega/${order.id}`}>
                     <Button size="sm" variant="outline">Mapa</Button>

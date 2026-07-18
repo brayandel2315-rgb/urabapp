@@ -27,6 +27,8 @@ import AuthRolePicker from '@/components/auth/AuthRolePicker';
 import AuthIntentHeader from '@/components/auth/AuthIntentHeader';
 import AuthEntryFeedback from '@/components/auth/AuthEntryFeedback';
 import JoinAuthPanel from '@/components/auth/JoinAuthPanel';
+import AuthLegalConsent from '@/components/legal/AuthLegalConsent';
+import { recordRequiredSignupConsents } from '@/services/legal.service';
 import { useClientLightTheme } from '@/hooks/useClientLightTheme';
 
 function readOAuthError() {
@@ -67,7 +69,19 @@ export default function Login() {
   const [otpSent, setOtpSent] = useState(false);
   const [normalizedPhone, setNormalizedPhone] = useState('');
   const [loading, setLoading] = useState(false);
+  const [legalAccepted, setLegalAccepted] = useState(false);
   const { setUser, setProfile } = useAuthStore();
+
+  const ensureLegalAccepted = () => {
+    if (!legalAccepted) {
+      toast('Debes autorizar el tratamiento de datos (Ley 1581) para continuar', 'error');
+      return false;
+    }
+    try {
+      localStorage.setItem('urabapp_legal_auth_v2', '1');
+    } catch { /* ignore */ }
+    return true;
+  };
 
   useClientLightTheme();
 
@@ -113,9 +127,12 @@ export default function Login() {
     navigate(buildAuthEntryUrl({ basePath: base, redirect: redirectTo }), { replace: true });
   };
 
-  const finishLogin = async (session) => {
+  const finishLogin = async (session, { recordConsent = false } = {}) => {
     if (!session?.user) throw new Error('No se pudo iniciar sesión');
     setUser(session.user);
+    if (recordConsent) {
+      await recordRequiredSignupConsents(session.user.id).catch(() => {});
+    }
     let profile;
     try {
       profile = await withTimeout(getProfile(session.user.id), 6_000, 'Perfil no disponible aún');
@@ -141,6 +158,7 @@ export default function Login() {
       toast('La contraseña debe tener al menos 8 caracteres', 'error');
       return;
     }
+    if (passwordMode === 'signup' && !ensureLegalAccepted()) return;
     setLoading(true);
     try {
       if (passwordMode === 'signup') {
@@ -152,7 +170,7 @@ export default function Login() {
           setPasswordMode('login');
           return;
         }
-        await finishLogin(session ?? { user: newUser });
+        await finishLogin(session ?? { user: newUser }, { recordConsent: true });
         return;
       }
       const { session } = await signInWithPassword(email, password);
@@ -189,6 +207,7 @@ export default function Login() {
   const handleEmail = async (e) => {
     e.preventDefault();
     if (!isSupabaseConfigured) return;
+    if (!ensureLegalAccepted()) return;
     setLoading(true);
     try {
       await signInWithEmail(email, redirectTo);
@@ -203,6 +222,7 @@ export default function Login() {
   const handlePhoneSend = async (e) => {
     e.preventDefault();
     if (!isSupabaseConfigured) return;
+    if (!ensureLegalAccepted()) return;
     setLoading(true);
     try {
       const normalized = await signInWithPhone(phone);
@@ -220,7 +240,11 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
     try {
-      await verifyPhoneOtp(normalizedPhone || phone, otp);
+      const result = await verifyPhoneOtp(normalizedPhone || phone, otp);
+      const sessionUser = result?.user || useAuthStore.getState().user;
+      if (sessionUser?.id && legalAccepted) {
+        await recordRequiredSignupConsents(sessionUser.id).catch(() => {});
+      }
       toast('¡Bienvenido!');
       const nextProfile = useAuthStore.getState().profile;
       navigate(getPostAuthPath({
@@ -237,6 +261,8 @@ export default function Login() {
 
   const handleGoogle = async () => {
     if (!isSupabaseConfigured) return;
+    // Google puede crear cuenta nueva: exigir autorización expresa
+    if (!ensureLegalAccepted()) return;
     try {
       await signInWithGoogle(safeRedirectPath(searchParams.get('redirect'), redirectTo));
     } catch (err) {
@@ -316,6 +342,17 @@ export default function Login() {
                 </p>
               )}
 
+              <AuthLegalConsent
+                className="mt-3"
+                accepted={legalAccepted}
+                onChange={setLegalAccepted}
+              />
+              {passwordMode === 'login' && mode === 'password' && (
+                <p className="text-[11px] text-[#4A6278]">
+                  Si solo entras con contraseña, la casilla no es obligatoria. Sí lo es para crear cuenta, Google, email o SMS.
+                </p>
+              )}
+
               {mode === 'password' && (
                 <form onSubmit={handlePassword} className="space-y-4">
                   <div className="flex gap-2">
@@ -340,7 +377,7 @@ export default function Login() {
                   </div>
                   <Input label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" />
                   <Input label="Contraseña" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={8} autoComplete={passwordMode === 'signup' ? 'new-password' : 'current-password'} />
-                  <Button type="submit" className="w-full" disabled={loading}>
+                  <Button type="submit" className="w-full" disabled={loading || (passwordMode === 'signup' && !legalAccepted)}>
                     {loading ? 'Procesando…' : passwordMode === 'signup' ? 'Crear mi cuenta de cliente' : 'Entrar'}
                   </Button>
                 </form>

@@ -88,8 +88,8 @@ export default defineConfig({
         description: 'Conectamos lo que importa. Impulsamos lo local.',
         lang: 'es-CO',
         dir: 'ltr',
-        theme_color: '#0D2B45',
-        background_color: '#F7FAFC',
+        theme_color: '#2E7D32',
+        background_color: '#FAF9F6',
         display: 'standalone',
         display_override: ['standalone', 'minimal-ui', 'browser'],
         orientation: 'portrait-primary',
@@ -119,6 +119,7 @@ export default defineConfig({
         icons: [
           { src: '/app-icon.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
           { src: '/app-icon.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+          { src: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png', purpose: 'any' },
           { src: '/app-icon.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
           { src: '/urabapp-logo.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
         ],

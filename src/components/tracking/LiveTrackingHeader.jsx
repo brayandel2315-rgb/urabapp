@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { Badge } from '@/design-system/ui/badge';
 import AppIcon from '@/design-system/icons/AppIcon';
 import { isSocketEnabled } from '@/services/socket.service';
 import { formatEtaLabel } from '@/utils/routing';
+import { getTransition } from '@/design-system/motion/presets';
 
 function freshnessLabel(updatedAt, now) {
   if (!updatedAt) return 'Esperando GPS…';
@@ -27,6 +29,7 @@ export default function LiveTrackingHeader({
   isActive = true,
 }) {
   const [now, setNow] = useState(() => Date.now());
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 5000);
@@ -37,13 +40,19 @@ export default function LiveTrackingHeader({
 
   const live = isLocationLive(location?.updatedAt, now);
   const transport = isSocketEnabled() ? 'Socket.IO' : 'Realtime';
+  const etaLabel = route ? formatEtaLabel(route) : null;
 
   return (
-    <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950 p-4 text-white shadow-lift">
+    <motion.div
+      initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+      animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+      transition={getTransition(reduceMotion)}
+      className="overflow-hidden rounded-[var(--radius-component)] bg-gradient-to-br from-brand-charcoal via-[#0a1622] to-emerald-950 p-4 text-white shadow-float"
+    >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-emerald-300/90">
-            {title}
+          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-primary-foreground/80">
+            <span className="text-emerald-300/90">{title}</span>
           </p>
           {subtitle && (
             <p className="mt-1 text-sm text-white/80">{subtitle}</p>
@@ -58,26 +67,44 @@ export default function LiveTrackingHeader({
         <div className="flex shrink-0 flex-col items-end gap-1.5">
           <Badge
             variant={live ? 'success' : 'muted'}
-            className="border-0 bg-white/10 text-[10px] font-bold uppercase tracking-wide text-white"
+            className="relative border-0 bg-white/10 text-[10px] font-bold uppercase tracking-wide text-white"
           >
-            <span className={`mr-1.5 inline-block h-1.5 w-1.5 rounded-full ${live ? 'animate-pulse bg-emerald-400' : 'bg-amber-400'}`} />
+            <span className="relative mr-1.5 inline-flex h-2 w-2">
+              {live && (
+                <span className="absolute inset-0 animate-ping rounded-full bg-emerald-400/70" aria-hidden />
+              )}
+              <span
+                className={`relative inline-block h-2 w-2 rounded-full ${live ? 'bg-emerald-400' : 'bg-amber-400'}`}
+              />
+            </span>
             {freshnessLabel(location?.updatedAt, now)}
           </Badge>
           <span className="text-[10px] text-white/50">{transport}</span>
         </div>
       </div>
 
-      {route && formatEtaLabel(route) && (
-        <div className="mt-3 flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2">
-          <AppIcon name="mensajeria" size="sm" className="text-emerald-300" />
-          <div>
-            <p className="text-sm font-bold">Llegada {formatEtaLabel(route)}</p>
-            {route.km != null && (
-              <p className="text-xs text-white/70">{route.km} km restantes</p>
-            )}
-          </div>
-        </div>
-      )}
-    </div>
+      <AnimatePresence mode="wait">
+        {etaLabel ? (
+          <motion.div
+            key={etaLabel}
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -4 }}
+            transition={getTransition(reduceMotion, { type: 'spring' })}
+            className="mt-3 flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2"
+          >
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-400/15">
+              <AppIcon name="mensajeria" size="sm" className="text-emerald-300" />
+            </span>
+            <div>
+              <p className="text-sm font-bold">Llegada {etaLabel}</p>
+              {route.km != null && (
+                <p className="text-xs text-white/70">{route.km} km restantes</p>
+              )}
+            </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </motion.div>
   );
 }

@@ -13,11 +13,13 @@ import HomeCatalogAwayBanner from './components/catalog/HomeCatalogAwayBanner';
 import HomeOpenStoresSection from './components/discovery/HomeOpenStoresSection';
 import HomePromotionsStrip from './components/discovery/HomePromotionsStrip';
 import HomePopularProductsRow from './components/discovery/HomePopularProductsRow';
-import HomeTrendingChips from './components/trending/HomeTrendingChips';
 import HomeMobileUnifiedHero from './components/hero/HomeMobileUnifiedHero';
+import HomeOrderAgainRow from './components/discovery/HomeOrderAgainRow';
+import HomeLiveTrustStrip from './components/discovery/HomeLiveTrustStrip';
 import ClientActiveOrderBanner from '@/modules/client/components/ClientActiveOrderBanner';
 import { useClientActivity } from '@/hooks/useClientActivity';
 import { useCommunicationBadge } from '@/hooks/useCommunicationBadge';
+import { getContextualOpenStoresCopy } from './utils/home-context';
 import HomeDesktopView from './HomeDesktopView';
 
 export default function HomeMvpPage() {
@@ -115,6 +117,8 @@ export default function HomeMvpPage() {
   const firstName = profile?.full_name?.trim().split(/\s+/)[0];
   const openNow = stats?.openBusinessesCount ?? 0;
   const showAwayBanner = catalog?.awayFromHome || catalog?.mode === 'out_of_coverage';
+  const liveActiveOrders = user ? myActiveOrders : (pulse?.activeOrders ?? 0);
+  const openStoresCopy = getContextualOpenStoresCopy(outsideCoverage ? homeMunicipio : viewMuni);
 
   return (
     <>
@@ -127,37 +131,21 @@ export default function HomeMvpPage() {
             headerLocation={headerLocation}
             notificationCount={communicationBadge}
             onDetectLocation={detect}
-            onQuickSearch={handleTrending}
             viewMuni={viewMuni}
             openCount={openNow}
             avgDeliveryMin={pulse?.avgDeliveryMin}
-            activeOrders={user ? myActiveOrders : pulse?.activeOrders}
+            activeOrders={liveActiveOrders}
           />
 
-          <div className="home-trust-row" aria-label="Indicadores de confianza">
-            <div className="home-trust-pill">
-              <span className="home-trust-pill__icon" aria-hidden>⭐</span>
-              <span className="home-trust-pill__value">4.9</span>
-              <span className="home-trust-pill__label">Calificación</span>
-            </div>
-            <div className="home-trust-pill">
-              <span className="home-trust-pill__icon" aria-hidden>🏪</span>
-              <span className="home-trust-pill__value">+320</span>
-              <span className="home-trust-pill__label">Comercios</span>
-            </div>
-            <div className="home-trust-pill">
-              <span className="home-trust-pill__icon" aria-hidden>🏍️</span>
-              <span className="home-trust-pill__value">+40</span>
-              <span className="home-trust-pill__label">Mensajeros</span>
-            </div>
-            <div className="home-trust-pill">
-              <span className="home-trust-pill__icon" aria-hidden>✅</span>
-              <span className="home-trust-pill__value">Seguro</span>
-              <span className="home-trust-pill__label">Pago protegido</span>
-            </div>
-          </div>
+          <HomeLiveTrustStrip
+            openCount={openNow}
+            avgDeliveryMin={pulse?.avgDeliveryMin}
+            activeOrders={liveActiveOrders}
+          />
 
           {user && <ClientActiveOrderBanner />}
+
+          {user && <HomeOrderAgainRow userId={user.id} />}
 
           {showAwayBanner && (
             <HomeCatalogAwayBanner
@@ -167,11 +155,15 @@ export default function HomeMvpPage() {
             />
           )}
 
+          <HomeCategoryRail onNavigate={handleCategoryNavigate} variant="mobile" />
+
           <HomeOpenStoresSection
             municipio={outsideCoverage ? homeMunicipio : viewMuni}
             openNow={openNow}
             businesses={topRestaurants}
             isLoading={discoveryLoading && topRestaurants.length === 0}
+            title={openStoresCopy.title}
+            subtitle={openStoresCopy.subtitle}
             emptyMessage={
               openNow === 0 && !noLocalBusinesses
                 ? 'Ninguna tienda está abierta en este momento. Vuelve en su horario o usa el botón de servicios.'
@@ -191,24 +183,12 @@ export default function HomeMvpPage() {
             />
           )}
 
-          <HomeCategoryRail onNavigate={handleCategoryNavigate} variant="mobile" />
-
           <HomePopularProductsRow
             products={popularProducts}
             isLoading={discoveryLoading}
             municipio={viewMuni}
             onProductClick={handlePopularProduct}
           />
-
-          {(discovery?.trending?.length ?? 0) > 0 && (
-            <section className="home-surface-card">
-              <HomeTrendingChips
-                compact
-                chips={discovery?.trending ?? []}
-                onSelect={handleTrending}
-              />
-            </section>
-          )}
 
           <HomeIntermunicipalBlock originMunicipio={viewMuni} />
         </div>
@@ -226,7 +206,6 @@ export default function HomeMvpPage() {
           noLocalBusinesses={noLocalBusinesses}
           discovery={discovery}
           discoveryLoading={discoveryLoading}
-          featuredBusinesses={featuredBusinesses}
           topRestaurants={topRestaurants}
           hasPromos={hasPromos}
           openNow={openNow}

@@ -1,29 +1,31 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'motion/react';
 import AppIcon from '@/design-system/icons/AppIcon';
 import { formatCOP } from '@/utils/currency';
 import { cn } from '@/lib/utils';
 import { COURIER_LEVELS, getCourierLevel, formatOnlineTime } from '../constants';
+import { spring } from '@/design-system/motion/presets';
 
 const TONES = {
   emerald: {
-    icon: 'bg-emerald-500/12 text-emerald-600 ring-emerald-500/20',
-    value: 'text-emerald-700',
-    cell: 'lg:bg-gradient-to-br lg:from-emerald-50/90 lg:to-white',
+    icon: 'bg-primary/10 text-primary ring-primary/20',
+    value: 'text-primary',
+    cell: 'lg:bg-gradient-to-br lg:from-primary/5 lg:to-card',
   },
   sky: {
-    icon: 'bg-sky-500/12 text-sky-700 ring-sky-500/20',
-    value: 'text-[#0E6BA8]',
+    icon: 'bg-info/10 text-info ring-info/20',
+    value: 'text-info',
     cell: '',
   },
   slate: {
-    icon: 'bg-slate-500/10 text-slate-600 ring-slate-500/15',
-    value: 'text-[#0D2B45]',
+    icon: 'bg-muted text-muted-foreground ring-border',
+    value: 'text-foreground',
     cell: '',
   },
   amber: {
     icon: 'bg-amber-500/12 text-amber-700 ring-amber-500/20',
     value: 'text-amber-800',
-    cell: 'lg:bg-gradient-to-br lg:from-amber-50/80 lg:to-white',
+    cell: 'lg:bg-gradient-to-br lg:from-amber-50/80 lg:to-card',
   },
 };
 
@@ -66,7 +68,7 @@ function KpiCell({ metric, className }) {
       </div>
 
       <div className="mt-3 min-w-0">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#4A6278]">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
           {metric.label}
         </p>
         <p
@@ -78,21 +80,23 @@ function KpiCell({ metric, className }) {
         >
           {metric.value}
         </p>
-        <p className="mt-1 line-clamp-2 text-xs leading-snug text-[#6B8499]">
+        <p className="mt-1 line-clamp-2 text-xs leading-snug text-muted-foreground">
           {metric.hint}
         </p>
       </div>
 
       {metric.progress != null && (
         <div className="mt-3">
-          <div className="flex items-center justify-between text-[10px] font-semibold text-[#6B8499]">
+          <div className="flex items-center justify-between text-[10px] font-semibold text-muted-foreground">
             <span>{metric.progressLabel}</span>
             <span>{metric.progress}%</span>
           </div>
-          <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[#E8EEF3]">
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-amber-400 to-amber-500 transition-all duration-500"
-              style={{ width: `${metric.progress}%` }}
+          <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-muted">
+            <motion.div
+              className="h-full rounded-full bg-gradient-to-r from-amber-400 to-amber-500"
+              initial={false}
+              animate={{ width: `${metric.progress}%` }}
+              transition={spring}
             />
           </div>
         </div>
@@ -101,15 +105,16 @@ function KpiCell({ metric, className }) {
   );
 
   const cellClass = cn(
-    'rider-kpi__cell flex h-full min-h-[7.5rem] flex-col bg-white p-4 sm:min-h-[8rem] sm:p-5',
+    'rider-kpi__cell flex h-full min-h-[7.5rem] flex-col bg-card p-4 sm:min-h-[8rem] sm:p-5',
     tone.cell,
     metric.featured && 'rider-kpi__cell--featured sm:col-span-2 lg:col-span-1',
+    metric.emphasize && 'ring-2 ring-inset ring-info/25',
     className,
   );
 
   if (metric.href) {
     return (
-      <Link to={metric.href} className={cn(cellClass, 'transition-colors hover:bg-[#F8FBFD]')}>
+      <Link to={metric.href} className={cn(cellClass, 'transition-colors hover:bg-muted/40')}>
         {inner}
       </Link>
     );
@@ -150,6 +155,7 @@ export default function RiderDashboardMetrics({ stats, wallet, driver }) {
       icon: 'package',
       tone: 'sky',
       badge: activeOrders > 0 ? 'En ruta' : null,
+      emphasize: activeOrders > 0,
     },
     {
       id: 'deliveries',
@@ -176,31 +182,31 @@ export default function RiderDashboardMetrics({ stats, wallet, driver }) {
 
   return (
     <section className="rider-kpi" aria-label="Resumen de jornada">
-      <div className="rider-kpi__shell overflow-hidden rounded-3xl border border-[#D5E3EF] bg-white shadow-[0_8px_32px_rgba(13,43,69,0.06)]">
-        <div className="flex items-center justify-between gap-3 border-b border-[#E8EEF3] bg-gradient-to-r from-[#F8FBFD] to-white px-4 py-3 sm:px-5">
+      <div className="rider-kpi__shell overflow-hidden rounded-[var(--radius-component)] border border-border/60 bg-card shadow-soft">
+        <div className="flex items-center justify-between gap-3 border-b border-border/50 bg-gradient-to-r from-muted/40 to-card px-4 py-3 sm:px-5">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0E6BA8]">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-info">
               Resumen
             </p>
-            <h2 className="font-display text-base font-bold text-[#0D2B45] sm:text-lg">
+            <h2 className="font-display text-base font-bold text-foreground sm:text-lg">
               Tu jornada
             </h2>
             {nextSettlement && (
-              <p className="mt-0.5 text-[10px] font-medium text-[#6B8499]">
+              <p className="mt-0.5 text-[10px] font-medium text-muted-foreground">
                 Próxima liquidación: {new Date(nextSettlement).toLocaleDateString('es-CO')}
               </p>
             )}
           </div>
           <Link
             to="/domiciliario/ganancias"
-            className="inline-flex items-center gap-1 rounded-xl bg-[#E6F4FF] px-3 py-1.5 text-xs font-bold text-[#0E6BA8] ring-1 ring-[#0E6BA8]/15 transition hover:bg-[#D6EBFA]"
+            className="inline-flex min-h-11 items-center gap-1 rounded-xl bg-info/10 px-3 py-1.5 text-xs font-bold text-info ring-1 ring-info/15 transition hover:bg-info/15"
           >
             Ver ganancias
             <AppIcon name="back" size={12} className="rotate-180" />
           </Link>
         </div>
 
-        <div className="rider-kpi__grid grid grid-cols-2 gap-px bg-[#E8EEF3] lg:grid-cols-4">
+        <div className="rider-kpi__grid grid grid-cols-2 gap-px bg-border/60 lg:grid-cols-4">
           {metrics.map((metric) => (
             <KpiCell key={metric.id} metric={metric} />
           ))}

@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import Button from './Button';
-import Loader from './Loader';
+import BrandedLoadingScreen from '@/components/feedback/BrandedLoadingScreen';
 import { toast } from '../../utils/toast';
 
 export default function ImageUpload({
@@ -45,8 +45,8 @@ export default function ImageUpload({
           <div className="flex h-full min-h-[120px] items-center justify-center text-4xl text-muted">📷</div>
         )}
         {uploading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-            <Loader />
+          <div className="absolute inset-0 overflow-hidden rounded-[inherit]">
+            <BrandedLoadingScreen variant="overlay" message="Subiendo…" className="h-full min-h-0" hideMessage />
           </div>
         )}
       </div>

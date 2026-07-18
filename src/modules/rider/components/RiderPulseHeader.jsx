@@ -3,9 +3,9 @@ import { getCourierLevel } from '../constants';
 import { cn } from '@/lib/utils';
 
 const MODE_LABELS = {
-  available: { label: 'Disponible', className: 'bg-emerald-500/20 text-emerald-100 ring-emerald-400/30' },
-  paused: { label: 'Pausado', className: 'bg-amber-500/20 text-amber-100 ring-amber-400/30' },
-  offline: { label: 'Desconectado', className: 'bg-white/10 text-white/70 ring-white/20' },
+  available: { label: 'Disponible', className: 'bg-emerald-500/20 text-emerald-100 ring-emerald-400/30', live: true },
+  paused: { label: 'Pausado', className: 'bg-amber-500/20 text-amber-100 ring-amber-400/30', live: false },
+  offline: { label: 'Desconectado', className: 'bg-white/10 text-white/70 ring-white/20', live: false },
 };
 
 export default function RiderPulseHeader({ driver, mode = 'offline', className }) {
@@ -18,12 +18,12 @@ export default function RiderPulseHeader({ driver, mode = 'offline', className }
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0D2B45] via-[#123A5C] to-[#0E6BA8] p-5 text-white shadow-[0_12px_40px_rgba(13,43,69,0.28)]',
+        'relative overflow-hidden rounded-[var(--radius-component)] bg-gradient-to-br from-brand-navy via-secondary to-brand-blue p-5 text-white shadow-float',
         className,
       )}
     >
       <div className="pointer-events-none absolute -right-8 -top-8 h-36 w-36 rounded-full bg-white/5 blur-2xl" />
-      <div className="pointer-events-none absolute -bottom-10 left-1/3 h-24 w-24 rounded-full bg-sky-400/10 blur-2xl" />
+      <div className="pointer-events-none absolute -bottom-10 left-1/3 h-24 w-24 rounded-full bg-info/20 blur-2xl" />
 
       <div className="relative flex items-start justify-between gap-4">
         <div className="min-w-0 flex-1">
@@ -34,7 +34,12 @@ export default function RiderPulseHeader({ driver, mode = 'offline', className }
                 status.className,
               )}
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-current opacity-90" />
+              <span className="relative flex h-1.5 w-1.5">
+                {status.live && (
+                  <span className="absolute inset-0 animate-ping rounded-full bg-current opacity-70" aria-hidden />
+                )}
+                <span className="relative h-1.5 w-1.5 rounded-full bg-current opacity-90" />
+              </span>
               {status.label}
             </span>
             <span className="text-[10px] font-semibold text-white/50">{driver.municipio}</span>
@@ -54,7 +59,7 @@ export default function RiderPulseHeader({ driver, mode = 'offline', className }
         </div>
 
         <div className="shrink-0 text-center">
-          <div className="flex h-16 w-16 flex-col items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/15 backdrop-blur-sm sm:h-[4.5rem] sm:w-[4.5rem]">
+          <div className="flex h-16 w-16 flex-col items-center justify-center rounded-[var(--radius-component)] bg-white/10 ring-1 ring-white/15 backdrop-blur-sm sm:h-[4.5rem] sm:w-[4.5rem]">
             <p className="text-[9px] font-bold uppercase tracking-widest text-white/55">Nivel</p>
             <p className="font-display text-sm font-black leading-tight sm:text-base">{level.name}</p>
           </div>

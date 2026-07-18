@@ -82,24 +82,30 @@ export default function CheckoutDeliveryStep({
           <div>
             <SectionTitle>¿Dónde entregamos?</SectionTitle>
             <p className="text-sm text-muted-foreground">
-              Dirección, mapa y barrio — como en Rappi o DiDi, pero para Urabá.
+              Elige una dirección guardada o marca el punto exacto en el mapa.
             </p>
           </div>
-          {!coordsOk && (
-            <span className="shrink-0 rounded-full bg-amber-500/15 px-2.5 py-1 text-[11px] font-bold text-amber-700 dark:text-amber-400">
-              Falta el mapa
+          {coordsOk ? (
+            <span className="shrink-0 rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-bold text-primary">
+              Punto listo
+            </span>
+          ) : (
+            <span className="shrink-0 rounded-full bg-urgency/15 px-2.5 py-1 text-[11px] font-bold text-urgency">
+              Marca el mapa
             </span>
           )}
         </div>
 
         {savedAddresses.length > 0 && (
           <div className="space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Guardadas</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Tus direcciones</p>
             {savedAddresses.map((addr) => (
               <label
                 key={addr.id}
-                className={`flex cursor-pointer items-start gap-3 rounded-xl border p-3 transition-colors ${
-                  selectedAddressId === addr.id ? 'border-primary bg-primary/5' : 'border-border'
+                className={`flex min-h-11 cursor-pointer items-start gap-3 rounded-[var(--radius-component)] border p-3 transition-colors ${
+                  selectedAddressId === addr.id
+                    ? 'border-primary bg-primary/5 shadow-soft'
+                    : 'border-border hover:border-primary/30'
                 }`}
               >
                 <input
@@ -112,9 +118,11 @@ export default function CheckoutDeliveryStep({
                 <div className="min-w-0 text-sm">
                   <p className="font-semibold text-foreground">{addr.label || 'Mi dirección'}</p>
                   <p className="text-muted-foreground">{addr.address}</p>
-                  {addr.barrio && <p className="text-xs text-muted-foreground">{addr.barrio}</p>}
+                  {addr.barrio && (
+                    <p className="mt-0.5 text-xs font-medium text-foreground/80">{addr.barrio}</p>
+                  )}
                   {addr.latitude != null && (
-                    <p className="mt-0.5 text-[11px] text-primary">✓ Ubicación GPS guardada</p>
+                    <p className="mt-0.5 text-[11px] font-semibold text-primary">GPS guardado</p>
                   )}
                 </div>
               </label>

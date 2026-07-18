@@ -7,6 +7,8 @@ const variantMap = {
   accent: 'accent',
   ghost: 'ghost',
   destructive: 'destructive',
+  urgency: 'urgency',
+  info: 'info',
 };
 
 const sizeMap = {

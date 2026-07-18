@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { SurfaceCard, SectionTitle } from '@/design-system/patterns/SurfaceCard';
 import Button from '@/components/ui/Button';
+import Loader from '@/components/ui/Loader';
 import { useAuthStore } from '@/store/authStore';
 import { COMM_CATEGORY_LABELS } from '@/communication';
 import {
@@ -86,7 +87,7 @@ export default function CommunicationPreferencesPanel() {
       </p>
 
       {isLoading ? (
-        <p className="text-sm text-muted-foreground">Cargando…</p>
+        <Loader variant="section" message="Cargando preferencias…" className="min-h-[8rem]" />
       ) : (
         <div className="space-y-4">
           {PREF_CATEGORIES.map((catId) => (

@@ -12,9 +12,9 @@ export default function CheckoutTrustStrip({ className = '' }) {
       {TRUST_ITEMS.map((item) => (
         <div
           key={item.label}
-          className="flex items-start gap-2.5 rounded-xl border border-border/50 bg-muted/20 px-3 py-2.5"
+          className="flex items-start gap-2.5 rounded-[var(--radius-component)] border border-border/50 bg-muted/20 px-3 py-2.5"
         >
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
             <AppIcon name={item.icon} size="sm" />
           </span>
           <div className="min-w-0">

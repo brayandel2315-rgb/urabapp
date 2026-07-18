@@ -28,14 +28,14 @@ export default function RiderWaitingPanel({ municipio, offers = [], onSelectOffe
           const order = offer.orders;
           const payout = offer.payout_estimate || order?.rider_payout;
           return (
-            <SurfaceCard key={offer.id} className="border-primary/25 ring-1 ring-primary/15">
+            <SurfaceCard key={offer.id} className="rounded-[var(--radius-component)] border-primary/25 ring-1 ring-primary/15">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <p className="font-display font-bold text-foreground">{offerTitle(offer)}</p>
                   <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{order?.dest_address}</p>
-                  <p className="mt-2 text-lg font-black text-primary">{formatCOP(payout)}</p>
+                  <p className="mt-2 text-lg font-black tabular-nums text-primary">{formatCOP(payout)}</p>
                 </div>
-                <Button size="sm" onClick={() => onSelectOffer?.(offer)}>
+                <Button className="min-h-11 shrink-0" onClick={() => onSelectOffer?.(offer)}>
                   Ver
                 </Button>
               </div>
@@ -47,9 +47,9 @@ export default function RiderWaitingPanel({ municipio, offers = [], onSelectOffe
   }
 
   return (
-    <SurfaceCard className="relative overflow-hidden text-center">
-      <div className="absolute inset-0 flex items-center justify-center opacity-[0.07]">
-        <span className="h-40 w-40 animate-ping rounded-full bg-primary" />
+    <SurfaceCard className="relative overflow-hidden rounded-[var(--radius-component)] text-center">
+      <div className="absolute inset-0 flex items-center justify-center opacity-[0.08]">
+        <span className="h-36 w-36 animate-ping rounded-full bg-primary" />
       </div>
       <div className="relative py-6">
         <AppIcon name="mensajeria" size="3xl" className="mx-auto text-primary" />

@@ -123,7 +123,7 @@ export default function BusinessDashboard() {
   });
 
   if (loadingBusiness) {
-    return <div className="flex justify-center py-16"><Loader size="lg" /></div>;
+    return <Loader variant="page" message="Cargando panel…" />;
   }
 
   if (!business) {

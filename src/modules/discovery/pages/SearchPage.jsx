@@ -17,8 +17,10 @@ import {
 import DiscoverSearchBar from '../components/DiscoverSearchBar';
 import DiscoverSearchHub from '../components/DiscoverSearchHub';
 import DiscoverSearchResults from '../components/DiscoverSearchResults';
+import DiscoverCatalogSkeleton from '../components/DiscoverCatalogSkeleton';
 import { STORE } from '@/utils/marketplace-copy';
 import { emitCommEvent } from '@/communication';
+import { getContextualSearchHeadline, getContextualSearchHints } from '@/modules/home/utils/home-context';
 
 export default function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -93,13 +95,16 @@ export default function SearchPage() {
     }).catch(() => {});
   }, [user?.id, debouncedQ, data, isLoading, isError, municipio]);
 
+  const searchHeadline = getContextualSearchHeadline();
+  const smartHints = getContextualSearchHints(municipio);
+
   return (
     <PageLayout title={false} maxWidth="xl">
       <div className="mb-4 space-y-2">
-        <h1 className="font-display text-2xl font-bold leading-tight text-[#0D2B45]">
-          ¿Qué se te antoja hoy?
+        <h1 className="font-display text-2xl font-bold leading-tight text-foreground">
+          {searchHeadline}
         </h1>
-        <p className="text-sm text-[#4A6278]">
+        <p className="text-sm text-muted-foreground">
           {STORE.many} y productos en {municipio}
         </p>
         <DetectedLocationChip className="max-w-xs" />
@@ -134,16 +139,31 @@ export default function SearchPage() {
           isError={isError}
           onRetry={refetch}
           loadingRows={6}
+          loadingFallback={<DiscoverCatalogSkeleton rows={6} />}
           empty={
             !isLoading && !data?.businesses?.length && !data?.products?.length ? (
               <PageState
                 type="empty"
                 title={`Sin resultados para “${debouncedQ}”`}
-                description="Prueba otra palabra, explora por categoría o pide un mandado."
+                description="Prueba otra palabra, una sugerencia de abajo o pide un mandado."
                 action={(
-                  <Link to="/mandado">
-                    <Button variant="primary">Pedir mandado</Button>
-                  </Link>
+                  <div className="flex w-full max-w-sm flex-col items-center gap-3">
+                    <div className="flex flex-wrap justify-center gap-2">
+                      {smartHints.hints.slice(0, 4).map((term) => (
+                        <button
+                          key={term}
+                          type="button"
+                          onClick={() => handleChip(term)}
+                          className="rounded-full border border-primary/25 bg-primary/8 px-3 py-1.5 text-xs font-semibold text-primary"
+                        >
+                          {term}
+                        </button>
+                      ))}
+                    </div>
+                    <Link to="/mandado">
+                      <Button variant="primary">Pedir mandado</Button>
+                    </Link>
+                  </div>
                 )}
               />
             ) : null

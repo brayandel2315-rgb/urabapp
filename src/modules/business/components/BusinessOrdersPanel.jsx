@@ -101,8 +101,16 @@ function BusinessOrderCard({
   const isBusy = pendingOrderId === order.id;
   const customerPhone = parseCustomerPhoneFromNotes(order.notes);
 
+  const needsAction = order.status === 'pending' || order.status === 'accepted';
+
   return (
-    <SurfaceCard className="overflow-hidden">
+    <SurfaceCard
+      className={cn(
+        'overflow-hidden rounded-[var(--radius-component)]',
+        order.status === 'pending' && 'border-urgency/40 ring-2 ring-urgency/20',
+        order.status === 'accepted' && 'border-primary/30 ring-1 ring-primary/15',
+      )}
+    >
       <button
         type="button"
         className="flex w-full items-start justify-between gap-3 text-left"
@@ -116,6 +124,11 @@ function BusinessOrderCard({
             <StatusBadge status={ORDER_STATUS_VARIANT[order.status] || 'muted'}>
               {ORDER_STATUS_LABELS[order.status]}
             </StatusBadge>
+            {order.status === 'pending' && (
+              <span className="rounded-full bg-urgency/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-urgency">
+                Acción
+              </span>
+            )}
           </div>
           <p className="mt-1 text-xs text-muted">{formatOrderTime(order.created_at)}</p>
           {customerPhone && (
@@ -124,7 +137,7 @@ function BusinessOrderCard({
           <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{order.dest_address}</p>
         </div>
         <div className="shrink-0 text-right">
-          <p className="font-display text-lg font-bold text-primary">{formatCOP(order.total)}</p>
+          <p className="font-display text-lg font-bold tabular-nums text-primary">{formatCOP(order.total)}</p>
           <p className="text-xs text-muted">{items.length} producto{items.length !== 1 ? 's' : ''}</p>
           <AppIcon
             name="chevronDown"
@@ -227,10 +240,15 @@ function BusinessOrderCard({
             )}
           </div>
 
-          <div className="flex flex-col gap-2 sm:flex-row">
+          <div
+            className={cn(
+              'flex flex-col gap-2 sm:flex-row',
+              needsAction && 'sticky bottom-20 z-10 rounded-[var(--radius-component)] border border-border/50 bg-card/95 p-2 shadow-soft backdrop-blur-md sm:static sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none sm:backdrop-blur-none',
+            )}
+          >
             {nextStatus && (
               <Button
-                className="flex-1"
+                className="h-12 min-h-11 flex-1 text-base font-bold"
                 disabled={!!pendingOrderId}
                 onClick={() => onStatusChange(order.id, nextStatus)}
               >
@@ -240,7 +258,7 @@ function BusinessOrderCard({
             {order.status === 'preparing' && (
               <Button
                 variant="outline"
-                className="flex-1"
+                className="h-12 min-h-11 flex-1"
                 disabled={!!pendingOrderId}
                 onClick={() => onMarkReady(order.id)}
               >
@@ -250,7 +268,7 @@ function BusinessOrderCard({
             {canCancel && (
               <Button
                 variant="outline"
-                className="flex-1 text-red-600 ring-red-200 hover:bg-red-50 dark:ring-red-900 dark:hover:bg-red-950/30"
+                className="min-h-11 flex-1 text-destructive ring-destructive/20 hover:bg-destructive/5"
                 disabled={!!pendingOrderId}
                 onClick={() => onCancelRequest(order)}
               >

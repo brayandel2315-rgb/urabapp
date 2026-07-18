@@ -103,7 +103,7 @@ export default function Informe() {
         )}
 
         {isLoading ? (
-          <div className="flex justify-center py-12"><Loader size="lg" /></div>
+          <Loader variant="page" message="Cargando informe…" />
         ) : isError ? (
           <SurfaceCard className="text-center text-sm text-muted">
             No se pudieron cargar todas las métricas.

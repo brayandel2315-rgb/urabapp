@@ -4,6 +4,7 @@ import AppShell from '@/design-system/layouts/AppShell';
 import BottomNavigation from '@/design-system/layouts/BottomNavigation';
 import { CommandMenu } from '@/design-system/providers/CommandMenu';
 import OfflineBanner from '@/design-system/patterns/OfflineBanner';
+import SkipToContent from '@/design-system/patterns/SkipToContent';
 import CommunicationBanner from '@/components/communication/CommunicationBanner';
 import ClientServicesFab from '../components/layout/ClientServicesFab';
 import AbandonedCartSync from '../hooks/useAbandonedCartSync';
@@ -42,7 +43,8 @@ export default function ClientLayout() {
   };
 
   return (
-    <AppShell data-role="client" className="mobile-app-bg bg-[#F7FAFC] text-[#0D2B45] lg:pb-0">
+    <AppShell data-role="client" className="mobile-app-bg bg-background text-foreground lg:pb-0">
+      <SkipToContent />
       <ClientAppHeader notificationCount={communicationBadge} />
       <ClientDesktopHeader notificationCount={communicationBadge} />
       <GeoBootstrap />
@@ -53,9 +55,9 @@ export default function ClientLayout() {
       <OfflineBanner />
       <CommunicationBanner />
       <AbandonedCartSync />
-      <div className="app-client-route min-w-0 w-full">
+      <main id="main-content" tabIndex={-1} className="app-client-route min-w-0 w-full outline-none">
         <Outlet context={{ search, setSearch }} />
-      </div>
+      </main>
       <div className="lg:hidden">
         <ClientServicesFab />
       </div>

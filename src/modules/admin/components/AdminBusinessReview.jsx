@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { SurfaceCard, SectionTitle } from '@/design-system/patterns/SurfaceCard';
 import Button from '@/components/ui/Button';
+import Loader from '@/components/ui/Loader';
 import Input from '@/components/ui/Input';
 import AppIcon from '@/design-system/icons/AppIcon';
 import { LEGAL_DOC_SPECS } from '@/utils/business-registration';
@@ -78,7 +79,7 @@ export default function AdminBusinessReview({ businesses: businessesProp }) {
         Solo las {STORE.manyLower} aprobadas aparecen en el catálogo público. Las nuevas quedan en revisión.
       </p>
       {isLoading ? (
-        <p className="text-sm">Cargando…</p>
+        <Loader variant="section" message="Cargando tiendas…" className="min-h-[8rem]" />
       ) : pending.length === 0 ? (
         <p className="text-sm text-muted-foreground">No hay {STORE.manyLower} pendientes de revisión.</p>
       ) : (

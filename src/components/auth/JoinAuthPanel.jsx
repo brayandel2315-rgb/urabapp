@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import AppIcon from '@/design-system/icons/AppIcon';
+import AuthLegalConsent from '@/components/legal/AuthLegalConsent';
 import { signInWithPassword, signUpWithPassword, getProfile } from '@/services/auth.service';
+import { recordRequiredSignupConsents } from '@/services/legal.service';
 import { useAuthStore } from '@/store/authStore';
 import { toast } from '@/utils/toast';
 import { isSupabaseConfigured } from '@/lib/supabase';
@@ -28,6 +30,7 @@ export default function JoinAuthPanel({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [legalAccepted, setLegalAccepted] = useState(false);
 
   if (user && embedded) return null;
 
@@ -41,6 +44,10 @@ export default function JoinAuthPanel({
       toast('La contraseña debe tener al menos 8 caracteres', 'error');
       return;
     }
+    if (mode === 'signup' && !legalAccepted) {
+      toast('Debes autorizar el tratamiento de datos (Ley 1581) para continuar', 'error');
+      return;
+    }
     setLoading(true);
     try {
       if (mode === 'signup') {
@@ -51,6 +58,7 @@ export default function JoinAuthPanel({
           return;
         }
         setUser(session.user ?? newUser);
+        await recordRequiredSignupConsents((session.user ?? newUser)?.id).catch(() => {});
       } else {
         const { session } = await signInWithPassword(email, password);
         setUser(session.user);
@@ -134,7 +142,14 @@ export default function JoinAuthPanel({
           minLength={8}
           autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
         />
-        <Button type="submit" className="w-full" disabled={loading}>
+        {mode === 'signup' && (
+          <AuthLegalConsent
+            id="join-auth-legal-consent"
+            accepted={legalAccepted}
+            onChange={setLegalAccepted}
+          />
+        )}
+        <Button type="submit" className="w-full" disabled={loading || (mode === 'signup' && !legalAccepted)}>
           <AppIcon name="profile" size="sm" className="mr-2" />
           {loading
             ? 'Procesando…'

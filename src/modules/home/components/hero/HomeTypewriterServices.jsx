@@ -1,17 +1,11 @@
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
+/** Complementan "Pide ya tu…" — 3 palancas: comida, tiendas, velocidad. */
 export const URABAPP_SERVICE_PHRASES = [
   'comida a domicilio',
-  'mercado del súper',
-  'farmacia cerca',
-  'mandado express',
-  'envío seguro',
-  'ruta intermunicipal',
-  'restaurante abierto',
-  'domicilio rápido',
-  'tienda local',
-  'oferta del día',
+  'pedido de tienda',
+  'domicilio en minutos',
 ];
 
 const TYPE_MS = 88;
@@ -26,7 +20,7 @@ const BETWEEN_MS = 650;
 export default function HomeTypewriterServices({
   prefix = 'Pide ya tu',
   className,
-  highlightClassName = 'text-[#2E7D32]',
+  highlightClassName = 'home-typewriter__dynamic-highlight',
 }) {
   const [text, setText] = useState('');
   const [phraseIdx, setPhraseIdx] = useState(0);

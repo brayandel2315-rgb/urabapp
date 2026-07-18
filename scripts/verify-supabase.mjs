@@ -20,6 +20,7 @@ function loadEnv() {
 const env = loadEnv();
 const url = env.VITE_SUPABASE_URL;
 const key = env.VITE_SUPABASE_ANON_KEY;
+const serviceKey = env.SUPABASE_SECRET_KEY || env.SUPABASE_SERVICE_ROLE_KEY;
 const ownerEmail = env.VITE_OWNER_EMAIL || 'brayandel001@gmail.com';
 
 let failed = false;
@@ -90,13 +91,18 @@ const { count: prodCount } = await supabase
 if ((prodCount ?? 0) >= 20) pass(`Productos activos: ${prodCount}`);
 else warn(`Productos activos: ${prodCount ?? 0}`);
 
-const { data: adminUser } = await supabase
-  .from('users')
-  .select('role')
-  .eq('email', ownerEmail)
-  .maybeSingle();
-if (adminUser?.role === 'ADMIN') pass(`Admin ${ownerEmail}`);
-else warn(`Usuario ${ownerEmail} no es ADMIN — ejecuta 002_admin_brayan.sql tras login`);
+{
+  const adminClient = serviceKey
+    ? createClient(url, serviceKey, { auth: { autoRefreshToken: false, persistSession: false } })
+    : supabase;
+  const { data: adminUser } = await adminClient
+    .from('users')
+    .select('role')
+    .eq('email', ownerEmail)
+    .maybeSingle();
+  if (adminUser?.role === 'ADMIN') pass(`Admin ${ownerEmail}`);
+  else warn(`Usuario ${ownerEmail} no es ADMIN — ejecuta 002_admin_brayan.sql tras login`);
+}
 
 const { data: slugSample } = await supabase
   .from('businesses')

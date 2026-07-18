@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { SurfaceCard, SectionTitle } from '@/design-system/patterns/SurfaceCard';
 import Button from '@/components/ui/Button';
+import Loader from '@/components/ui/Loader';
 import Input from '@/components/ui/Input';
 import FormSelect from '@/design-system/patterns/FormSelect';
 import { useAuthStore } from '@/store/authStore';
@@ -76,7 +77,7 @@ export default function AccountAddressesPage() {
     <div className="space-y-4">
       <SurfaceCard className="space-y-4 p-5">
         <SectionTitle>Direcciones guardadas</SectionTitle>
-        {isLoading ? <p className="text-sm text-muted-foreground">Cargando…</p> : addresses.length === 0 ? (
+        {isLoading ? <Loader variant="section" message="Cargando direcciones…" className="min-h-[8rem]" /> : addresses.length === 0 ? (
           <p className="text-sm text-muted-foreground">Aún no tienes direcciones. Agrega una para pedir más rápido.</p>
         ) : (
           <ul className="space-y-2">

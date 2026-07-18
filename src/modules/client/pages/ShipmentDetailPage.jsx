@@ -96,11 +96,7 @@ export default function ShipmentDetailPage() {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex min-h-[50vh] items-center justify-center">
-        <Loader size="lg" />
-      </div>
-    );
+    return <Loader variant="page" message="Cargando tu envío…" />;
   }
 
   if (isError) {

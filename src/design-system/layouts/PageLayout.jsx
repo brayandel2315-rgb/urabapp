@@ -28,7 +28,7 @@ export default function PageLayout({
   return (
     <div
       className={cn(
-        'w-full min-w-0 overflow-x-hidden bg-[#F7FAFC] text-[#0D2B45]',
+        'w-full min-w-0 overflow-x-hidden bg-background text-foreground',
         bottomPad && (
           stickyCheckout
             ? 'pb-safe-checkout lg:pb-6'

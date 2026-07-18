@@ -81,8 +81,10 @@ export default function HomeMegaSearch({
     <div
       ref={wrapRef}
       className={cn(
-        'relative z-40 mx-auto w-full',
-        !isHeroMobile && 'max-w-[1100px]',
+        'relative z-40',
+        isHeroMobile && 'w-full',
+        isHero && !isHeroMobile && 'w-full',
+        !isHero && 'mx-auto w-full max-w-[1100px]',
         sticky && !isHeroMobile && (isHero ? 'sticky top-0' : 'sticky top-14 sm:top-16'),
         className,
       )}
