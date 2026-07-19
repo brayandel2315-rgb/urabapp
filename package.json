@@ -25,6 +25,7 @@
     "process:brand-logo": "node scripts/process-brand-logo.mjs",
     "deploy:functions": "powershell -ExecutionPolicy Bypass -File scripts/deploy-edge-functions.ps1",
     "seed:uraba-marketplace": "node scripts/generate-uraba-marketplace-seed.mjs",
+    "seed:onboarding-previews": "node scripts/generate-onboarding-previews.mjs",
     "build:sql": "node scripts/build-production-sql.mjs",
     "sync:supabase": "powershell -ExecutionPolicy Bypass -File scripts/sync-supabase.ps1",
     "sync:netlify": "powershell -ExecutionPolicy Bypass -File scripts/sync-netlify-supabase.ps1",
@@ -42,6 +43,7 @@
     "keep-alive:supabase:loop": "node scripts/keep-supabase-alive.mjs --interval=20",
     "test:smoke": "node scripts/smoke-tests.mjs",
     "test:e2e:order": "node scripts/e2e-order-flow.mjs",
+    "import:cruzverde": "node scripts/import-cruzverde-official-demo.mjs",
     "report:health": "node scripts/app-health-report.mjs"
   },
   "dependencies": {
