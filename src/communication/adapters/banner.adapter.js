@@ -1,5 +1,5 @@
 import { useCommunicationBannerStore } from '@/store/communicationBannerStore';
-import { resolveNotifImage, resolveNotifKind } from '@/communication/notification-visuals';
+import { resolveNotifImage, resolveNotifKind, resolveNotifLogo } from '@/communication/notification-visuals';
 
 export async function deliverBanner({
   title,
@@ -7,6 +7,7 @@ export async function deliverBanner({
   deepLink,
   priority,
   imageUrl,
+  logoUrl,
   kind,
   stage,
   ctaLabel,
@@ -26,6 +27,7 @@ export async function deliverBanner({
     deepLink,
     priority,
     imageUrl: imageUrl || resolveNotifImage(rest) || null,
+    logoUrl: logoUrl || resolveNotifLogo(rest) || null,
     kind: resolvedKind,
     stage: stage || null,
     ctaLabel: ctaLabel || rest.ctaLabel || null,

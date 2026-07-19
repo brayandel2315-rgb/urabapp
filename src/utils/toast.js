@@ -1,7 +1,7 @@
 import { createElement } from 'react';
 import { toast as sonnerToast } from 'sonner';
 import { UrabappToast } from '@/design-system/patterns/UrabappToast';
-import { resolveNotifImage, resolveNotifHref } from '@/communication/notification-visuals';
+import { resolveNotifImage, resolveNotifHref, resolveNotifLogo } from '@/communication/notification-visuals';
 
 const DEFAULT_DURATION = 5_000;
 const ERROR_DURATION = 7_000;
@@ -32,6 +32,7 @@ function showRich({
   duration,
   id,
   image = null,
+  logo = null,
   href = null,
   kind = null,
   stage = null,
@@ -41,11 +42,12 @@ function showRich({
   ...rest
 }) {
   const imageUrl = image || resolveNotifImage(rest) || null;
+  const logoUrl = logo || resolveNotifLogo(rest) || null;
   const link = href || resolveNotifHref(rest) || null;
   const ms = duration
     ?? (type === 'error'
       ? ERROR_DURATION
-      : type === 'trust' || kind === 'order' || kind === 'tracking' || kind === 'cart'
+      : (type === 'trust' || kind === 'order' || kind === 'tracking' || kind === 'cart')
         ? ORDER_DURATION
         : type === 'trust'
           ? TRUST_DURATION
@@ -60,6 +62,7 @@ function showRich({
       trust,
       action,
       image: imageUrl,
+      logo: logoUrl,
       href: link,
       kind,
       stage,
@@ -82,6 +85,7 @@ function fromLegacy(message, type = 'info', options = {}) {
     duration: options.duration,
     id: options.id,
     image: options.image,
+    logo: options.logo,
     href: options.href,
     kind: options.kind,
     stage: options.stage,

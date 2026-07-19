@@ -5,6 +5,7 @@ import { openWhatsApp, buildOperatorNewOrderMessage } from '../utils/whatsapp';
 import { sendOperatorWhatsAppAlert, isWhatsAppApiEnabled } from './whatsapp-api.service';
 import { reassignOrderDriver } from './order-tracking.service';
 import { emitCommEvent } from '@/communication';
+import { resolveOrderNotificationMedia, pickItemImage } from '@/communication/order-notification-media';
 import { scheduleDeliveryDispatch } from './assignment.service';
 import { calculateOrderEconomics } from '../utils/economics';
 import { ECONOMICS, ORDER_STATUS_LABELS } from '../utils/constants';
@@ -99,11 +100,12 @@ export async function createOrder({
   let resolvedDeliveryFee = deliveryFee;
   let businessOwnerId = null;
   let businessName = null;
+  let businessLogoUrl = null;
 
   if (businessId && isSupabaseConfigured) {
     const { data: biz, error: bizError } = await supabase
       .from('businesses')
-      .select('commission_pct, delivery_fee, min_order, is_open, is_published, verification_status, opens_at, closes_at, owner_id, name')
+      .select('commission_pct, delivery_fee, min_order, is_open, is_published, verification_status, opens_at, closes_at, owner_id, name, logo_url, cover_url')
       .eq('id', businessId)
       .single();
     if (bizError || !biz) throw new Error(STORE.notFound);
@@ -113,6 +115,7 @@ export async function createOrder({
     }
     businessOwnerId = biz.owner_id;
     businessName = biz.name;
+    businessLogoUrl = biz.logo_url || biz.cover_url || null;
 
     pricedItems = await validateAndPriceOrderItems(businessId, pricedItems);
     const pricedSubtotal = pricedItems.reduce((s, i) => s + i.price * i.quantity, 0);
@@ -243,7 +246,17 @@ export async function createOrder({
     markWelcomeDeliveryUsed(customerId, order.id).catch(() => {});
   }
 
-  resolveCustomerPhone(customerId).then((phone) => {
+  resolveCustomerPhone(customerId).then(async (phone) => {
+    const media = await resolveOrderNotificationMedia({
+      orderId: order.id,
+      businessId,
+      items: pricedItems,
+    }).catch(() => ({
+      imageUrl: pickItemImage(pricedItems) || businessLogoUrl,
+      logoUrl: businessLogoUrl,
+      businessName,
+    }));
+
     emitCommEvent('order_created', {
       recipientId: customerId,
       payload: {
@@ -251,19 +264,38 @@ export async function createOrder({
         orderNumber: order.order_number,
         status: 'pending',
         phone,
+        businessId,
+        businessName: media.businessName || businessName,
+        imageUrl: media.imageUrl || businessLogoUrl,
+        logoUrl: media.logoUrl || businessLogoUrl,
+        businessLogo: media.logoUrl || businessLogoUrl,
       },
     }).catch(() => {});
   });
 
   if (businessOwnerId) {
-    emitCommEvent('business_new_order', {
-      recipientId: businessOwnerId,
-      payload: {
-        orderId: order.id,
-        orderNumber: order.order_number,
-        businessName,
-      },
-    }).catch(() => {});
+    const mediaPromise = resolveOrderNotificationMedia({
+      orderId: order.id,
+      businessId,
+      items: pricedItems,
+    }).catch(() => ({
+      imageUrl: pickItemImage(pricedItems) || businessLogoUrl,
+      logoUrl: businessLogoUrl,
+    }));
+
+    mediaPromise.then((media) => {
+      emitCommEvent('business_new_order', {
+        recipientId: businessOwnerId,
+        payload: {
+          orderId: order.id,
+          orderNumber: order.order_number,
+          businessName,
+          imageUrl: media.logoUrl || media.imageUrl || businessLogoUrl,
+          logoUrl: media.logoUrl || businessLogoUrl,
+          businessLogo: media.logoUrl || businessLogoUrl,
+        },
+      }).catch(() => {});
+    });
   }
 
   scheduleAutoAssignRider(order);
@@ -453,7 +485,7 @@ export async function updateOrderStatus(orderId, status, { driverId } = {}) {
   const before = await sbFetch(
     supabase
       .from('orders')
-      .select('customer_id, order_number, status, business_id, businesses(owner_id, name)')
+      .select('customer_id, order_number, status, business_id, businesses(owner_id, name, logo_url, cover_url)')
       .eq('id', orderId)
       .single(),
     'Tiempo agotado cargando pedido',
@@ -487,11 +519,25 @@ export async function updateOrderStatus(orderId, status, { driverId } = {}) {
   }
 
   if (before?.customer_id && before.status !== status) {
+    const media = await resolveOrderNotificationMedia({
+      orderId,
+      businessId: before.business_id,
+    }).catch(() => ({
+      imageUrl: before.businesses?.logo_url || before.businesses?.cover_url || null,
+      logoUrl: before.businesses?.logo_url || before.businesses?.cover_url || null,
+      businessName: before.businesses?.name || null,
+    }));
+
     const customerPayload = {
       orderId,
       orderNumber: before.order_number,
       status,
       statusLabel: ORDER_STATUS_LABELS[status] || status,
+      businessId: before.business_id,
+      businessName: media.businessName || before.businesses?.name || null,
+      imageUrl: media.imageUrl,
+      logoUrl: media.logoUrl,
+      businessLogo: media.logoUrl,
     };
     resolveCustomerPhone(before.customer_id).then((phone) => {
       const payload = { ...customerPayload, phone };
@@ -512,6 +558,7 @@ export async function updateOrderStatus(orderId, status, { driverId } = {}) {
   const ownerId = before?.businesses?.owner_id;
   const businessNotifyStatuses = ['cancelled', 'on_the_way', 'delivered'];
   if (ownerId && before.status !== status && businessNotifyStatuses.includes(status)) {
+    const logo = before.businesses?.logo_url || before.businesses?.cover_url || null;
     emitCommEvent('order_status_changed', {
       recipientId: ownerId,
       payload: {
@@ -519,6 +566,10 @@ export async function updateOrderStatus(orderId, status, { driverId } = {}) {
         orderNumber: before.order_number,
         status,
         url: '/negocio',
+        imageUrl: logo,
+        logoUrl: logo,
+        businessLogo: logo,
+        businessName: before.businesses?.name || null,
       },
     }).catch(() => {});
   }

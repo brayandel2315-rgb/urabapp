@@ -3,7 +3,14 @@ import { persist } from 'zustand/middleware';
 import { calculateUnitPrice } from '@/utils/product-modifiers';
 
 function emptyCartState() {
-  return { businessId: null, businessName: null, minOrder: null, deliveryFee: null, items: [] };
+  return {
+    businessId: null,
+    businessName: null,
+    businessLogo: null,
+    minOrder: null,
+    deliveryFee: null,
+    items: [],
+  };
 }
 
 export function cartLineKey(item) {
@@ -66,6 +73,7 @@ function applyBusinessMeta(business) {
   return {
     businessId: business.id,
     businessName: business.name,
+    businessLogo: business.logo_url || business.logoUrl || null,
     minOrder: business.min_order ?? 0,
     deliveryFee: business.delivery_fee ?? null,
   };
@@ -96,6 +104,8 @@ export const useCartStore = create(
           productId: product.id,
           name: product.name,
           emoji: product.emoji,
+          image_url: product.image_url || product.imageUrl || null,
+          imageUrl: product.image_url || product.imageUrl || null,
           basePrice,
           compareAtPrice,
           price: unitPrice,

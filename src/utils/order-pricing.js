@@ -23,7 +23,7 @@ export async function validateAndPriceOrderItems(businessId, items = []) {
 
   const { data: products, error } = await supabase
     .from('products')
-    .select('id, name, emoji, price, is_available, business_id')
+    .select('id, name, emoji, price, image_url, is_available, business_id')
     .eq('business_id', businessId)
     .in('id', productIds);
 
@@ -45,6 +45,8 @@ export async function validateAndPriceOrderItems(businessId, items = []) {
       ...item,
       name: product.name,
       emoji: product.emoji || item.emoji,
+      image_url: product.image_url || item.image_url || item.imageUrl || null,
+      imageUrl: product.image_url || item.image_url || item.imageUrl || null,
       basePrice,
       price: unitPrice,
     };

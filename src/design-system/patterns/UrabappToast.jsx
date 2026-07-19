@@ -21,7 +21,7 @@ const TYPE_TO_KIND = {
 };
 
 /**
- * Toast comunicativo Urabapp — imagen, chip, tap para abrir/cerrar.
+ * Toast comunicativo — foto del pedido + logo tienda, tap para abrir/cerrar.
  */
 export function UrabappToast({
   toastId,
@@ -31,6 +31,7 @@ export function UrabappToast({
   trust,
   action,
   image,
+  logo,
   href,
   kind: kindProp,
   stage,
@@ -86,34 +87,40 @@ export function UrabappToast({
             src={image}
             alt=""
             className="urabapp-notif__img"
-            width={56}
-            height={56}
+            width={72}
+            height={72}
             loading="lazy"
             decoding="async"
             onError={(e) => {
               e.currentTarget.style.display = 'none';
-              const fallback = e.currentTarget.nextElementSibling;
+              const fallback = e.currentTarget.parentElement?.querySelector('.urabapp-notif__icon-fallback');
               if (fallback) fallback.hidden = false;
             }}
           />
         ) : null}
-        <span
-          className="urabapp-notif__icon-fallback"
-          hidden={Boolean(image)}
-        >
+        <span className="urabapp-notif__icon-fallback" hidden={Boolean(image)}>
           <AppIcon name={iconName} size={22} />
         </span>
+        {logo && logo !== image ? (
+          <img
+            src={logo}
+            alt=""
+            className="urabapp-notif__logo-badge"
+            width={28}
+            height={28}
+            loading="lazy"
+            decoding="async"
+          />
+        ) : null}
       </div>
 
       <div className="urabapp-notif__body">
         <p className="urabapp-notif__chip">{chip}</p>
         <p className="urabapp-notif__title">{title}</p>
-        {description ? (
-          <p className="urabapp-notif__desc">{description}</p>
-        ) : null}
+        {description ? <p className="urabapp-notif__desc">{description}</p> : null}
         {(action?.label || canNavigate) && (
           <span className="urabapp-notif__cta">
-            {action?.label || (canNavigate ? 'Ver detalle' : 'Cerrar')}
+            {action?.label || (canNavigate ? 'Ver pedido' : 'Cerrar')}
           </span>
         )}
       </div>

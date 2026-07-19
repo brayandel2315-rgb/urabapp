@@ -94,14 +94,11 @@ export function resolveNotifImage(source = {}) {
     || source.image_url
     || source.image
     || source.thumbnail
-    || source.logoUrl
-    || source.logo_url
-    || source.businessLogo
-    || source.business_logo
-    || source.cover_url
-    || source.coverUrl;
-  if (typeof direct === 'string' && direct.startsWith('http')) return direct;
-  if (typeof direct === 'string' && direct.startsWith('/')) return direct;
+    || source.productImage
+    || source.product_image;
+  if (typeof direct === 'string' && (direct.startsWith('http') || direct.startsWith('/'))) {
+    return direct;
+  }
 
   const data = source.data && typeof source.data === 'object' ? source.data : source;
   const nested =
@@ -109,12 +106,8 @@ export function resolveNotifImage(source = {}) {
     || data.image_url
     || data.image
     || data.thumbnail
-    || data.logoUrl
-    || data.logo_url
-    || data.businessLogo
-    || data.business_logo
-    || data.cover_url
-    || data.coverUrl;
+    || data.productImage
+    || data.product_image;
   if (typeof nested === 'string' && (nested.startsWith('http') || nested.startsWith('/'))) {
     return nested;
   }
@@ -127,6 +120,34 @@ export function resolveNotifImage(source = {}) {
     }
   }
 
+  // Último recurso: logo de tienda
+  return resolveNotifLogo(source);
+}
+
+/** Logo de la tienda (badge / fallback). */
+export function resolveNotifLogo(source = {}) {
+  if (!source || typeof source !== 'object') return null;
+  const direct =
+    source.logoUrl
+    || source.logo_url
+    || source.businessLogo
+    || source.business_logo
+    || source.cover_url
+    || source.coverUrl;
+  if (typeof direct === 'string' && (direct.startsWith('http') || direct.startsWith('/'))) {
+    return direct;
+  }
+  const data = source.data && typeof source.data === 'object' ? source.data : {};
+  const nested =
+    data.logoUrl
+    || data.logo_url
+    || data.businessLogo
+    || data.business_logo
+    || data.cover_url
+    || data.coverUrl;
+  if (typeof nested === 'string' && (nested.startsWith('http') || nested.startsWith('/'))) {
+    return nested;
+  }
   return null;
 }
 

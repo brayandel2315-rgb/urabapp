@@ -7,6 +7,7 @@ import { notificationDeepLink } from '@/communication/inbox.service';
 import {
   resolveNotifImage,
   resolveNotifKind,
+  resolveNotifLogo,
 } from '@/communication/notification-visuals';
 
 export function useNotificationsRealtime(userId) {
@@ -45,11 +46,13 @@ export function useNotificationsRealtime(userId) {
             });
             const href = notificationDeepLink(row);
             const image = resolveNotifImage(row);
+            const logo = resolveNotifLogo(row);
 
             const base = {
               title: row.title,
               description: row.body || undefined,
               image,
+              logo,
               href,
               kind,
               category: row.category,

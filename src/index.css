@@ -3979,14 +3979,20 @@
   .urabapp-notif__media {
     position: relative;
     display: flex;
-    height: 3.25rem;
-    width: 3.25rem;
+    height: 4.25rem;
+    width: 4.25rem;
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    border-radius: 0.9rem;
+    border-radius: 1rem;
     background: rgba(30, 111, 67, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(17, 24, 39, 0.06);
+  }
+
+  .urabapp-notif--toast .urabapp-notif__media {
+    height: 4.5rem;
+    width: 4.5rem;
   }
 
   .urabapp-notif--cart .urabapp-notif__media {
@@ -4000,11 +4006,48 @@
     display: block;
   }
 
+  .urabapp-notif__logo-badge {
+    position: absolute;
+    right: -0.2rem;
+    bottom: -0.2rem;
+    height: 1.55rem;
+    width: 1.55rem;
+    border-radius: 999px;
+    object-fit: cover;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(17, 24, 39, 0.2);
+    border: 2px solid #fff;
+  }
+
   .urabapp-notif__icon-fallback {
     display: flex;
     align-items: center;
     justify-content: center;
     color: #1e6f43;
+  }
+
+  @media (max-width: 640px) {
+    .urabapp-notif--toast {
+      width: min(100vw - 1rem, 24rem);
+      padding: 0.85rem 0.75rem 0.85rem 0.9rem;
+    }
+
+    .urabapp-notif--toast .urabapp-notif__media,
+    .urabapp-notif--inbox .urabapp-notif__media,
+    .urabapp-notif--banner .urabapp-notif__media {
+      height: 4.75rem;
+      width: 4.75rem;
+      border-radius: 1.1rem;
+    }
+
+    .urabapp-notif__logo-badge {
+      height: 1.75rem;
+      width: 1.75rem;
+    }
+
+    .urabapp-notif__title {
+      font-size: 0.95rem;
+    }
   }
 
   .urabapp-notif__body {

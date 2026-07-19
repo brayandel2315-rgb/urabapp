@@ -18,6 +18,7 @@ export default function CommunicationBanner() {
     body,
     deepLink,
     imageUrl,
+    logoUrl,
     kind: kindProp,
     stage,
     ctaLabel,
@@ -63,8 +64,8 @@ export default function CommunicationBanner() {
               src={imageUrl}
               alt=""
               className="urabapp-notif__img"
-              width={52}
-              height={52}
+              width={72}
+              height={72}
               loading="lazy"
               decoding="async"
             />
@@ -73,6 +74,17 @@ export default function CommunicationBanner() {
               <AppIcon name={iconName} size={20} />
             </span>
           )}
+          {logoUrl && logoUrl !== imageUrl ? (
+            <img
+              src={logoUrl}
+              alt=""
+              className="urabapp-notif__logo-badge"
+              width={28}
+              height={28}
+              loading="lazy"
+              decoding="async"
+            />
+          ) : null}
         </span>
 
         <span className="urabapp-notif__body">

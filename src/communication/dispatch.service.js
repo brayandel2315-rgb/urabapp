@@ -60,10 +60,14 @@ export async function dispatchCommunication({ key, recipientId, actorId, payload
   const imageUrl = payload.imageUrl
     || payload.image_url
     || payload.image
-    || payload.logoUrl
+    || payload.productImage
+    || payload.product_image
+    || null;
+  const logoUrl = payload.logoUrl
     || payload.logo_url
     || payload.businessLogo
     || payload.business_logo
+    || payload.cover_url
     || null;
 
   const enrichedPayload = {
@@ -72,6 +76,7 @@ export async function dispatchCommunication({ key, recipientId, actorId, payload
     deep_link: deepLink,
     actor_id: actorId,
     ...(imageUrl ? { imageUrl, image_url: imageUrl } : {}),
+    ...(logoUrl ? { logoUrl, logo_url: logoUrl, businessLogo: logoUrl } : {}),
   };
 
   const prefs = recipientId
@@ -151,8 +156,13 @@ export async function dispatchCommunication({ key, recipientId, actorId, payload
         userId: recipientId,
         title,
         body,
-        imageUrl,
-        data: { url: deepLink, event_key: key, ...enrichedPayload },
+        imageUrl: imageUrl || logoUrl,
+        data: {
+          url: deepLink,
+          event_key: key,
+          icon: logoUrl || imageUrl || '/app-icon.png',
+          ...enrichedPayload,
+        },
         priority,
       }),
     });
@@ -243,6 +253,7 @@ export async function dispatchCommunication({ key, recipientId, actorId, payload
       deepLink,
       priority,
       imageUrl,
+      logoUrl,
       kind: key === 'cart_recovery' ? 'cart' : undefined,
       stage: payload.stage || payload.milestone || payload.eventType || null,
       ctaLabel: payload.ctaLabel || null,

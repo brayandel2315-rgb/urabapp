@@ -54,13 +54,22 @@ export async function getAbandonedCarts({ limit = 30 } = {}) {
   return data ?? [];
 }
 
-export async function upsertAbandonedCart({ userId, businessId, businessName, items, subtotal, municipio }) {
+export async function upsertAbandonedCart({
+  userId,
+  businessId,
+  businessName,
+  businessLogo,
+  items,
+  subtotal,
+  municipio,
+}) {
   if (!isSupabaseConfigured || !userId || !items?.length) return;
   const { error } = await supabase.from('abandoned_carts').upsert(
     {
       user_id: userId,
       business_id: businessId,
       business_name: businessName,
+      business_logo: businessLogo || null,
       items_json: items,
       subtotal,
       municipio,
@@ -68,7 +77,26 @@ export async function upsertAbandonedCart({ userId, businessId, businessName, it
     },
     { onConflict: 'user_id' }
   );
-  if (error) throw error;
+  if (error) {
+    // Columna business_logo puede no existir aún — reintenta sin ella
+    if (String(error.message || '').includes('business_logo')) {
+      const { error: retryError } = await supabase.from('abandoned_carts').upsert(
+        {
+          user_id: userId,
+          business_id: businessId,
+          business_name: businessName,
+          items_json: items,
+          subtotal,
+          municipio,
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: 'user_id' }
+      );
+      if (retryError) throw retryError;
+      return;
+    }
+    throw error;
+  }
 }
 
 export async function clearAbandonedCart(userId) {

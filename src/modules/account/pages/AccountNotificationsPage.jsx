@@ -24,6 +24,7 @@ import {
   notifChipLabel,
   notifAccentClass,
   notifFallbackIcon,
+  resolveNotifLogo,
 } from '@/communication/notification-visuals';
 
 const FILTERS = [
@@ -74,6 +75,7 @@ function InboxRow({ n, userId, onChanged }) {
     stage: n.data?.stage || n.data?.milestone || n.data?.eventType,
   });
   const image = resolveNotifImage(n);
+  const logo = resolveNotifLogo(n);
   const chip = notifChipLabel(kind, {
     category: n.category,
     stage: n.data?.stage || n.data?.milestone || n.data?.eventType,
@@ -117,8 +119,8 @@ function InboxRow({ n, userId, onChanged }) {
                 src={image}
                 alt=""
                 className="urabapp-notif__img"
-                width={52}
-                height={52}
+                width={72}
+                height={72}
                 loading="lazy"
                 decoding="async"
               />
@@ -127,6 +129,17 @@ function InboxRow({ n, userId, onChanged }) {
                 <AppIcon name={iconName} size={20} />
               </span>
             )}
+            {logo && logo !== image ? (
+              <img
+                src={logo}
+                alt=""
+                className="urabapp-notif__logo-badge"
+                width={28}
+                height={28}
+                loading="lazy"
+                decoding="async"
+              />
+            ) : null}
           </span>
           <span className="urabapp-notif__body">
             <span className="urabapp-notif__meta-row">

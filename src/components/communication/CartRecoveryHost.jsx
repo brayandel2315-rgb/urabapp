@@ -67,7 +67,9 @@ export default function CartRecoveryHost() {
       const imageUrl = items.find((i) => i?.image_url || i?.imageUrl || i?.image)?.image_url
         || items.find((i) => i?.image_url || i?.imageUrl || i?.image)?.imageUrl
         || items.find((i) => i?.image)?.image
+        || abandoned.business_logo
         || null;
+      const logoUrl = abandoned.business_logo || null;
 
       showBanner({
         title: stage === 'urgent' ? 'Tu pedido está a un toque' : `¿Seguimos con ${store}?`,
@@ -76,6 +78,7 @@ export default function CartRecoveryHost() {
         kind: 'cart',
         stage,
         imageUrl,
+        logoUrl,
         ctaLabel: 'Completar pedido',
       });
 

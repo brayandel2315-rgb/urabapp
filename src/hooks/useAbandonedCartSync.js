@@ -11,6 +11,7 @@ export function useAbandonedCartSync() {
   const items = useCartStore((s) => s.items);
   const businessId = useCartStore((s) => s.businessId);
   const businessName = useCartStore((s) => s.businessName);
+  const businessLogo = useCartStore((s) => s.businessLogo);
   const getSubtotal = useCartStore((s) => s.getSubtotal);
   const municipio = useLocationStore((s) => s.municipio);
   const timerRef = useRef(null);
@@ -30,6 +31,7 @@ export function useAbandonedCartSync() {
         userId: user.id,
         businessId,
         businessName,
+        businessLogo,
         items,
         subtotal: getSubtotal(),
         municipio,
@@ -39,7 +41,7 @@ export function useAbandonedCartSync() {
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [user?.id, items, businessId, businessName, getSubtotal, municipio]);
+  }, [user?.id, items, businessId, businessName, businessLogo, getSubtotal, municipio]);
 }
 
 export default function AbandonedCartSync() {
