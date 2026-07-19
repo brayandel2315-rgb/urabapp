@@ -13,7 +13,6 @@ import RiderBottomNav from '@/modules/rider/components/RiderBottomNav';
 import { useAuthStore } from '@/store/authStore';
 import { useNotificationsRealtime } from '@/hooks/useNotificationsRealtime';
 import { useCommunicationBadge } from '@/hooks/useCommunicationBadge';
-
 /**
  * Shell de paneles — chrome claro + centro de avisos (negocio / mensajero).
  */

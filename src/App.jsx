@@ -13,6 +13,7 @@ import PageLoader from './components/PageLoader';
 import AppRoutes from './app/routes';
 import { useAuthInit } from './hooks/useAuth';
 import { useReferralCapture } from './hooks/useReferralCapture';
+import { useUnlockDocumentScroll } from './hooks/useUnlockDocumentScroll';
 import { initAnalytics } from './services/analytics.service';
 import { hasAnalyticsConsent } from './utils/cookie-consent';
 import UrabappToaster from './components/feedback/UrabappToaster';
@@ -20,6 +21,7 @@ import UrabappToaster from './components/feedback/UrabappToaster';
 function App() {
   useAuthInit();
   useReferralCapture();
+  useUnlockDocumentScroll();
 
   useEffect(() => {
     // PostHog solo con consentimiento de cookies no esenciales (Ley 1581 / Decreto 1377)

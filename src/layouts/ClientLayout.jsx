@@ -24,7 +24,6 @@ import { CLIENT_BOTTOM_TABS } from '@/app/clientNav';
 import { useClientLightTheme } from '@/hooks/useClientLightTheme';
 import { useMarketplaceLiveRefresh } from '@/hooks/useMarketplaceLiveRefresh';
 import { useCatalogLocation } from '@/hooks/useCatalogLocation';
-import { useUnlockDocumentScroll } from '@/hooks/useUnlockDocumentScroll';
 
 export default function ClientLayout() {
   const cartCount = useCartStore((s) => s.getItemCount());
@@ -33,7 +32,6 @@ export default function ClientLayout() {
   const communicationBadge = useCommunicationBadge(user?.id);
 
   useClientLightTheme();
-  useUnlockDocumentScroll();
   useNotificationsRealtime(user?.id);
   const { activeMunicipio } = useCatalogLocation();
   useMarketplaceLiveRefresh(activeMunicipio);
