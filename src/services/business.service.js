@@ -311,8 +311,10 @@ export async function getProductsByBusiness(businessId, { includeUnavailable = f
     emoji: p.emoji,
     image_url: p.image_url,
     price: p.price,
+    compare_at_price: p.compare_at_price,
     category: p.category,
     is_available: p.is_available,
+    sort_order: p.sort_order,
   }));
 }
 

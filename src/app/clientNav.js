@@ -29,7 +29,7 @@ export const CLIENT_BOTTOM_TABS = [
   { to: CLIENT_SEARCH, icon: 'search', label: 'Explorar' },
   { to: '/mandado', icon: 'services', label: 'Servicios', featured: true, action: 'services' },
   { to: CLIENT_ORDERS, icon: 'pedidos', label: 'Pedidos' },
-  { to: CLIENT_ACCOUNT, icon: 'profile', label: 'Mi cuenta' },
+  { to: CLIENT_ACCOUNT, icon: 'profile', label: 'Mi cuenta', badgeKey: 'notifications' },
 ];
 
 /** Rutas que pertenecen a Explorar (búsqueda y verticales) */

@@ -268,15 +268,38 @@ export const EVENT_LIBRARY = {
   },
   cart_recovery: {
     key: 'cart_recovery',
-    category: COMM_CATEGORIES.MARKETING,
-    priority: COMM_PRIORITIES.LOW,
+    category: COMM_CATEGORIES.REMINDERS,
+    priority: COMM_PRIORITIES.HIGH,
     icon: 'cart',
-    channels: [COMM_CHANNELS.IN_APP, COMM_CHANNELS.PUSH, COMM_CHANNELS.ANALYTICS],
-    deepLink: () => '/carrito',
-    message: (p) => ({
-      title: 'Tu carrito te espera',
-      body: p.body || 'Completa tu pedido antes de que expire.',
-    }),
+    channels: [
+      COMM_CHANNELS.IN_APP,
+      COMM_CHANNELS.PUSH,
+      COMM_CHANNELS.BANNER,
+      COMM_CHANNELS.SNACKBAR,
+      COMM_CHANNELS.ANALYTICS,
+    ],
+    deepLink: (p) => p.url || (p.businessId ? `/tienda/${p.businessId}` : '/carrito'),
+    message: (p) => {
+      const store = p.businessName || 'tu tienda';
+      const total = p.subtotalLabel || '';
+      const stage = p.stage || 'nudge';
+      if (stage === 'urgent') {
+        return {
+          title: 'Tu pedido está a un toque',
+          body: p.body || `Último aviso: completa lo de ${store}${total ? ` (${total})` : ''} y te llega a domicilio.`,
+        };
+      }
+      if (stage === 'return') {
+        return {
+          title: `¡${store} te espera!`,
+          body: p.body || `Vuelve y termina tu compra${total ? ` por ${total}` : ''}. En minutos lo tienes en casa.`,
+        };
+      }
+      return {
+        title: '¿Seguimos con tu pedido?',
+        body: p.body || `Dejaste productos en ${store}${total ? ` · ${total}` : ''}. Toca y completa en segundos.`,
+      };
+    },
   },
   business_registered: {
     key: 'business_registered',

@@ -80,26 +80,59 @@ export async function clearAbandonedCart(userId) {
     .is('recovered_at', null);
 }
 
-export async function recoverAbandonedCartInApp(cart) {
+/**
+ * Recuperación potente — in-app + push + banner. stage: nudge | return | urgent
+ */
+export async function recoverAbandonedCartInApp(cart, { stage = 'nudge' } = {}) {
   if (!isSupabaseConfigured || !cart?.user_id) {
     throw new Error('Carrito inválido');
   }
   const storePath = cart.business_id ? `/tienda/${cart.business_id}` : '/carrito';
-  const title = '¿Terminas tu pedido?';
-  const body = `Tienes productos en ${cart.business_name || 'tu carrito'} por ${formatCOP(cart.subtotal || 0)}.`;
+  const subtotalLabel = formatCOP(cart.subtotal || 0);
+  const businessName = cart.business_name || 'tu tienda';
 
   await emitCommEvent('cart_recovery', {
     recipientId: cart.user_id,
     payload: {
       cartId: cart.id,
       subtotal: cart.subtotal,
+      subtotalLabel,
       businessId: cart.business_id,
+      businessName,
+      stage,
       url: storePath,
-      body: `Tienes productos en ${cart.business_name || 'tu carrito'} por ${formatCOP(cart.subtotal || 0)}.`,
+      ctaLabel: 'Completar pedido',
     },
   });
 
-  return { sent: true };
+  if (cart.id) {
+    try {
+      await supabase
+        .from('abandoned_carts')
+        .update({
+          last_nudge_at: new Date().toISOString(),
+          nudge_count: (cart.nudge_count || 0) + 1,
+        })
+        .eq('id', cart.id);
+    } catch {
+      /* columnas nuevas pueden no existir aún */
+    }
+  }
+
+  return { sent: true, stage, url: storePath };
+}
+
+/** Carrito abandonado activo del usuario (para nudge al volver a la app). */
+export async function getMyAbandonedCart(userId) {
+  if (!isSupabaseConfigured || !userId) return null;
+  const { data, error } = await supabase
+    .from('abandoned_carts')
+    .select('*')
+    .eq('user_id', userId)
+    .is('recovered_at', null)
+    .maybeSingle();
+  if (error) return null;
+  return data;
 }
 
 export async function recoverAbandonedCartWhatsApp(cart) {

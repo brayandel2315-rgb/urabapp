@@ -6,6 +6,7 @@ import { CommandMenu } from '@/design-system/providers/CommandMenu';
 import OfflineBanner from '@/design-system/patterns/OfflineBanner';
 import SkipToContent from '@/design-system/patterns/SkipToContent';
 import CommunicationBanner from '@/components/communication/CommunicationBanner';
+import CartRecoveryHost from '@/components/communication/CartRecoveryHost';
 import ClientServicesFab from '../components/layout/ClientServicesFab';
 import AbandonedCartSync from '../hooks/useAbandonedCartSync';
 import { useNotificationsRealtime } from '../hooks/useNotificationsRealtime';
@@ -55,6 +56,7 @@ export default function ClientLayout() {
       <OfflineBanner />
       <CommunicationBanner />
       <AbandonedCartSync />
+      <CartRecoveryHost />
       <main id="main-content" tabIndex={-1} className="app-client-route min-w-0 w-full outline-none">
         <Outlet context={{ search, setSearch }} />
       </main>

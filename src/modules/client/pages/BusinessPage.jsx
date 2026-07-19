@@ -47,7 +47,21 @@ import { cn } from '@/lib/utils';
 import { STORE } from '@/utils/marketplace-copy';
 
 function sectionDomId(label) {
-  return `store-menu-${String(label).toLowerCase().replace(/[^a-z0-9áéíóúñü]+/gi, '-').replace(/^-|-$/g, '')}`;
+  const slug = String(label || 'catalogo')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '') || 'catalogo';
+  return `store-menu-${slug}`;
+}
+
+function matchesProductQuery(product, query) {
+  if (!query) return true;
+  const q = query.trim().toLowerCase();
+  if (!q) return true;
+  const hay = `${product.name || ''} ${product.description || ''} ${product.category || ''}`.toLowerCase();
+  return hay.includes(q);
 }
 
 export default function BusinessPage() {
@@ -59,12 +73,14 @@ export default function BusinessPage() {
   const cartSubtotal = useCartStore((s) => s.getSubtotal());
   const { catalog } = useCatalogLocation();
   const [activeCategoryId, setActiveCategoryId] = useState('todos');
+  const [catalogQuery, setCatalogQuery] = useState('');
   const [customizerOpen, setCustomizerOpen] = useState(false);
   const [customizerProduct, setCustomizerProduct] = useState(null);
   const [customizerGroups, setCustomizerGroups] = useState([]);
   const [justAddedId, setJustAddedId] = useState(null);
   const [storeConflict, setStoreConflict] = useState(null);
   const pendingCartRetryRef = useRef(null);
+  const categoryNavLockRef = useRef(0);
   const online = useOnlineStatus();
 
   const { data: business, isLoading, isError, refetch } = useQuery({
@@ -113,16 +129,26 @@ export default function BusinessPage() {
   const menuSections = useMemo(() => {
     const groups = {};
     for (const product of products) {
+      if (!matchesProductQuery(product, catalogQuery)) continue;
       const key = product.category || 'Catálogo';
       if (!groups[key]) groups[key] = [];
       groups[key].push(product);
     }
-    return Object.entries(groups);
-  }, [products]);
+    return Object.entries(groups).sort(([a], [b]) => a.localeCompare(b, 'es'));
+  }, [products, catalogQuery]);
+
+  const filteredProductCount = useMemo(
+    () => menuSections.reduce((sum, [, items]) => sum + items.length, 0),
+    [menuSections],
+  );
 
   const popularProducts = useMemo(() => {
     if (products.length < 4) return [];
-    return [...products]
+    const pool = catalogQuery
+      ? products.filter((p) => matchesProductQuery(p, catalogQuery))
+      : products;
+    if (pool.length < 2) return [];
+    return [...pool]
       .sort((a, b) => {
         const dealA = Number(a.compare_at_price) > Number(a.price) ? 1 : 0;
         const dealB = Number(b.compare_at_price) > Number(b.price) ? 1 : 0;
@@ -130,11 +156,14 @@ export default function BusinessPage() {
         return Number(a.price) - Number(b.price);
       })
       .slice(0, 4);
-  }, [products]);
+  }, [products, catalogQuery]);
 
   const dealProducts = useMemo(
-    () => products.filter((p) => Number(p.compare_at_price) > Number(p.price)).slice(0, 6),
-    [products],
+    () => products
+      .filter((p) => Number(p.compare_at_price) > Number(p.price))
+      .filter((p) => matchesProductQuery(p, catalogQuery))
+      .slice(0, 6),
+    [products, catalogQuery],
   );
 
   const openNow = business ? isBusinessOpenNow(business) : false;
@@ -143,6 +172,13 @@ export default function BusinessPage() {
   const canOrder = business ? isBusinessOrderableInCatalog(business, catalog) : false;
   const canPurchase = canOrder && openNow && storeLive;
   const storeActive = storeLive && openNow;
+  const purchaseBlockReason = !storeLive
+    ? 'No publicada'
+    : !openNow
+      ? 'Cerrado'
+      : !canOrder
+        ? (catalog?.mode === 'unknown' || !catalog?.viewMunicipio ? 'Elige tu zona' : 'Fuera de zona')
+        : null;
   const etaMinutes = business ? getBusinessEtaMinutes(business) : 25;
   const cover = business ? resolveBusinessCover(business) : null;
   const logo = business ? resolveBusinessLogo(business) : null;
@@ -160,10 +196,10 @@ export default function BusinessPage() {
       count: items.length,
     }));
     return [
-      { id: 'todos', label: 'Todos', count: products.length },
+      { id: 'todos', label: 'Todos', count: filteredProductCount },
       ...cats,
     ];
-  }, [menuSections, products.length]);
+  }, [menuSections, filteredProductCount]);
 
   const deliveryLabel = Number(business?.delivery_fee) > 0
     ? formatCOP(business.delivery_fee)
@@ -174,6 +210,7 @@ export default function BusinessPage() {
 
   useEffect(() => {
     setActiveCategoryId('todos');
+    setCatalogQuery('');
   }, [business?.id]);
 
   useEffect(() => {
@@ -184,33 +221,47 @@ export default function BusinessPage() {
       .filter(Boolean);
     if (!nodes.length) return undefined;
 
+    let rafId = 0;
+    let pendingId = null;
+
     const observer = new IntersectionObserver(
       (entries) => {
+        if (Date.now() < categoryNavLockRef.current) return;
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]?.target?.id) {
-          setActiveCategoryId(visible[0].target.id);
-        }
+        const nextId = visible[0]?.target?.id;
+        if (!nextId) return;
+        pendingId = nextId;
+        if (rafId) return;
+        rafId = window.requestAnimationFrame(() => {
+          rafId = 0;
+          if (!pendingId || Date.now() < categoryNavLockRef.current) return;
+          setActiveCategoryId((current) => (current === pendingId ? current : pendingId));
+          pendingId = null;
+        });
       },
-      { rootMargin: '-20% 0px -55% 0px', threshold: [0.15, 0.35, 0.6] },
+      { rootMargin: '-22% 0px -58% 0px', threshold: [0.2, 0.45] },
     );
     nodes.forEach((node) => observer.observe(node));
-    return () => observer.disconnect();
-  }, [menuSections, products.length]);
+    return () => {
+      if (rafId) window.cancelAnimationFrame(rafId);
+      observer.disconnect();
+    };
+  }, [menuSections, filteredProductCount]);
 
   const handleSelectCategory = useCallback((id) => {
     setActiveCategoryId(id);
-    if (id === 'todos') {
-      const first = menuSections[0]?.[0];
-      if (first) {
-        document.getElementById(sectionDomId(first))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+    categoryNavLockRef.current = Date.now() + 1200;
+    const el = id === 'todos'
+      ? document.getElementById(sectionDomId(menuSections[0]?.[0]))
+      : document.getElementById(id);
+    if (!el) {
+      if (id === 'todos') window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const top = el.getBoundingClientRect().top + window.scrollY - 96;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
   }, [menuSections]);
 
   const flashAdded = (productId) => {
@@ -241,7 +292,12 @@ export default function BusinessPage() {
 
   const handleAdd = async (product) => {
     if (!canOrder) {
-      toast('Activa tu ubicación o elige una tienda en tu zona', 'error');
+      toast(
+        catalog?.mode === 'unknown' || !catalog?.viewMunicipio
+          ? 'Elige tu municipio para pedir en esta farmacia'
+          : 'Esta tienda no cubre tu zona actual',
+        'error',
+      );
       return;
     }
     if (!storeLive) {
@@ -473,6 +529,7 @@ export default function BusinessPage() {
                           coverFallback={cover}
                           canPurchase={canPurchase}
                           storeInactive={!storeActive}
+                          blockReason={purchaseBlockReason}
                           justAdded={justAddedId === p.id}
                           featured
                           featuredLabel="Popular"
@@ -498,6 +555,7 @@ export default function BusinessPage() {
                           coverFallback={cover}
                           canPurchase={canPurchase}
                           storeInactive={!storeActive}
+                          blockReason={purchaseBlockReason}
                           justAdded={justAddedId === p.id}
                           featured
                           featuredLabel="Oferta"
@@ -510,12 +568,46 @@ export default function BusinessPage() {
                 )}
 
                 {products.length > 0 ? (
-                  <StoreMenuNav
-                    sections={menuNavSections}
-                    activeId={activeCategoryId}
-                    onSelect={handleSelectCategory}
-                    storeActive={storeActive}
-                  />
+                  <div className="space-y-3">
+                    <label className="store-catalog-search block">
+                      <span className="sr-only">Buscar en el catálogo</span>
+                      <span className="store-catalog-search__field">
+                        <AppIcon name="search" size={16} className="shrink-0 text-muted-foreground" aria-hidden />
+                        <input
+                          type="search"
+                          value={catalogQuery}
+                          onChange={(e) => {
+                            setCatalogQuery(e.target.value);
+                            setActiveCategoryId('todos');
+                          }}
+                          placeholder={
+                            business.category === 'farmacia'
+                              ? 'Buscar medicamento o producto…'
+                              : 'Buscar en el catálogo…'
+                          }
+                          className="store-catalog-search__input"
+                          autoComplete="off"
+                          enterKeyHint="search"
+                        />
+                        {catalogQuery ? (
+                          <button
+                            type="button"
+                            className="store-catalog-search__clear"
+                            aria-label="Limpiar búsqueda"
+                            onClick={() => setCatalogQuery('')}
+                          >
+                            <AppIcon name="close" size={14} />
+                          </button>
+                        ) : null}
+                      </span>
+                    </label>
+                    <StoreMenuNav
+                      sections={menuNavSections}
+                      activeId={activeCategoryId}
+                      onSelect={handleSelectCategory}
+                      storeActive={storeActive}
+                    />
+                  </div>
                 ) : null}
 
                 {products.length === 0 ? (
@@ -526,6 +618,23 @@ export default function BusinessPage() {
                       Esta tienda aún no tiene productos publicados. Vuelve pronto.
                     </p>
                   </SurfaceCard>
+                ) : filteredProductCount === 0 ? (
+                  <SurfaceCard className="border-dashed py-8 text-center">
+                    <AppIcon name="search" size="xl" className="mx-auto text-muted-foreground" />
+                    <p className="mt-3 font-semibold text-foreground">Sin resultados</p>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      No hay productos que coincidan con “{catalogQuery.trim()}”.
+                    </p>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="mt-4"
+                      onClick={() => setCatalogQuery('')}
+                    >
+                      Ver todo el catálogo
+                    </Button>
+                  </SurfaceCard>
                 ) : (
                   menuSections.map(([sectionLabel, sectionItems]) => {
                     const sid = sectionDomId(sectionLabel);
@@ -533,7 +642,7 @@ export default function BusinessPage() {
                       <section
                         key={sid}
                         id={sid}
-                        className="store-menu-section space-y-3 scroll-mt-16"
+                        className="store-menu-section space-y-3 scroll-mt-28"
                         aria-labelledby={`${sid}-title`}
                       >
                         <div className="flex items-baseline justify-between gap-2">
@@ -553,6 +662,7 @@ export default function BusinessPage() {
                               coverFallback={cover}
                               canPurchase={canPurchase}
                               storeInactive={!storeActive}
+                              blockReason={purchaseBlockReason}
                               justAdded={justAddedId === p.id}
                               layout="grid"
                               onAdd={() => handleAdd(p)}

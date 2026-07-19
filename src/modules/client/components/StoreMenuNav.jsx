@@ -2,7 +2,28 @@ import { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
 /**
- * Navegación de categorías del menú — chips profesionales, sticky, snap-scroll.
+ * Centra un chip en el track horizontal SIN usar scrollIntoView
+ * (scrollIntoView mueve también la página y pelea con el scroll del usuario).
+ */
+function scrollChipIntoTrack(track, chip, behavior = 'smooth') {
+  if (!track || !chip) return;
+  const trackRect = track.getBoundingClientRect();
+  const chipRect = chip.getBoundingClientRect();
+  const delta =
+    chipRect.left - trackRect.left - (trackRect.width - chipRect.width) / 2;
+  const nextLeft = Math.max(0, Math.min(
+    track.scrollLeft + delta,
+    track.scrollWidth - track.clientWidth,
+  ));
+  if (typeof track.scrollTo === 'function') {
+    track.scrollTo({ left: nextLeft, behavior });
+  } else {
+    track.scrollLeft = nextLeft;
+  }
+}
+
+/**
+ * Navegación de categorías del menú — chips sticky con scroll horizontal.
  */
 export default function StoreMenuNav({
   sections = [],
@@ -14,9 +35,13 @@ export default function StoreMenuNav({
   const trackRef = useRef(null);
 
   useEffect(() => {
-    if (!activeId || !trackRef.current) return;
-    const chip = trackRef.current.querySelector(`[data-cat-id="${activeId}"]`);
-    chip?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    const track = trackRef.current;
+    if (!activeId || !track) return;
+    const safeId = typeof CSS !== 'undefined' && CSS.escape
+      ? CSS.escape(activeId)
+      : activeId.replace(/"/g, '\\"');
+    const chip = track.querySelector(`[data-cat-id="${safeId}"]`);
+    scrollChipIntoTrack(track, chip, 'smooth');
   }, [activeId]);
 
   if (!sections.length) return null;
@@ -25,7 +50,7 @@ export default function StoreMenuNav({
     <div
       className={cn('store-menu-nav', className)}
       role="tablist"
-      aria-label="Categorías del menú"
+      aria-label="Categorías del catálogo"
     >
       <div ref={trackRef} className="store-menu-nav__track hide-scrollbar">
         {sections.map((section) => {

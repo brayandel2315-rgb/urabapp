@@ -92,7 +92,7 @@ export default function AccountNotificationsPage() {
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="text-sm text-[#4A6278]">
+        <p className="text-sm text-muted-foreground">
           {unreadCount > 0 ? `${unreadCount} aviso${unreadCount === 1 ? '' : 's'} sin leer` : 'Estás al día con tus avisos'}
         </p>
         <div className="flex gap-2">

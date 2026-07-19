@@ -43,6 +43,7 @@ const AccountPreferencesPage = lazy(() => import('../modules/account/pages/Accou
 const AccountSecurityPage = lazy(() => import('../modules/account/pages/AccountSecurityPage'));
 const AccountHelpPage = lazy(() => import('../modules/account/pages/AccountHelpPage'));
 const AccountNotificationsPage = lazy(() => import('../modules/account/pages/AccountNotificationsPage'));
+const RoleNotificationsPage = lazy(() => import('../modules/account/pages/RoleNotificationsPage'));
 const LegalPage = lazy(() => import('../modules/legal/pages/LegalPage'));
 const ComoFuncionaPage = lazy(() => import('../modules/info/pages/ComoFuncionaPage'));
 const RegistrarComercioPage = lazy(() => import('../modules/info/pages/RegistrarComercioPage'));
@@ -162,6 +163,18 @@ export default function AppRoutes() {
         }
       >
         <Route index element={<Lazy><BusinessDashboard /></Lazy>} />
+        <Route
+          path="notificaciones"
+          element={(
+            <Lazy>
+              <RoleNotificationsPage
+                backTo="/negocio"
+                backLabel="Volver al panel"
+                eyebrow="Panel de tienda"
+              />
+            </Lazy>
+          )}
+        />
       </Route>
 
       <Route path="/domiciliario/registro" element={<RiderLayout />}>
@@ -177,6 +190,18 @@ export default function AppRoutes() {
         }
       >
         <Route index element={<Lazy><RiderDashboard /></Lazy>} />
+        <Route
+          path="notificaciones"
+          element={(
+            <Lazy>
+              <RoleNotificationsPage
+                backTo="/domiciliario"
+                backLabel="Volver a pedidos"
+                eyebrow="Mensajero"
+              />
+            </Lazy>
+          )}
+        />
         <Route path="ganancias" element={<Lazy><RiderEarnings /></Lazy>} />
         <Route path="reputacion" element={<Lazy><RiderReputation /></Lazy>} />
         <Route path="cuenta" element={<Lazy><RiderAccount /></Lazy>} />

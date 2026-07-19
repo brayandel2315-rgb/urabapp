@@ -6,23 +6,37 @@ import { Button } from '@/design-system/ui/button';
 import AppIcon from '@/design-system/icons/AppIcon';
 import ThemeToggle from '@/design-system/patterns/ThemeToggle';
 import SkipToContent from '@/design-system/patterns/SkipToContent';
+import CommunicationBanner from '@/components/communication/CommunicationBanner';
 import { getRoleMeta } from '@/app/roleConfig';
 import { ROLES } from '@/utils/constants';
 import RiderBottomNav from '@/modules/rider/components/RiderBottomNav';
+import { useAuthStore } from '@/store/authStore';
+import { useNotificationsRealtime } from '@/hooks/useNotificationsRealtime';
+import { useCommunicationBadge } from '@/hooks/useCommunicationBadge';
 
 /**
- * Shell de paneles — chrome claro unificado con cliente/tienda.
- * Negocio: header compacto tipo SuperApp (sin ThemeToggle ni franja pesada).
+ * Shell de paneles — chrome claro + centro de avisos (negocio / mensajero).
  */
 export default function RoleShell({ role }) {
   const location = useLocation();
   const meta = getRoleMeta(role);
+  const { user } = useAuthStore();
   const isAdmin = role === ROLES.ADMIN;
   const isRider = role === ROLES.RIDER;
   const isRiderOnboarding = isRider && location.pathname.startsWith('/domiciliario/registro');
   const showRiderBottomNav = isRider && !isRiderOnboarding;
   const isBusinessPanel = role === ROLES.BUSINESS && !location.pathname.startsWith('/negocio/onboarding');
   const lightChrome = isBusinessPanel || isRider;
+  const inboxPath = isBusinessPanel
+    ? '/negocio/notificaciones'
+    : isRider
+      ? '/domiciliario/notificaciones'
+      : null;
+
+  useNotificationsRealtime((isBusinessPanel || showRiderBottomNav) ? user?.id : null);
+  const notificationCount = useCommunicationBadge(
+    (isBusinessPanel || showRiderBottomNav) ? user?.id : null,
+  );
 
   return (
     <AppShell data-role={meta.dataRole} className="role-shell mobile-app-bg">
@@ -98,6 +112,25 @@ export default function RoleShell({ role }) {
               </div>
             </div>
             <div className="flex shrink-0 items-center gap-2">
+              {inboxPath && (
+                <Link
+                  to={inboxPath}
+                  className={cn(
+                    'relative flex h-9 w-9 items-center justify-center rounded-xl border',
+                    lightChrome
+                      ? 'border-border bg-card text-foreground'
+                      : 'border-white/20 bg-white/10 text-white',
+                  )}
+                  aria-label="Notificaciones"
+                >
+                  <AppIcon name="bell" size={18} />
+                  {notificationCount > 0 && (
+                    <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-urgency px-1 text-[10px] font-bold text-urgency-foreground">
+                      {notificationCount > 9 ? '9+' : notificationCount}
+                    </span>
+                  )}
+                </Link>
+              )}
               {!isBusinessPanel && (
                 <ThemeToggle
                   className={lightChrome ? 'text-foreground hover:bg-muted' : 'text-white hover:bg-white/10'}
@@ -163,6 +196,8 @@ export default function RoleShell({ role }) {
         </div>
       </header>
 
+      {(isBusinessPanel || showRiderBottomNav) && <CommunicationBanner />}
+
       <main
         id="main-content"
         tabIndex={-1}
@@ -175,7 +210,7 @@ export default function RoleShell({ role }) {
         <Outlet />
       </main>
 
-      {showRiderBottomNav && <RiderBottomNav />}
+      {showRiderBottomNav && <RiderBottomNav notificationCount={notificationCount} />}
     </AppShell>
   );
 }

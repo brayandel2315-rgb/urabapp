@@ -44,10 +44,10 @@ export const APARTADO_FEATURED_BANNERS = [
   },
   {
     id: 'feat-farmacia',
-    title: 'Farmacia San Rafael',
+    title: 'Cruz Verde Plaza del Río',
     subtitle: 'Medicamentos y cuidado personal — te lo llevamos a la puerta',
-    link: '/tienda/farmacia-san-rafael',
-    image_url: coverForSlug('farmacia-san-rafael'),
+    link: '/tienda/preview-cruz-verde-plaza-del-rio',
+    image_url: coverForSlug('preview-cruz-verde-plaza-del-rio') || coverForSlug('farmacia-san-rafael'),
     emoji: 'pharmacy',
     accent: 'market',
     badge: 'Farmacia',

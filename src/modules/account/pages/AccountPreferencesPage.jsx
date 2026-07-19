@@ -10,6 +10,7 @@ import { useLocationStore, selectHomeMunicipio } from '@/store/locationStore';
 import { useAutoLocation } from '@/hooks/useAutoLocation';
 import { useOnboardingStore } from '@/store/onboardingStore';
 import PushNotificationsPanel from '../components/PushNotificationsPanel';
+import CommunicationPreferencesPanel from '../components/CommunicationPreferencesPanel';
 import PwaInstallPanel from '@/components/pwa/PwaInstallPanel';
 import { toast } from '@/utils/toast';
 
@@ -65,6 +66,8 @@ export default function AccountPreferencesPage() {
       </SurfaceCard>
 
       <PushNotificationsPanel />
+
+      <CommunicationPreferencesPanel />
 
       <PwaInstallPanel />
 

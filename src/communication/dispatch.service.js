@@ -69,7 +69,11 @@ export async function dispatchCommunication({ key, recipientId, actorId, payload
     ? await getCommunicationPreferences(recipientId).catch(() => null)
     : null;
   const quiet = prefs && isQuietHours(prefs);
-  const marketingBlocked = category === 'marketing' && !prefs?.marketing_enabled;
+  /** Recuperación de carrito es recordatorio de compra, no marketing opt-in. */
+  const isCartRecovery = key === 'cart_recovery';
+  const marketingBlocked = category === 'marketing'
+    && !prefs?.marketing_enabled
+    && !isCartRecovery;
 
   const delivered = [];
   let eventId = null;

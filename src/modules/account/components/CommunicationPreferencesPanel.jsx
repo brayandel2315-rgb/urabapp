@@ -13,7 +13,7 @@ import { emitCommEvent } from '@/communication';
 import { toast } from '@/utils/toast';
 
 const PREF_CATEGORIES = [
-  'orders', 'messages', 'payments', 'promotions', 'support', 'security', 'marketing',
+  'orders', 'reminders', 'messages', 'payments', 'promotions', 'support', 'security', 'marketing',
 ];
 
 const CHANNEL_LABELS = { push: 'Push', in_app: 'En app', email: 'Email' };
