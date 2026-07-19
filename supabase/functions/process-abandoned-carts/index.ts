@@ -31,8 +31,10 @@ Deno.serve(async (req) => {
     return new Response('ok', { headers: corsHeaders });
   }
 
+  const denied = await requireCronServiceOrAdmin(req);
+  if (denied) return denied;
+
   try {
-    await requireCronServiceOrAdmin(req);
     const supabase = getServiceClient();
     const now = Date.now();
     const idleBefore = new Date(now - MIN_IDLE_MS).toISOString();

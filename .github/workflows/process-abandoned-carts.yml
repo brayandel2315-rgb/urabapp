@@ -1,0 +1,42 @@
+# Recupera carritos abandonados cada 30 min (push + in-app).
+# Secrets: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY (o CRON_SECRET + SUPABASE_ANON_KEY)
+
+name: Process Abandoned Carts
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  nudge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Invoke process-abandoned-carts
+        env:
+          SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          SERVICE_ROLE: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SUPABASE_URL:-}" ]; then
+            echo "Missing VITE_SUPABASE_URL secret"
+            exit 1
+          fi
+          URL="${SUPABASE_URL%/}/functions/v1/process-abandoned-carts"
+          if [ -n "${SERVICE_ROLE:-}" ]; then
+            curl -fsS -X POST "$URL" \
+              -H "Authorization: Bearer ${SERVICE_ROLE}" \
+              -H "apikey: ${SERVICE_ROLE}" \
+              -H "Content-Type: application/json" \
+              -d '{}'
+          elif [ -n "${CRON_SECRET:-}" ]; then
+            curl -fsS -X POST "$URL" \
+              -H "X-Cron-Secret: ${CRON_SECRET}" \
+              -H "Content-Type: application/json" \
+              -d '{}'
+          else
+            echo "Need SUPABASE_SERVICE_ROLE_KEY or CRON_SECRET"
+            exit 1
+          fi
