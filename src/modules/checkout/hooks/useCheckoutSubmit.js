@@ -178,7 +178,7 @@ export function useCheckoutSubmit({
       }
 
       notifyOperatorNewOrder(order, business?.name || businessName);
-      if (form.saveAddress && form.address && !form.selectedAddressId) {
+      if (form.saveAddress && form.address && (!form.selectedAddressId || form.selectedAddressId === 'new')) {
         try {
           await createAddress(user.id, {
             municipio: form.municipio,

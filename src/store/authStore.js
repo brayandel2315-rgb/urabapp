@@ -32,6 +32,7 @@ export const useAuthStore = create(
           ? {
               id: s.profile.id,
               full_name: s.profile.full_name,
+              phone: s.profile.phone,
               avatar_url: s.profile.avatar_url,
               municipio: s.profile.municipio,
               role: s.profile.role,

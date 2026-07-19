@@ -619,7 +619,7 @@ export default function BusinessPage() {
                     </p>
                   </SurfaceCard>
                 ) : filteredProductCount === 0 ? (
-                  <SurfaceCard className="border-dashed py-8 text-center">
+                  <SurfaceCard className="store-catalog-empty border-dashed py-8 text-center">
                     <AppIcon name="search" size="xl" className="mx-auto text-muted-foreground" />
                     <p className="mt-3 font-semibold text-foreground">Sin resultados</p>
                     <p className="mt-1 text-sm text-muted-foreground">

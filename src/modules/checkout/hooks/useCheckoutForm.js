@@ -1,16 +1,21 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useLocationStore, selectActiveBarrio } from '@/store/locationStore';
 import { useAuthStore } from '@/store/authStore';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import { reverseGeocode } from '@/services/map.service';
 import { inferBarrioFromGeoLabel, isSpecificBarrio } from '@/utils/barrio';
+import { prefillContactFields } from '@/utils/profile-form';
+import { pickDefaultDeliveryAddress } from '@/utils/delivery-address';
 import { validateCheckoutStep } from '../utils/checkout-validation';
 
-export function useCheckoutForm({ savedAddresses = [] }) {
-  const { profile } = useAuthStore();
+export function useCheckoutForm({ savedAddresses = [], addressesReady = false }) {
+  const user = useAuthStore((s) => s.user);
+  const profile = useAuthStore((s) => s.profile);
   const municipio = useLocationStore((s) => s.municipio);
   const catalogBarrio = useLocationStore(selectActiveBarrio);
+  const homeAddress = useLocationStore((s) => s.address);
   const { latitude, longitude, detect, loading: gpsLoading, hasCoords, locationHint } = useGeolocation();
+  const addressPrefillDone = useRef(false);
 
   const [deliveryBarrio, setDeliveryBarrio] = useState('');
   const [fullName, setFullName] = useState('');
@@ -28,27 +33,48 @@ export function useCheckoutForm({ savedAddresses = [] }) {
   const [tipAmount, setTipAmount] = useState(0);
   const [fieldErrors, setFieldErrors] = useState({});
 
+  // Nombre y celular del CLIENTE (perfil), no de la tienda del carrito
   useEffect(() => {
-    if (profile?.full_name && !fullName) setFullName(profile.full_name);
-    if (profile?.phone && !phone) setPhone(profile.phone);
-  }, [profile?.full_name, profile?.phone, fullName, phone]);
+    const { fullName: nextName, phone: nextPhone } = prefillContactFields(user, profile, {
+      fullName,
+      phone,
+    });
+    if (!fullName && nextName) setFullName(nextName);
+    if (!phone && nextPhone) setPhone(nextPhone);
+  }, [user, profile, fullName, phone]);
 
   useEffect(() => {
     if (deliveryBarrio || !isSpecificBarrio(catalogBarrio)) return;
     setDeliveryBarrio(catalogBarrio);
   }, [catalogBarrio, deliveryBarrio]);
 
+  // Esperar a que carguen las direcciones del perfil antes de precargar
   useEffect(() => {
-    const defaultAddr = savedAddresses.find((a) => a.is_default) || savedAddresses[0];
-    if (defaultAddr && !selectedAddressId) {
+    if (!addressesReady || addressPrefillDone.current || selectedAddressId) return;
+
+    const defaultAddr = pickDefaultDeliveryAddress(savedAddresses)
+      || savedAddresses.find((a) => a.is_default)
+      || savedAddresses[0];
+
+    if (defaultAddr) {
+      addressPrefillDone.current = true;
       setSelectedAddressId(defaultAddr.id);
-      setAddress(defaultAddr.address);
+      setAddress(defaultAddr.address || '');
       setReference(defaultAddr.reference || '');
-      if (isSpecificBarrio(defaultAddr.barrio)) setDeliveryBarrio(defaultAddr.barrio);
+      if (defaultAddr.barrio) setDeliveryBarrio(defaultAddr.barrio);
       if (defaultAddr.latitude != null) setMapLat(Number(defaultAddr.latitude));
       if (defaultAddr.longitude != null) setMapLng(Number(defaultAddr.longitude));
+      return;
     }
-  }, [savedAddresses, selectedAddressId]);
+
+    if (homeAddress?.trim()) {
+      addressPrefillDone.current = true;
+      setSelectedAddressId('new');
+      setAddress(homeAddress.trim());
+    } else {
+      addressPrefillDone.current = true;
+    }
+  }, [addressesReady, savedAddresses, selectedAddressId, homeAddress]);
 
   useEffect(() => {
     if (deliveryBarrio || !latitude || !longitude) return;

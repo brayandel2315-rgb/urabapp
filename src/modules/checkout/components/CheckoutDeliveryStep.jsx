@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { SurfaceCard, SectionTitle } from '@/design-system/patterns/SurfaceCard';
 import AppIcon from '@/design-system/icons/AppIcon';
 import Input from '@/components/ui/Input';
@@ -5,6 +6,8 @@ import Button from '@/components/ui/Button';
 import PlacesAutocomplete from '@/components/geo/PlacesAutocomplete';
 import AddressMapPicker from '@/components/maps/AddressMapPicker';
 import UrabaBarrioPicker from '@/components/uraba/UrabaBarrioPicker';
+import { ROLES } from '@/utils/constants';
+import { isCompleteDeliveryAddress } from '@/utils/delivery-address';
 import { isValidDeliveryCoordinates } from '../utils/checkout-validation';
 import { isSpecificBarrio } from '@/utils/barrio';
 
@@ -43,29 +46,75 @@ export default function CheckoutDeliveryStep({
 }) {
   const coordsOk = isValidDeliveryCoordinates(mapLat ?? latitude, mapLng ?? longitude);
   const barrioOk = isSpecificBarrio(barrio);
+  const role = profile?.role;
+  const isStoreAccount = role === ROLES.BUSINESS;
+  const isRiderAccount = role === ROLES.RIDER;
+  const hasProfileContact = Boolean(fullName?.trim() && phone?.trim());
+  const usableAddresses = savedAddresses.filter(isCompleteDeliveryAddress);
+  const selectedSaved = usableAddresses.find((a) => a.id === selectedAddressId)
+    || savedAddresses.find((a) => a.id === selectedAddressId);
 
   const clearError = (key) => setFieldErrors((e) => ({ ...e, [key]: undefined }));
 
   return (
     <div className="space-y-4">
+      {(isStoreAccount || isRiderAccount) && (
+        <SurfaceCard className="border-amber-300/70 bg-amber-50/90 space-y-2">
+          <p className="text-sm font-semibold text-amber-950">
+            Estás en una cuenta de {isStoreAccount ? 'tienda' : 'mensajero'}
+          </p>
+          <p className="text-sm text-amber-900/90">
+            Estos campos son de <strong>quién recibe el domicilio</strong>, no los datos del negocio.
+            Para pedidos reales usa tu cuenta de cliente
+            {isStoreAccount ? ' (ej. test.cliente@urabapp.com en demo)' : ''}.
+          </p>
+          <Link to="/cuenta/personal" className="text-sm font-bold text-primary underline underline-offset-2">
+            Editar mis datos de cliente →
+          </Link>
+        </SurfaceCard>
+      )}
+
       <SurfaceCard className="space-y-3">
-        <SectionTitle>Datos de contacto</SectionTitle>
+        <SectionTitle>¿Quién recibe el pedido?</SectionTitle>
         <p className="text-sm text-muted-foreground">
-          Usamos tu cuenta <strong>{profile?.email || user?.email}</strong>. El nombre y celular quedan guardados en tu perfil.
+          Son <strong>tus datos de cliente</strong> para que el mensajero te contacte.
+          No son los datos de la tienda.
         </p>
+
+        {hasProfileContact ? (
+          <div className="rounded-[var(--radius-component)] border border-primary/20 bg-primary/5 px-3 py-2.5">
+            <p className="text-[11px] font-bold uppercase tracking-wide text-primary">
+              Cargados de tu perfil
+            </p>
+            <p className="mt-1 text-sm font-semibold text-foreground">{fullName}</p>
+            <p className="text-sm text-muted-foreground">{phone}</p>
+            <Link
+              to="/cuenta/personal"
+              className="mt-1 inline-block text-xs font-semibold text-primary underline underline-offset-2"
+            >
+              Cambiar en Mi cuenta
+            </Link>
+          </div>
+        ) : (
+          <p className="rounded-xl bg-muted/60 px-3 py-2 text-xs text-muted-foreground">
+            Completa nombre y celular. Quedarán en tu perfil para los próximos pedidos.
+          </p>
+        )}
+
         <div>
           <Input
-            label="Nombre completo"
+            label="Tu nombre completo"
             value={fullName}
             onChange={(e) => { setFullName(e.target.value); clearError('fullName'); }}
             required
             autoComplete="name"
+            placeholder="Como aparece en tu cédula o WhatsApp"
           />
           {fieldErrors.fullName && <p className="mt-1 text-xs text-destructive">{fieldErrors.fullName}</p>}
         </div>
         <div>
           <Input
-            label="Celular de contacto"
+            label="Tu celular"
             type="tel"
             value={phone}
             onChange={(e) => { setPhone(e.target.value); clearError('phone'); }}
@@ -80,9 +129,11 @@ export default function CheckoutDeliveryStep({
       <SurfaceCard className="space-y-4">
         <div className="flex items-start justify-between gap-2">
           <div>
-            <SectionTitle>¿Dónde entregamos?</SectionTitle>
+            <SectionTitle>¿Dónde te lo llevamos?</SectionTitle>
             <p className="text-sm text-muted-foreground">
-              Elige una dirección guardada o marca el punto exacto en el mapa.
+              {selectedSaved
+                ? 'Usamos tu dirección de casa guardada. Puedes cambiarla abajo.'
+                : 'Elige una dirección guardada o marca el punto exacto en el mapa.'}
             </p>
           </div>
           {coordsOk ? (
@@ -96,10 +147,12 @@ export default function CheckoutDeliveryStep({
           )}
         </div>
 
-        {savedAddresses.length > 0 && (
+        {usableAddresses.length > 0 && (
           <div className="space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Tus direcciones</p>
-            {savedAddresses.map((addr) => (
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              Tus direcciones de casa
+            </p>
+            {usableAddresses.map((addr) => (
               <label
                 key={addr.id}
                 className={`flex min-h-11 cursor-pointer items-start gap-3 rounded-[var(--radius-component)] border p-3 transition-colors ${
@@ -116,7 +169,12 @@ export default function CheckoutDeliveryStep({
                   className="mt-1 accent-primary"
                 />
                 <div className="min-w-0 text-sm">
-                  <p className="font-semibold text-foreground">{addr.label || 'Mi dirección'}</p>
+                  <p className="font-semibold text-foreground">
+                    {addr.label || 'Mi dirección'}
+                    {addr.is_default ? (
+                      <span className="ml-2 text-[10px] font-bold uppercase text-primary">Casa</span>
+                    ) : null}
+                  </p>
                   <p className="text-muted-foreground">{addr.address}</p>
                   {addr.barrio && (
                     <p className="mt-0.5 text-xs font-medium text-foreground/80">{addr.barrio}</p>
@@ -133,8 +191,19 @@ export default function CheckoutDeliveryStep({
           </div>
         )}
 
+        {usableAddresses.length === 0 && (
+          <p className="rounded-xl border border-dashed border-border px-3 py-2 text-xs text-muted-foreground">
+            Necesitas una dirección completa (barrio, dirección y referencia).
+            {' '}
+            <Link to="/cuenta/direcciones?required=1" className="font-semibold text-primary underline underline-offset-2">
+              Regístrala en Mi cuenta
+            </Link>
+            .
+          </p>
+        )}
+
         <div className="space-y-1.5">
-          <label className="text-sm font-medium">Dirección</label>
+          <label className="text-sm font-medium">Dirección de entrega</label>
           <PlacesAutocomplete
             value={address}
             municipio={municipio}
@@ -218,7 +287,7 @@ export default function CheckoutDeliveryStep({
           <p className="rounded-xl bg-destructive/10 px-3 py-2 text-sm text-destructive">{fieldErrors.location}</p>
         )}
 
-        {user && !selectedAddressId && (
+        {user && (!selectedAddressId || selectedAddressId === 'new') && (
           <label className="flex items-center gap-2 text-sm text-muted-foreground">
             <input
               type="checkbox"
@@ -226,7 +295,7 @@ export default function CheckoutDeliveryStep({
               onChange={(e) => setSaveAddress(e.target.checked)}
               className="accent-primary"
             />
-            Guardar esta dirección para próximos pedidos
+            Guardar esta dirección de casa para próximos pedidos
           </label>
         )}
       </SurfaceCard>

@@ -1308,6 +1308,10 @@
     color: var(--brand-primary);
   }
 
+  .store-menu-nav__chip:active {
+    transform: scale(0.97);
+  }
+
   .store-product-card__badge--list {
     position: absolute;
     left: 0.4rem;
@@ -1560,6 +1564,7 @@
 
   .store-product-card__price-row {
     display: flex;
+    min-height: 2.5rem;
     align-items: flex-end;
     justify-content: space-between;
     gap: 0.5rem;
