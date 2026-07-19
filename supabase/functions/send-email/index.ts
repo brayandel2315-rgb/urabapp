@@ -1,6 +1,6 @@
 import { corsHeaders, jsonResponse } from '../_shared/cors.ts';
 import { getServiceClient } from '../_shared/supabase.ts';
-import { requireAuthUser } from '../_shared/auth.ts';
+import { isAdminUser, requireAuthUser } from '../_shared/auth.ts';
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -18,15 +18,46 @@ Deno.serve(async (req) => {
     const caller = authResult;
 
     const { to, subject, body, userId } = await req.json();
-    if (!to || !subject) {
-      return jsonResponse({ error: 'to y subject requeridos' }, 400);
+    if (!subject) {
+      return jsonResponse({ error: 'subject requerido' }, 400);
     }
 
-    if (userId && userId !== caller.id && caller.id !== 'service-role') {
-      const supabase = getServiceClient();
-      const { data: user } = await supabase.from('users').select('role').eq('id', caller.id).maybeSingle();
-      if (user?.role !== 'ADMIN') {
-        return jsonResponse({ error: 'No autorizado' }, 403);
+    const supabase = getServiceClient();
+    let destination = typeof to === 'string' ? to.trim() : '';
+
+    // Cerrar open relay: destino debe ser el email del caller, o admin hacia userId/to
+    if (caller.id === 'service-role') {
+      if (!destination) {
+        return jsonResponse({ error: 'to requerido para service role', sent: 0 }, 400);
+      }
+    } else if (await isAdminUser(caller.id)) {
+      if (userId) {
+        const { data: target } = await supabase
+          .from('users')
+          .select('email')
+          .eq('id', userId)
+          .maybeSingle();
+        destination = target?.email || destination;
+      }
+      if (!destination) {
+        return jsonResponse({ error: 'Destinatario inválido', sent: 0 }, 400);
+      }
+    } else {
+      const { data: me } = await supabase
+        .from('users')
+        .select('email')
+        .eq('id', caller.id)
+        .maybeSingle();
+      const ownEmail = (me?.email || caller.email || '').trim().toLowerCase();
+      if (!ownEmail) {
+        return jsonResponse({ error: 'Sin email en perfil', sent: 0 }, 400);
+      }
+      if (destination && destination.toLowerCase() !== ownEmail) {
+        return jsonResponse({ error: 'Solo puedes enviarte correo a tu cuenta', sent: 0 }, 403);
+      }
+      destination = ownEmail;
+      if (userId && userId !== caller.id) {
+        return jsonResponse({ error: 'No autorizado', sent: 0 }, 403);
       }
     }
 
@@ -39,7 +70,7 @@ Deno.serve(async (req) => {
       },
       body: JSON.stringify({
         from,
-        to: [to],
+        to: [destination],
         subject,
         text: body || subject,
       }),

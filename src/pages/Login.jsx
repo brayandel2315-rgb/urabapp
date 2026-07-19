@@ -29,6 +29,9 @@ import AuthEntryFeedback from '@/components/auth/AuthEntryFeedback';
 import JoinAuthPanel from '@/components/auth/JoinAuthPanel';
 import AuthLegalConsent from '@/components/legal/AuthLegalConsent';
 import { recordRequiredSignupConsents } from '@/services/legal.service';
+import { getUserAddresses } from '@/services/address.service';
+import { pickDefaultDeliveryAddress } from '@/utils/delivery-address';
+import { ROLES } from '@/utils/constants';
 import { useClientLightTheme } from '@/hooks/useClientLightTheme';
 
 function readOAuthError() {
@@ -141,11 +144,32 @@ export default function Login() {
     }
     if (profile) setProfile(profile);
     toast('¡Bienvenido!');
-    navigate(getPostAuthPath({
-      intent: activeIntent || AUTH_INTENT.CLIENT,
-      redirectPath: searchParams.get('redirect'),
+
+    const intent = activeIntent || AUTH_INTENT.CLIENT;
+    const redirectPath = searchParams.get('redirect');
+    const nextPath = getPostAuthPath({
+      intent,
+      redirectPath,
       profileRole: profile?.role,
-    }));
+    });
+
+    // Cliente nuevo / sin casa: dirección obligatoria antes de pedir
+    const isClient = !profile?.role || profile.role === ROLES.CLIENT;
+    if (recordConsent && intent === AUTH_INTENT.CLIENT && isClient) {
+      try {
+        const addresses = await getUserAddresses(session.user.id);
+        if (!pickDefaultDeliveryAddress(addresses)) {
+          const back = safeRedirectPath(redirectPath, '/');
+          navigate(`/cuenta/direcciones?setup=1&redirect=${encodeURIComponent(back)}`);
+          return;
+        }
+      } catch {
+        navigate('/cuenta/direcciones?setup=1');
+        return;
+      }
+    }
+
+    navigate(nextPath);
   };
 
   const handlePassword = async (e) => {

@@ -7,6 +7,7 @@ import OfflineBanner from '@/design-system/patterns/OfflineBanner';
 import SkipToContent from '@/design-system/patterns/SkipToContent';
 import CommunicationBanner from '@/components/communication/CommunicationBanner';
 import CartRecoveryHost from '@/components/communication/CartRecoveryHost';
+import ClientAddressGateBanner from '@/components/client/ClientAddressGateBanner';
 import ClientServicesFab from '../components/layout/ClientServicesFab';
 import AbandonedCartSync from '../hooks/useAbandonedCartSync';
 import { useNotificationsRealtime } from '../hooks/useNotificationsRealtime';
@@ -52,6 +53,7 @@ export default function ClientLayout() {
       <PwaMobileInstallBanner />
       <PwaInstallFab />
       <OfflineBanner />
+      <ClientAddressGateBanner />
       <CommunicationBanner />
       <AbandonedCartSync />
       <CartRecoveryHost />

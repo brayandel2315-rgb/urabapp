@@ -6,12 +6,13 @@ import ClientScreenHeader from '@/design-system/patterns/ClientScreenHeader';
 import PageExperienceGuard from '@/design-system/patterns/PageExperienceGuard';
 import MobileStickyCheckoutBar from '@/design-system/patterns/MobileStickyCheckoutBar';
 import ClientAuthGateCard from '@/components/client/ClientAuthGateCard';
+import ClientAddressGateExperience from '@/components/client/ClientAddressGateExperience';
+import { SurfaceCard } from '@/design-system/patterns/SurfaceCard';
 import { isRealAuthenticatedUser } from '@/utils/auth-session';
 import { STORE } from '@/utils/marketplace-copy';
 import { useCartStore } from '@/store/cartStore';
 import { useAuthStore } from '@/store/authStore';
 import { getBusinessById } from '@/services/business.service';
-import { getUserAddresses } from '@/services/address.service';
 import { getUserSubscription } from '@/services/membership.service';
 import { validateCoupon } from '@/services/coupon.service';
 import { geocodeAddress, isMapsEnabled } from '@/services/map.service';
@@ -28,6 +29,7 @@ import { isOnboardingPreview } from '@/utils/onboarding-preview';
 import { toast } from '@/utils/toast';
 import { isSupabaseConfigured } from '@/lib/supabase';
 import AppIcon from '@/design-system/icons/AppIcon';
+import { useClientAddressGate } from '@/hooks/useClientAddressGate';
 import { isValidDeliveryCoordinates } from '../utils/checkout-validation';
 import { useCheckoutForm } from '../hooks/useCheckoutForm';
 import { useCheckoutSubmit } from '../hooks/useCheckoutSubmit';
@@ -73,13 +75,17 @@ export default function CheckoutPage() {
     enabled: !!user?.id,
   });
 
-  const { data: savedAddresses = [] } = useQuery({
-    queryKey: ['addresses', user?.id],
-    queryFn: () => getUserAddresses(user.id),
-    enabled: !!user?.id,
-  });
+  const {
+    addresses: savedAddresses,
+    needsAddress,
+    hasCompleteAddress,
+    isLoading: addressesLoading,
+    isFetched: addressesFetched,
+  } = useClientAddressGate();
 
-  const form = useCheckoutForm({ savedAddresses });
+  const addressesReady = addressesFetched;
+  const homeAddressReady = hasCompleteAddress;
+  const form = useCheckoutForm({ savedAddresses, addressesReady });
 
   const subtotal = getSubtotal();
   const itemSavings = getSavings();
@@ -175,6 +181,19 @@ export default function CheckoutPage() {
 
   const handleContinue = () => {
     if (currentStep === 'delivery') {
+      if (!homeAddressReady) {
+        toast({
+          title: 'Registra tu dirección de casa',
+          description: 'Tipo, barrio, dirección y referencia son obligatorios para continuar.',
+          type: 'warning',
+          kind: 'info',
+          stage: 'Dirección',
+          href: '/cuenta/direcciones?required=1',
+          action: { label: 'Registrar', onClick: () => navigate('/cuenta/direcciones?required=1') },
+        });
+        navigate('/cuenta/direcciones?required=1');
+        return;
+      }
       const result = form.validateStep('delivery', total);
       if (!result.valid) {
         toast(Object.values(result.errors)[0] || 'Completa la entrega', 'error');
@@ -209,6 +228,19 @@ export default function CheckoutPage() {
       navigate('/');
       return;
     }
+    if (!homeAddressReady) {
+      toast({
+        title: 'Falta tu dirección de casa',
+        description: 'Sin tipo, barrio, dirección y referencia no puedes confirmar pedidos.',
+        type: 'warning',
+        kind: 'info',
+        stage: 'Dirección',
+        href: '/cuenta/direcciones?required=1',
+        action: { label: 'Registrar', onClick: () => navigate('/cuenta/direcciones?required=1') },
+      });
+      navigate('/cuenta/direcciones?required=1');
+      return;
+    }
 
     setLoading(true);
     try {
@@ -239,11 +271,17 @@ export default function CheckoutPage() {
     ? 'Procesando…'
     : !online
       ? 'Sin conexión'
+      : !homeAddressReady
+        ? 'Registrar dirección'
       : currentStep === 'review'
         ? (isDigitalPayment(form.paymentMethod) ? 'Pagar ahora' : 'Confirmar pedido')
         : 'Continuar';
 
-  const stickyAction = currentStep === 'review' ? handleConfirm : handleContinue;
+  const stickyAction = !homeAddressReady
+    ? () => navigate('/cuenta/direcciones?required=1')
+    : currentStep === 'review'
+      ? handleConfirm
+      : handleContinue;
 
   return (
     <PageLayout title={false} backTo="/carrito" maxWidth="lg" bottomPad stickyCheckout>
@@ -288,6 +326,19 @@ export default function CheckoutPage() {
 
         {isAuthed && (
         <>
+        {addressesLoading ? (
+          <SurfaceCard className="p-4 text-sm text-muted-foreground">
+            Cargando tu dirección de casa…
+          </SurfaceCard>
+        ) : null}
+
+        {addressesReady && !homeAddressReady ? (
+          <ClientAddressGateExperience
+            variant="card"
+            href="/cuenta/direcciones?required=1"
+          />
+        ) : null}
+
         <CheckoutStepper
           currentStep={currentStep}
           completedSteps={completedSteps}
@@ -305,7 +356,7 @@ export default function CheckoutPage() {
           onSubmit={currentStep === 'review' ? handleConfirm : (e) => { e.preventDefault(); handleContinue(); }}
           className="min-w-0 space-y-4"
         >
-            {currentStep === 'delivery' && (
+            {currentStep === 'delivery' && homeAddressReady && (
               <CheckoutDeliveryStep
                 user={user}
                 profile={profile}
@@ -412,7 +463,7 @@ export default function CheckoutPage() {
           <Button
             type="button"
             className="h-12 w-full rounded-[var(--radius-component)] text-base font-bold"
-            disabled={loading || !online}
+            disabled={loading || !online || addressesLoading}
             onClick={stickyAction}
           >
             {loading ? 'Procesando…' : stickyLabel}
@@ -427,9 +478,11 @@ export default function CheckoutPage() {
         actionLabel={stickyLabel}
         type="button"
         onAction={stickyAction}
-        disabled={loading || !online}
+        disabled={loading || !online || addressesLoading}
         loading={loading}
-        hint={etaMinutes != null ? `~${etaMinutes} min` : undefined}
+        hint={!homeAddressReady
+          ? 'Tipo · barrio · dirección · referencia'
+          : (etaMinutes != null ? `~${etaMinutes} min` : undefined)}
       />
       )}
       </PageExperienceGuard>

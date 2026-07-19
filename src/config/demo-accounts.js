@@ -1,4 +1,4 @@
-/** Cuentas demo internas — solo visibles con VITE_DEMO_MODE=true */
+/** Cuentas demo internas — solo en DEV local con VITE_DEMO_MODE=true */
 export const DEMO_ACCOUNTS = [
   {
     id: 'client',
@@ -27,10 +27,13 @@ export const DEMO_ACCOUNTS = [
 ];
 
 export function isDemoAccessEnabled() {
+  // Nunca en builds de producción (Vercel/Netlify)
+  if (import.meta.env.PROD || import.meta.env.MODE === 'production') return false;
   return import.meta.env.DEV && import.meta.env.VITE_DEMO_MODE === 'true';
 }
 
 export function getDemoPassword() {
+  if (!isDemoAccessEnabled()) return '';
   const pwd = import.meta.env.VITE_DEMO_PASSWORD;
   if (!pwd && import.meta.env.DEV) {
     console.warn('[demo] Define VITE_DEMO_PASSWORD en .env.local para cuentas demo');

@@ -8,6 +8,7 @@ import Input from '@/components/ui/Input';
 import FormSelect from '@/design-system/patterns/FormSelect';
 import UrabaBarrioPicker from '@/components/uraba/UrabaBarrioPicker';
 import PlacesAutocomplete from '@/components/geo/PlacesAutocomplete';
+import ClientAddressGateExperience from '@/components/client/ClientAddressGateExperience';
 import AppIcon from '@/design-system/icons/AppIcon';
 import { useAuthStore } from '@/store/authStore';
 import { useLocationStore, selectHomeMunicipio } from '@/store/locationStore';
@@ -107,13 +108,7 @@ export default function AccountAddressesPage() {
   return (
     <div className="space-y-4">
       {(setupMode || completeAddresses.length === 0) && (
-        <SurfaceCard className="border-primary/25 bg-primary/5 space-y-1 p-4">
-          <p className="text-sm font-bold text-foreground">Dirección de casa obligatoria</p>
-          <p className="text-sm text-muted-foreground">
-            Antes de pedir necesitas guardar barrio, dirección y una referencia clara.
-            Así el mensajero llega sin llamarte a cada rato.
-          </p>
-        </SurfaceCard>
+        <ClientAddressGateExperience variant="setup" showCta={false} />
       )}
 
       <SurfaceCard className="space-y-4 p-5">
@@ -173,11 +168,24 @@ export default function AccountAddressesPage() {
 
       <SurfaceCard className="space-y-4 p-5">
         <SectionTitle>
-          {completeAddresses.length === 0 ? 'Registra tu dirección de casa' : 'Nueva dirección'}
+          {completeAddresses.length === 0 ? 'Completa estos datos' : 'Nueva dirección'}
         </SectionTitle>
-        <p className="text-sm text-muted-foreground">
-          Tipo, barrio, dirección y referencia son obligatorios.
-        </p>
+        {completeAddresses.length === 0 ? (
+          <ul className="flex flex-wrap gap-1.5" aria-label="Campos obligatorios">
+            {['Tipo', 'Barrio', 'Dirección', 'Referencia'].map((label) => (
+              <li
+                key={label}
+                className="rounded-full border border-primary/15 bg-primary/5 px-2.5 py-1 text-[0.7rem] font-bold text-primary"
+              >
+                {label}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-sm text-muted-foreground">
+            Tipo, barrio, dirección y referencia son obligatorios.
+          </p>
+        )}
 
         <FormSelect
           label="Tipo *"

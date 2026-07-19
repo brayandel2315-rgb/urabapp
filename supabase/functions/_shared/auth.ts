@@ -158,14 +158,5 @@ export async function canSendWhatsAppTo(callerId: string, phone: string): Promis
     .maybeSingle();
 
   const own = user?.phone?.replace(/\D/g, '').slice(-10);
-  if (own && own === digits) return true;
-
-  const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
-  const { count } = await supabase
-    .from('orders')
-    .select('id', { count: 'exact', head: true })
-    .eq('customer_id', callerId)
-    .gte('created_at', since);
-
-  return (count ?? 0) > 0;
+  return Boolean(own && own === digits);
 }

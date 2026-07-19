@@ -24,6 +24,8 @@ import { calculateUnitPrice } from '@/utils/product-modifiers';
 import { buildModifierLineSummary } from '@/utils/product-modifiers';
 import { toast } from '@/utils/toast';
 import { useOnlineStatus } from '@/hooks/useOnlineStatus';
+import { useClientAddressGate } from '@/hooks/useClientAddressGate';
+import ClientAddressGateExperience from '@/components/client/ClientAddressGateExperience';
 
 function lineKey(item) {
   return cartLineKey(item);
@@ -66,7 +68,19 @@ export default function CartPage() {
   const etaMin = prepMinutes;
   const etaMax = prepMinutes + 15;
   const storeReady = canCheckoutWithBusiness(cartBusiness);
-  const canCheckout = !belowMin && storeReady;
+  const { needsAddress, authed } = useClientAddressGate();
+  const addressBlocked = authed && needsAddress;
+  const canCheckout = !belowMin && storeReady && !addressBlocked;
+  const checkoutHref = addressBlocked
+    ? '/cuenta/direcciones?required=1&redirect=/checkout'
+    : '/checkout';
+  const checkoutLabel = addressBlocked
+    ? 'Registrar dirección'
+    : belowMin
+      ? 'Pedido mínimo'
+      : !storeReady
+        ? 'Tienda cerrada'
+        : 'Ir a pagar';
 
   const { data: catalogProducts = [] } = useQuery({
     queryKey: ['cart-upsell-products', businessId],
@@ -149,6 +163,14 @@ export default function CartPage() {
         online={online}
         offlineDescription="Conéctate para revisar tu carrito y continuar al pago."
       >
+      {addressBlocked ? (
+        <div className="mb-3">
+          <ClientAddressGateExperience
+            variant="card"
+            href="/cuenta/direcciones?required=1&redirect=/checkout"
+          />
+        </div>
+      ) : null}
       <div className="client-page-split client-page-split--cart">
         <div className="min-w-0 space-y-3">
         {items.map((item) => (
@@ -266,15 +288,15 @@ export default function CartPage() {
             </SurfaceCard>
           )}
 
-          {canCheckout ? (
-            <Link to="/checkout">
+          {canCheckout || addressBlocked ? (
+            <Link to={checkoutHref}>
               <Button className="h-12 w-full rounded-[var(--radius-component)] py-3.5 text-base font-bold">
-                Ir a pagar
+                {checkoutLabel}
               </Button>
             </Link>
           ) : (
             <Button className="h-12 w-full rounded-[var(--radius-component)] py-3.5 text-base font-bold" disabled>
-              {belowMin ? 'Pedido mínimo' : 'Tienda cerrada'}
+              {checkoutLabel}
             </Button>
           )}
         </aside>
@@ -327,10 +349,14 @@ export default function CartPage() {
       <MobileStickyCheckoutBar
         total={subtotal + fee}
         totalLabel="Total estimado"
-        actionLabel={canCheckout ? 'Ir a pagar' : 'Pedido mínimo'}
-        href={canCheckout ? '/checkout' : undefined}
-        disabled={!canCheckout}
-        hint={belowMin ? `Faltan ${formatCOP(minimum - subtotal)}` : `${etaMin}-${etaMax} min`}
+        actionLabel={checkoutLabel}
+        href={(canCheckout || addressBlocked) ? checkoutHref : undefined}
+        disabled={!canCheckout && !addressBlocked}
+        hint={addressBlocked
+          ? 'Tipo · barrio · dirección · referencia'
+          : belowMin
+            ? `Faltan ${formatCOP(minimum - subtotal)}`
+            : `${etaMin}-${etaMax} min`}
       />
 
       <ProductCustomizerModal
