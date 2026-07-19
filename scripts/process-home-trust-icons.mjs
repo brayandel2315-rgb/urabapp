@@ -18,7 +18,7 @@ const jobs = [
   },
   {
     key: 'tiendas-abiertas',
-    file: 'c__Users_braya_AppData_Roaming_Cursor_User_workspaceStorage_empty-window_images_image-8b27cf33-fbb4-46fa-a3c2-9fccb7fa043b.png',
+    file: 'c__Users_braya_AppData_Roaming_Cursor_User_workspaceStorage_empty-window_images_image-6ab3ea1f-76bc-4352-85a3-189742e7fd26.png',
   },
   {
     key: 'pago-seguro',
