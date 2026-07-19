@@ -61,11 +61,7 @@ export default function HomeDesktopView({
 
       <div className="home-desktop__body">
         <div className="home-desktop__section">
-          <HomeLiveTrustStrip
-            openCount={openNow}
-            avgDeliveryMin={pulse?.avgDeliveryMin}
-            activeOrders={liveActiveOrders}
-          />
+          <HomeLiveTrustStrip />
         </div>
 
         {user && (

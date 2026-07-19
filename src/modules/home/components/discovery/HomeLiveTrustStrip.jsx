@@ -1,56 +1,51 @@
-import AppIcon from '@/design-system/icons/AppIcon';
 import { cn } from '@/lib/utils';
+import entregaEstimadaIcon from '@/assets/home/entrega-estimada-icon.png';
+import tiendasAbiertasIcon from '@/assets/home/tiendas-abiertas-icon.png';
+import pagoSeguroIcon from '@/assets/home/pago-seguro-icon.png';
+import soporte247Icon from '@/assets/home/soporte-24-7-icon.png';
 
 /**
- * Trust / benefit cards — estilo mockup premium (Grab / Uber Eats).
+ * Trust strip — cada tarjeta es el sticker completo (ilustración + texto incluido).
  */
-export default function HomeLiveTrustStrip({
-  openCount = 0,
-  avgDeliveryMin,
-  className,
-}) {
-  const eta = avgDeliveryMin ? `~${avgDeliveryMin} min` : '~25 min';
-  const stores = openCount > 0 ? `${openCount}+` : '18+';
-
+export default function HomeLiveTrustStrip({ className }) {
   const items = [
     {
       id: 'eta',
-      icon: 'pending',
-      value: eta,
-      label: 'Entrega estimada',
+      image: entregaEstimadaIcon,
+      label: 'Entrega estimada ~25 min',
     },
     {
       id: 'open',
-      icon: 'store',
-      value: stores,
-      label: 'Tiendas abiertas',
+      image: tiendasAbiertasIcon,
+      label: '18+ tiendas abiertas',
     },
     {
       id: 'safe',
-      icon: 'verified',
-      value: 'Pago seguro',
-      label: 'Protegido',
+      image: pagoSeguroIcon,
+      label: 'Pago seguro protegido',
     },
     {
       id: 'support',
-      icon: 'headset',
-      value: 'Soporte 24/7',
-      label: 'Siempre online',
+      image: soporte247Icon,
+      label: 'Soporte 24/7 siempre online',
     },
   ];
 
   return (
     <div className={cn('home-live-trust', className)} aria-label="Beneficios Urabapp">
       {items.map((item) => (
-        <div key={item.id} className="home-live-trust__pill">
-          <span className="home-live-trust__icon" aria-hidden>
-            <AppIcon name={item.icon} size={18} className="text-[#1E6F43]" />
-          </span>
-          <div className="home-live-trust__copy">
-            <p className="home-live-trust__value">{item.value}</p>
-            <p className="home-live-trust__label">{item.label}</p>
-          </div>
-        </div>
+        <figure key={item.id} className="home-live-trust__pill">
+          <img
+            src={item.image}
+            alt={item.label}
+            width={256}
+            height={256}
+            className="home-live-trust__img"
+            loading="lazy"
+            decoding="async"
+            draggable={false}
+          />
+        </figure>
       ))}
     </div>
   );

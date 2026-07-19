@@ -137,11 +137,7 @@ export default function HomeMvpPage() {
             activeOrders={liveActiveOrders}
           />
 
-          <HomeLiveTrustStrip
-            openCount={openNow}
-            avgDeliveryMin={pulse?.avgDeliveryMin}
-            activeOrders={liveActiveOrders}
-          />
+          <HomeLiveTrustStrip />
 
           {user && <ClientActiveOrderBanner />}
 
