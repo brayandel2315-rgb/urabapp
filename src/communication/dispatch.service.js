@@ -57,12 +57,21 @@ export async function dispatchCommunication({ key, recipientId, actorId, payload
   const title = payload.title || resolved.title || key;
   const body = payload.body || resolved.body || '';
   const deepLink = resolveDeepLink(key, payload);
+  const imageUrl = payload.imageUrl
+    || payload.image_url
+    || payload.image
+    || payload.logoUrl
+    || payload.logo_url
+    || payload.businessLogo
+    || payload.business_logo
+    || null;
 
   const enrichedPayload = {
     ...payload,
     event_key: key,
     deep_link: deepLink,
     actor_id: actorId,
+    ...(imageUrl ? { imageUrl, image_url: imageUrl } : {}),
   };
 
   const prefs = recipientId
@@ -142,6 +151,7 @@ export async function dispatchCommunication({ key, recipientId, actorId, payload
         userId: recipientId,
         title,
         body,
+        imageUrl,
         data: { url: deepLink, event_key: key, ...enrichedPayload },
         priority,
       }),
@@ -227,12 +237,35 @@ export async function dispatchCommunication({ key, recipientId, actorId, payload
   }
 
   if (channels.includes(COMM_CHANNELS.BANNER)) {
-    const sent = await deliverBanner({ title, body, deepLink, priority });
+    const sent = await deliverBanner({
+      title,
+      body,
+      deepLink,
+      priority,
+      imageUrl,
+      kind: key === 'cart_recovery' ? 'cart' : undefined,
+      stage: payload.stage || payload.milestone || payload.eventType || null,
+      ctaLabel: payload.ctaLabel || null,
+      eventKey: key,
+      category,
+      ...enrichedPayload,
+    });
     if (sent) delivered.push(COMM_CHANNELS.BANNER);
   }
 
   if (channels.includes(COMM_CHANNELS.SNACKBAR)) {
-    const sent = await deliverSnackbar({ title, body, priority });
+    const sent = await deliverSnackbar({
+      title,
+      body,
+      priority,
+      imageUrl,
+      kind: key === 'cart_recovery' ? 'cart' : undefined,
+      stage: payload.stage || payload.milestone || payload.eventType || null,
+      deepLink,
+      eventKey: key,
+      category,
+      ...enrichedPayload,
+    });
     if (sent) delivered.push(COMM_CHANNELS.SNACKBAR);
   }
 

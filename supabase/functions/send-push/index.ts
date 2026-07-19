@@ -2,7 +2,6 @@ import { corsHeaders, jsonResponse } from '../_shared/cors.ts';
 import { getServiceClient } from '../_shared/supabase.ts';
 import { requireAuthUser, canSendPushTo } from '../_shared/auth.ts';
 
-// Minimal Web Push send via fetch (VAPID auth handled by web-push npm)
 import webpush from 'npm:web-push@3.6.7';
 
 Deno.serve(async (req) => {
@@ -25,7 +24,17 @@ Deno.serve(async (req) => {
 
     webpush.setVapidDetails(subject, publicKey, privateKey);
 
-    const { userId, title, body, data } = await req.json();
+    const bodyJson = await req.json();
+    const {
+      userId,
+      title,
+      body,
+      data,
+      image,
+      icon,
+      tag,
+    } = bodyJson;
+
     if (!userId || !title) {
       return jsonResponse({ error: 'userId y title requeridos' }, 400);
     }
@@ -45,11 +54,35 @@ Deno.serve(async (req) => {
       return jsonResponse({ sent: 0, reason: 'no_subscriptions' });
     }
 
+    const orderId = data?.order_id || data?.orderId;
+    const resolvedUrl = data?.url
+      || data?.deep_link
+      || data?.deepLink
+      || (orderId ? `/pedidos/${orderId}` : '/pedidos');
+    const resolvedImage = image
+      || data?.image
+      || data?.imageUrl
+      || data?.image_url
+      || null;
+    const resolvedIcon = icon || resolvedImage || '/app-icon.png';
+    const resolvedTag = tag || (orderId ? `order-${orderId}` : (data?.event_key || 'urabapp'));
+
     const payload = JSON.stringify({
       title,
       body: body || '',
-      data: data || {},
-      url: data?.url || (data?.order_id ? `/pedidos/${data.order_id}` : '/pedidos'),
+      icon: resolvedIcon,
+      image: resolvedImage,
+      tag: resolvedTag,
+      data: {
+        ...(data || {}),
+        url: resolvedUrl,
+        image: resolvedImage,
+      },
+      url: resolvedUrl,
+      actions: [
+        { action: 'open', title: 'Ver pedido' },
+        { action: 'dismiss', title: 'Cerrar' },
+      ],
     });
 
     let sent = 0;

@@ -1,69 +1,96 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AppIcon from '@/design-system/icons/AppIcon';
 import { useCommunicationBannerStore } from '@/store/communicationBannerStore';
 import { normalizeAppPath } from '@/utils/navigation';
 import { cn } from '@/lib/utils';
+import {
+  resolveNotifKind,
+  notifChipLabel,
+  notifAccentClass,
+  notifFallbackIcon,
+} from '@/communication/notification-visuals';
 
 export default function CommunicationBanner() {
-  const { visible, title, body, deepLink, dismiss } = useCommunicationBannerStore();
+  const navigate = useNavigate();
+  const {
+    visible,
+    title,
+    body,
+    deepLink,
+    imageUrl,
+    kind: kindProp,
+    stage,
+    ctaLabel,
+    dismiss,
+  } = useCommunicationBannerStore();
 
   if (!visible || !title) return null;
 
   const href = normalizeAppPath(deepLink) || '/';
-  const isCart = typeof deepLink === 'string'
-    && (deepLink.includes('/carrito') || deepLink.includes('/tienda/'));
+  const kind = resolveNotifKind({
+    kind: kindProp,
+    eventKey: kindProp === 'cart' ? 'cart_recovery' : undefined,
+    stage,
+  });
+  const chip = notifChipLabel(kind, { stage });
+  const iconName = notifFallbackIcon(kind);
+  const actionLabel = ctaLabel
+    || (kind === 'cart' ? 'Completar pedido' : 'Ver más');
+
+  const open = () => {
+    dismiss();
+    navigate(href);
+  };
 
   return (
     <div
       className={cn(
-        'relative z-40 border-b px-4 py-3',
-        isCart
-          ? 'border-primary/30 bg-primary text-primary-foreground'
-          : 'border-primary/20 bg-primary/10',
+        'urabapp-notif urabapp-notif--banner relative z-40',
+        notifAccentClass(kind),
       )}
+      role="region"
+      aria-label={title}
     >
-      <div className="mx-auto flex max-w-3xl items-start gap-3">
-        <AppIcon
-          name="cart"
-          size="sm"
-          className={cn('mt-0.5 shrink-0', isCart ? 'text-white' : 'text-primary')}
-        />
-        <div className="min-w-0 flex-1">
-          <p className={cn('text-sm font-bold', isCart ? 'text-white' : 'text-foreground')}>
-            {title}
-          </p>
-          {body && (
-            <p className={cn('text-xs', isCart ? 'text-white/90' : 'text-muted-foreground')}>
-              {body}
-            </p>
+      <button
+        type="button"
+        className="urabapp-notif__banner-hit"
+        onClick={open}
+        aria-label={`${title}. ${actionLabel}`}
+      >
+        <span className="urabapp-notif__media" aria-hidden>
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              alt=""
+              className="urabapp-notif__img"
+              width={52}
+              height={52}
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <span className="urabapp-notif__icon-fallback">
+              <AppIcon name={iconName} size={20} />
+            </span>
           )}
-          {deepLink && (
-            <Link
-              to={href}
-              onClick={dismiss}
-              className={cn(
-                'mt-2 inline-flex min-h-9 items-center rounded-xl px-3 text-xs font-bold',
-                isCart
-                  ? 'bg-white text-primary'
-                  : 'bg-primary text-primary-foreground',
-              )}
-            >
-              {isCart ? 'Completar pedido →' : 'Ver más →'}
-            </Link>
-          )}
-        </div>
-        <button
-          type="button"
-          aria-label="Cerrar aviso"
-          onClick={dismiss}
-          className={cn(
-            'rounded-lg p-1',
-            isCart ? 'text-white/80 hover:bg-white/15' : 'text-muted-foreground hover:bg-muted',
-          )}
-        >
-          <AppIcon name="close" size="xs" />
-        </button>
-      </div>
+        </span>
+
+        <span className="urabapp-notif__body">
+          <span className="urabapp-notif__chip">{chip}</span>
+          <span className="urabapp-notif__title">{title}</span>
+          {body ? <span className="urabapp-notif__desc">{body}</span> : null}
+          <span className="urabapp-notif__cta">{actionLabel} →</span>
+        </span>
+      </button>
+
+      <button
+        type="button"
+        aria-label="Cerrar aviso"
+        onClick={dismiss}
+        className="urabapp-notif__close"
+      >
+        <AppIcon name="close" size="xs" />
+      </button>
     </div>
   );
 }

@@ -1,10 +1,12 @@
 import { createElement } from 'react';
 import { toast as sonnerToast } from 'sonner';
 import { UrabappToast } from '@/design-system/patterns/UrabappToast';
+import { resolveNotifImage, resolveNotifHref } from '@/communication/notification-visuals';
 
-const DEFAULT_DURATION = 4_500;
-const ERROR_DURATION = 6_500;
-const TRUST_DURATION = 5_500;
+const DEFAULT_DURATION = 5_000;
+const ERROR_DURATION = 7_000;
+const TRUST_DURATION = 6_000;
+const ORDER_DURATION = 7_500;
 
 function splitLegacyMessage(message) {
   if (!message || typeof message !== 'string') {
@@ -29,8 +31,25 @@ function showRich({
   action = null,
   duration,
   id,
+  image = null,
+  href = null,
+  kind = null,
+  stage = null,
+  category = null,
+  eventKey = null,
+  eventType = null,
+  ...rest
 }) {
-  const ms = duration ?? (type === 'error' ? ERROR_DURATION : type === 'trust' ? TRUST_DURATION : DEFAULT_DURATION);
+  const imageUrl = image || resolveNotifImage(rest) || null;
+  const link = href || resolveNotifHref(rest) || null;
+  const ms = duration
+    ?? (type === 'error'
+      ? ERROR_DURATION
+      : type === 'trust' || kind === 'order' || kind === 'tracking' || kind === 'cart'
+        ? ORDER_DURATION
+        : type === 'trust'
+          ? TRUST_DURATION
+          : DEFAULT_DURATION);
 
   return sonnerToast.custom(
     (toastId) => createElement(UrabappToast, {
@@ -40,6 +59,13 @@ function showRich({
       type,
       trust,
       action,
+      image: imageUrl,
+      href: link,
+      kind,
+      stage,
+      category,
+      eventKey,
+      eventType,
     }),
     { duration: ms, id },
   );
@@ -55,6 +81,13 @@ function fromLegacy(message, type = 'info', options = {}) {
     action: options.action,
     duration: options.duration,
     id: options.id,
+    image: options.image,
+    href: options.href,
+    kind: options.kind,
+    stage: options.stage,
+    category: options.category,
+    eventKey: options.eventKey,
+    eventType: options.eventType,
   });
 }
 
@@ -67,11 +100,11 @@ export function toast(messageOrOptions, type = 'info', options = {}) {
 
 toast.show = showRich;
 
-toast.success = (message, options = {}) => fromLegacy(message, 'success', options);
-toast.error = (message, options = {}) => fromLegacy(message, 'error', options);
+toast.success = (message, options = {}) => fromLegacy(message, 'success', { ...options, kind: options.kind || 'success' });
+toast.error = (message, options = {}) => fromLegacy(message, 'error', { ...options, kind: options.kind || 'error' });
 toast.info = (message, options = {}) => fromLegacy(message, 'info', options);
-toast.warning = (message, options = {}) => fromLegacy(message, 'warning', options);
-toast.trust = (message, options = {}) => fromLegacy(message, 'trust', { ...options, type: 'trust' });
+toast.warning = (message, options = {}) => fromLegacy(message, 'warning', { ...options, kind: options.kind || 'warning' });
+toast.trust = (message, options = {}) => fromLegacy(message, 'trust', { ...options, type: 'trust', kind: options.kind || 'order' });
 
 toast.location = ({
   approximate = false,
@@ -85,11 +118,25 @@ toast.location = ({
     : 'Señal GPS precisa. Tu pedido llegará al punto que marques en el mapa.'),
   type: approximate ? 'warning' : 'trust',
   trust: approximate ? 'GPS activo' : 'Ubicación verificada',
+  kind: approximate ? 'warning' : 'info',
   ...rest,
 });
 
 toast.order = (message, options = {}) => fromLegacy(message, 'trust', {
-  trust: 'Pedido seguro',
+  trust: options.trust || 'Pedido Urabapp',
+  kind: options.kind || 'order',
+  ...options,
+});
+
+toast.cart = (message, options = {}) => fromLegacy(message, 'info', {
+  trust: options.trust || 'Carrito',
+  kind: 'cart',
+  ...options,
+});
+
+toast.tracking = (message, options = {}) => fromLegacy(message, 'trust', {
+  trust: options.trust || 'Seguimiento',
+  kind: 'tracking',
   ...options,
 });
 

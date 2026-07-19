@@ -1,3 +1,9 @@
+/**
+ * Centro de Comunicación Urabapp.
+ *
+ * Contratos listos para fase nativa (Capacitor / Live Activity / notch):
+ * imageUrl, stage, kind, deepLink, orderId — ver notification-visuals.js
+ */
 export { emitCommEvent, onCommEvent, onAnyCommEvent, registerCommMiddleware } from './event-bus';
 export { EVENT_LIBRARY, getEventDef, listEventKeys, resolveDeepLink } from './event-library';
 export { COMM_CATEGORIES, COMM_CATEGORY_LABELS, COMM_CATEGORY_ICONS } from './categories';

@@ -3,7 +3,7 @@ export const BRAND = {
   tagline: 'Todo Urabá, a un toque.',
   shortTagline: 'Todo Urabá, a un toque.',
   homeHeroTagline: 'Todo Urabá, a un toque.',
-  homeHeroLead: 'Comida, mercados, envíos y más. Entregado localmente.',
+  homeHeroLead: 'Comida, tiendas y envíos del barrio, a tu puerta.',
   motto: 'Más que envíos, creamos conexiones.',
 };
 

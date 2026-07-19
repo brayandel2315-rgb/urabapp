@@ -1,13 +1,13 @@
 import { Toaster } from 'sonner';
 
-/** Contenedor Sonner — el contenido visual vive en UrabappToast */
+/** Contenedor Sonner — respeta safe-area (notch / status bar). */
 export default function UrabappToaster() {
   return (
     <Toaster
       position="top-center"
-      offset={16}
+      offset="calc(0.75rem + env(safe-area-inset-top, 0px))"
       gap={10}
-      visibleToasts={4}
+      visibleToasts={3}
       expand
       closeButton={false}
       toastOptions={{

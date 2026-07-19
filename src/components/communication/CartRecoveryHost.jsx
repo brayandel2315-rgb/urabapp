@@ -63,11 +63,20 @@ export default function CartRecoveryHost() {
       const store = abandoned.business_name || 'tu tienda';
       const total = formatCOP(abandoned.subtotal || 0);
       const url = abandoned.business_id ? `/tienda/${abandoned.business_id}` : '/carrito';
+      const items = Array.isArray(abandoned.items_json) ? abandoned.items_json : [];
+      const imageUrl = items.find((i) => i?.image_url || i?.imageUrl || i?.image)?.image_url
+        || items.find((i) => i?.image_url || i?.imageUrl || i?.image)?.imageUrl
+        || items.find((i) => i?.image)?.image
+        || null;
 
       showBanner({
         title: stage === 'urgent' ? 'Tu pedido está a un toque' : `¿Seguimos con ${store}?`,
         body: `Tienes ${total} listos para pedir. Completa ahora y te llega a domicilio.`,
         deepLink: url,
+        kind: 'cart',
+        stage,
+        imageUrl,
+        ctaLabel: 'Completar pedido',
       });
 
       await recoverAbandonedCartInApp(abandoned, { stage }).catch(() => {});

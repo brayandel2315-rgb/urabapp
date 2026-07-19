@@ -102,6 +102,12 @@ export async function recoverAbandonedCartInApp(cart, { stage = 'nudge' } = {}) 
       stage,
       url: storePath,
       ctaLabel: 'Completar pedido',
+      imageUrl: (() => {
+        const items = Array.isArray(cart.items_json) ? cart.items_json : [];
+        const hit = items.find((i) => i?.image_url || i?.imageUrl || i?.image);
+        return hit?.image_url || hit?.imageUrl || hit?.image || null;
+      })(),
+      items: Array.isArray(cart.items_json) ? cart.items_json.slice(0, 3) : [],
     },
   });
 

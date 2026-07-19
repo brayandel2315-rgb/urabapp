@@ -3,6 +3,11 @@ import { useQueryClient } from '@tanstack/react-query';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { toast } from '../utils/toast';
 import { attachRealtimeStatus } from './realtimeSubscribe';
+import { notificationDeepLink } from '@/communication/inbox.service';
+import {
+  resolveNotifImage,
+  resolveNotifKind,
+} from '@/communication/notification-visuals';
 
 export function useNotificationsRealtime(userId) {
   const queryClient = useQueryClient();
@@ -30,16 +35,40 @@ export function useNotificationsRealtime(userId) {
           (payload) => {
             invalidate();
             const row = payload.new;
-            if (row?.title) {
-              const isOrder = /pedido|entrega|repartidor|envío|envio/i.test(row.title + (row.body || ''));
-              if (isOrder) {
-                toast.trust(row.title, {
-                  description: row.body || undefined,
-                  trust: 'Notificación Urabapp',
-                });
-              } else {
-                toast.info(row.title, { description: row.body || undefined });
-              }
+            if (!row?.title) return;
+
+            const kind = resolveNotifKind({
+              type: row.type,
+              category: row.category,
+              eventKey: row.data?.event_key,
+              stage: row.data?.stage || row.data?.milestone || row.data?.eventType,
+            });
+            const href = notificationDeepLink(row);
+            const image = resolveNotifImage(row);
+
+            const base = {
+              title: row.title,
+              description: row.body || undefined,
+              image,
+              href,
+              kind,
+              category: row.category,
+              eventKey: row.data?.event_key,
+              stage: row.data?.stage || row.data?.milestone || row.data?.eventType,
+              eventType: row.data?.eventType,
+              id: `notif-${row.id}`,
+            };
+
+            if (kind === 'cart') {
+              toast.cart(row.title, base);
+            } else if (kind === 'tracking') {
+              toast.tracking(row.title, base);
+            } else if (kind === 'order' || kind === 'shipment') {
+              toast.order(row.title, base);
+            } else if (row.priority === 'critical' || row.priority === 'high') {
+              toast.warning(row.title, base);
+            } else {
+              toast.info(row.title, base);
             }
           },
         )
