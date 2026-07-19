@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef, useCallback } from 'react';
+import { useMemo, useState, useRef, useCallback, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from '../../../utils/toast';
@@ -18,7 +18,11 @@ import { isDishLikeProduct } from '@/utils/product-modifiers';
 import { buildBusinessUrl, copyToClipboard } from '../../../utils/app';
 import { openWhatsApp, buildBusinessWhatsAppMessage } from '../../../utils/whatsapp';
 import { isBusinessOpenNow, isBusinessStoreLive, getBusinessEtaMinutes, formatBusinessHours } from '../../../utils/schedule';
-import { resolveBusinessCover } from '../../../utils/catalog-images';
+import {
+  resolveBusinessCover,
+  resolveBusinessLogo,
+  getBusinessVisualKey,
+} from '../../../utils/catalog-images';
 import { getBusinessCoverageForUser, isBusinessOrderableInCatalog } from '../../../utils/business-coverage';
 import { useCatalogLocation } from '../../../hooks/useCatalogLocation';
 import { useOnlineStatus } from '../../../hooks/useOnlineStatus';
@@ -27,15 +31,24 @@ import AppIcon from '@/design-system/icons/AppIcon';
 import { formatBusinessPromoText } from '../../../utils/promo';
 import BusinessStoreAlerts from '../components/BusinessStoreAlerts';
 import BusinessStoreMeta from '../components/BusinessStoreMeta';
+import BusinessStoreProfile from '../components/BusinessStoreProfile';
 import BusinessProductCard from '../components/BusinessProductCard';
+import PreviewStoreBanner from '../components/PreviewStoreBanner';
+import StoreMenuNav from '../components/StoreMenuNav';
+import StoreTrustFooter from '../components/StoreTrustFooter';
 import CartStoreSwitchModal from '@/components/cart/CartStoreSwitchModal';
 import MobileStickyCheckoutBar from '@/design-system/patterns/MobileStickyCheckoutBar';
 import { useAuthStore } from '../../../store/authStore';
 import { isBusinessFavorited, toggleFavoriteBusiness } from '../../../services/favorites.service';
 import { emitCommEvent } from '@/communication';
 import { iconForCategory } from '@/design-system/icons/icon-map';
+import { isOnboardingPreview } from '@/utils/onboarding-preview';
 import { cn } from '@/lib/utils';
 import { STORE } from '@/utils/marketplace-copy';
+
+function sectionDomId(label) {
+  return `store-menu-${String(label).toLowerCase().replace(/[^a-z0-9áéíóúñü]+/gi, '-').replace(/^-|-$/g, '')}`;
+}
 
 export default function BusinessPage() {
   const { id } = useParams();
@@ -45,7 +58,7 @@ export default function BusinessPage() {
   const itemCount = useCartStore((s) => s.getItemCount());
   const cartSubtotal = useCartStore((s) => s.getSubtotal());
   const { catalog } = useCatalogLocation();
-  const [activeSection, setActiveSection] = useState(0);
+  const [activeCategoryId, setActiveCategoryId] = useState('todos');
   const [customizerOpen, setCustomizerOpen] = useState(false);
   const [customizerProduct, setCustomizerProduct] = useState(null);
   const [customizerGroups, setCustomizerGroups] = useState([]);
@@ -119,6 +132,11 @@ export default function BusinessPage() {
       .slice(0, 4);
   }, [products]);
 
+  const dealProducts = useMemo(
+    () => products.filter((p) => Number(p.compare_at_price) > Number(p.price)).slice(0, 6),
+    [products],
+  );
+
   const openNow = business ? isBusinessOpenNow(business) : false;
   const storeLive = business ? isBusinessStoreLive(business) : false;
   const coverage = business ? getBusinessCoverageForUser(business, catalog.viewMunicipio) : null;
@@ -127,19 +145,73 @@ export default function BusinessPage() {
   const storeActive = storeLive && openNow;
   const etaMinutes = business ? getBusinessEtaMinutes(business) : 25;
   const cover = business ? resolveBusinessCover(business) : null;
+  const logo = business ? resolveBusinessLogo(business) : null;
+  const visualKey = business ? getBusinessVisualKey(business) : 'comida';
+  const isPreview = business ? isOnboardingPreview(business) : false;
   const promoText = business ? formatBusinessPromoText(business) : null;
   const storeIcon = business ? iconForCategory(business.category) : 'store';
   const distanceLabel = business
     ? formatDistanceKm(business.distance_km ?? business.distanceKm) || 'Cerca de ti'
     : null;
-  const activeItems = menuSections[activeSection]?.[1] ?? products;
-  const sectionTitle = menuSections[activeSection]?.[0] || 'Catálogo';
+  const menuNavSections = useMemo(() => {
+    const cats = menuSections.map(([label, items]) => ({
+      id: sectionDomId(label),
+      label,
+      count: items.length,
+    }));
+    return [
+      { id: 'todos', label: 'Todos', count: products.length },
+      ...cats,
+    ];
+  }, [menuSections, products.length]);
+
   const deliveryLabel = Number(business?.delivery_fee) > 0
     ? formatCOP(business.delivery_fee)
     : 'gratis';
   const minOrderLabel = Number(business?.min_order) > 0
     ? ` · Mín. ${formatCOP(business.min_order)}`
     : '';
+
+  useEffect(() => {
+    setActiveCategoryId('todos');
+  }, [business?.id]);
+
+  useEffect(() => {
+    if (!menuSections.length) return undefined;
+    const sectionIds = menuSections.map(([label]) => sectionDomId(label));
+    const nodes = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+    if (!nodes.length) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]?.target?.id) {
+          setActiveCategoryId(visible[0].target.id);
+        }
+      },
+      { rootMargin: '-20% 0px -55% 0px', threshold: [0.15, 0.35, 0.6] },
+    );
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, [menuSections, products.length]);
+
+  const handleSelectCategory = useCallback((id) => {
+    setActiveCategoryId(id);
+    if (id === 'todos') {
+      const first = menuSections[0]?.[0];
+      if (first) {
+        document.getElementById(sectionDomId(first))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      return;
+    }
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [menuSections]);
 
   const flashAdded = (productId) => {
     setJustAddedId(productId);
@@ -240,7 +312,14 @@ export default function BusinessPage() {
   }
 
   return (
-    <PageLayout title={false} backTo="/" maxWidth="store" contentClassName="!px-0">
+    <PageLayout
+      title={false}
+      backTo="/"
+      maxWidth="store"
+      contentClassName="!px-0"
+      bottomPad
+      stickyCheckout={itemCount > 0}
+    >
       <PageExperienceGuard
         online={online}
         isLoading={isLoading}
@@ -261,6 +340,8 @@ export default function BusinessPage() {
               <CatalogImage
                 src={cover}
                 emoji={storeIcon}
+                categoryFallback={business.category}
+                visualKey={visualKey}
                 alt={business.name}
                 rounded="none"
                 size="3xl"
@@ -306,20 +387,46 @@ export default function BusinessPage() {
                 </div>
               </div>
               <div className="on-media absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/50 to-transparent p-4 pb-5 sm:p-5">
-                <h1 className="font-display text-2xl font-black leading-tight text-white sm:text-3xl">
-                  {business.name}
-                </h1>
-                <p className="mt-1 text-sm font-medium text-white/90">
-                  {business.municipio}
-                  {business.zone ? ` · ${business.zone}` : ''}
-                  {openNow ? ' · Abierto' : ' · Cerrado'}
-                  {' · '}
-                  ~{etaMinutes} min
-                </p>
+                <div className="flex items-end gap-3">
+                  {logo ? (
+                    <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border-2 border-white/90 bg-white shadow-md sm:h-[4.5rem] sm:w-[4.5rem]">
+                      <CatalogImage
+                        src={logo}
+                        emoji={storeIcon}
+                        categoryFallback={business.category}
+                        visualKey={visualKey}
+                        alt={`Logo ${business.name}`}
+                        rounded="none"
+                        size="lg"
+                        imgClassName="h-full w-full object-contain p-1"
+                      />
+                    </div>
+                  ) : null}
+                  <div className="min-w-0 flex-1">
+                    {isPreview ? (
+                      <span className="mb-1.5 inline-flex items-center gap-1 rounded-full bg-white/20 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white backdrop-blur-sm">
+                        <AppIcon name="verified" size={11} aria-hidden />
+                        Preview
+                      </span>
+                    ) : null}
+                    <h1 className="font-display text-2xl font-bold leading-tight text-white sm:text-3xl">
+                      {business.name.replace(/\s*·\s*Preview UrabApp\s*$/i, '')}
+                    </h1>
+                    <p className="mt-1 text-sm font-medium text-white/90">
+                      {business.municipio}
+                      {business.zone ? ` · ${business.zone}` : ''}
+                      {openNow ? ' · Abierto' : ' · Cerrado'}
+                      {' · '}
+                      ~{etaMinutes} min
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="store-page-content w-full space-y-4 px-4 pb-28 pt-3 sm:px-5 lg:px-8 lg:pb-4">
+            <div className="store-page-content urab-page-stack w-full space-y-4 px-4 pb-8 pt-3 sm:px-5 lg:px-8 lg:pb-4">
+              {isPreview ? <PreviewStoreBanner /> : null}
+
               <BusinessStoreAlerts
                 business={business}
                 catalog={catalog}
@@ -330,7 +437,7 @@ export default function BusinessPage() {
               />
 
               <div className="client-page-split client-page-split--store">
-              <div className={cn('min-w-0 space-y-4', !storeActive && 'store-page-dimmed')}>
+              <div className={cn('min-w-0 space-y-5', !storeActive && 'store-page-dimmed')}>
                 <BusinessStoreMeta
                   business={business}
                   ratingSummary={ratingSummary}
@@ -344,6 +451,8 @@ export default function BusinessPage() {
                   storeActive={storeActive}
                 />
 
+                <BusinessStoreProfile business={business} />
+
                 {!storeActive && business.opens_at && business.closes_at && (
                   <p className="text-xs text-muted-foreground">
                     Horario: {formatBusinessHours(business)}
@@ -352,10 +461,10 @@ export default function BusinessPage() {
 
                 {popularProducts.length > 0 && (
                   <section className="space-y-3" aria-labelledby="store-popular-title">
-                    <h2 id="store-popular-title" className="font-display text-lg font-bold text-foreground">
+                    <h2 id="store-popular-title" className="urab-section-title">
                       Populares
                     </h2>
-                    <div className="space-y-3 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0">
+                    <div className="space-y-3">
                       {popularProducts.map((p) => (
                         <BusinessProductCard
                           key={`popular-${p.id}`}
@@ -366,6 +475,8 @@ export default function BusinessPage() {
                           storeInactive={!storeActive}
                           justAdded={justAddedId === p.id}
                           featured
+                          featuredLabel="Popular"
+                          layout="list"
                           onAdd={() => handleAdd(p)}
                         />
                       ))}
@@ -373,31 +484,40 @@ export default function BusinessPage() {
                   </section>
                 )}
 
-                {menuSections.length > 1 && (
-                  <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 hide-scrollbar" role="tablist" aria-label="Secciones del menú">
-                    {menuSections.map(([section], index) => (
-                      <button
-                        key={section}
-                        type="button"
-                        role="tab"
-                        aria-selected={index === activeSection}
-                        onClick={() => setActiveSection(index)}
-                        className={cn(
-                          'shrink-0 rounded-full px-3.5 py-1.5 text-sm font-semibold transition-colors',
-                          index === activeSection
-                            ? storeActive
-                              ? 'bg-primary text-primary-foreground shadow-soft'
-                              : 'bg-muted-foreground text-card'
-                            : 'border border-border bg-card text-muted-foreground hover:border-primary/35',
-                        )}
-                      >
-                        {section}
-                      </button>
-                    ))}
-                  </div>
+                {dealProducts.length > 0 && (
+                  <section className="space-y-3" aria-labelledby="store-offers-title">
+                    <h2 id="store-offers-title" className="urab-section-title">
+                      Ofertas
+                    </h2>
+                    <div className="space-y-3">
+                      {dealProducts.map((p) => (
+                        <BusinessProductCard
+                          key={`deal-${p.id}`}
+                          product={p}
+                          business={business}
+                          coverFallback={cover}
+                          canPurchase={canPurchase}
+                          storeInactive={!storeActive}
+                          justAdded={justAddedId === p.id}
+                          featured
+                          featuredLabel="Oferta"
+                          layout="list"
+                          onAdd={() => handleAdd(p)}
+                        />
+                      ))}
+                    </div>
+                  </section>
                 )}
 
-              <section className="space-y-3">
+                {products.length > 0 ? (
+                  <StoreMenuNav
+                    sections={menuNavSections}
+                    activeId={activeCategoryId}
+                    onSelect={handleSelectCategory}
+                    storeActive={storeActive}
+                  />
+                ) : null}
+
                 {products.length === 0 ? (
                   <SurfaceCard className="border-dashed py-10 text-center">
                     <AppIcon name={storeIcon} size="2xl" className="mx-auto text-muted-foreground" />
@@ -407,27 +527,79 @@ export default function BusinessPage() {
                     </p>
                   </SurfaceCard>
                 ) : (
-                  <>
-                    <h2 className="font-display text-lg font-bold text-foreground">
-                      {sectionTitle}
-                    </h2>
-                    <div className="space-y-3 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0 xl:grid-cols-2">
-                      {activeItems.map((p) => (
-                        <BusinessProductCard
-                          key={p.id}
-                          product={p}
-                          business={business}
-                          coverFallback={cover}
-                          canPurchase={canPurchase}
-                          storeInactive={!storeActive}
-                          justAdded={justAddedId === p.id}
-                          onAdd={() => handleAdd(p)}
-                        />
-                      ))}
-                    </div>
-                  </>
+                  menuSections.map(([sectionLabel, sectionItems]) => {
+                    const sid = sectionDomId(sectionLabel);
+                    return (
+                      <section
+                        key={sid}
+                        id={sid}
+                        className="store-menu-section space-y-3 scroll-mt-16"
+                        aria-labelledby={`${sid}-title`}
+                      >
+                        <div className="flex items-baseline justify-between gap-2">
+                          <h2 id={`${sid}-title`} className="urab-section-title">
+                            {sectionLabel}
+                          </h2>
+                          <span className="text-xs font-medium tabular-nums text-muted-foreground">
+                            {sectionItems.length}
+                          </span>
+                        </div>
+                        <div className="store-menu-grid">
+                          {sectionItems.map((p) => (
+                            <BusinessProductCard
+                              key={p.id}
+                              product={p}
+                              business={business}
+                              coverFallback={cover}
+                              canPurchase={canPurchase}
+                              storeInactive={!storeActive}
+                              justAdded={justAddedId === p.id}
+                              layout="grid"
+                              onAdd={() => handleAdd(p)}
+                            />
+                          ))}
+                        </div>
+                      </section>
+                    );
+                  })
                 )}
-              </section>
+
+                <StoreTrustFooter
+                  businessName={business.name.replace(/\s*·\s*Preview UrabApp\s*$/i, '')}
+                />
+
+              {isPreview ? (
+                <section
+                  className="space-y-3 rounded-2xl border border-primary/25 bg-primary/5 p-4"
+                  aria-labelledby="activate-store-title"
+                >
+                  <h2 id="activate-store-title" className="urab-section-title">
+                    Activa esta tienda en UrabApp
+                  </h2>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    Así verán tus clientes la vitrina en el celular. Actívala con tu logo oficial,
+                    menú real y horarios para empezar a recibir pedidos.
+                  </p>
+                  <div className="flex flex-col gap-2 sm:flex-row">
+                    <Link to="/info/registrar-comercio" className="flex-1">
+                      <Button className="w-full min-h-11 font-bold">Quiero activar mi tienda</Button>
+                    </Link>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="min-h-11 flex-1 font-semibold"
+                      onClick={() => openWhatsApp(
+                        `Hola UrabApp, vi el preview de ${business.name.replace(/\s*·\s*Preview UrabApp\s*$/i, '')} y quiero activarlo.`,
+                      )}
+                    >
+                      Hablar por WhatsApp
+                    </Button>
+                  </div>
+                  <Link to="/vitrinas" className="block text-center text-xs font-semibold text-primary">
+                    Ver todas las vitrinas de onboarding →
+                  </Link>
+                </section>
+              ) : null}
               </div>
 
               <aside className="client-sticky-panel hidden lg:block">

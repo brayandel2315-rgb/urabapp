@@ -20,10 +20,10 @@ const SEGMENTS = [
 ];
 
 const SEGMENT_STYLES = {
-  new: 'bg-sky-500/15 text-sky-800 dark:text-sky-200',
-  recurring: 'bg-primary/15 text-primary',
-  loyal: 'bg-emerald-500/15 text-emerald-800 dark:text-emerald-200',
-  at_risk: 'bg-amber-500/15 text-amber-800 dark:text-amber-200',
+  new: 'biz-pill biz-pill--soft',
+  recurring: 'biz-pill biz-pill--brand',
+  loyal: 'biz-pill biz-pill--brand',
+  at_risk: 'biz-pill biz-pill--warn',
 };
 
 const SEGMENT_LABELS = {
@@ -166,16 +166,18 @@ export default function BusinessCrmPanel({ business }) {
         </p>
       </SurfaceCard>
 
-      <div className="flex gap-2 overflow-x-auto hide-scrollbar">
+      <div className="flex gap-2 overflow-x-auto hide-scrollbar" role="tablist" aria-label="Segmentos de clientes">
         {SEGMENTS.map((s) => (
           <button
             key={s.label}
             type="button"
+            role="tab"
+            aria-selected={segment === s.id}
             onClick={() => setSegment(s.id)}
-            className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-bold transition-colors ${
+            className={`urab-chip-tab ${
               segment === s.id
-                ? 'bg-primary text-primary-foreground'
-                : 'bg-muted text-muted-foreground'
+                ? 'urab-chip-tab--active'
+                : 'urab-chip-tab--idle border border-border'
             }`}
           >
             {s.label}
@@ -204,7 +206,7 @@ export default function BusinessCrmPanel({ business }) {
               </p>
             </div>
             <div className="flex flex-col items-end gap-2">
-              <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase ${SEGMENT_STYLES[c.segment] || 'bg-muted'}`}>
+              <span className={`text-[10px] font-bold uppercase ${SEGMENT_STYLES[c.segment] || 'biz-pill biz-pill--muted'}`}>
                 {SEGMENT_LABELS[c.segment] || c.segment}
               </span>
               <p className="text-sm font-bold text-primary">{formatCOP(c.total_spent)}</p>

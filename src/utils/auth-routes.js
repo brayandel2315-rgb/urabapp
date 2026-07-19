@@ -21,7 +21,7 @@ export function buildAuthEntryUrl({
   mode,
   extra,
 } = {}) {
-  const resolvedIntent = intent || inferAuthIntentFromPath(redirect) || AUTH_INTENT.CLIENT;
+  const resolvedIntent = intent || inferAuthIntentFromPath(redirect || '') || AUTH_INTENT.CLIENT;
   return `${basePath}${buildQuery({ redirect, intent: resolvedIntent, mode, extra })}`;
 }
 
@@ -48,7 +48,7 @@ export function parseAuthSearchParams(searchParams) {
   const mode = searchParams.get('mode') === 'signup' ? 'signup' : 'login';
   const intent = isValidAuthIntent(intentParam)
     ? intentParam
-    : inferAuthIntentFromPath(redirect) || null;
+    : inferAuthIntentFromPath(redirect || '') || null;
   return {
     redirect: safeRedirectPath(redirect, '/cuenta/perfil'),
     intent,

@@ -14,14 +14,16 @@ export default function HomeSectionHeader({
         <h2
           id={id}
           className={cn(
-            'font-display font-bold text-[#111111]',
-            variant === 'brand' ? 'text-base sm:text-lg brand-swoosh' : 'section-title',
+            'font-display font-semibold tracking-tight text-[#111827]',
+            variant === 'brand' ? 'text-[0.95rem] sm:text-base' : 'section-title text-base',
           )}
         >
           {title}
         </h2>
         {subtitle && (
-          <p className="mt-1 text-xs font-medium text-[#4B5563] sm:text-sm">{subtitle}</p>
+          <p className="mt-1 text-xs font-normal leading-snug text-[#6B7280] sm:text-sm">
+            {subtitle}
+          </p>
         )}
       </div>
       {aside}

@@ -1,10 +1,15 @@
 import CatalogImage from '@/components/ui/CatalogImage';
+import AppIcon from '@/design-system/icons/AppIcon';
 import { formatCOP } from '@/utils/currency';
 import { cn } from '@/lib/utils';
 import { iconForCategory } from '@/design-system/icons/icon-map';
-import { resolveProductImage } from '@/utils/catalog-images';
+import { resolveProductImage, getBusinessVisualKey } from '@/utils/catalog-images';
 import { isDishLikeProduct } from '@/utils/product-modifiers';
+import { CARD_SHELL } from '@/design-system/patterns/commerce-card-tokens';
 
+/**
+ * Card de producto del storefront — layout grid (móvil) o list (destacados).
+ */
 export default function BusinessProductCard({
   product,
   business,
@@ -14,77 +19,133 @@ export default function BusinessProductCard({
   justAdded,
   onAdd,
   featured = false,
+  featuredLabel = 'Destacado',
+  layout = 'grid',
 }) {
   const image = resolveProductImage(product, business?.category, business?.slug) || coverFallback;
   const icon = iconForCategory(business?.category) || business?.emoji || 'store';
+  const visualKey = getBusinessVisualKey(business);
   const inactive = storeInactive || !canPurchase;
   const customizable = canPurchase && isDishLikeProduct(product, business?.category);
   const hasDeal = Number(product.compare_at_price) > Number(product.price);
+  const isGrid = layout === 'grid';
 
   return (
     <article
       className={cn(
-        'relative overflow-hidden rounded-[var(--radius-component)] border border-border bg-card p-3 shadow-soft transition-all duration-300',
-        featured && 'ring-1 ring-primary/20',
-        justAdded && !inactive && 'ring-2 ring-primary/45',
-        inactive && 'store-product-card--off bg-muted/50 border-border opacity-90',
+        CARD_SHELL,
+        'store-product-card relative',
+        isGrid ? 'store-product-card--grid' : 'store-product-card--list p-3',
+        featured && 'ring-1 ring-primary/15',
+        justAdded && !inactive && 'ring-2 ring-primary/40',
+        inactive && 'store-product-card--off opacity-90',
       )}
     >
-      <div className="flex gap-3">
-        <div className="min-w-0 flex-1">
-          {featured && (
-            <p className="mb-1 text-[10px] font-bold uppercase tracking-wide text-primary">Popular</p>
-          )}
-          <h4 className="pr-8 font-display text-[15px] font-bold leading-tight text-foreground">
-            {product.name}
-          </h4>
-          {product.description && (
-            <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{product.description}</p>
-          )}
-          <div className="mt-3 flex flex-wrap items-baseline gap-2">
-            <p className={cn(
-              'text-base font-black',
-              inactive ? 'text-muted-foreground' : 'text-primary',
-            )}
-            >
-              {formatCOP(product.price)}
-            </p>
-            {hasDeal && (
-              <p className="text-xs font-semibold text-muted-foreground line-through">
-                {formatCOP(product.compare_at_price)}
-              </p>
-            )}
+      {isGrid ? (
+        <>
+          <div className="store-product-card__media">
+            <CatalogImage
+              src={image}
+              emoji={icon}
+              categoryFallback={business?.category}
+              visualKey={visualKey}
+              alt={product.name}
+              size="lg"
+              rounded="none"
+              imgClassName="h-full w-full object-cover"
+            />
+            {inactive ? (
+              <span className="store-product-card__badge store-product-card__badge--off">Agotado</span>
+            ) : hasDeal ? (
+              <span className="store-product-card__badge">Oferta</span>
+            ) : null}
           </div>
-          {customizable && (
-            <p className="mt-1 text-[10px] font-medium text-muted-foreground">Personalizable</p>
-          )}
-        </div>
-        <div className="h-24 w-24 shrink-0 overflow-hidden rounded-[1.1rem] bg-muted/40">
-          <CatalogImage
-            src={image}
-            emoji={icon}
-            categoryFallback={business?.category}
-            alt={product.name}
-            size="lg"
-          />
-        </div>
-      </div>
-      <button
-        type="button"
-        onClick={onAdd}
-        disabled={!canPurchase}
-        aria-label={`Agregar ${product.name}`}
-        className={cn(
-          'absolute bottom-3 right-3 flex h-11 w-11 min-h-[var(--touch-min)] min-w-[var(--touch-min)] items-center justify-center rounded-[0.9rem] text-lg font-bold text-primary-foreground transition-transform active:scale-95 disabled:cursor-not-allowed',
-          inactive
-            ? 'bg-muted-foreground/50 opacity-70'
-            : justAdded
-              ? 'bg-primary'
-              : 'bg-primary shadow-soft',
-        )}
-      >
-        {justAdded ? '✓' : '+'}
-      </button>
+          <div className="store-product-card__body">
+            <h4 className="store-product-card__name">{product.name}</h4>
+            {product.description ? (
+              <p className="store-product-card__desc">{product.description}</p>
+            ) : null}
+            <div className="store-product-card__price-row">
+              <div className="min-w-0">
+                <p className={cn('store-product-card__price', inactive && 'text-muted-foreground')}>
+                  {formatCOP(product.price)}
+                </p>
+                <p className="store-product-card__currency">COP</p>
+                {hasDeal ? (
+                  <p className="store-product-card__compare">{formatCOP(product.compare_at_price)}</p>
+                ) : null}
+                {customizable ? (
+                  <p className="store-product-card__customize">Personalizar</p>
+                ) : null}
+              </div>
+              <button
+                type="button"
+                onClick={onAdd}
+                disabled={!canPurchase}
+                aria-label={`Agregar ${product.name}`}
+                className={cn(
+                  'store-product-card__add',
+                  inactive && 'store-product-card__add--off',
+                  justAdded && !inactive && 'store-product-card__add--done',
+                )}
+              >
+                <AppIcon name={justAdded && !inactive ? 'check' : 'plus'} size={18} />
+              </button>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="store-product-card__list-row">
+            <div className="min-w-0 flex-1">
+              {featured ? (
+                <p className="store-product-card__eyebrow">{featuredLabel}</p>
+              ) : null}
+              <h4 className="store-product-card__list-name">{product.name}</h4>
+              {product.description ? (
+                <p className="store-product-card__list-desc">{product.description}</p>
+              ) : null}
+              <div className="store-product-card__list-price-row">
+                <p className={cn('store-product-card__price', inactive && 'text-muted-foreground')}>
+                  {formatCOP(product.price)}
+                </p>
+                <span className="store-product-card__currency">COP</span>
+                {hasDeal ? (
+                  <p className="store-product-card__compare">{formatCOP(product.compare_at_price)}</p>
+                ) : null}
+              </div>
+              {customizable ? (
+                <p className="store-product-card__customize">Personalizar</p>
+              ) : null}
+            </div>
+            <div className="store-product-card__list-media">
+              <CatalogImage
+                src={image}
+                emoji={icon}
+                categoryFallback={business?.category}
+                visualKey={visualKey}
+                alt={product.name}
+                size="lg"
+                rounded="none"
+                imgClassName="h-full w-full object-cover"
+              />
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={onAdd}
+            disabled={!canPurchase}
+            aria-label={`Agregar ${product.name}`}
+            className={cn(
+              'store-product-card__add store-product-card__add--list',
+              inactive && 'store-product-card__add--off',
+              justAdded && !inactive && 'store-product-card__add--done',
+            )}
+          >
+            <AppIcon name={justAdded && !inactive ? 'check' : 'plus'} size={18} />
+          </button>
+        </>
+      )}
     </article>
   );
 }

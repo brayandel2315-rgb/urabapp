@@ -4,7 +4,11 @@ import { Badge } from '@/design-system/ui/badge';
 import { formatCOP } from '@/utils/currency';
 import CatalogImage from '@/components/ui/CatalogImage';
 import BusinessRating from '@/components/reviews/BusinessRating';
-import { resolveBusinessCover, resolveBusinessLogo } from '@/utils/catalog-images';
+import {
+  resolveBusinessCover,
+  resolveBusinessLogo,
+  getBusinessVisualKey,
+} from '@/utils/catalog-images';
 import { isBusinessOpenNow } from '@/utils/schedule';
 import { getBarrioDeliveryTier } from '@/utils/barrio';
 import { formatDistanceKm } from '@/utils/format-distance';
@@ -90,12 +94,15 @@ function DeliveryMeta({ business, className, barrio, municipio, coverage }) {
 function CardImage({ business, open, rank, showLogo = false, imageLoading = 'lazy' }) {
   const cover = resolveBusinessCover(business);
   const logo = showLogo ? resolveBusinessLogo(business) : null;
+  const visualKey = getBusinessVisualKey(business);
 
   return (
     <div className={cn('relative overflow-hidden bg-muted/30', IMAGE_ASPECT)}>
       <CatalogImage
         src={cover}
         emoji={business.emoji || 'store'}
+        categoryFallback={business.category}
+        visualKey={visualKey}
         alt={business.name}
         rounded="none"
         size="lg"
@@ -109,7 +116,15 @@ function CardImage({ business, open, rank, showLogo = false, imageLoading = 'laz
       </div>
       {logo && (
         <div className="absolute bottom-2 left-2 h-10 w-10 overflow-hidden rounded-xl bg-card shadow-md ring-2 ring-card">
-          <CatalogImage src={logo} emoji={business.emoji || 'store'} alt="" rounded="xl" size="sm" />
+          <CatalogImage
+            src={logo}
+            emoji={business.emoji || 'store'}
+            categoryFallback={business.category}
+            visualKey={visualKey}
+            alt=""
+            rounded="xl"
+            size="sm"
+          />
         </div>
       )}
     </div>
@@ -180,6 +195,7 @@ function StoreTileCard({ business, href, className, barrio, municipio, imageLoad
   const cover = resolveBusinessCover(business);
   const open = isBusinessOpenNow(business);
   const time = business.delivery_time || 25;
+  const visualKey = getBusinessVisualKey(business);
 
   return (
     <Link to={href} className={cn('home-store-tile-link block min-w-0', className)}>
@@ -188,6 +204,8 @@ function StoreTileCard({ business, href, className, barrio, municipio, imageLoad
           <CatalogImage
             src={cover}
             emoji={business.emoji || 'store'}
+            categoryFallback={business.category}
+            visualKey={visualKey}
             alt={business.name}
             rounded="none"
             size="lg"
@@ -216,12 +234,20 @@ function StoreTileCard({ business, href, className, barrio, municipio, imageLoad
 function ListCard({ business, href, className, rank, barrio, municipio }) {
   const cover = resolveBusinessCover(business);
   const open = isBusinessOpenNow(business);
+  const visualKey = getBusinessVisualKey(business);
 
   return (
     <Link to={href} className={cn('group block', className)}>
       <article className={cn(CARD_SHELL, 'flex gap-3 p-3', CARD_INTERACTIVE)}>
         <div className="relative h-[104px] w-[104px] shrink-0 overflow-hidden rounded-xl bg-muted/30 sm:h-[96px] sm:w-[96px]">
-          <CatalogImage src={cover} emoji={business.emoji || 'store'} alt={business.name} size="lg" />
+          <CatalogImage
+            src={cover}
+            emoji={business.emoji || 'store'}
+            categoryFallback={business.category}
+            visualKey={visualKey}
+            alt={business.name}
+            size="lg"
+          />
           {!open && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/45">
               <span className="text-[10px] font-bold uppercase text-white">Cerrado</span>

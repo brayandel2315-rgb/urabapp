@@ -3,6 +3,8 @@
  * Para presentación a clientes (alta resolución, crop optimizado).
  */
 
+import { resolveCuisineId } from './cuisine-taxonomy';
+
 export const U = (id, w = 800, h = 560) =>
   `https://images.unsplash.com/${id}?w=${w}&h=${h}&fit=crop&q=90&auto=format`;
 
@@ -105,15 +107,31 @@ export const BUSINESS_COVERS = {
 };
 
 export const CATEGORY_COVERS = {
-  comida: URABA_REGIONAL.bananeras,
-  farmacia: URABA_REGIONAL.farmacia,
-  mercado: URABA_REGIONAL.mercado,
-  licoreria: URABA_REGIONAL.licores,
-  tiendas: URABA_REGIONAL.tienda,
+  comida: U('photo-1414235077428-338989a2e8c0'),
+  farmacia: U('photo-1584308666744-24d5c474f2ae'),
+  mercado: U('photo-1542838132-92c53300491e'),
+  licoreria: U('photo-1510812431401-41d2bd2722f3'),
+  tiendas: U('photo-1604719312566-8912e9227c6a'),
   mandados: U('photo-1526367790999-0150786686a2'),
   envios: U('photo-1586528116311-ad8dd3c8310d'),
-  mascotas: URABA_REGIONAL.mascotas,
-  tecnologia: URABA_REGIONAL.tecnologia,
+  mascotas: U('photo-1450778869180-41d0601e046e'),
+  tecnologia: U('photo-1511707171634-5f897ff02aa9'),
+};
+
+/** Portadas por tipo de cocina — catálogo vivo (comida) */
+export const CUISINE_COVERS = {
+  tipica: U('photo-1546069901-ba9599a7e63c'),
+  arepas: URABA_REGIONAL.arepa,
+  pollo: U('photo-1626082927389-6c245bec07ff'),
+  hamburguesas: U('photo-1568901340865-4c42c4bd3921'),
+  pizza: U('photo-1513104890138-7c749659a591'),
+  asados: U('photo-1555939594-58d7cb561ad1'),
+  mariscos: U('photo-1565680018434-b75d4c4d0474'),
+  rapida: U('photo-1573080496219-bb080dd4f877'),
+  cafe: U('photo-1495474473867-e4fbf7ef9f2d'),
+  postres: U('photo-1563805044264-3e1b5491a7b5'),
+  jugos: U('photo-1622597467836-fbc3f3586384'),
+  otros: U('photo-1414235077428-338989a2e8c0'),
 };
 
 /** Imágenes de producto por emoji / palabra clave */
@@ -240,11 +258,26 @@ export function resolveProductImageUrl(product, businessCategory, businessSlug) 
   return cover.replace('w=800', 'w=400').replace('h=560', 'h=400');
 }
 
+/** Clave visual para acentos/colores: cocina (comida) o categoría de negocio. */
+export function resolveBusinessVisualKey(business) {
+  if (!business) return 'comida';
+  const cat = String(business.category || '').toLowerCase();
+  if (cat === 'comida' || cat === 'restaurantes' || !cat) {
+    return resolveCuisineId(business) || 'otros';
+  }
+  return cat || 'tiendas';
+}
+
 export function resolveBusinessCoverFromCatalog(business) {
   if (!business) return CATEGORY_COVERS.comida;
   if (business.cover_url) return business.cover_url;
   if (business.slug && BUSINESS_COVERS[business.slug]) return BUSINESS_COVERS[business.slug];
-  return CATEGORY_COVERS[business.category] || CATEGORY_COVERS.comida;
+
+  const visualKey = resolveBusinessVisualKey(business);
+  if (CUISINE_COVERS[visualKey]) return CUISINE_COVERS[visualKey];
+
+  const cat = String(business.category || '').toLowerCase();
+  return CATEGORY_COVERS[cat] || CATEGORY_COVERS.comida;
 }
 
 /** Fallback de banners promo (sin import circular) */

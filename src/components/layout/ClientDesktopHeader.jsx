@@ -38,6 +38,14 @@ export default function ClientDesktopHeader({ notificationCount = 0 }) {
           <BrandLogo variant="desktop-nav" className="client-desktop-header__logo" alt="Urabapp" />
         </Link>
 
+        {!isSearch && !isHome && (
+          <DiscoverSearchTrigger
+            municipio={municipio}
+            compact
+            className="client-desktop-header__search"
+          />
+        )}
+
         <nav className="client-desktop-header__nav" aria-label="Navegación principal">
           {CLIENT_NAV_LINKS.map((link) => (
             <Link
@@ -54,10 +62,6 @@ export default function ClientDesktopHeader({ notificationCount = 0 }) {
         </nav>
 
         <div className="client-desktop-header__actions">
-          {!isSearch && !isHome && (
-            <DiscoverSearchTrigger municipio={municipio} compact className="client-desktop-header__search" />
-          )}
-
           <ClientHeaderAuthActions
             user={user}
             profile={profile}

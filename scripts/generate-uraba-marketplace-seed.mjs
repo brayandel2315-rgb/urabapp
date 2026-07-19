@@ -33,7 +33,8 @@ function bizId(muniIdx, bizIdx) {
 function productId(muniIdx, bizIdx, pIdx) {
   const g4 = `${String(muniIdx).padStart(2, '0')}${String(bizIdx).padStart(2, '0')}`;
   const g5 = String(pIdx).padStart(12, '0');
-  return `p1090000-0000-4000-${g4}-${g5}`;
+  // Solo hex en UUID (a-f, 0-9). Prefijo a109… = products seed v1
+  return `a1090000-0000-4000-${g4}-${g5}`;
 }
 
 function slugify(text) {

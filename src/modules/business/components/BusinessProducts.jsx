@@ -240,7 +240,7 @@ export default function BusinessProducts({ businessId, business }) {
               <>
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="h-14 w-14 overflow-hidden rounded-xl bg-primary-light">
+                <div className="h-14 w-14 overflow-hidden rounded-xl bg-primary/10">
                   <CatalogImage src={p.image_url} emoji={p.emoji} className="h-full w-full" />
                 </div>
                 <div>

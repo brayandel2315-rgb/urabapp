@@ -8,33 +8,58 @@ const TABS = [
   { to: '/domiciliario/cuenta', label: 'Perfil', icon: 'profile', match: (path) => path.startsWith('/domiciliario/cuenta') || path.startsWith('/domiciliario/reputacion') || path.startsWith('/domiciliario/seguridad') },
 ];
 
+/** Misma dock visual que cliente / tienda / negocio. */
 export default function RiderBottomNav() {
   const { pathname } = useLocation();
 
   return (
     <nav
       data-role="rider"
-      className="rider-bottom-nav fixed inset-x-0 bottom-0 z-40"
       aria-label="Navegación repartidor"
-      style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
+      className="bottom-nav-dock fixed inset-x-0 bottom-0 z-50"
     >
-      <div className="rider-bottom-nav__inner mx-auto flex max-w-lg items-stretch justify-around px-2 py-1.5">
-        {TABS.map((tab) => {
-          const active = tab.match(pathname);
-          return (
-            <Link
-              key={tab.to}
-              to={tab.to}
-              className={cn(
-                'rider-bottom-nav__tab flex min-w-[72px] flex-1 flex-col items-center gap-0.5 rounded-xl px-2 py-2 text-center transition-colors',
-                active && 'rider-bottom-nav__tab--active',
-              )}
-            >
-              <AppIcon name={tab.icon} size="sm" className="rider-bottom-nav__icon" />
-              <span className="rider-bottom-nav__label">{tab.label}</span>
-            </Link>
-          );
-        })}
+      <div className="bottom-nav-dock__shell w-full">
+        <div className="bottom-nav-dock__panel">
+          <div className="bottom-nav-dock__grid">
+            {TABS.map((tab) => {
+              const active = tab.match(pathname);
+              return (
+                <Link
+                  key={tab.to}
+                  to={tab.to}
+                  className="bottom-nav-tab"
+                  aria-current={active ? 'page' : undefined}
+                >
+                  <span
+                    className={cn(
+                      'bottom-nav-tab__pill',
+                      active && 'bottom-nav-tab__pill--active',
+                    )}
+                  >
+                    <span className="bottom-nav-tab__icon relative flex h-5 w-5 items-center justify-center">
+                      <AppIcon
+                        name={tab.icon}
+                        size={20}
+                        className={cn(
+                          'bottom-nav-tab__icon-svg',
+                          active && 'bottom-nav-tab__icon-svg--active',
+                        )}
+                      />
+                    </span>
+                    <span
+                      className={cn(
+                        'bottom-nav-tab__label',
+                        active && 'bottom-nav-tab__label--active',
+                      )}
+                    >
+                      {tab.label}
+                    </span>
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </nav>
   );

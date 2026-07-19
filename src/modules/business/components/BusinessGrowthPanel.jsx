@@ -13,17 +13,23 @@ export default function BusinessGrowthPanel({ business }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex gap-1 rounded-2xl bg-muted/40 p-1">
+      <div
+        className="flex gap-2 overflow-x-auto hide-scrollbar"
+        role="tablist"
+        aria-label="Crecimiento de tienda"
+      >
         {SUB_TABS.map((t) => (
           <button
             key={t.id}
             type="button"
+            role="tab"
+            aria-selected={subTab === t.id}
             onClick={() => setSubTab(t.id)}
             className={cn(
-              'flex-1 rounded-xl py-2 text-sm font-semibold transition-colors',
+              'urab-chip-tab flex-1 text-center',
               subTab === t.id
-                ? 'bg-card text-foreground shadow-sm'
-                : 'text-muted hover:text-foreground',
+                ? 'urab-chip-tab--active'
+                : 'urab-chip-tab--idle border border-border',
             )}
           >
             {t.label}

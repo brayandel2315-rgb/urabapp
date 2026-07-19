@@ -33,7 +33,7 @@ export default function ActionButton({
           )}
         </span>
       ) : (
-        <span className="bottom-nav-tab__icon relative flex h-5 w-5 items-center justify-center">
+        <span className="bottom-nav-tab__icon relative flex h-5 w-5 items-center justify-center overflow-visible">
           {customIcon || <BottomNavIcon name={icon} size={20} active={active} />}
           {badge > 0 && (
             <span className="bottom-nav-badge absolute -right-1.5 -top-1">

@@ -8,12 +8,14 @@ import { useCatalogLocation } from '@/hooks/useCatalogLocation';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import { useOnlineStatus } from '@/hooks/useOnlineStatus';
 import { getVerticalByPath } from '@/data/vertical-catalog';
+import { filterPoolByCuisine } from '@/data/cuisine-taxonomy';
 import { getVerticalDiscovery, filterVerticalPool } from '@/services/discovery.service';
 import VerticalSectionRow, {
   VERTICAL_CATALOG_GRID,
   VERTICAL_CATALOG_LIST,
 } from '../components/VerticalSectionRow';
 import VerticalFilters from '../components/VerticalFilters';
+import RestaurantDirectory from '../components/RestaurantDirectory';
 import HomeCatalogAwayBanner from '@/modules/home/components/catalog/HomeCatalogAwayBanner';
 import DetectedLocationChip from '@/components/geo/DetectedLocationChip';
 import { useAutoLocation } from '@/hooks/useAutoLocation';
@@ -34,6 +36,7 @@ export default function VerticalDiscoveryPage() {
   const { pathname } = useLocation();
   const vertical = getVerticalByPath(pathname);
   const [activeFilter, setActiveFilter] = useState('all');
+  const [cuisineId, setCuisineId] = useState('all');
   const online = useOnlineStatus();
   const { detect } = useAutoLocation({ auto: false });
   const {
@@ -46,9 +49,11 @@ export default function VerticalDiscoveryPage() {
   const { latitude, longitude, hasCoords } = useGeolocation();
   const coords = hasCoords ? { latitude, longitude } : null;
   const municipio = catalog.viewMunicipio || homeMunicipio;
+  const isRestaurantDirectory = vertical?.id === 'restaurantes' || vertical?.classified;
 
   useEffect(() => {
     setActiveFilter('all');
+    setCuisineId('all');
   }, [pathname]);
 
   useEffect(() => {
@@ -83,12 +88,17 @@ export default function VerticalDiscoveryPage() {
   const sectionsLoading = (isLoading || isFetching) && !data && !isError;
   const noLocalBusinesses = catalog.noLocalBusinesses;
 
-  const filteredPool = useMemo(
-    () => filterVerticalPool(data?.pool ?? [], activeFilter, coords),
-    [data?.pool, activeFilter, coords],
-  );
+  const filteredPool = useMemo(() => {
+    const byOp = filterVerticalPool(data?.pool ?? [], activeFilter, coords);
+    if (!isRestaurantDirectory || cuisineId === 'all') return byOp;
+    return filterPoolByCuisine(byOp, cuisineId);
+  }, [data?.pool, activeFilter, coords, isRestaurantDirectory, cuisineId]);
 
   const hasSections = (data?.sections?.length ?? 0) > 0;
+  const showRestaurantDirectory = isRestaurantDirectory
+    && activeFilter === 'all'
+    && !sectionsLoading
+    && !isError;
   const showFilteredList = activeFilter !== 'all' && !sectionsLoading && !isError;
 
   if (!vertical) {
@@ -112,8 +122,14 @@ export default function VerticalDiscoveryPage() {
         <DetectedLocationChip className="max-w-sm" />
       </div>
 
-      <div className="sticky top-[3.25rem] z-20 -mx-4 bg-background/90 px-4 py-3 backdrop-blur-md sm:top-16 lg:top-[4.75rem] lg:-mx-8 lg:px-8">
-        <VerticalFilters value={activeFilter} onChange={setActiveFilter} />
+      <div className="sticky top-[3.25rem] z-20 -mx-4 space-y-2.5 bg-background/90 px-4 py-3 backdrop-blur-md sm:top-16 lg:top-[4.75rem] lg:-mx-8 lg:px-8">
+        <VerticalFilters
+          value={activeFilter}
+          onChange={(id) => {
+            setActiveFilter(id);
+            if (id !== 'all') setCuisineId('all');
+          }}
+        />
       </div>
 
       <div className="mt-4 space-y-10">
@@ -144,7 +160,12 @@ export default function VerticalDiscoveryPage() {
             loadingFallback={<DiscoverCatalogSkeleton rows={5} />}
             errorDescription="No pudimos cargar los comercios. Revisa tu conexión e intenta de nuevo."
             empty={
-              !sectionsLoading && !isError && !showFilteredList && !hasSections ? (
+              !sectionsLoading
+              && !isError
+              && !showFilteredList
+              && !showRestaurantDirectory
+              && !hasSections
+              && !(isRestaurantDirectory && (data?.pool?.length ?? 0) > 0) ? (
                 <PageState
                   type="empty"
                   icon="store"
@@ -159,7 +180,16 @@ export default function VerticalDiscoveryPage() {
               ) : null
             }
           >
-            {showFilteredList ? (
+            {showRestaurantDirectory ? (
+              <RestaurantDirectory
+                pool={data?.pool ?? []}
+                sections={data?.sections ?? []}
+                municipio={municipio}
+                cuisineId={cuisineId}
+                onCuisineChange={setCuisineId}
+                onOperationalFilter={setActiveFilter}
+              />
+            ) : showFilteredList ? (
               filteredPool.length ? (
                 <section className="min-w-0">
                   <HomeSectionHeader

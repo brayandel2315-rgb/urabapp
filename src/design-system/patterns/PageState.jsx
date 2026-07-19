@@ -50,7 +50,7 @@ export function PageState({
           className="text-primary"
         />
       </div>
-      <h3 className="font-display text-lg font-bold text-[#0D2B45]">{title || config.defaultTitle}</h3>
+      <h3 className="font-display text-lg font-semibold text-[#111827]">{title || config.defaultTitle}</h3>
       {description && <p className="mt-2 max-w-sm text-sm text-[#4A6278]">{description}</p>}
       {action && <div className="mt-6">{action}</div>}
     </SlideUp>

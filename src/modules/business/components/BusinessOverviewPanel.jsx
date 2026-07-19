@@ -27,17 +27,18 @@ export default function BusinessOverviewPanel({
         <button
           type="button"
           onClick={() => onTabChange('orders')}
-          className="flex min-h-14 w-full items-center gap-3 rounded-[var(--radius-component)] bg-urgency px-4 py-3.5 text-left text-urgency-foreground shadow-soft transition hover:opacity-95 active:scale-[0.99]"
+          className="biz-alert-cta"
         >
-          <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/15">
-            <span className="absolute inset-0 animate-ping rounded-xl bg-white/20" aria-hidden />
-            <AppIcon name="bell" size="sm" className="relative" />
+          <span className="biz-alert-cta__icon">
+            <AppIcon name="bell" size="sm" className="text-primary" />
           </span>
-          <div className="min-w-0 flex-1">
-            <p className="font-semibold">{pendingCount} pedido{pendingCount !== 1 ? 's' : ''} por confirmar</p>
-            <p className="text-xs text-white/85">Toca para gestionar ahora</p>
+          <div className="min-w-0 flex-1 text-left">
+            <p className="font-semibold text-foreground">
+              {pendingCount} pedido{pendingCount !== 1 ? 's' : ''} por confirmar
+            </p>
+            <p className="text-xs text-muted-foreground">Gestiona ahora · responde en minutos</p>
           </div>
-          <AppIcon name="chevronDown" size="xs" className="-rotate-90 shrink-0" />
+          <AppIcon name="chevronDown" size="xs" className="-rotate-90 shrink-0 text-primary" />
         </button>
       )}
 
@@ -87,7 +88,7 @@ export default function BusinessOverviewPanel({
       </MetricGrid>
 
       {!openState.acceptingOrders && business.is_open && openState.hint && (
-        <p className="rounded-xl bg-amber-50 px-3 py-2 text-xs text-amber-900 dark:bg-amber-950/40 dark:text-amber-100">
+        <p className="biz-callout biz-callout--warn text-xs">
           {openState.hint}
         </p>
       )}

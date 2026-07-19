@@ -1,0 +1,75 @@
+{
+  "mapping": [
+    {
+      "rule": "tinto",
+      "official": "Tintos",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Tinto-Juan-Valdez-campesino.jpg"
+    },
+    {
+      "rule": "americano",
+      "official": "Café Americano",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Cafe-Americano-Juan-Valdez.jpg"
+    },
+    {
+      "rule": "espresso",
+      "official": "Espresso",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Espresso-tradicional-Juan-Valdez.jpg"
+    },
+    {
+      "rule": "capuccino|cappuccino",
+      "official": "Cappuccino",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Cappuccino-Juan-Valdez.jpg"
+    },
+    {
+      "rule": "\\blatte\\b",
+      "official": "Latte Frío",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Latte-frio-Juan-Valdez.jpg"
+    },
+    {
+      "rule": "mocaccino|mocca|mocha",
+      "official": "Mocca",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Mocca-Juan-Valdez.jpg"
+    },
+    {
+      "rule": "chocolate",
+      "official": "Torta de Chocolate",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Torta-de-chocolate-Juan-Valdez.jpg"
+    },
+    {
+      "rule": "t[eé]|infusi",
+      "official": "Torta de Chocolate",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Torta-de-chocolate-Juan-Valdez.jpg"
+    },
+    {
+      "rule": "cold brew",
+      "official": "Cold Brew Nitro",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Cold-Brew-nitro-Juan-Valdez-1.jpg"
+    },
+    {
+      "rule": "frapp[eé]|nevado",
+      "official": "Nevado Café",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/nevado_de_cafe___300ml_700x700px.jpg"
+    },
+    {
+      "rule": "latte helado|latte frio|latte frío",
+      "official": "Latte Frío",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Latte-frio-Juan-Valdez.jpg"
+    },
+    {
+      "rule": "granizado",
+      "official": "Granizado",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Granizado-juan-Valdez.jpg"
+    },
+    {
+      "rule": "flat white",
+      "official": "Flat White",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Flat-white-Juan-Valdez.jpg"
+    },
+    {
+      "rule": "macchiato",
+      "official": "Macchiato",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Machiatto-Juan-Valdez.jpg"
+    }
+  ],
+  "catalog_count": 34
+}

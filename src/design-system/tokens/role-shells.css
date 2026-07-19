@@ -1,30 +1,30 @@
-/* Identidad visual por rol — Brandboard Urabapp */
+/* Identidad visual por rol — SuperApp UrabApp (tokens unificados) */
 
 [data-role='client'],
 .client-auth-screen {
-  --role-accent: hsl(var(--primary));
-  --role-accent-soft: hsl(145 64% 43% / 0.1);
-  --role-header-fg: #0D2B45;
-  --role-promo: #A8D60E;
-  --role-header-bg: linear-gradient(135deg, #F7FAFC 0%, #E6F4FF 55%, #FFFFFF 100%);
-  /* Cliente siempre usa paleta clara brandboard (evita texto claro sobre fondo claro en dark mode) */
-  --background: 210 29% 98%;
-  --foreground: 207 68% 16%;
+  --role-accent: var(--brand-primary);
+  --role-accent-soft: color-mix(in srgb, var(--brand-primary) 10%, white);
+  --role-header-fg: #111827;
+  --role-promo: var(--brand-secondary);
+  --role-header-bg: #ffffff;
+  --role-nav-active: var(--brand-primary);
+
+  --background: 0 0% 100%;
+  --foreground: 220 39% 11%;
   --card: 0 0% 100%;
-  --card-foreground: 207 68% 16%;
+  --card-foreground: 220 39% 11%;
   --popover: 0 0% 100%;
-  --popover-foreground: 207 68% 16%;
-  --muted: 204 60% 94%;
-  --muted-foreground: 207 48% 30%;
-  --secondary: 207 68% 16%;
-  --secondary-foreground: 210 29% 98%;
-  --border: 204 35% 82%;
-  --input: 204 35% 82%;
-  --accent-foreground: 207 68% 16%;
-  color: #0D2B45;
+  --popover-foreground: 220 39% 11%;
+  --muted: 220 16% 97%;
+  --muted-foreground: 220 9% 46%;
+  --secondary: 220 14% 96%;
+  --secondary-foreground: 220 39% 11%;
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --accent-foreground: 220 39% 11%;
+  color: #111827;
 }
 
-/* Legibilidad: tokens semánticos → colores fijos brandboard */
 [data-role='client'] .text-foreground,
 .client-auth-screen .text-foreground,
 [data-role='client'] .text-card-foreground,
@@ -37,10 +37,9 @@
 .client-auth-screen h2,
 .client-auth-screen h3,
 .client-auth-screen h4 {
-  color: #0D2B45;
+  color: #111827;
 }
 
-/* Títulos sobre fotos, banners y gradientes oscuros */
 [data-role='client'] .on-media h1,
 [data-role='client'] .on-media h2,
 [data-role='client'] .on-media h3,
@@ -50,13 +49,11 @@
 .client-auth-screen .on-media h3,
 .client-auth-screen .on-media h4 {
   color: #ffffff;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
 }
 
 [data-role='client'] .on-media p,
 .client-auth-screen .on-media p {
   color: rgba(255, 255, 255, 0.92);
-  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
 }
 
 [data-role='client'] .text-muted-foreground,
@@ -64,33 +61,27 @@
 [data-role='client'] .text-tagline,
 .client-auth-screen .text-tagline,
 [data-role='client'] .text-caption,
-.client-auth-screen .text-caption {
-  color: #4A6278;
-}
-
+.client-auth-screen .text-caption,
 [data-role='client'] .text-muted,
 .client-auth-screen .text-muted {
-  color: #4A6278;
+  color: #6b7280;
 }
 
 [data-role='client'] .text-secondary,
 .client-auth-screen .text-secondary {
-  color: #0D2B45;
+  color: #111827;
 }
 
 [data-role='client'] .bg-card,
-.client-auth-screen .bg-card {
-  background-color: #FFFFFF;
+.client-auth-screen .bg-card,
+[data-role='client'] .bg-popover,
+.client-auth-screen .bg-popover {
+  background-color: #ffffff;
 }
 
 [data-role='client'] .bg-background,
 .client-auth-screen .bg-background {
-  background-color: #F7FAFC;
-}
-
-[data-role='client'] .bg-popover,
-.client-auth-screen .bg-popover {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 [data-role='client'] input,
@@ -99,42 +90,42 @@
 .client-auth-screen input,
 .client-auth-screen textarea,
 .client-auth-screen select {
-  color: #0D2B45;
-  background-color: #FFFFFF;
+  color: #111827;
+  background-color: #ffffff;
 }
 
 [data-role='client'] input::placeholder,
 [data-role='client'] textarea::placeholder,
 .client-auth-screen input::placeholder,
 .client-auth-screen textarea::placeholder {
-  color: #4A6278;
+  color: #9ca3af;
 }
 
 [data-role='client'] label,
 .client-auth-screen label {
-  color: #0D2B45;
+  color: #111827;
 }
 
 [data-role='business'] {
-  --role-accent: hsl(var(--primary));
-  --role-accent-soft: hsl(145 64% 43% / 0.14);
-  --role-header-bg: linear-gradient(135deg, #28B463 0%, #0E6BA8 100%);
-  --role-header-fg: #fff;
-  --role-nav-active: hsl(var(--primary));
-  --background: 210 29% 98%;
-  --foreground: 207 68% 16%;
+  --role-accent: var(--brand-primary);
+  --role-accent-soft: color-mix(in srgb, var(--brand-primary) 12%, white);
+  --role-header-bg: #ffffff;
+  --role-header-fg: #111827;
+  --role-nav-active: var(--brand-primary);
+  --background: 220 16% 97%;
+  --foreground: 220 39% 11%;
   --card: 0 0% 100%;
-  --card-foreground: 207 68% 16%;
+  --card-foreground: 220 39% 11%;
   --popover: 0 0% 100%;
-  --popover-foreground: 207 68% 16%;
-  --muted: 204 60% 94%;
-  --muted-foreground: 207 48% 30%;
-  --secondary: 207 68% 16%;
-  --secondary-foreground: 210 29% 98%;
-  --border: 204 35% 82%;
-  --input: 204 35% 82%;
-  --accent-foreground: 207 68% 16%;
-  color: #0D2B45;
+  --popover-foreground: 220 39% 11%;
+  --muted: 220 14% 96%;
+  --muted-foreground: 220 9% 46%;
+  --secondary: 220 14% 96%;
+  --secondary-foreground: 220 39% 11%;
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --accent-foreground: 220 39% 11%;
+  color: #111827;
 }
 
 [data-role='business'] .text-foreground,
@@ -143,64 +134,64 @@
 [data-role='business'] h2,
 [data-role='business'] h3,
 [data-role='business'] h4 {
-  color: #0D2B45;
+  color: #111827;
 }
 
 [data-role='business'] .text-muted-foreground,
 [data-role='business'] .text-tagline,
 [data-role='business'] .text-caption,
 [data-role='business'] .text-muted {
-  color: #4A6278;
+  color: #6b7280;
 }
 
 [data-role='business'] .text-secondary {
-  color: #0D2B45;
+  color: #111827;
 }
 
 [data-role='business'] .bg-card {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 [data-role='business'] .bg-background {
-  background-color: #F7FAFC;
+  background-color: #f7f8fa;
 }
 
 [data-role='business'] input,
 [data-role='business'] textarea,
 [data-role='business'] select {
-  color: #0D2B45;
-  background-color: #FFFFFF;
+  color: #111827;
+  background-color: #ffffff;
 }
 
 [data-role='business'] input::placeholder,
 [data-role='business'] textarea::placeholder {
-  color: #4A6278;
+  color: #9ca3af;
 }
 
 [data-role='business'] label {
-  color: #0D2B45;
+  color: #111827;
 }
 
 [data-role='rider'] {
-  --role-accent: hsl(var(--brand-blue));
-  --role-accent-soft: hsl(203 85% 36% / 0.12);
-  --role-header-bg: linear-gradient(135deg, #0E6BA8 0%, #0D2B45 100%);
-  --role-header-fg: #fff;
-  --role-nav-active: hsl(var(--brand-blue));
-  --background: 210 29% 98%;
-  --foreground: 207 68% 16%;
+  --role-accent: var(--brand-primary);
+  --role-accent-soft: color-mix(in srgb, var(--brand-primary) 12%, white);
+  --role-header-bg: #ffffff;
+  --role-header-fg: #111827;
+  --role-nav-active: var(--brand-primary);
+  --background: 220 16% 97%;
+  --foreground: 220 39% 11%;
   --card: 0 0% 100%;
-  --card-foreground: 207 68% 16%;
+  --card-foreground: 220 39% 11%;
   --popover: 0 0% 100%;
-  --popover-foreground: 207 68% 16%;
-  --muted: 204 60% 94%;
-  --muted-foreground: 207 48% 30%;
-  --secondary: 207 68% 16%;
-  --secondary-foreground: 210 29% 98%;
-  --border: 204 35% 82%;
-  --input: 204 35% 82%;
-  --accent-foreground: 207 68% 16%;
-  color: #0D2B45;
+  --popover-foreground: 220 39% 11%;
+  --muted: 220 14% 96%;
+  --muted-foreground: 220 9% 46%;
+  --secondary: 220 14% 96%;
+  --secondary-foreground: 220 39% 11%;
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --accent-foreground: 220 39% 11%;
+  color: #111827;
 }
 
 [data-role='rider'] .text-foreground,
@@ -209,66 +200,63 @@
 [data-role='rider'] h2,
 [data-role='rider'] h3,
 [data-role='rider'] h4 {
-  color: #0D2B45;
+  color: #111827;
 }
 
 [data-role='rider'] .text-muted-foreground,
 [data-role='rider'] .text-tagline,
-[data-role='rider'] .text-caption {
-  color: #4A6278;
-}
-
+[data-role='rider'] .text-caption,
 [data-role='rider'] .text-muted {
-  color: #4A6278;
+  color: #6b7280;
 }
 
 [data-role='rider'] .text-secondary {
-  color: #0D2B45;
+  color: #111827;
 }
 
 [data-role='rider'] .bg-card {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 [data-role='rider'] .bg-background {
-  background-color: #F7FAFC;
+  background-color: #f7f8fa;
 }
 
 [data-role='rider'] input,
 [data-role='rider'] textarea,
 [data-role='rider'] select {
-  color: #0D2B45;
-  background-color: #FFFFFF;
+  color: #111827;
+  background-color: #ffffff;
 }
 
 [data-role='rider'] input::placeholder,
 [data-role='rider'] textarea::placeholder {
-  color: #4A6278;
+  color: #9ca3af;
 }
 
 [data-role='rider'] label {
-  color: #0D2B45;
+  color: #111827;
 }
 
 [data-role='admin'] {
-  --role-accent: hsl(var(--secondary));
-  --role-accent-soft: hsl(207 68% 16% / 0.08);
-  --role-header-bg: linear-gradient(135deg, #0D2B45 0%, #061525 100%);
+  --role-accent: var(--brand-primary);
+  --role-accent-soft: color-mix(in srgb, var(--brand-primary) 10%, white);
+  --role-header-bg: #111827;
   --role-header-fg: #fff;
-  --role-nav-active: hsl(var(--accent));
+  --role-nav-active: var(--brand-primary);
 }
 
 .role-shell-header {
-  background: var(--role-header-bg, hsl(var(--secondary)));
-  color: var(--role-header-fg, hsl(var(--secondary-foreground)));
+  background: var(--role-header-bg, #ffffff);
+  color: var(--role-header-fg, #111827);
 }
 
 .role-shell-nav-active {
-  background-color: var(--role-nav-active, hsl(var(--primary)));
+  background-color: var(--role-nav-active, var(--brand-primary));
   color: #fff;
 }
 
 .role-shell-security {
-  border-left: 3px solid var(--role-accent, hsl(var(--primary)));
+  border-left: 3px solid var(--role-accent, var(--brand-primary));
   background: var(--role-accent-soft, hsl(var(--muted)));
 }

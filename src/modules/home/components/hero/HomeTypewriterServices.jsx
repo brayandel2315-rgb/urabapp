@@ -8,14 +8,17 @@ export const URABAPP_SERVICE_PHRASES = [
   'domicilio en minutos',
 ];
 
-const TYPE_MS = 88;
-const ERASE_MS = 52;
-const HOLD_MS = 3200;
-const BETWEEN_MS = 650;
+/** Frase más larga: reserva ancho estable para la línea dinámica. */
+const LONGEST_PHRASE = 'domicilio en minutos';
+
+const TYPE_MS = 72;
+const ERASE_MS = 38;
+const HOLD_MS = 2800;
+const BETWEEN_MS = 420;
 
 /**
  * Efecto máquina de escribir: escribe y borra servicios de Urabapp en bucle.
- * Línea 1 fija (CTA) + línea 2 dinámica para evitar saltos horizontales.
+ * Línea 1 fija (CTA) + línea 2 dinámica con ancho reservado (sin saltos).
  */
 export default function HomeTypewriterServices({
   prefix = 'Pide ya tu',
@@ -25,8 +28,24 @@ export default function HomeTypewriterServices({
   const [text, setText] = useState('');
   const [phraseIdx, setPhraseIdx] = useState(0);
   const [deleting, setDeleting] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setReduceMotion(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
+
+  useEffect(() => {
+    if (reduceMotion) {
+      setText(URABAPP_SERVICE_PHRASES[0]);
+      setDeleting(false);
+      setPhraseIdx(0);
+      return undefined;
+    }
+
     const phrase = URABAPP_SERVICE_PHRASES[phraseIdx];
     let delay = TYPE_MS;
 
@@ -61,15 +80,29 @@ export default function HomeTypewriterServices({
     }, delay);
 
     return () => window.clearTimeout(id);
-  }, [text, deleting, phraseIdx]);
+  }, [text, deleting, phraseIdx, reduceMotion]);
+
+  const liveLabel = text
+    ? `${prefix} ${text}`
+    : `${prefix} ${URABAPP_SERVICE_PHRASES[phraseIdx]}`;
 
   return (
-    <h1 className={cn('home-typewriter', className)}>
-      <span className="home-typewriter__prefix">{prefix}</span>
-      <span className="home-typewriter__dynamic-row">
-        <span className={cn('home-typewriter__dynamic', highlightClassName)}>{text}</span>
-        <span className="home-typewriter__cursor" aria-hidden>
-          |
+    <h1
+      className={cn('home-typewriter', className)}
+      aria-label={liveLabel}
+    >
+      <span className="home-typewriter__prefix" aria-hidden>
+        {prefix}
+      </span>
+      <span className="home-typewriter__dynamic-row" aria-hidden>
+        <span className={cn('home-typewriter__sizer', highlightClassName)}>
+          {LONGEST_PHRASE}
+        </span>
+        <span className={cn('home-typewriter__dynamic', highlightClassName)}>
+          {text}
+          {!reduceMotion ? (
+            <span className="home-typewriter__cursor">|</span>
+          ) : null}
         </span>
       </span>
     </h1>

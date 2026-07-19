@@ -8,6 +8,7 @@ import { STORE } from '../utils/marketplace-copy';
 
 const LINKS = [
   { to: '/', label: 'Inicio' },
+  { to: '/vitrinas', label: 'Vitrinas' },
   { to: '/checkout', label: 'Checkout' },
   { to: '/pedidos', label: 'Pedidos' },
   { to: '/admin', label: 'Admin' },

@@ -10,7 +10,7 @@ const OG_IMAGE_WIDTH = '1200';
 const OG_IMAGE_HEIGHT = '630';
 
 const ROUTE_META = [
-  { path: '/', title: 'Todo Urabá, más cerca de ti', description: 'Compra, envía y descubre tiendas disponibles para tu zona en Urabá.' },
+  { path: '/', title: 'Todo Urabá, a un toque', description: 'Comida, mercado, farmacia y envíos en Urabá. Todo a un toque.' },
   { path: '/restaurantes', title: 'Restaurantes', description: 'Sabores cerca de ti — pide comida a domicilio en Urabá.' },
   { path: '/mercado', title: 'Mercado', description: 'Compra mercado sin salir de casa en Urabá.' },
   { path: '/farmacia', title: 'Farmacia', description: 'Salud y bienestar con entrega segura.' },
@@ -34,6 +34,8 @@ const ROUTE_META = [
   { path: '/domiciliario/registro', title: 'Registro mensajero', description: 'Únete a la red de repartidores de Urabapp.' },
   { path: '/admin', title: 'Administración', description: 'Operación y métricas de Urabapp.' },
   { path: '/informe', title: 'Informe', description: 'Estado del proyecto Urabapp.' },
+  { path: '/vitrinas', title: 'Vitrinas onboarding', description: 'Previews de tiendas para reuniones de venta en Urabá.' },
+  { path: '/demos', title: 'Vitrinas onboarding', description: 'Previews de tiendas para reuniones de venta en Urabá.' },
 ];
 
 function setMetaTag(attr, key, value) {

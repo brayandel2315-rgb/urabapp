@@ -3,6 +3,7 @@ import AppIcon from '@/design-system/icons/AppIcon';
 import BusinessRating from '@/components/reviews/BusinessRating';
 import CategoryBadge from '@/components/marketplace/CategoryBadge';
 import { ETA_CHIP } from '@/design-system/patterns/commerce-card-tokens';
+import { getPreviewMerchantLevel, isOnboardingPreview } from '@/utils/onboarding-preview';
 import { cn } from '@/lib/utils';
 
 /**
@@ -21,6 +22,9 @@ export default function BusinessStoreMeta({
   storeActive,
   className,
 }) {
+  const preview = isOnboardingPreview(business);
+  const verified = preview || business?.verified_badge || business?.verification_status === 'approved';
+
   return (
     <div className={cn('space-y-3', className)}>
       <div className="flex flex-wrap items-center gap-2 text-sm">
@@ -30,6 +34,17 @@ export default function BusinessStoreMeta({
         ) : (
           <Badge variant="destructive">Cerrado</Badge>
         )}
+        {verified ? (
+          <Badge variant="secondary" className="gap-1">
+            <AppIcon name="verified" size={12} aria-hidden />
+            Verificado
+          </Badge>
+        ) : null}
+        {preview ? (
+          <Badge variant="outline" className="border-primary/40 text-primary">
+            {getPreviewMerchantLevel(business)}
+          </Badge>
+        ) : null}
         {coverage?.available && coverage.tier === 'intermunicipal' && (
           <Badge variant="info">{coverage.label}</Badge>
         )}

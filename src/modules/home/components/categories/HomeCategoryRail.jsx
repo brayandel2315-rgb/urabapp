@@ -13,19 +13,19 @@ const CATEGORY_ICON_TONE = {
   tiendas: 'green',
   envios: 'blue',
   locales: 'green',
-  ofertas: 'green',
+  ofertas: 'orange',
   more: 'green',
 };
 
 const CATEGORY_HINTS = {
   restaurantes: 'Restaurantes',
-  mercado: 'Súper y más',
-  farmacia: 'Salud',
-  mensajeria: 'Mandados',
+  mercado: 'Súper y tiendas',
+  farmacia: 'Salud y bienestar',
+  mensajeria: 'Envíos y entregas',
   tiendas: 'Comercios',
-  envios: 'Paquetes',
+  envios: 'Intermunicipales',
   ofertas: 'Descuentos',
-  more: 'Todo Urabá',
+  more: 'Buscar y descubrir',
 };
 
 const ROUTE_OVERRIDES = {

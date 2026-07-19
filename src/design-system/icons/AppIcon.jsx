@@ -14,13 +14,10 @@ const SIZE_MAP = {
   '4xl': 72,
 };
 
-/** Solo animación de carga usa Lucide (spin más estable) */
-const LUCIDE_ONLY = new Set(['loading']);
-
 /**
- * Icono unificado Urabapp.
- * Por defecto usa Solar Bold Duotone (iconos completos para UI).
- * variant="brand" conserva la iconografía SVG del brandboard.
+ * Icono unificado — Lucide stroke 2px (familia única).
+ * variant="brand" conserva SVGs del brandboard cuando se pide explícitamente.
+ * variant="duotone" usa Solar solo si no hay Lucide.
  */
 export default function AppIcon({
   name,
@@ -32,18 +29,7 @@ export default function AppIcon({
 }) {
   const key = resolveIconKey(name);
   const px = typeof size === 'number' ? size : (SIZE_MAP[size] ?? SIZE_MAP.md);
-
-  if (ICONIFY_ICONS[key] && !LUCIDE_ONLY.has(key)) {
-    return (
-      <Icon
-        icon={ICONIFY_ICONS[key]}
-        width={px}
-        height={px}
-        className={cn('shrink-0', spin && 'animate-spin', className)}
-        aria-hidden
-      />
-    );
-  }
+  const LucideIcon = LUCIDE_ICONS[key];
 
   if (variant === 'brand' && hasBrandIcon(key)) {
     return (
@@ -55,24 +41,47 @@ export default function AppIcon({
     );
   }
 
-  if (LUCIDE_ONLY.has(key) || variant === 'lucide') {
-    const LucideIcon = LUCIDE_ICONS[key] || LUCIDE_ICONS.store;
+  if (LucideIcon) {
     return (
       <LucideIcon
         size={px}
         strokeWidth={strokeWidth}
+        className={cn('shrink-0 text-current', spin && 'animate-spin', className)}
+        aria-hidden
+      />
+    );
+  }
+
+  if (variant === 'duotone' && ICONIFY_ICONS[key]) {
+    return (
+      <Icon
+        icon={ICONIFY_ICONS[key]}
+        width={px}
+        height={px}
         className={cn('shrink-0', spin && 'animate-spin', className)}
         aria-hidden
       />
     );
   }
 
-  const LucideIcon = LUCIDE_ICONS[key] || LUCIDE_ICONS.store;
+  if (ICONIFY_ICONS[key]) {
+    return (
+      <Icon
+        icon={ICONIFY_ICONS[key]}
+        width={px}
+        height={px}
+        className={cn('shrink-0', spin && 'animate-spin', className)}
+        aria-hidden
+      />
+    );
+  }
+
+  const Fallback = LUCIDE_ICONS.store;
   return (
-    <LucideIcon
+    <Fallback
       size={px}
       strokeWidth={strokeWidth}
-      className={cn('shrink-0', spin && 'animate-spin', className)}
+      className={cn('shrink-0 text-current', spin && 'animate-spin', className)}
       aria-hidden
     />
   );

@@ -1,62 +1,83 @@
 :root {
-  /* ─── UrabApp Design Tokens v2 (Loop 1) ─────────────────────────────────
-   * Primary: Emerald · Secondary brand: Banana · Neutrals: Warm white / Charcoal
-   * Info: Blue only · Urgency: Orange only · Destructive: Red only
-   * --secondary (navy) se conserva por compatibilidad con shells/paneles oscuros.
+  /* ─── UrabApp Design System — SuperApp premium (Grab / Uber / Airbnb) ─
+   * Brand forest #1E6F43 dominant · Accent banana #7AC943 only for details
+   * Surfaces white / #F7F8FA · Text #111827 / #6B7280
    * ───────────────────────────────────────────────────────────────────── */
 
-  /* Brand legacy (compat) */
-  --brand-navy: 207 68% 16%;       /* #0D2B45 — paneles / splash */
-  --brand-blue: 203 85% 36%;       /* #0E6BA8 — info */
-  --brand-green: 122 47% 34%;      /* #2E7D32 — primary */
-  --brand-lime: 122 39% 49%;       /* #66BB6A */
-  --brand-sky: 40 20% 98%;         /* warm white ≈ #FAF9F6 */
-  --brand-banana: 46 95% 50%;      /* #F7C100 */
-  --brand-orange: 24 95% 53%;      /* #F97316 — urgency */
-  --brand-charcoal: 0 0% 7%;       /* #111111 */
+  /* Brand hex (source of truth) */
+  --brand-primary: #1E6F43;
+  --brand-primary-hover: #165735;
+  --brand-secondary: #7AC943;
+  --brand-disabled: #D1D5DB;
 
-  /* Hex aliases (home / marketing) */
-  --urab-black: #111111;
-  --urab-charcoal: #111111;
-  --urab-green-deep: #1B5E20;
-  --urab-green: #2E7D32;
-  --urab-green-success: #43A047;
-  --urab-green-light: #66BB6A;
-  --urab-banana: #F7C100;
+  /* Legacy HSL aliases (compat Tailwind / shadcn) */
+  --brand-navy: 220 39% 11%;       /* #111827 — texto / paneles oscuros */
+  --brand-blue: 207 90% 54%;       /* info */
+  --brand-green: 147 58% 28%;      /* #1E6F43 */
+  --brand-lime: 95 55% 53%;        /* #7AC943 */
+  --brand-sky: 0 0% 100%;
+  --brand-banana: 95 55% 53%;      /* accent only — never primary */
+  --brand-orange: 24 95% 53%;
+  --brand-charcoal: 220 39% 11%;   /* #111827 */
+
+  /* Hex aliases */
+  --urab-black: #111827;
+  --urab-charcoal: #111827;
+  --urab-green-deep: #165735;
+  --urab-green: #1E6F43;
+  --urab-green-success: #1E6F43;
+  --urab-green-light: #7AC943;
+  --urab-banana: #7AC943;
   --urab-orange: #F97316;
-  --urab-info: #0E6BA8;
-  --urab-warm-white: #FAF9F6;
-  --urab-gray-50: #FAF9F6;
-  --urab-gray-100: #F0EDE6;
-  --urab-gray-200: #E2DDD4;
-  --urab-gray-500: #6B6B6B;
-  --urab-gray-700: #3D3D3D;
+  --urab-info: #2196F3;
+  --urab-warm-white: #FFFFFF;
+  --urab-gray-50: #F7F8FA;
+  --urab-gray-100: #F3F4F6;
+  --urab-gray-200: #E5E7EB;
+  --urab-gray-500: #6B7280;
+  --urab-gray-700: #374151;
 
-  /* Semantic (shadcn / Tailwind HSL channels) */
-  --background: 40 20% 98%;        /* warm white */
-  --foreground: 0 0% 7%;           /* charcoal */
+  /* Category accents (icon / badge / top border only — never full app bg) */
+  --cat-restaurantes: #E53935;
+  --cat-mercado: #2E7D32;
+  --cat-farmacia: #2196F3;
+  --cat-mensajeria: #FB8C00;
+  --cat-envios: #6C5CE7;
+  --cat-hoteles: #00ACC1;
+  --cat-transporte: #1565C0;
+  --cat-pagos: #00A86B;
+  --cat-compras: #F4B400;
+  --cat-promociones: #FF7043;
+  --cat-pro-bg: #1B1B1B;
+  --cat-pro-accent: #D4AF37;
+  --cat-turismo: #009966;
+  --cat-agro: #E7C547;
+  --cat-servicios: #455A64;
+
+  /* Semantic */
+  --background: 0 0% 100%;                    /* #FFFFFF */
+  --foreground: 220 39% 11%;                  /* #111827 */
 
   --card: 0 0% 100%;
-  --card-foreground: 0 0% 7%;
+  --card-foreground: 220 39% 11%;
 
   --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 7%;
+  --popover-foreground: 220 39% 11%;
 
-  --primary: 122 47% 34%;          /* emerald — AA on white with white text */
+  --primary: 147 58% 28%;                     /* #1E6F43 */
   --primary-foreground: 0 0% 100%;
 
-  /* Navy — shells / dark chrome (compat; no usar como CTA de compra) */
-  --secondary: 207 68% 16%;
-  --secondary-foreground: 210 29% 98%;
+  /* Soft neutral secondary (not brand green) */
+  --secondary: 220 14% 96%;                   /* #F3F4F6 */
+  --secondary-foreground: 220 39% 11%;
 
-  --muted: 40 16% 94%;
-  --muted-foreground: 0 0% 38%;    /* natural gray — AA on warm white */
+  --muted: 220 16% 97%;                       /* #F7F8FA */
+  --muted-foreground: 220 9% 46%;             /* #6B7280 */
 
-  /* Banana — highlights / badges / accent CTAs (texto charcoal) */
-  --accent: 46 95% 50%;
-  --accent-foreground: 0 0% 7%;
+  --accent: 95 55% 53%;                       /* #7AC943 — highlights only */
+  --accent-foreground: 220 39% 11%;
 
-  --info: 203 85% 36%;
+  --info: 207 90% 54%;
   --info-foreground: 0 0% 100%;
 
   --urgency: 24 95% 53%;
@@ -65,61 +86,67 @@
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
 
-  --border: 40 12% 88%;
-  --input: 40 12% 88%;
-  --ring: 122 47% 34%;
+  --border: 220 13% 91%;                      /* #E5E7EB — soft */
+  --input: 220 13% 91%;
+  --ring: 147 58% 28%;
 
-  /* Radius — component target 28px; base keeps compact controls usable */
-  --radius: 0.875rem;              /* 14px */
-  --radius-lg: 1.25rem;            /* 20px */
-  --radius-xl: 1.5rem;             /* 24px */
-  --radius-component: 1.75rem;     /* 28px — cards, search, primary CTAs */
-  --radius-sheet: 1.75rem;
+  /* Radius */
+  --radius: 0.75rem;                          /* 12px */
+  --radius-btn: 1.125rem;                     /* 18px — buttons */
+  --radius-lg: 1.125rem;                      /* 18px */
+  --radius-xl: 1.5rem;                        /* 24px — cards */
+  --radius-component: 1.5rem;                 /* 24px */
+  --radius-sheet: 1.5rem;
 
-  /* Elevation — charcoal-based, soft depth */
-  --shadow-soft: 0 1px 2px hsl(0 0% 7% / 0.04), 0 4px 16px hsl(0 0% 7% / 0.05);
-  --shadow-card: 0 2px 8px hsl(122 40% 20% / 0.06), 0 8px 24px hsl(0 0% 7% / 0.06);
-  --shadow-lift: 0 12px 36px hsl(0 0% 7% / 0.12);
-  --shadow-float: 0 16px 48px hsl(122 40% 20% / 0.1), 0 4px 12px hsl(0 0% 7% / 0.06);
+  /* Elevation — floating cards, never heavy */
+  --shadow-soft: 0 1px 2px rgb(17 24 39 / 0.03), 0 2px 8px rgb(17 24 39 / 0.03);
+  --shadow-card: 0 2px 10px rgb(17 24 39 / 0.04), 0 8px 28px rgb(17 24 39 / 0.045);
+  --shadow-lift: 0 6px 22px rgb(17 24 39 / 0.07);
+  --shadow-float: 0 10px 28px rgb(17 24 39 / 0.06);
+  --shadow-nav: 0 -2px 16px rgb(17 24 39 / 0.04);
 
-  --chart-1: 122 47% 34%;
-  --chart-2: 203 85% 36%;
-  --chart-3: 46 95% 50%;
+  --chart-1: 147 58% 28%;
+  --chart-2: 207 90% 54%;
+  --chart-3: 95 55% 53%;
   --chart-4: 24 95% 53%;
   --chart-5: 0 72% 51%;
 
   --surface: 0 0% 100%;
+  --surface-secondary: 220 16% 97%;           /* #F7F8FA */
 
-  /* Touch / a11y */
-  --touch-min: 2.75rem;            /* 44px */
-  --focus-ring: 0 0 0 3px hsl(var(--primary) / 0.28);
+  --touch-min: 3rem;                          /* 48px */
+  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--brand-primary) 28%, transparent);
+
+  /* Motion */
+  --motion-fast: 180ms;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .dark {
-  --background: 0 0% 8%;
-  --foreground: 40 20% 96%;
-  --card: 0 0% 11%;
-  --card-foreground: 40 20% 96%;
-  --popover: 0 0% 11%;
-  --popover-foreground: 40 20% 96%;
-  --primary: 122 42% 48%;
+  --background: 220 20% 8%;
+  --foreground: 220 14% 96%;
+  --card: 220 16% 11%;
+  --card-foreground: 220 14% 96%;
+  --popover: 220 16% 11%;
+  --popover-foreground: 220 14% 96%;
+  --primary: 147 45% 42%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 207 50% 14%;
-  --secondary-foreground: 210 29% 98%;
-  --muted: 0 0% 16%;
-  --muted-foreground: 0 0% 68%;
-  --accent: 46 90% 52%;
-  --accent-foreground: 0 0% 7%;
-  --info: 203 80% 52%;
+  --secondary: 220 14% 16%;
+  --secondary-foreground: 220 14% 96%;
+  --muted: 220 14% 16%;
+  --muted-foreground: 220 9% 65%;
+  --accent: 95 55% 53%;
+  --accent-foreground: 220 39% 11%;
+  --info: 207 80% 52%;
   --info-foreground: 0 0% 100%;
   --urgency: 24 90% 56%;
   --urgency-foreground: 0 0% 100%;
   --destructive: 0 62% 50%;
   --destructive-foreground: 0 0% 100%;
-  --border: 0 0% 18%;
-  --input: 0 0% 18%;
-  --ring: 122 42% 48%;
-  --surface: 0 0% 11%;
+  --border: 220 12% 18%;
+  --input: 220 12% 18%;
+  --ring: 147 45% 42%;
+  --surface: 220 16% 11%;
   --urab-gray-50: #141414;
   --urab-gray-100: #1c1c1c;
   --urab-gray-200: #2a2a2a;

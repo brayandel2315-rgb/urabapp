@@ -1,16 +1,12 @@
-/* Patrones gráficos — Brandboard Urabapp */
+/* Patrones gráficos — SuperApp UrabApp (minimal, sin lima/crema) */
 
 .brand-wave-bg {
-  background-color: hsl(var(--secondary));
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Cpath d='M0 80 Q100 40 200 80 T400 80' fill='none' stroke='%230E6BA8' stroke-width='1.5' opacity='0.25'/%3E%3Cpath d='M0 120 Q100 80 200 120 T400 120' fill='none' stroke='%230E6BA8' stroke-width='1' opacity='0.18'/%3E%3Cpath d='M0 160 Q100 120 200 160 T400 160' fill='none' stroke='%2328B463' stroke-width='1' opacity='0.12'/%3E%3C/svg%3E");
-  background-size: 400px 200px;
+  background-color: #f7f8fa;
+  background-image: none;
 }
 
 .brand-leaf-footer {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='80' viewBox='0 0 320 80'%3E%3Cellipse cx='40' cy='60' rx='28' ry='14' fill='%2328B463' opacity='0.35' transform='rotate(-20 40 60)'/%3E%3Cellipse cx='100' cy='55' rx='32' ry='16' fill='%23A8D60E' opacity='0.3' transform='rotate(10 100 55)'/%3E%3Cellipse cx='180' cy='62' rx='26' ry='13' fill='%2328B463' opacity='0.4' transform='rotate(-8 180 62)'/%3E%3Cellipse cx='250' cy='58' rx='30' ry='15' fill='%23A8D60E' opacity='0.28' transform='rotate(15 250 58)'/%3E%3Cellipse cx='300' cy='65' rx='22' ry='11' fill='%2328B463' opacity='0.32' transform='rotate(-12 300 65)'/%3E%3C/svg%3E");
-  background-repeat: repeat-x;
-  background-position: bottom center;
-  background-size: 320px 80px;
+  background-image: none;
 }
 
 .brand-splash-screen {
@@ -18,19 +14,13 @@
   min-height: 100vh;
   min-height: 100dvh;
   overflow: hidden;
-  background: linear-gradient(165deg, hsl(var(--secondary)) 0%, hsl(207 68% 12%) 55%, hsl(203 85% 22%) 100%);
+  background: #ffffff;
 }
 
 .brand-splash-screen::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Cpath d='M0 60 Q100 20 200 60 T400 60' fill='none' stroke='%23ffffff' stroke-width='1' opacity='0.06'/%3E%3Cpath d='M0 100 Q100 60 200 100 T400 100' fill='none' stroke='%23ffffff' stroke-width='1' opacity='0.04'/%3E%3C/svg%3E");
-  background-size: 400px 200px;
-  pointer-events: none;
+  content: none;
 }
 
-/* ─── Pantallas de carga con logo ─── */
 .branded-loading {
   display: flex;
   flex-direction: column;
@@ -39,22 +29,22 @@
   gap: 0.85rem;
   padding: 1.5rem;
   text-align: center;
-  color: #0d2b45;
+  color: #111827;
 }
 
 .dark .branded-loading {
-  color: #f7fafc;
+  color: #f7f8fa;
 }
 
 .branded-loading--screen {
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
-  background: #f7fafc;
+  background: #ffffff;
 }
 
 .dark .branded-loading--screen {
-  background: #061525;
+  background: #111827;
 }
 
 .branded-loading--page {
@@ -80,7 +70,7 @@
   height: 100%;
   padding: 1rem;
   width: 100%;
-  background: rgba(6, 21, 37, 0.45);
+  background: rgba(17, 24, 39, 0.4);
   color: #ffffff;
   border-radius: inherit;
 }
@@ -109,7 +99,7 @@
 
 .branded-loading__message {
   margin: 0;
-  font-family: var(--font-sans, Poppins, system-ui, sans-serif);
+  font-family: var(--font-sans, Inter, system-ui, sans-serif);
   font-size: 0.9375rem;
   font-weight: 600;
   line-height: 1.35;
@@ -125,8 +115,8 @@
 .branded-loading__spinner {
   width: 1.75rem;
   height: 1.75rem;
-  border: 3px solid rgba(40, 180, 99, 0.2);
-  border-top-color: #28b463;
+  border: 3px solid color-mix(in srgb, var(--brand-primary) 18%, transparent);
+  border-top-color: var(--brand-primary);
   border-radius: 50%;
   animation: branded-loading-spin 0.8s linear infinite;
 }
@@ -153,62 +143,30 @@
   position: absolute;
   bottom: -4px;
   left: 0;
-  width: 3rem;
-  height: 4px;
+  width: 2.5rem;
+  height: 3px;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--urab-green-deep) 0%, var(--urab-green) 50%, var(--urab-green-light) 100%);
+  background: var(--brand-primary);
 }
 
 .brand-banner {
-  background: linear-gradient(135deg, hsl(var(--brand-green)) 0%, hsl(var(--brand-blue)) 100%);
+  background: var(--brand-primary);
 }
 
-/* ─── Footer escritorio — oscuro + patrones brandboard ─── */
+/* ─── Footer escritorio — charcoal premium ─── */
 .urabapp-desktop-footer {
   position: relative;
   overflow-x: hidden;
   overflow-y: visible;
-  background: linear-gradient(165deg, #0d2b45 0%, #0a2238 45%, #0d2b45 100%);
-  color: #f7fafc;
+  background: #111827;
+  color: #f7f8fa;
 }
 
-.urabapp-desktop-footer__waves {
-  position: absolute;
-  inset: 0;
-  opacity: 0.55;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='240' viewBox='0 0 480 240'%3E%3Cpath d='M0 70 Q120 30 240 70 T480 70' fill='none' stroke='%230E6BA8' stroke-width='1.2' opacity='0.35'/%3E%3Cpath d='M0 110 Q120 70 240 110 T480 110' fill='none' stroke='%230E6BA8' stroke-width='1' opacity='0.22'/%3E%3Cpath d='M0 150 Q120 110 240 150 T480 150' fill='none' stroke='%2328B463' stroke-width='1' opacity='0.18'/%3E%3Cpath d='M0 190 Q120 150 240 190 T480 190' fill='none' stroke='%23A8D60E' stroke-width='0.8' opacity='0.12'/%3E%3C/svg%3E");
-  background-size: 480px 240px;
-  pointer-events: none;
-}
-
-.urabapp-desktop-footer__dots {
-  position: absolute;
-  inset: 0;
-  opacity: 0.35;
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
-  background-size: 22px 22px;
-  pointer-events: none;
-}
-
-.urabapp-desktop-footer__glow {
-  position: absolute;
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-}
-
-.urabapp-desktop-footer__glow--left {
-  top: -80px;
-  left: -60px;
-  background: rgba(14, 107, 168, 0.22);
-}
-
-.urabapp-desktop-footer__glow--right {
-  bottom: 40px;
-  right: -40px;
-  background: rgba(40, 180, 99, 0.18);
+.urabapp-desktop-footer__waves,
+.urabapp-desktop-footer__dots,
+.urabapp-desktop-footer__glow,
+.urabapp-desktop-footer__leaf-band {
+  display: none;
 }
 
 .urabapp-desktop-footer__inner {
@@ -280,14 +238,13 @@
   height: auto;
   max-height: 3.5rem;
   object-fit: contain;
-  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.35));
 }
 
 .urabapp-desktop-footer__name {
   display: block;
-  font-family: var(--font-display, 'Poppins', sans-serif);
-  font-size: 1.5rem;
-  font-weight: 800;
+  font-family: var(--font-display, Inter, system-ui, sans-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.1;
 }
@@ -296,10 +253,10 @@
   display: block;
   margin-top: 0.25rem;
   font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-weight: 500;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: rgba(230, 244, 255, 0.75);
+  color: rgba(247, 248, 250, 0.55);
 }
 
 .urabapp-desktop-footer__motto {
@@ -307,7 +264,7 @@
   max-width: 18rem;
   font-size: 0.9rem;
   line-height: 1.55;
-  color: rgba(230, 244, 255, 0.65);
+  color: rgba(247, 248, 250, 0.6);
 }
 
 .urabapp-desktop-footer__badges {
@@ -324,10 +281,9 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 0.85rem;
-  background: rgba(255, 255, 255, 0.08);
-  color: #a8d60e;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--brand-secondary);
+  border: 0;
 }
 
 .urabapp-desktop-footer__nav {
@@ -339,10 +295,10 @@
 
 .urabapp-desktop-footer__col-title {
   font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #28b463;
+  color: var(--brand-secondary);
   margin-bottom: 0.85rem;
 }
 
@@ -358,22 +314,21 @@
 .urabapp-desktop-footer__link {
   font-size: 0.875rem;
   font-weight: 500;
-  color: rgba(247, 250, 252, 0.88);
+  color: rgba(247, 248, 250, 0.78);
   text-decoration: none;
-  transition: color 0.15s ease, transform 0.15s ease;
+  transition: color 180ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .urabapp-desktop-footer__link:hover {
-  color: #a8d60e;
-  transform: translateX(3px);
+  color: #ffffff;
 }
 
 .urabapp-desktop-footer__swoosh {
   margin: 2rem 0 1.5rem;
-  height: 4px;
+  height: 2px;
   border-radius: 999px;
-  background: linear-gradient(90deg, #0e6ba8 0%, #28b463 45%, #a8d60e 75%, transparent 100%);
-  opacity: 0.85;
+  background: color-mix(in srgb, var(--brand-primary) 55%, transparent);
+  opacity: 0.7;
 }
 
 .urabapp-desktop-footer__bottom {
@@ -389,7 +344,7 @@
   margin: 0;
   font-size: 0.75rem;
   font-weight: 500;
-  color: rgba(230, 244, 255, 0.5);
+  color: rgba(247, 248, 250, 0.45);
 }
 
 .urabapp-desktop-footer__swoosh-lines {
@@ -404,36 +359,11 @@
   border-radius: 999px;
 }
 
-.urabapp-desktop-footer__line--orange {
-  width: 2.5rem;
-  background: #f59e0b;
-  opacity: 0.85;
-  transform: rotate(-8deg);
-}
-
-.urabapp-desktop-footer__line--blue {
-  width: 3.25rem;
-  background: #0e6ba8;
-  opacity: 0.9;
-  transform: rotate(4deg);
-}
-
+.urabapp-desktop-footer__line--orange,
+.urabapp-desktop-footer__line--blue,
 .urabapp-desktop-footer__line--green {
-  width: 2rem;
-  background: #28b463;
-  opacity: 0.9;
-  transform: rotate(-5deg);
-}
-
-.urabapp-desktop-footer__leaf-band {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 72px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='72' viewBox='0 0 400 72'%3E%3Cellipse cx='50' cy='58' rx='36' ry='16' fill='%2328B463' opacity='0.45' transform='rotate(-18 50 58)'/%3E%3Cellipse cx='130' cy='52' rx='40' ry='18' fill='%23A8D60E' opacity='0.35' transform='rotate(12 130 52)'/%3E%3Cellipse cx='210' cy='60' rx='34' ry='15' fill='%2328B463' opacity='0.5' transform='rotate(-6 210 60)'/%3E%3Cellipse cx='290' cy='54' rx='38' ry='17' fill='%23A8D60E' opacity='0.32' transform='rotate(14 290 54)'/%3E%3Cellipse cx='360' cy='62' rx='30' ry='14' fill='%2328B463' opacity='0.42' transform='rotate(-10 360 62)'/%3E%3C/svg%3E");
-  background-repeat: repeat-x;
-  background-position: bottom center;
-  background-size: 400px 72px;
-  pointer-events: none;
+  width: 2.25rem;
+  background: var(--brand-primary);
+  opacity: 0.7;
+  transform: none;
 }

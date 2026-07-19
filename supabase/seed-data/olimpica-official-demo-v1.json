@@ -1,0 +1,3850 @@
+{
+  "version": 1,
+  "source": "https://www.olimpica.com (VTEX public API)",
+  "store_ref": "https://www.tiendeo.com.co/Tiendas/apartado/olimpica-cc-nuestro-uraba/68693",
+  "policy": "Official public catalog only. Not from Rappi. Demo suffix for onboarding.",
+  "generated_at": "2026-07-18T05:42:52.423Z",
+  "count": 384,
+  "products": [
+    {
+      "source_id": "750",
+      "name": "Banano Maduro",
+      "brand": "Sin Marca",
+      "description": "Banano Maduro",
+      "category": "Frutas",
+      "price": 3400,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1156556/24030526.jpg?v=638312539046900000",
+      "link": "https://www.olimpica.com/banano-maduro/p"
+    },
+    {
+      "source_id": "747",
+      "name": "Tomate Río Grande/Ciruelo",
+      "brand": "Sin Marca",
+      "description": "Tomate Río Grande/Ciruelo",
+      "category": "Verduras",
+      "price": 6400,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/865381/24030229.jpg?v=637908071082000000",
+      "link": "https://www.olimpica.com/tomate-rio-grande-ciruelo/p"
+    },
+    {
+      "source_id": "612",
+      "name": "Cebolla Cabezona Roja",
+      "brand": "Sin Marca",
+      "description": "Cebolla Cabezona Roja",
+      "category": "Verduras",
+      "price": 6200,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1156554/24030496.jpg?v=638312538624030000",
+      "link": "https://www.olimpica.com/cebolla-cabezona-roja/p"
+    },
+    {
+      "source_id": "1002230178",
+      "name": "Tomate La Económica Pera 1 Kg",
+      "brand": "La Economica",
+      "description": "Tomate Pera La Económica 1 Kg. Aquí puedes encontrar más productos marca La Economica",
+      "category": "Verduras",
+      "price": 5800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/735563/7701008112605.jpg?v=638797172830330000",
+      "link": "https://www.olimpica.com/tomate-pera-la-economica-1-kg-7701008112605-2569/p"
+    },
+    {
+      "source_id": "12145",
+      "name": "Ajo Importado Malla 90 G X3 Unds",
+      "brand": "Sin Marca",
+      "description": "Ajo Importado Malla 3 Cabeza 90 G",
+      "category": "Verduras",
+      "price": 1600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/739494/7709990662986.jpg?v=638816198097430000",
+      "link": "https://www.olimpica.com/ajo-importado-malla-3-cabez-90-g-7709990662986/p"
+    },
+    {
+      "source_id": "9858",
+      "name": "Pimentón Rojo x Kilo",
+      "brand": "Sin Marca",
+      "description": "Pimentón Rojo",
+      "category": "Verduras",
+      "price": 9800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1156548/24030298.jpg?v=638312533469400000",
+      "link": "https://www.olimpica.com/pimenton-rojo/p"
+    },
+    {
+      "source_id": "4453",
+      "name": "Limón Tahití 1,5 Kg",
+      "brand": "Sin Marca",
+      "description": "Limón Tahití 1,5 Kg",
+      "category": "Frutas",
+      "price": 7190,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/735583/44530.jpg?v=638806729299270000",
+      "link": "https://www.olimpica.com/limon-tahit-bolsa-1-5-kg/p"
+    },
+    {
+      "source_id": "773",
+      "name": "Papa Clasificada X Kg",
+      "brand": "Sin Marca",
+      "description": "Papa Clasificada X Kg",
+      "category": "Verduras",
+      "price": 5780,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1156553/24030489.jpg?v=638312538226400000",
+      "link": "https://www.olimpica.com/papa-clasificada-24030489/p"
+    },
+    {
+      "source_id": "730",
+      "name": "Plátano Verde",
+      "brand": "Sin Marca",
+      "description": "Plátano Verde",
+      "category": "Verduras",
+      "price": 5100,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/865367/24651714.jpg?v=637908070902530000",
+      "link": "https://www.olimpica.com/platano-verde/p"
+    },
+    {
+      "source_id": "633",
+      "name": "Brócoli",
+      "brand": "Sin Marca",
+      "description": "Brócoli",
+      "category": "Verduras",
+      "price": 12900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1086414/24651561.jpg?v=638181222285930000",
+      "link": "https://www.olimpica.com/brocoli/p"
+    },
+    {
+      "source_id": "629",
+      "name": "Cilantro Criollo 50 G",
+      "brand": "Sin Marca",
+      "description": "Cilantro Criollo Macito 50 G",
+      "category": "Verduras",
+      "price": 2250,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/735478/7701008299016.jpg?v=638798079402400000",
+      "link": "https://www.olimpica.com/cilantro-criollo-macito-por-50-g-7701008299016/p"
+    },
+    {
+      "source_id": "625",
+      "name": "Zanahoria Primera",
+      "brand": "Sin Marca",
+      "description": "Zanahoria Primera",
+      "category": "Verduras",
+      "price": 4510,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/865307/24030236.jpg?v=637908070197470000",
+      "link": "https://www.olimpica.com/zanahoria-primera/p"
+    },
+    {
+      "source_id": "615",
+      "name": "Pepino Cohombro",
+      "brand": "Sin Marca",
+      "description": ".body-tucan{box-sizing: border-box; font-size: 62.5%; margin: 0; padding: 0.625rem 2.0625rem 0rem 0.125rem;}.father-container{font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif; overflow-x: hidden; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; ",
+      "category": "Verduras",
+      "price": 4400,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/865297/24030335.jpg?v=637908070057770000",
+      "link": "https://www.olimpica.com/pepino-cohombro/p"
+    },
+    {
+      "source_id": "613",
+      "name": "Cebolla Cabezona Blanca",
+      "brand": "Sin Marca",
+      "description": "Cebolla Cabezona Blanca",
+      "category": "Verduras",
+      "price": 7980,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/865293/24030267.jpg?v=637908069989870000",
+      "link": "https://www.olimpica.com/cebolla-cabezona-blanca/p"
+    },
+    {
+      "source_id": "1002230170",
+      "name": "Zanahoria 3X2 Lb Oferta",
+      "brand": "Sin Marca",
+      "description": "Zanahoria 3X2 Lb Oferta",
+      "category": "Verduras",
+      "price": 5850,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1368014/DSC_0213.jpg?v=638483821446270000",
+      "link": "https://www.olimpica.com/zanahoria-pag-2x3-lb-of-5333-533/p"
+    },
+    {
+      "source_id": "14941",
+      "name": "Mora Hacienda La Giralda Congelada 500 G",
+      "brand": "La Giralda",
+      "description": "MORA CONG HACIEND LA GIRALDA 500g. Aquí puedes encontrar más productos marca La Giralda",
+      "category": "Frutas",
+      "price": 9350,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1158831/7701008660687_A1N1_es_s01_B1.jpg?v=638313355506830000",
+      "link": "https://www.olimpica.com/mora-cong-haciend-la-giralda-500g/p"
+    },
+    {
+      "source_id": "14482",
+      "name": "LECHUGA HIDROPONICA VERDE CRESPA LA GIRALDA 180g",
+      "brand": "La Giralda",
+      "description": "LECHUGA HIDROP VDE CRESP LA GIRALDA 180g",
+      "category": "Verduras",
+      "price": 5420,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1564256/7701008658998.jpg?v=638795051134870000",
+      "link": "https://www.olimpica.com/lechuga-hidrop-vde-cresp-la-giralda-180g/p"
+    },
+    {
+      "source_id": "14244",
+      "name": "Papa Empacada 1,5 Kg Oferta",
+      "brand": "Olimpica",
+      "description": "Papa Empacada 1,5 Kg Oferta",
+      "category": "Verduras",
+      "price": 4990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1504142/7701008658516.jpg?v=638641775157270000",
+      "link": "https://www.olimpica.com/papa-empac-1-5-kg-of/p"
+    },
+    {
+      "source_id": "3778",
+      "name": "Espinaca",
+      "brand": "Sin Marca",
+      "description": ".body-tucan{box-sizing: border-box; font-size: 62.5%; margin: 0; padding: 0.625rem 2.0625rem 0rem 0.125rem;}.father-container{font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif; overflow-x: hidden; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; ",
+      "category": "Verduras",
+      "price": 14900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/865419/24043410.jpg?v=637908071597500000",
+      "link": "https://www.olimpica.com/espinaca/p"
+    },
+    {
+      "source_id": "3222",
+      "name": "Mandarina Importada",
+      "brand": "Sin Marca",
+      "description": "Mandarina Importada",
+      "category": "Frutas",
+      "price": 18080,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1156413/24043403.jpg?v=638312528523530000",
+      "link": "https://www.olimpica.com/mandarina-importada/p"
+    },
+    {
+      "source_id": "2742",
+      "name": "Cebolla Junca 250 G",
+      "brand": "La Granjita",
+      "description": "Cebolla Junca 250 G",
+      "category": "Verduras",
+      "price": 4800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/735567/7700105000730.jpg?v=638816194721670000",
+      "link": "https://www.olimpica.com/cebolla-junca-por-250-gr-7700105000730-2742/p"
+    },
+    {
+      "source_id": "2350",
+      "name": "Piña Golden X Kg",
+      "brand": "Sin Marca",
+      "description": ".body-tucan{box-sizing: border-box; font-size: 62.5%; margin: 0; padding: 0.625rem 2.0625rem 0rem 0.125rem;}.father-container{font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif; overflow-x: hidden; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; ",
+      "category": "Frutas",
+      "price": 4700,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1156501/24030168.jpg?v=638312532092630000",
+      "link": "https://www.olimpica.com/pina-golden-24030168/p"
+    },
+    {
+      "source_id": "2107",
+      "name": "Plátano Verde 1,5 Kg",
+      "brand": "Sin Marca",
+      "description": "Plátano Verde 1,5 Kg",
+      "category": "Verduras",
+      "price": 5850,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1491787/7700136632177.jpg?v=638775866131000000",
+      "link": "https://www.olimpica.com/platano-vde-bolsa-1-5-kg/p"
+    },
+    {
+      "source_id": "813",
+      "name": "Aguacate Económico",
+      "brand": "Sin Marca",
+      "description": "Aguacate Económico Und X Kg",
+      "category": "Verduras",
+      "price": 6000,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/735533/7701008659087.jpg?v=638815355405200000",
+      "link": "https://www.olimpica.com/aguacate-economico-por-unidad-7701008659087/p"
+    },
+    {
+      "source_id": "768",
+      "name": "Guineo Verde",
+      "brand": "Sin Marca",
+      "description": "Guineo Verde",
+      "category": "Frutas",
+      "price": 3490,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/865393/24030533.jpg?v=639130022925330000",
+      "link": "https://www.olimpica.com/guineo-verde/p"
+    },
+    {
+      "source_id": "742",
+      "name": "Pimentón Verde",
+      "brand": "Sin Marca",
+      "description": "Pimentón Verde",
+      "category": "Verduras",
+      "price": 10900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1158832/24043427.jpg?v=638313356211570000",
+      "link": "https://www.olimpica.com/pimenton-verde/p"
+    },
+    {
+      "source_id": "726",
+      "name": "Ají Dulce Topito",
+      "brand": "Sin Marca",
+      "description": "Ají Dulce Topito",
+      "category": "Verduras",
+      "price": 10980,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1156550/24030342.jpg?v=638312534100270000",
+      "link": "https://www.olimpica.com/aji-dulce-topito/p"
+    },
+    {
+      "source_id": "722",
+      "name": "Papa Criolla Kg",
+      "brand": "Sin Marca",
+      "description": "Papa Criolla X Kg",
+      "category": "Verduras",
+      "price": 9900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1156527/24030243.jpg?v=638312532629400000",
+      "link": "https://www.olimpica.com/papa-criolla/p"
+    },
+    {
+      "source_id": "176910",
+      "name": "Carne Molida de Res Especial x Kg",
+      "brand": "Mercapollo",
+      "description": "@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,100;1,300;1,400&family=Rufina:wght@400;700&display=swap'); .body-tucan { box-sizing: border-box; font-size: 62.5%; padding: 3rem; margin: 0; overflow-x: hidden; text-rendering: optimizeLegibi",
+      "category": "Carnes De Res Y Otras",
+      "price": 30980,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1478854/176910.png?v=638602828536230000",
+      "link": "https://www.olimpica.com/res-carne-molida-especial/p"
+    },
+    {
+      "source_id": "1383",
+      "name": "Pulpa de Cerdo x Kg",
+      "brand": "Mercapollo",
+      "description": "1",
+      "category": "Carne De Cerdo",
+      "price": 23400,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1404648/24010597.jpg?v=639133286738400000",
+      "link": "https://www.olimpica.com/cerdo-pulpa/p"
+    },
+    {
+      "source_id": "98337",
+      "name": "Muslo de Pollo Congelado Granel X Und",
+      "brand": "Sin Marca",
+      "description": "POLLO MUSLO CONG GNEL X UND",
+      "category": "Aves",
+      "price": 2200,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1779536/25073775.jpg.jpg?v=638750907830600000",
+      "link": "https://www.olimpica.com/pollo-muslo-cong-gnel-x-und/p"
+    },
+    {
+      "source_id": "98321",
+      "name": "PEZ SALMON PREMIUN COHO 3 PORC X 450GR",
+      "brand": "Medalla De Oro",
+      "description": "PEZ SALMON PREMIUN COHO 3 PORC X 450GR",
+      "category": "Pescadería",
+      "price": 27992,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2358701/7701008845145.jpg?v=639081639586800000",
+      "link": "https://www.olimpica.com/pez-salmon-premiun-coho-3-porc-x-450gr/p"
+    },
+    {
+      "source_id": "12164",
+      "name": "Chuleta de Cerdo Importada Oferta X Kg",
+      "brand": "Sin Marca",
+      "description": "Chuleta de Cerdo Importada Oferta X Kg",
+      "category": "Carne De Cerdo",
+      "price": 15900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1404722/24029698.jpg?v=638506138818600000",
+      "link": "https://www.olimpica.com/cerdo-chuleta-importada-oferta-24029698/p"
+    },
+    {
+      "source_id": "4595",
+      "name": "Lomo de Cerdo Cañón",
+      "brand": "Mercapollo",
+      "description": "1",
+      "category": "Carne De Cerdo",
+      "price": 28600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1404689/24039079.jpg?v=639198347622570000",
+      "link": "https://www.olimpica.com/cerdo-lomo-cañon/p"
+    },
+    {
+      "source_id": "2223",
+      "name": "Filete de Pechuga de Pollo",
+      "brand": "Mercapollo",
+      "description": "1",
+      "category": "Aves",
+      "price": 23920,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/711517/24019873.jpg?v=637741087026400000",
+      "link": "https://www.olimpica.com/pollo-filete-pechugaa/p"
+    },
+    {
+      "source_id": "1434",
+      "name": "Res Capón/Palomilla/Tabla/Centro Tradicional",
+      "brand": "C.Carnes",
+      "description": "Res Capón/Palomilla Tradicional/Tabla/Centro X Kg",
+      "category": "Carnes De Res Y Otras",
+      "price": 39400,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1404659/24010474.jpg?v=638506135797900000",
+      "link": "https://www.olimpica.com/res-capon-o-tabla-o-centro-o-palomilla-tradicional-24010474-1434/p"
+    },
+    {
+      "source_id": "1403",
+      "name": "Res Espaldilla/Cascara/Carne para Desmechar Tradicional",
+      "brand": "Mercapollo",
+      "description": "1",
+      "category": "Carnes De Res Y Otras",
+      "price": 34280,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1404654/24010443.jpg?v=638506135686100000",
+      "link": "https://www.olimpica.com/res-espaldilla-cascara-carne-para-desmechar-tradicional/p"
+    },
+    {
+      "source_id": "964",
+      "name": "Mojarra Roja X Kg",
+      "brand": "Sin Marca",
+      "description": "Pez Mojarra Roja X Kg",
+      "category": "Pescadería",
+      "price": 16600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/711068/24015455.jpg?v=637741079141870000",
+      "link": "https://www.olimpica.com/pez-mojarra-roja-24015455/p"
+    },
+    {
+      "source_id": "279",
+      "name": "Pechuga de Pollo Olimpica Fresca",
+      "brand": "Mercapollo",
+      "description": "1",
+      "category": "Aves",
+      "price": 20160,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1284486/24649629.jpg?v=638410103368170000",
+      "link": "https://www.olimpica.com/pollo-pechuga-fresca-o/p"
+    },
+    {
+      "source_id": "98388",
+      "name": "PEZ FILETE TILAPIA MEDALLA DE ORO 500G",
+      "brand": "Medalla De Oro",
+      "description": "PEZ FILETE TILAPIA MEDALLA DE ORO 500G",
+      "category": "Pescadería",
+      "price": 16990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2358697/7701008846753.jpg?v=639081638739700000",
+      "link": "https://www.olimpica.com/pez-filete-tilapia-medalla-de oro 500g/p"
+    },
+    {
+      "source_id": "11591",
+      "name": "Contramuslo de Pollo Mercapollo Fresco Deshuesado",
+      "brand": "Mercapollo",
+      "description": "1",
+      "category": "Aves",
+      "price": 19680,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/711574/24028141.jpg?v=637741087526370000",
+      "link": "https://www.olimpica.com/pollo-contramuslo-fresco-mercapollo-deshuesado/p"
+    },
+    {
+      "source_id": "11590",
+      "name": "Pechuga de Pollo Mercapollo Fresca sin Piel Bandeja Familiar X Kg",
+      "brand": "Mercapollo",
+      "description": "Pechuga de Pollo Fresca Mercapollo Sin Piel Bandeja Familiar",
+      "category": "Aves",
+      "price": 20160,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/711573/24028134.jpg?v=637741087518530000",
+      "link": "https://www.olimpica.com/pollo-pechuga-fresca-mercapollo-sin-piel--bandeja-familiar-24028134-11590/p"
+    },
+    {
+      "source_id": "6163",
+      "name": "Filete de Tilapia Antillana al Vacío 450 G",
+      "brand": "Antillana",
+      "description": "Pez Filete De Tilapia Antillana Al Vacío 450 G",
+      "category": "Pescadería",
+      "price": 26145,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2372309/7700695911591.jpg?v=639099663298430000",
+      "link": "https://www.olimpica.com/pez-filete-tilapia-antillana-al-vacio-450-g-7700695911591-6163/p"
+    },
+    {
+      "source_id": "5028",
+      "name": "Víscera Hígado Importado",
+      "brand": "Mercapollo",
+      "description": "1",
+      "category": "Carnes De Res Y Otras",
+      "price": 12800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1404695/24039734.jpg?v=638506137206700000",
+      "link": "https://www.olimpica.com/viscera-higado-importado/p"
+    },
+    {
+      "source_id": "5000",
+      "name": "Lomo de Cerdo Congelado Importado",
+      "brand": "Mercapollo",
+      "description": "1",
+      "category": "Carne De Cerdo",
+      "price": 20800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1404694/24039710.jpg?v=638763597883870000",
+      "link": "https://www.olimpica.com/cerdo-lomo-importado/p"
+    },
+    {
+      "source_id": "2027",
+      "name": "Pollo Vacío Mercapollo",
+      "brand": "Mercapollo",
+      "description": "1",
+      "category": "Aves",
+      "price": 8000,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/711513/24031844.jpg?v=637741086986530000",
+      "link": "https://www.olimpica.com/pollo-vacio-mercapollo/p"
+    },
+    {
+      "source_id": "1775",
+      "name": "Lomito de Pechuga de Pollo Mercapollo",
+      "brand": "Mercapollo",
+      "description": "1",
+      "category": "Aves",
+      "price": 19700,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/711512/24649605.jpg?v=637741086974800000",
+      "link": "https://www.olimpica.com/pollo-lomito-pechuga-mercapollo/p"
+    },
+    {
+      "source_id": "1418",
+      "name": "Costilla de Cerdo Súper Especial con Piel",
+      "brand": "C.Carnes",
+      "description": "Costilla de Cerdo Súper Especial Con Piel X Kg",
+      "category": "Carne De Cerdo",
+      "price": 26900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1404656/24010627.jpg?v=638506135736330000",
+      "link": "https://www.olimpica.com/cerdo-costill-super-especial-con-piel-24010627-1418/p"
+    },
+    {
+      "source_id": "895",
+      "name": "Pechuga de Pollo Mercapollo Fresca sin Piel",
+      "brand": "Mercapollo",
+      "description": "1",
+      "category": "Aves",
+      "price": 25000,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1367866/24031622.jpg?v=638483617136530000",
+      "link": "https://www.olimpica.com/pollo-pechuga-mercapollo-fresca-sin-piel/p"
+    },
+    {
+      "source_id": "855",
+      "name": "Costilla de Res Súper Especial Tradicional",
+      "brand": "Mercapollo",
+      "description": "1",
+      "category": "Carnes De Res Y Otras",
+      "price": 26536,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1404634/24010580.jpg?v=638506135054570000",
+      "link": "https://www.olimpica.com/res-costill-super-especial-tradicional/p"
+    },
+    {
+      "source_id": "575",
+      "name": "Chicharrón de Cerdo Especial",
+      "brand": "Mercapollo",
+      "description": "1",
+      "category": "Carne De Cerdo",
+      "price": 27600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1284499/24014557.jpg?v=638410103618330000",
+      "link": "https://www.olimpica.com/cerdo-chicharron-especial/p"
+    },
+    {
+      "source_id": "144",
+      "name": "Lomo Ancho/Chata de Res sin Hueso Tradicional",
+      "brand": "C.Carnes",
+      "description": "@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,100;1,300;1,400&family=Rufina:wght@400;700&display=swap'); .body-tucan{box-sizing: border-box; font-size: 62.5%; padding: 3rem; margin: 0; overflow-x: hidden; text-rendering: optimizeLegibili",
+      "category": "Carnes De Res Y Otras",
+      "price": 47104,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1404615/24010122.jpg?v=638506134380130000",
+      "link": "https://www.olimpica.com/res-lomo-ancho-o-chata-sin-hueso-tradicional-24010122-144/p"
+    },
+    {
+      "source_id": "86",
+      "name": "Pechuga de Pollo Mercapollo",
+      "brand": "Mercapollo",
+      "description": "Pechuga de Pollo Mercapollo X Kg. Aquí puedes encontrar más productos Mercapollo",
+      "category": "Aves",
+      "price": 25620,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1284458/24649421.jpg?v=638410102851330000",
+      "link": "https://www.olimpica.com/pollo-pechuga-mercapollo-24649421-86/p"
+    },
+    {
+      "source_id": "60",
+      "name": "Res Jarrete/Murillo/Pepino Tradicional",
+      "brand": "Mercapollo",
+      "description": "1",
+      "category": "Carnes De Res Y Otras",
+      "price": 27880,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1404609/24010078.jpg?v=638506134209570000",
+      "link": "https://www.olimpica.com/res-jarrete-murillo-pepino-tradicional/p"
+    },
+    {
+      "source_id": "1002230774",
+      "name": "Pechuga de Pollo Avicampo sin Piel Bandeja Familia X Kg",
+      "brand": "Avicampo",
+      "description": "Pechuga de Pollo Avicampo Sin Piel Bandeja Familia",
+      "category": "Aves",
+      "price": 22792,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1410371/24040501.jpg?v=638506229548530000",
+      "link": "https://www.olimpica.com/pollo-pechug-ef-sin-piel-bandeja-flia-avicam-24040501-14107/p"
+    },
+    {
+      "source_id": "1478933",
+      "name": "Leche Alpina Uht Deslactosada 1,1 Lt X6 Unds",
+      "brand": "Alpina",
+      "description": "Leche Uht Alpina Deslactosada 1,1 Lt X6 Unds. Aquí puedes encontrar más productos Alpina",
+      "category": "Lácteos",
+      "price": 29990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1424120/7702001029716.jpg?v=638815526900970000",
+      "link": "https://www.olimpica.com/leche-uht-alpina-deslactosada-bolsa-11-l-x6-7702001029716-1478933/p"
+    },
+    {
+      "source_id": "1353948",
+      "name": "Huevo Kikes Rojo AA X30 Unds",
+      "brand": "Kikes",
+      "description": "Huevos AA Kikes Rojos X30 Unds. Aquí puedes encontrar más productos marca Kikes",
+      "category": "Huevos",
+      "price": 18375,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1474154/7707304621100-30L.jpg?v=638593694124970000",
+      "link": "https://www.olimpica.com/huevo-aa-rojo-pet-kikes-30un-7707304621100-1353948/p"
+    },
+    {
+      "source_id": "2321998",
+      "name": "HUEVO X 30 UNDS TIPO A",
+      "brand": "Acondesa",
+      "description": "HUEVO X 30 UN T/A",
+      "category": "Huevos",
+      "price": 14100,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1490716/HUEVOS_1.jpg?v=638629800670230000",
+      "link": "https://www.olimpica.com/huevo-x-30-un-t-a/p"
+    },
+    {
+      "source_id": "2124164",
+      "name": "Leche Medalla de Oro Uht Entera 900 Ml X6 Unds",
+      "brand": "Medalla De Oro",
+      "description": "LECHE UHT MEDALLA ORO ENT 900ML X6un",
+      "category": "Lácteos",
+      "price": 18490,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1882330/7701008628281.jpg?v=638872427663100000",
+      "link": "https://www.olimpica.com/leche-uht-medalla-oro-ent-900ml-x6un/p"
+    },
+    {
+      "source_id": "851093",
+      "name": "Huevo Santa Anita Rojo A X30 Unds",
+      "brand": "Santa Anita",
+      "description": "Huevos A Santa Anita Rojos X30 Unds",
+      "category": "Huevos",
+      "price": 14100,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/625849/7706772301071.jpg?v=637626539696800000",
+      "link": "https://www.olimpica.com/huevo-santa-anita-a-rojo-30-und-panal-7706772301071-851093/p"
+    },
+    {
+      "source_id": "80787",
+      "name": "Queso Colanta Crema 230 G",
+      "brand": "Colanta",
+      "description": "Queso Crema Colanta 230 G",
+      "category": "Lácteos",
+      "price": 4492,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1423046/7702129025201.jpg?v=638808545079030000",
+      "link": "https://www.olimpica.com/qso-crem-colanta-230-g/p"
+    },
+    {
+      "source_id": "2124165",
+      "name": "Leche Medalla de Oro Uht Deslactosada 900 Ml X6 Unds",
+      "brand": "Medalla De Oro",
+      "description": "LECHE UHT MEDALLA ORO DESLAC 900ML X6un",
+      "category": "Lácteos",
+      "price": 19190,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1882261/7701008628328.jpg?v=638872413974170000",
+      "link": "https://www.olimpica.com/leche-uht-medalla-oro-deslac-900ml-x6un/p"
+    },
+    {
+      "source_id": "2007748",
+      "name": "Queso Alpina Parmesano Rallado 250 G",
+      "brand": "Alpina",
+      "description": "Queso Alpina Parmesano Rallado 250 G",
+      "category": "Lácteos",
+      "price": 31500,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2293944/7702001012084.jpg?v=638973414058700000",
+      "link": "https://www.olimpica.com/queso-parmesano-rallado-alpina-250-g-7702001012084-2007748/p"
+    },
+    {
+      "source_id": "2007746",
+      "name": "Queso Alpina Parmesano Rallado 100 G",
+      "brand": "Alpina",
+      "description": "Queso Alpina Parmesano Rallado 100 G",
+      "category": "Lácteos",
+      "price": 13800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2293941/7702001012053.jpg?v=638973413804870000",
+      "link": "https://www.olimpica.com/queso-parmesano-rallado-alpina-100-g-7702001012053-2007746/p"
+    },
+    {
+      "source_id": "1653504",
+      "name": "Leche Colanta Deslactosada 1,1 Lt X6 Unds",
+      "brand": "Colanta",
+      "description": "LECHE COLANTA DESLACTOSADA 1.1 L X 6",
+      "category": "Lácteos",
+      "price": 33900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1491269/7702129006194.jpg?v=638633875459730000",
+      "link": "https://www.olimpica.com/leche-colanta-deslactosada-11-l-x-6-7702129006194-1653504/p"
+    },
+    {
+      "source_id": "1623329",
+      "name": "Leche Colanta Uht Entera 1,1 Lt X6 Unds",
+      "brand": "Colanta",
+      "description": "LECHE UHT COLANTA ENTERA 1.1 L X6",
+      "category": "Lácteos",
+      "price": 35290,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1491265/7702129003612.jpg?v=638633871589470000",
+      "link": "https://www.olimpica.com/leche-uht-colanta-entera-11-l-x6-7702129003612-1623329/p"
+    },
+    {
+      "source_id": "1401106",
+      "name": "Queso Finesse Mozarella 450 G X30 Tajadas",
+      "brand": "Finesse",
+      "description": "Queso Alpina Finesse Tajado 450 G. Aquí puedes encontrar más productos Finesse",
+      "category": "Lácteos",
+      "price": 26520,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1852795/7702001121786.png.png?v=638826779079730000",
+      "link": "https://www.olimpica.com/queso-alpina-finesse-tajado-450-g-7702001121786-1401106/p"
+    },
+    {
+      "source_id": "1401105",
+      "name": "Queso Finesse 239 G X15 Tajadas",
+      "brand": "Finesse",
+      "description": "Queso Alpina Finesse 15 Tajado X239 G",
+      "category": "Lácteos",
+      "price": 15350,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1852796/7702001121779.png.png?v=638826779400430000",
+      "link": "https://www.olimpica.com/queso-alpina-finesse-tajado-239-g-7702001121779-1401105/p"
+    },
+    {
+      "source_id": "1401103",
+      "name": "Queso Alpina Mozzarella Tajado 400 G",
+      "brand": "Alpina",
+      "description": "Queso Alpina Mozzarella Tajado 400 G",
+      "category": "Lácteos",
+      "price": 19440,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1424184/7702001121762.jpg?v=638514013610100000",
+      "link": "https://www.olimpica.com/queso-alpina-mozarella-tajado-400-g-7702001121762-1401103/p"
+    },
+    {
+      "source_id": "1401102",
+      "name": "Queso Alpina Mozzarella 240 G X15 Tajadas",
+      "brand": "Alpina",
+      "description": "Queso Alpina Mozzarella 15 Tajado X240 G",
+      "category": "Lácteos",
+      "price": 12600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1852797/7702001121755.png.png?v=638826779674430000",
+      "link": "https://www.olimpica.com/queso-alpina-mozarella-tajado-240-g-7702001121755-1401102/p"
+    },
+    {
+      "source_id": "1219430",
+      "name": "Queso Colanta Campesino 250 G",
+      "brand": "Colanta",
+      "description": "Queso Campesino Colanta 250 G",
+      "category": "Lácteos",
+      "price": 8650,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1491258/7702129015523-.jpg?v=638633866000500000",
+      "link": "https://www.olimpica.com/qso-campes-colanta-250-g/p"
+    },
+    {
+      "source_id": "1037781",
+      "name": "Bon Yurt Zucaritas 170 G X4 Unds",
+      "brand": "Bonyurt",
+      "description": "Bon Yurt Zucaritas 170 G X4 Unds",
+      "category": "Lácteos",
+      "price": 13880,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1424156/7702001100736.jpg?v=638816295319000000",
+      "link": "https://www.olimpica.com/alimento-lacteo-bonyurt-zucaritas-multiempaque-170g-x4-7702001100736-1037781/p"
+    },
+    {
+      "source_id": "916381",
+      "name": "Huevo Santa Anita Rojo B Amarrado X30 Unds",
+      "brand": "Santa Anita",
+      "description": "Huevos B Santa Anita Amarrado Rojos X30 Unds",
+      "category": "Huevos",
+      "price": 12900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/628238/7706772300319.jpg?v=637626543979830000",
+      "link": "https://www.olimpica.com/huevo-santa-anita-panal-amarrado-tipo-b-30-und-7706772300319-916381/p"
+    },
+    {
+      "source_id": "507205",
+      "name": "Leche Alpina Uht Deslactosada 1 Lt",
+      "brand": "Alpina",
+      "description": "Leche Uht Alpina Deslactosada 1 Lt",
+      "category": "Lácteos",
+      "price": 8600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1424066/7702001045310.jpg?v=638815436118670000",
+      "link": "https://www.olimpica.com/leche-uht-alpina-deslactosada-caja-1-l-7702001045310-507205/p"
+    },
+    {
+      "source_id": "230851",
+      "name": "Queso Colanta Mozzarella Tajado 250 G",
+      "brand": "Colanta",
+      "description": "Queso Mozzarella Colanta Tajado 250 G",
+      "category": "Lácteos",
+      "price": 12900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1423080/7702129020800.jpg?v=638813987100000000",
+      "link": "https://www.olimpica.com/qso-mozar-colanta-taj-250-g/p"
+    },
+    {
+      "source_id": "80788",
+      "name": "Queso Colanta Crema 400 G",
+      "brand": "Colanta",
+      "description": "Queso Crema Colanta 400 G",
+      "category": "Lácteos",
+      "price": 8800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1423047/7702129025157.jpg?v=638512991116330000",
+      "link": "https://www.olimpica.com/qso-colanta-crem-400-g/p"
+    },
+    {
+      "source_id": "2323072",
+      "name": "QSO MEDALLA DE ORO T/MOZAR TAJ 400 G",
+      "brand": "Medalla De Oro",
+      "description": "QSO MEDALLA DE ORO T/MOZAR TAJ 400 G",
+      "category": "Lácteos",
+      "price": 11990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2360689/7701008845398_1.jpg?v=639087538322470000",
+      "link": "https://www.olimpica.com/qso-medalla-de-oro-t-mozar-taj-400-g/p"
+    },
+    {
+      "source_id": "2321997",
+      "name": "HUEVO X 30 UND TIPO B",
+      "brand": "SIN MARCA 2",
+      "description": "HUEVO X 30 UN T/B",
+      "category": "Huevos",
+      "price": 12900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1490714/HUEVOS_2.jpg?v=638629800273000000",
+      "link": "https://www.olimpica.com/huevo-x-30-un-t-b/p"
+    },
+    {
+      "source_id": "2312885",
+      "name": "Leche Alquería Original 1,1 Lt X6 Unds",
+      "brand": "Alqueria",
+      "description": "Leche Sabor Original Alqueria 1.1L x6unds",
+      "category": "Lácteos",
+      "price": 37350,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1881651/7702177022542.jpg?v=638871759024870000",
+      "link": "https://www.olimpica.com/leche-alqueria-original-1100ml-x-6un/p"
+    },
+    {
+      "source_id": "2037326",
+      "name": "Huevo Nápoles Rojo AA X30 Unds",
+      "brand": "Napoles",
+      "description": "Huevos AA Nápoles Rojos X30 Unds",
+      "category": "Huevos",
+      "price": 24000,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/645420/7700624102038.jpg?v=638948477213470000",
+      "link": "https://www.olimpica.com/huevo-napoles-aar-x30-vitafilado-7700624102038-2037326/p"
+    },
+    {
+      "source_id": "2004783",
+      "name": "Yogo Yogo Alpina Fresa 1000 G",
+      "brand": "Yogo Yogo",
+      "description": "ALIMENTO LACTEO YOGO YOGO 1000 g, FRESA",
+      "category": "Lácteos",
+      "price": 6240,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2266260/7702001046409.jpg?v=638954471884570000",
+      "link": "https://www.olimpica.com/alimento-lacteo-yogo-yogo-1000-g--fresa-7702001046409-2004783/p"
+    },
+    {
+      "source_id": "1604778",
+      "name": "Queso ALPINA campesino x250 G",
+      "brand": "Alpina",
+      "description": "Queso Alpina campesino x250g",
+      "category": "Lácteos",
+      "price": 13590,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2253710/7702001016068.jpg?v=638941731014870000",
+      "link": "https://www.olimpica.com/qso-campes-alpina-250-g/p"
+    },
+    {
+      "source_id": "1586145",
+      "name": "Leche Alpina Uht Entera 1,1 Lt X6 Unds",
+      "brand": "Alpina",
+      "description": "LECHE UHT ALPINA ENTERA BOLSA 1.1 L X6",
+      "category": "Lácteos",
+      "price": 45900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1424140/7702001041411.jpg?v=638811049795300000",
+      "link": "https://www.olimpica.com/leche-uht-alpina-entera-bolsa-11-l-x6-7702001041411-1586145/p"
+    },
+    {
+      "source_id": "1362715",
+      "name": "Salchicha Ranchera 480 G X14 Unds",
+      "brand": "Ranchera",
+      "description": "La recompensa al mejor sabor del rancho se lo llevan esta jugosa y doradita salchicha. Prepárala asada y siente su inigualable sabor. Aquí puedes encontrar más productos Ranchera",
+      "category": "Carnes Frías",
+      "price": 28790,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2410187/7701101247266-1.jpg?v=639168748821600000",
+      "link": "https://www.olimpica.com/salchicha-ranchera-480-g-7701101247266-1362715/p"
+    },
+    {
+      "source_id": "2154425",
+      "name": "Jamón de Cerdo Pietrán sin Conservantes 431 G",
+      "brand": "Pietran",
+      "description": "Delicioso jamón de cerdo sin conservantes, buena fuente de proteína, 97% libre de grasa y 25% reducido en sodio. Con empaque abre fácil que te brinda los beneficios de la proteína a cualquier hora del día en todas tus preparaciones favoritas, para que puedas disfrutar del placer ",
+      "category": "Carnes Frías",
+      "price": 26150,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2410256/7701101358542-1.jpg?v=639168751670530000",
+      "link": "https://www.olimpica.com/jamon-pietran-estandar-sin-conservante-431g-7701101358542-2154425/p"
+    },
+    {
+      "source_id": "1521487",
+      "name": "Jamón de Cerdo Pietrán sin Conservantes 230 G",
+      "brand": "Pietran",
+      "description": "Jamón Pietrán de Cerdo sin Conservantes 230 G",
+      "category": "Carnes Frías",
+      "price": 14250,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2410251/7701101356098-1.jpg?v=639168751546730000",
+      "link": "https://www.olimpica.com/jamon-pietran-estandar-sin-conservantes-230g-7701101356098-1521487/p"
+    },
+    {
+      "source_id": "1096549",
+      "name": "Jamón Cunit 400 G",
+      "brand": "Cunit",
+      "description": "Jamón Cunit 400 G Aquí puedes encontrar más productos Cunit",
+      "category": "Carnes Frías",
+      "price": 13900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2410120/7701101280799-1.jpg?v=639168746136800000",
+      "link": "https://www.olimpica.com/jamon-cunit-x400g-7701101280799-1096549/p"
+    },
+    {
+      "source_id": "964916",
+      "name": "Salchicha Cunit Cazadora 500 G X16 Unds",
+      "brand": "Cunit",
+      "description": "Salchicha Cunit Cazadora 16 Unds X500 G",
+      "category": "Carnes Frías",
+      "price": 19900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2410115/7702398027982-1.jpg?v=639168745997730000",
+      "link": "https://www.olimpica.com/salchicha-cunit-cazadora-500-g-7702398027982-964916/p"
+    },
+    {
+      "source_id": "2313167",
+      "name": "Salchicha Ranchera 377 G",
+      "brand": "Ranchera",
+      "description": "SALCHICHA RANCHERA 377g",
+      "category": "Carnes Frías",
+      "price": 24150,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2410202/7701101361023-1.jpg.jpg?v=639168749486500000",
+      "link": "https://www.olimpica.com/salchicha-ranchera-377g/p"
+    },
+    {
+      "source_id": "2002020",
+      "name": "Mortadela Cunit Linea Económica 250 G",
+      "brand": "Cunit",
+      "description": "Mortadela Cunit Linea Económica 250 G",
+      "category": "Carnes Frías",
+      "price": 5450,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2410141/7702348312045-1.jpg?v=639168746759200000",
+      "link": "https://www.olimpica.com/mortadela-cunit-linea-economica-250-g-7702348312045-2002020/p"
+    },
+    {
+      "source_id": "2299908",
+      "name": "Atún Van Camp'S Aceite Packs X2 320 G",
+      "brand": "Van Camps",
+      "description": "Atún Van Camp's Aceite Packs X2 320 G",
+      "category": "Carnes Enlatadas",
+      "price": 11990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1395424/7702367801063.jpg?v=638496784113800000",
+      "link": "https://www.olimpica.com/atun-van-camp-s-aceite-packs-x2-320g/p"
+    },
+    {
+      "source_id": "2004701",
+      "name": "Harina Pan de Maíz Blanco 1 Kg",
+      "brand": "Pan",
+      "description": "Harina de Maíz Pan Blanco 1 Kg. Aquí puedes encontrar más productos marca Pan",
+      "category": "Harinas",
+      "price": 3600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/685195/7702084137520.jpg?v=637684581490100000",
+      "link": "https://www.olimpica.com/harina-de-maiz-blanco-pan-1-kg-7702084137520--2004701/p"
+    },
+    {
+      "source_id": "1646719",
+      "name": "Aceite Medalla de Oro Mezcla 3 Lt",
+      "brand": "Medalla De Oro",
+      "description": "ACEITE MEDALLA ORO MEZCLA 3 L",
+      "category": "Aceites",
+      "price": 19490,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2388491/7701008624894_1.jpg?v=639128955798630000",
+      "link": "https://www.olimpica.com/aceite-medalla-oro-mezcla-3-l/p"
+    },
+    {
+      "source_id": "566495",
+      "name": "Sal Refisal 1 Kg",
+      "brand": "Refisal",
+      "description": "Sal Refisal 1 Kg. Aquí puedes encontrar más productos marca Refisal",
+      "category": "Salsas-Aderezos-Condimentos",
+      "price": 2950,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/822290/7703812101202.jpg?v=637872730400800000",
+      "link": "https://www.olimpica.com/sal-refisal-1-kg/p"
+    },
+    {
+      "source_id": "5213269",
+      "name": "Azúcar Olimpica Blanca 2,5 Kg",
+      "brand": "Olimpica",
+      "description": "AZUCAR-BLANCA-OLIMPICA-2.5-KG",
+      "category": "Endulzantes",
+      "price": 9500,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1735380/7701008661394.jpg?v=638732377526830000",
+      "link": "https://www.olimpica.com/azucar-blanca-olimpica-2-5-kg/p"
+    },
+    {
+      "source_id": "2315088",
+      "name": "Aceite Premier de Girasol 2700 Ml",
+      "brand": "Premier",
+      "description": "ACEITE PREMIER GIRASOL 2700ML",
+      "category": "Aceites",
+      "price": 43567,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1300141/7701018076430.jpg?v=638428552067630000",
+      "link": "https://www.olimpica.com/aceite-premier-girasol-2700ml/p"
+    },
+    {
+      "source_id": "2299909",
+      "name": "Atún Van Camp's Agua 320 G X2 Unds",
+      "brand": "Van Camps",
+      "description": "Atún Van Camp's Agua Packs X2 320 G",
+      "category": "Carnes Enlatadas",
+      "price": 11990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1395425/7702367686585.jpg?v=638496784174800000",
+      "link": "https://www.olimpica.com/atun-van-camp-s-agua-packs-x2-320g/p"
+    },
+    {
+      "source_id": "2002496",
+      "name": "Azúcar Manuelita 2,5 Kg",
+      "brand": "Manuelita",
+      "description": "AZUCAR MANUELITA POLIET 2.5 kg Aquí puedes encontrar más productos marca Manuelita",
+      "category": "Endulzantes",
+      "price": 8600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1789448/7702406000150.jpg.jpg?v=638772425094970000",
+      "link": "https://www.olimpica.com/azucar-manuelita-poliet-2-5-kg/p"
+    },
+    {
+      "source_id": "2000171",
+      "name": "Lenteja Olimpica 500 G",
+      "brand": "Olimpica",
+      "description": "Lenteja Olimpica 500 G",
+      "category": "Granos",
+      "price": 1190,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2354806/7701008001374.jpg?v=639071317918770000",
+      "link": "https://www.olimpica.com/lenteja-olimpica--500-g-7701008001374-2000171/p"
+    },
+    {
+      "source_id": "2000025",
+      "name": "Arroz Sabrosón 5 Kg",
+      "brand": "Sabroson",
+      "description": "Arroz Sabrosón 5 Kg",
+      "category": "Arroces Empacados Y Granel",
+      "price": 20500,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/735866/7707105805105.jpg?v=638896015834200000",
+      "link": "https://www.olimpica.com/arroz-sabroson-5-kg-7707105805105-2000025/p"
+    },
+    {
+      "source_id": "1229836",
+      "name": "Galleta Saltín Rojo Taco 500 G x5 Unds",
+      "brand": "Saltin",
+      "description": "GALLETA SALTIN ROJO TACO X5 500g",
+      "category": "Pasabocas",
+      "price": 7990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2373302/7702025136988_1.jpg?v=639100481846030000",
+      "link": "https://www.olimpica.com/galleta-saltin-rojo-taco-x5-500g/p"
+    },
+    {
+      "source_id": "990477",
+      "name": "Lenteja Olimpica 1 Kg",
+      "brand": "Olimpica",
+      "description": "Lenteja Olimpica 1 Kg",
+      "category": "Granos",
+      "price": 4050,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2354805/7701008001367.jpg?v=639071317779930000",
+      "link": "https://www.olimpica.com/lenteja-olimpica-1-kg-7701008001367-990477/p"
+    },
+    {
+      "source_id": "566554",
+      "name": "Arroz Diana 5 Kg",
+      "brand": "Diana",
+      "description": "Arroz Diana 5 Kg. Aquí puedes encontrar más productos marca Diana",
+      "category": "Arroces Empacados Y Granel",
+      "price": 17990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/866350/7702511000045.jpg?v=637910008783030000",
+      "link": "https://www.olimpica.com/arroz-diana-5-kg-7702511000045-566554/p"
+    },
+    {
+      "source_id": "518233",
+      "name": "Arroz Diana 3 Kg",
+      "brand": "Diana",
+      "description": "Arroz Diana 3 Kg",
+      "category": "Arroces Empacados Y Granel",
+      "price": 12990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/866346/7702511000038.jpg?v=637910007481170000",
+      "link": "https://www.olimpica.com/arroz-diana-3-kg-7702511000038-518233/p"
+    },
+    {
+      "source_id": "16365",
+      "name": "Frijol Olimpica Riego Zaragoza Rosado 500 G",
+      "brand": "Olimpica",
+      "description": "Frijol Olimpica Riego Zaragoza Rosado 500 G",
+      "category": "Granos",
+      "price": 3990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2354812/7701008001930.jpg?v=639071318851070000",
+      "link": "https://www.olimpica.com/frijol-olimpica-rosado-riego-zaragoza-500-g-7701008001930-16365/p"
+    },
+    {
+      "source_id": "2333737",
+      "name": "LENTEJA DIANA 500G",
+      "brand": "Diana",
+      "description": "LENTEJA DIANA 500G",
+      "category": "Granos",
+      "price": 2390,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1902356/7702511002933.jpg?v=638902630250730000",
+      "link": "https://www.olimpica.com/lenteja-diana-500g/p"
+    },
+    {
+      "source_id": "2331765",
+      "name": "ARROZ TAILANDES 2.500 G",
+      "brand": "Tailandes",
+      "description": "ARROZ TAILANDES 2.500 G",
+      "category": "Arroces Empacados Y Granel",
+      "price": 12500,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1895417/7707105807055.jpg?v=638884560344400000",
+      "link": "https://www.olimpica.com/arroz-tailandes-2-500-g/p"
+    },
+    {
+      "source_id": "2327754",
+      "name": "HARINA TRIGO MEDALLA DE ORO FORTIFI 500G",
+      "brand": "Medalla De Oro",
+      "description": "HARINA TRIGO MEDALLA DE ORO FORTIFI 500G",
+      "category": "Harinas",
+      "price": 1700,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2360691/7701008845541_1.jpg?v=639087538649900000",
+      "link": "https://www.olimpica.com/harina-trigo-medalla-de-oro-fortifi-500g/p"
+    },
+    {
+      "source_id": "2320703",
+      "name": "Galleta Oreo 360 G",
+      "brand": "Oreo",
+      "description": "GALLETA OREO BSA 360 G",
+      "category": "Galletas",
+      "price": 9742,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1469272/7622201764340_1.jpg?v=638573859716400000",
+      "link": "https://www.olimpica.com/galleta-oreo-bsa-360-g-7622201764340/p"
+    },
+    {
+      "source_id": "2319356",
+      "name": "Salsa Olimpica de Tomate 500 G",
+      "brand": "Olimpica",
+      "description": "SALSA TOM OLIMPICA DP 500G",
+      "category": "Salsas-Aderezos-Condimentos",
+      "price": 4490,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1837117/7701008844254.jpg.jpg?v=638797278308300000",
+      "link": "https://www.olimpica.com/salsa-tom-olimpica-dp-500g/p"
+    },
+    {
+      "source_id": "2317851",
+      "name": "Arroz Diana Paca 12,5 Kg X25 Unds",
+      "brand": "Diana",
+      "description": "ARROZ DIANA PACA 25 UND 12.500 G",
+      "category": "Arroces Empacados Y Granel",
+      "price": 49990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1548941/7702511000052.jpg?v=638654026694500000",
+      "link": "https://www.olimpica.com/arroz-diana-paca-25-und-12-500-g/p"
+    },
+    {
+      "source_id": "2315087",
+      "name": "Aceite Premier de Girasol 1800 Ml",
+      "brand": "Premier",
+      "description": "ACEITE PREMIER GIRASOL 1800ML",
+      "category": "Aceites",
+      "price": 29392,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1300140/7701018076423.jpg?v=638428551522630000",
+      "link": "https://www.olimpica.com/aceite-premier-girasol-1800ml/p"
+    },
+    {
+      "source_id": "2315084",
+      "name": "Aceite Premier de Girasol 900 Ml",
+      "brand": "Premier",
+      "description": "ACEITE PREMIER GIRASOL 900ML",
+      "category": "Aceites",
+      "price": 15037,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1463806/7701018076416.jpg?v=638566709341570000",
+      "link": "https://www.olimpica.com/aceite-premier-girasol-900ml/p"
+    },
+    {
+      "source_id": "2313114",
+      "name": "Aderezo Mostaza San Jorge 100 G",
+      "brand": "San Jorge",
+      "description": "ADEREZO S/JORGE MOSTAZA 100gr",
+      "category": "Salsas-Aderezos-Condimentos",
+      "price": 2212,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2201103/7702014924008_1.png?v=638925061442870000",
+      "link": "https://www.olimpica.com/aderezo-s-jorge-mostaza-100gr/p"
+    },
+    {
+      "source_id": "2312086",
+      "name": "GALLETA DUCALES TACO X5 500g",
+      "brand": "Ducales",
+      "description": "GALLETA DUCALES TACO X5 500g",
+      "category": "Galletas",
+      "price": 14100,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1788908/7702025149520_1.png.png?v=638771506883570000",
+      "link": "https://www.olimpica.com/galleta-ducales-taco-x5-500g/p"
+    },
+    {
+      "source_id": "2335816",
+      "name": "CAFE SELLO ROJO 425G",
+      "brand": "Sello Rojo",
+      "description": "CAFE SELLO ROJO 425G",
+      "category": "Cafés",
+      "price": 22990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2391640/7702032117833_1.png?v=639134999360470000",
+      "link": "https://www.olimpica.com/cafe-sello-rojo-425g/p"
+    },
+    {
+      "source_id": "1002230227",
+      "name": "Huevo Kikes Rojo AAA X15 Unds",
+      "brand": "Kikes",
+      "description": "Huevos AAA Kikes Jo Pet X15 Unds",
+      "category": "Huevos",
+      "price": 10725,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1474151/7707304621384-15XL.jpg?v=638593691909730000",
+      "link": "https://www.olimpica.com/huevo-aaa-jo-pet-x15-un-kikes-7707304621384-2136304/p"
+    },
+    {
+      "source_id": "2326439",
+      "name": "CHOCOLATE CORONA 450G",
+      "brand": "CORONA",
+      "description": "CHOCOLATE CORONA 450G",
+      "category": "Chocolates de Mesa",
+      "price": 17250,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2391619/7702007084535_1.png?v=639134997650270000",
+      "link": "https://www.olimpica.com/chocolate-corona-450g/p"
+    },
+    {
+      "source_id": "2001737",
+      "name": "Café Sello Rojo Tradicional 250 G",
+      "brand": "Sello Rojo",
+      "description": "CAFE SELLO ROJO 250 g -COSTA",
+      "category": "Cafés",
+      "price": 13900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1784985/7702032252190.jpg?v=638767858815600000",
+      "link": "https://www.olimpica.com/cafe-sello-rojo-250-g--costa/p"
+    },
+    {
+      "source_id": "1622293",
+      "name": "Pan Olimpica Tajado Mantequilla  550 G",
+      "brand": "Olimpica",
+      "description": "PAN TAJADO MANTEQUILLA OLIMPICA 550 g",
+      "category": "Pan Empacado",
+      "price": 5800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/643897/7701008216129.jpg?v=639167043040300000",
+      "link": "https://www.olimpica.com/pan-tajado-mantequilla-olimpica-550-g-7701008216129--1622293/p"
+    },
+    {
+      "source_id": "1401337",
+      "name": "Café Medalla de Oro Molido 500 G",
+      "brand": "Medalla De Oro",
+      "description": "CAFE MEDALLA ORO MOL 500 g. Aquí puedes encontrar más productos Medalla de Oro",
+      "category": "Cafés",
+      "price": 19900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2388481/7701008506237_1.jpg?v=639128954587970000",
+      "link": "https://www.olimpica.com/cafe-medalla-oro-mol-500-g/p"
+    },
+    {
+      "source_id": "1002372968",
+      "name": "Leche Olimpica Deslactosada 800 Ml X6 Unds",
+      "brand": "Olimpica",
+      "description": "Leche Deslactosada Olimpica 800 Ml X6 Unds, Olimpica, olimpica, Leche, Leches, leche, leches, Leche de vaca, Leche vaca, leche de vaca, leche vaca, Bebida de proteina, Bebidas de proteina, bebida de proteina, bebidas de proteina, Bebida de proteína, Bebidas de proteína, bebida de",
+      "category": "Lácteos",
+      "price": 18390,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1882332/7701008838819.jpg?v=638872434240400000",
+      "link": "https://www.olimpica.com/leche-olimpica-deslactosada-800-ml-x6-unds/p"
+    },
+    {
+      "source_id": "1002232598",
+      "name": "Leche Alquería Deslactosada 900 Ml X6 Unds",
+      "brand": "Alqueria",
+      "description": "Leche Deslactosada Alqueria 900ml x 6unds",
+      "category": "Lácteos",
+      "price": 22771,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1858396/7702177004814.jpg?v=638841295123900000",
+      "link": "https://www.olimpica.com/leche-uht-alqueria-deslac-6x900-ml-7702177004814-1232541/p"
+    },
+    {
+      "source_id": "2313165",
+      "name": "Avena Quaker Hojuelas 1100 G",
+      "brand": "Quaker",
+      "description": "AVENA QUAKER HOJUELA BSA 1100g. Aquí puedes encontrar más productos Quaker",
+      "category": "Cereales",
+      "price": 8850,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1165367/7702193101313.jpg?v=638327997713970000",
+      "link": "https://www.olimpica.com/avena-quaker-hojuela-bsa-1100g/p"
+    },
+    {
+      "source_id": "2312083",
+      "name": "Galleta Ducales Taco 315 G X3 Unds",
+      "brand": "Ducales",
+      "description": "GALLETA DUCALES TACO X3 315g",
+      "category": "Cafés",
+      "price": 8750,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1788911/7702025147915_1.png.png?v=638771507796400000",
+      "link": "https://www.olimpica.com/galleta-ducales-taco-x3-315g/p"
+    },
+    {
+      "source_id": "2299068",
+      "name": "Pan Olimpica Tajado Blanco Tradicional 450 G",
+      "brand": "Olimpica",
+      "description": "PAN-TAJ-BCO-TRADIC-OLIMPICA-450g",
+      "category": "Pan Empacado",
+      "price": 2990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1472066/2299068.png?v=638585424128870000",
+      "link": "https://www.olimpica.com/pan-taj-bco-tradic-olimpica-450g/p"
+    },
+    {
+      "source_id": "2288372",
+      "name": "Yogurt Alpina Griego Natural 500 G",
+      "brand": "Alpina",
+      "description": "Yogur Alpina Griego Natural 500 G",
+      "category": "Lácteos",
+      "price": 14413,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1424318/7702001163885.jpg?v=638791956975730000",
+      "link": "https://www.olimpica.com/yogur-alpina-griego-natural-500g/p"
+    },
+    {
+      "source_id": "2256649",
+      "name": "Leche Colanta Uht Deslactosada 1000 Ml X6 Unds",
+      "brand": "Colanta",
+      "description": "LECHE UHT COLANTA DESLACTOSADA 1000ML X6",
+      "category": "Lácteos",
+      "price": 32100,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1423494/7702129004985.jpg?v=638815563916470000",
+      "link": "https://www.olimpica.com/leche-uht-colanta-deslactosada-1000ml-x6/p"
+    },
+    {
+      "source_id": "2240850",
+      "name": "Queso Colanta Costeño Bloque 500 G",
+      "brand": "Colanta",
+      "description": "Queso Colanta Costeño Bloque 500 G",
+      "category": "Lácteos",
+      "price": 15272,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1491260/7702129016421.jpg?v=638633867124330000",
+      "link": "https://www.olimpica.com/queso-colanta-costeno-bloque-500g/p"
+    },
+    {
+      "source_id": "2225870",
+      "name": "Leche Olimpica Uht Entera 800 Ml X6 Unds",
+      "brand": "Olimpica",
+      "description": "LECHE UHT OLIMPICA ENT BSA 800ML X6",
+      "category": "Lácteos",
+      "price": 17590,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1882346/7701008838796.jpg?v=638872435553600000",
+      "link": "https://www.olimpica.com/leche-uht-olimpica-ent-bsa-800ml-x6/p"
+    },
+    {
+      "source_id": "2219454",
+      "name": "ATUN ZENU LOMO E/AGUA 160g",
+      "brand": "Zenu",
+      "description": "ATUN ZENU LOMO E/AGUA 160g",
+      "category": "Cereales",
+      "price": 8000,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2279740/7701101359594.jpg?v=639167045444700000",
+      "link": "https://www.olimpica.com/atun-zenu-lomo-e-agua-160g/p"
+    },
+    {
+      "source_id": "2219453",
+      "name": "ATUN ZENU LOMO E/ACEITE GIRASOL 160g",
+      "brand": "Zenu",
+      "description": "ATUN ZENU LOMO E/ACEITE GIRASOL 160g",
+      "category": "Cereales",
+      "price": 8000,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2279739/7701101359587.jpg?v=639167045598670000",
+      "link": "https://www.olimpica.com/atun-zenu-lomo-e-aceite-girasol-160g/p"
+    },
+    {
+      "source_id": "2200440",
+      "name": "Café Juan Valdez Colina Molido 454 G",
+      "brand": "Juan Valdez",
+      "description": "El Café Colina Juan Valdez es un café balanceado con notas de sabor a durazno y chocolate blanco. Un café premium seleccionado que nace del trabajo de nuestros caficultores colombianos. Presentación de 454 gr molido.",
+      "category": "Cafés",
+      "price": 47890,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1860787/7701362015956_a.jpg?v=638847541186300000",
+      "link": "https://www.olimpica.com/cafe-juan-valdez-col-454g/p"
+    },
+    {
+      "source_id": "2005982",
+      "name": "Mantequilla Alpina sin Sal Barra 125 G",
+      "brand": "Alpina",
+      "description": "Margarina en Barra Alpina sin Sal x125 G",
+      "category": "Mantequilla y Margarina",
+      "price": 9040,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1424126/7702001020096.jpg?v=638816290425270000",
+      "link": "https://www.olimpica.com/mantequilla-alpina-sin-sal-125-g-7702001020096-2005982/p"
+    },
+    {
+      "source_id": "2001771",
+      "name": "Café Colcafé Clásico 85 G",
+      "brand": "Colcafe",
+      "description": "CAFE COLCAFE CLASICO 85 g",
+      "category": "Cafés",
+      "price": 12632,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1836244/7702032253135_1-1-.png.png?v=638793261099430000",
+      "link": "https://www.olimpica.com/cafe-colcafe-clasico-85-g/p"
+    },
+    {
+      "source_id": "2328110",
+      "name": "PAN BLANCO BIMBO 730GR",
+      "brand": "Bimbo",
+      "description": "PAN BLANCO BIMBO 730GR",
+      "category": "Panadería",
+      "price": 9090,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2247223/7705326023261.jpg?v=638937356026470000",
+      "link": "https://www.olimpica.com/pan-blanco-bimbo-730gr/p"
+    },
+    {
+      "source_id": "2340409",
+      "name": "GALLETA CLUB SOCIAL TACO 288G",
+      "brand": "Club Social",
+      "description": "GALLETA CLUB SOCIAL TACO 288G",
+      "category": "Panadería Empacada",
+      "price": 10490,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2347435/7622202244759.jpg?v=639046093052030000",
+      "link": "https://www.olimpica.com/galleta-club-social-taco-288g/p"
+    },
+    {
+      "source_id": "2338908",
+      "name": "LAMINAS DE MAIZ SANISSIMO 140G SALMAS",
+      "brand": "Sanissimo",
+      "description": "LAMINAS DE MAIZ SANISSIMO 140G SALMAS",
+      "category": "Panadería Empacada",
+      "price": 13000,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2335084/7705326254245.jpg?v=639033827367970000",
+      "link": "https://www.olimpica.com/laminas-de-maiz-sanissimo-140g-salmas-/p"
+    },
+    {
+      "source_id": "2328111",
+      "name": "PAN BLANCO BIMBO 600GR",
+      "brand": "Bimbo",
+      "description": "PAN BLANCO BIMBO 600GR",
+      "category": "Panadería",
+      "price": 7890,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2247222/7705326468727.jpg?v=638937355843700000",
+      "link": "https://www.olimpica.com/pan-blanco-bimbo-600gr/p"
+    },
+    {
+      "source_id": "2323323",
+      "name": "AZUCAR MANUELITA DORADA NATURAL X 907 G",
+      "brand": "Manuelita",
+      "description": "AZUCAR MANUELITA DORADA NATURAL X 907 G",
+      "category": "Endulzantes",
+      "price": 5550,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1780138/7702406179139.jpg.jpg?v=638755032592270000",
+      "link": "https://www.olimpica.com/azucar-manuelita-dorada-natural-x-907-g/p"
+    },
+    {
+      "source_id": "2319868",
+      "name": "PONQ RAMITO 8 UND 200 G",
+      "brand": "Ramo",
+      "description": "1",
+      "category": "Panadería Empacada",
+      "price": 9590,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2409150/7702914603485.jpg?v=639167538893970000",
+      "link": "https://www.olimpica.com/ponq-ramito-8-und-200-g/p"
+    },
+    {
+      "source_id": "2319225",
+      "name": "PAN BLANDITO OLIMPICA DESAYUNO X 20 UNID",
+      "brand": "Olimpica",
+      "description": "1",
+      "category": "Panadería Fresca",
+      "price": 70000,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1601273/25073522.jpg?v=638695349735770000",
+      "link": "https://www.olimpica.com/pan-blandito-olimpica-desayuno-x-20-unid/p"
+    },
+    {
+      "source_id": "2278398",
+      "name": "Pan Mauka de Sagú Tajado sin Gluten 450 G",
+      "brand": "Sin Marca",
+      "description": "Pan Mauka de Sagú Tajado Sin Gluten x450 G",
+      "category": "Panadería",
+      "price": 15990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1853964/7709730504774.jpg.jpg?v=638829121511530000",
+      "link": "https://www.olimpica.com/pan-sagu-s-gluten-taj-mauka-450g/p"
+    },
+    {
+      "source_id": "2266366",
+      "name": "Panecillo Olimpica Mantequilla 400 G",
+      "brand": "Olimpica",
+      "description": "PANECILLO-OLIMPICA-MANTEQ-400-g",
+      "category": "Panadería",
+      "price": 6500,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1472069/2266366.png?v=638585426461130000",
+      "link": "https://www.olimpica.com/panecillo-olimpica-manteq-400-g/p"
+    },
+    {
+      "source_id": "1642065",
+      "name": "Pan Olimpica Aliñado 440 G",
+      "brand": "Olimpica",
+      "description": "Pan Aliñado Olimpica 440 G",
+      "category": "Panadería Fresca",
+      "price": 7990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/644170/25066821.jpg?v=637626591974630000",
+      "link": "https://www.olimpica.com/pan-alinado-olimpica-440-g-25066821--1642065/p"
+    },
+    {
+      "source_id": "804308",
+      "name": "Pan Olimpica Francés con Ajo y Queso 350 G",
+      "brand": "Olimpica",
+      "description": "Pan Francés Olimpica Con Ajo y Queso 350 G",
+      "category": "Panadería Fresca",
+      "price": 6990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/624024/25061901.jpg?v=637626536170400000",
+      "link": "https://www.olimpica.com/pan-frances-olimpica-con-ajo-y-queso-350-g-25061901-804308/p"
+    },
+    {
+      "source_id": "697355",
+      "name": "Pan Olimpica Ocañero 360 G",
+      "brand": "Olimpica",
+      "description": "Pan Ocañero Olimpica 360 G",
+      "category": "Panadería Fresca",
+      "price": 5800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/620373/7701008250130.jpg?v=638964094124630000",
+      "link": "https://www.olimpica.com/pan-ocanero-olimpica-360-g-7701008250130--697355/p"
+    },
+    {
+      "source_id": "647739",
+      "name": "Pan Olimpica Piñita Mojicón 290G X6 Unds",
+      "brand": "Olimpica",
+      "description": "Pan Piñita Olimpica Mojicón 290G X6 Unds",
+      "category": "Panadería Fresca",
+      "price": 7390,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/735707/25060782.jpg?v=637782322092970000",
+      "link": "https://www.olimpica.com/pan-pinita-olimpica-mojicon-6un-290g-25060782-647739/p"
+    },
+    {
+      "source_id": "350508",
+      "name": "Pan Olimpica Roscón Bocadillo 180 G",
+      "brand": "Olimpica",
+      "description": "Pan Roscón Olimpica Bocadillo 180 G",
+      "category": "Panadería Fresca",
+      "price": 3990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/803335/350508.jpg?v=637858161203500000",
+      "link": "https://www.olimpica.com/pan-roscon-olimpica-bocadillo-180-g-25060249--350508/p"
+    },
+    {
+      "source_id": "35271",
+      "name": "Pan Olimpica Mantequilla Especial 360 G",
+      "brand": "Olimpica",
+      "description": "Pan Mantequilla Olimpica Especial 360 G",
+      "category": "Panadería Fresca",
+      "price": 8500,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/735664/25060393.jpg?v=637782321642430000",
+      "link": "https://www.olimpica.com/pan-mantequilla-olimpica-especial-360-g-25060393--35271/p"
+    },
+    {
+      "source_id": "2341309",
+      "name": "TORTILLA INTEGRAL MEDALLA DE ORO 250 G",
+      "brand": "Medalla De Oro",
+      "description": "TORTILLA INTEGRAL MEDALLA DE ORO 250 G",
+      "category": "Panadería Empacada",
+      "price": 4050,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2388648/7701008848290_1.jpg?v=639129067278300000",
+      "link": "https://www.olimpica.com/tortilla-integral-medalla-de-oro-250-g/p"
+    },
+    {
+      "source_id": "2340438",
+      "name": "PONQ BIMBO CASERO VAINIL 200G",
+      "brand": "Bimbo",
+      "description": "PONQ BIMBO CASERO VAINIL 200G",
+      "category": "Panadería Empacada",
+      "price": 6800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2365772/7705326218186.jpg?v=639094462444270000",
+      "link": "https://www.olimpica.com/ponq-bimbo-casero-vainil-200g/p"
+    },
+    {
+      "source_id": "2332224",
+      "name": "TOSTADA VITAL FRUTICEREAL 120G",
+      "brand": "Guadalupe",
+      "description": "TOSTADA VITAL FRUTICEREAL 120G",
+      "category": "Panadería Empacada",
+      "price": 5590,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2152619/7705326263889.jpg?v=638913248184770000",
+      "link": "https://www.olimpica.com/tostada-vital-fruticereal-120g/p"
+    },
+    {
+      "source_id": "2327967",
+      "name": "TORTILLA HARINA MEDALLA DE ORO 360 GR",
+      "brand": "Medalla De Oro",
+      "description": "TORTILLA HARINA MEDALLA DE ORO 360 GR",
+      "category": "Panadería Empacada",
+      "price": 6100,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1780116/7701008845572.jpg.jpg?v=638754901321370000",
+      "link": "https://www.olimpica.com/tortilla-harina-medalla-de-oro-360-gr/p"
+    },
+    {
+      "source_id": "2327644",
+      "name": "BIMBOLETES VAINILLA 8 UND 216G",
+      "brand": "Bimbo",
+      "description": "BIMBOLETES VAINILLA 8 UND 216G",
+      "category": "Panadería Empacada",
+      "price": 8990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2358665/Bimboletes 8p 216g 7705326289209.jpg?v=639081546835470000",
+      "link": "https://www.olimpica.com/bimboletes-vainilla-8-und-216g/p"
+    },
+    {
+      "source_id": "2323325",
+      "name": "AZUCAR MANUELITA BLANCA NATURAL X 907 G",
+      "brand": "Manuelita",
+      "description": "AZUCAR MANUELITA BLANCA NATURAL X 907 G",
+      "category": "Endulzantes",
+      "price": 5400,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1780140/7702406672678.jpg.jpg?v=638755033728170000",
+      "link": "https://www.olimpica.com/azucar-manuelita-blanca-natural-x-907-g/p"
+    },
+    {
+      "source_id": "2323322",
+      "name": "AZUCAR MANUELITA DORADA NATURAL X 1800 G",
+      "brand": "Manuelita",
+      "description": "AZUCAR MANUELITA DORADA NATURAL X 1800 G",
+      "category": "Endulzantes",
+      "price": 10900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1780137/7702406118152.jpg.jpg?v=638755032205700000",
+      "link": "https://www.olimpica.com/azucar-manuelita-dorada-natural-x-1800-g/p"
+    },
+    {
+      "source_id": "2297990",
+      "name": "Pan de Arroz Spiga 360 G",
+      "brand": "Sin Marca",
+      "description": "Pan de Arroz Spiga x360 G",
+      "category": "Panadería",
+      "price": 14350,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1882636/7709248488030.jpg?v=638875132967100000",
+      "link": "https://www.olimpica.com/pan-arroz-spiga-360g/p"
+    },
+    {
+      "source_id": "2266794",
+      "name": "PONQ GANSITO RAMO X6 un 222 g",
+      "brand": "Ramo",
+      "description": "1",
+      "category": "Panadería Empacada",
+      "price": 12650,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2409148/7702914600859.jpg?v=639167538194400000",
+      "link": "https://www.olimpica.com/ponq-gansito-ramo-x6-un-222-g/p"
+    },
+    {
+      "source_id": "2264025",
+      "name": "Pan Fithub Trenza de Arroz 180 G",
+      "brand": "FITHUB",
+      "description": "Pan Fithub Trenza de Arroz x180 G",
+      "category": "Panadería Fresca",
+      "price": 11600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1854113/7709998052192.jpg.jpg?v=638829165192400000",
+      "link": "https://www.olimpica.com/pan-trenza-fithub-arroz-180g/p"
+    },
+    {
+      "source_id": "1883994",
+      "name": "Tostada Susanita Con Mantequilla 250 G",
+      "brand": "Susanita",
+      "description": "TOST SUSANITA MANTQ 250g",
+      "category": "Panadería Empacada",
+      "price": 12200,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1113475/7703517853703.jpg?v=638223506793730000",
+      "link": "https://www.olimpica.com/tost-susanita-mantq-250g/p"
+    },
+    {
+      "source_id": "1192842",
+      "name": "Pan Olimpica Integral con Uva y Miel Lonja 530 G",
+      "brand": "Olimpica",
+      "description": "Pan Lonja Integral Con Uva y Miel Olimpica 530 G",
+      "category": "Panadería Fresca",
+      "price": 8900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/739657/25061079-.jpg?v=637784153951600000",
+      "link": "https://www.olimpica.com/pan-lonja-integral-con-uva-y-miel-olimpica-530g-25061079--1192842/p"
+    },
+    {
+      "source_id": "804320",
+      "name": "Pan Olimpica con Queso 400 G",
+      "brand": "Olimpica",
+      "description": "Pan Olimpica Con Queso 400 G",
+      "category": "Panadería Fresca",
+      "price": 9100,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/803333/804320.jpg?v=637858155380600000",
+      "link": "https://www.olimpica.com/pan-olimpica-con-queso-400-g-25060034--804320/p"
+    },
+    {
+      "source_id": "2322141",
+      "name": "Bolsa Compostable No 6 30x55 Cm",
+      "brand": "Sin Marca",
+      "description": "BOLSA COMPOSTABLE NO 6 30*55CM",
+      "category": "Papeles Desechables",
+      "price": 520,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1479662/Correo-de-Hector.png?v=638604518290300000",
+      "link": "https://www.olimpica.com/bolsa-compostable-no-6-30-55cm/p"
+    },
+    {
+      "source_id": "1245291",
+      "name": "Lavaplatos Axion Limón Desengrasante Crema 450 G X2 Unds",
+      "brand": "Axion",
+      "description": "Mantén una higiene impecable en tu cocina con el Lavaplatos en Crema Axion Limón, su presentación de dos unidades por 450 g es ideal para ti y tu familia. Déjate envolver por su delicioso aroma a limón; podrás cocinar platillos con diferentes ingredientes sin tener que preocupart",
+      "category": "Cuidado De Superficies",
+      "price": 8990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2373308/7702010880797_1.jpg?v=639100483435270000",
+      "link": "https://www.olimpica.com/lavaloza-crema-axion-limon-450g-x2-p-esp-7702010880797--1245291/p"
+    },
+    {
+      "source_id": "2332130",
+      "name": "PAPEL HIGIENICO SUPPRA CARE TRIP HOJ 33 M X12 ROLL",
+      "brand": "Suppra Care",
+      "description": "P/HIG SUPRRA CARE TRIP HOJ 33 M X12 ROLL",
+      "category": "Papeles Desechables",
+      "price": 14800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2405358/7701008846296_1.jpg?v=639159282999770000",
+      "link": "https://www.olimpica.com/p-hig-suprra-care-trip-hoj-33-m-x12-roll/p"
+    },
+    {
+      "source_id": "2322582",
+      "name": "Toalla de Cocina Ultralimp Doble Hoja X80 Hojas",
+      "brand": "Ultralimp",
+      "description": "TOALLA COC ULTRALIMP DOB HOJ X80 HOJAS",
+      "category": "Papeles Desechables",
+      "price": 2800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2405394/7701008844513_1.jpg?v=639159286737430000",
+      "link": "https://www.olimpica.com/toalla-coc-ultralimp-dob-hoj-x80-hojas/p"
+    },
+    {
+      "source_id": "2317275",
+      "name": "Detergente Líquido UltraLimp Floral 4000 Ml",
+      "brand": "Ultralimp",
+      "description": "DETERGENTE LIQUIDO ULTRALIMP FLORAL 4L",
+      "category": "Cuidado De La Ropa",
+      "price": 18490,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2405462/7701008844056_1.jpg?v=639159292751470000",
+      "link": "https://www.olimpica.com/detergente-liquido-ultralimp-floral-4l/p"
+    },
+    {
+      "source_id": "2303890",
+      "name": "Papel Higiénico Familia Acolchamax Mega Rollo 29,6 Mts X12 Unds",
+      "brand": "Familia",
+      "description": "Papel Higiénico Familia Acolchamax Mega Rollo 29.6M X12 Unds",
+      "category": "Papeles Desechables",
+      "price": 24990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1538068/7702026148492_1.jpg?v=638652882018100000",
+      "link": "https://www.olimpica.com/p-higuienico-familia-acmax-mega-ca-29-6m-x12/p"
+    },
+    {
+      "source_id": "2289894",
+      "name": "Detergente Polvo UltraLimp Aloe Bicarbonato 2,5Kg",
+      "brand": "Ultralimp",
+      "description": "DETERG POLV ULTRALIMP ALOEV/BICARB 2.5kg",
+      "category": "Cuidado De La Ropa",
+      "price": 9490,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2405431/7701008841932_1.jpg?v=639159290033700000",
+      "link": "https://www.olimpica.com/deterg-polv-ultralimp-aloev-bicarb-2-5kg/p"
+    },
+    {
+      "source_id": "2126623",
+      "name": "Bolsa de Basura Ultralimp para Papelera 43x48 Cm X30 Unds",
+      "brand": "Ultralimp",
+      "description": "Bolsa de Basura Ultralimp para Papelera 43x48 X30 Unds",
+      "category": "Utensilios De Limpieza",
+      "price": 3290,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2405524/7701008628595_1.jpg?v=639159300502000000",
+      "link": "https://www.olimpica.com/bsa-basur-ultralimp-papeler-43x48-x30un/p"
+    },
+    {
+      "source_id": "2126621",
+      "name": "Bolsa de Basura Ultralimp Negra 65x90 Cm X10 Unds",
+      "brand": "Ultralimp",
+      "description": "Bolsa de Basura Ultralimp Negra 65x90 X10 Unds",
+      "category": "Utensilios De Limpieza",
+      "price": 3150,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2405518/7701008628564_1.jpg?v=639159300092170000",
+      "link": "https://www.olimpica.com/bsa-basur-ultralimp-neg-65x90-x10un/p"
+    },
+    {
+      "source_id": "2029537",
+      "name": "Detergente en Polvo Ariel Triple Poder 5kg Jabón para Ropa",
+      "brand": "Ariel",
+      "description": "¿Buscas un detergente en polvo que remueva manchas y deje un aroma increíble en tu ropa? El detergente Ariel Triple Poder° es para ti! La fórmula del jabón para ropa Ariel Triple Poder° remueve manchas difíciles como las de sudor, grasa y percudido, dejando tu ropa hasta 100% más",
+      "category": "Cuidado De La Ropa",
+      "price": 41990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2402406/7500435140669_1.jpg?v=639148842480800000",
+      "link": "https://www.olimpica.com/detergente-en-polvo-ariel-triple-poder-para-ropa-blanca-y-de-color-5kg/p"
+    },
+    {
+      "source_id": "1287145",
+      "name": "Blanqueador UltraLimp Desinfectante 2000 Ml",
+      "brand": "Ultralimp",
+      "description": "BLANQ ULTRA LIMP DESINF 2 L",
+      "category": "Cuidado De La Ropa",
+      "price": 2800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/771218/7701008505025.jpg?v=637808846283800000",
+      "link": "https://www.olimpica.com/blanq-ultra-limp-desinf-2-l/p"
+    },
+    {
+      "source_id": "882890",
+      "name": "Suavizante Suavitel Cuidado Superior Fresca Primavera 2x 1L",
+      "brand": "Suavitel",
+      "description": "body, html { margin: 0; padding: 0; } .nebula-nebula-wrapper { font-family: 'Helvetica Neue', Arial, sans-serif; background: #e8e8e8; margin: 0; padding: 0; } .nebula-nebula-container-main { max-width: 800px; margin: 0 auto; background: #fff; overflow: hidden; } .nebula-nebula-ro",
+      "category": "Cuidado De La Ropa",
+      "price": 16440,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2418305/7702010780363_1.jpg?v=639185195755370000",
+      "link": "https://www.olimpica.com/suavizante-suavitel-cuidado-superior-fresca-primavera-1-lt-x2-unds/p"
+    },
+    {
+      "source_id": "787594",
+      "name": "Toalla de Cocina Olimpica Triple Hoja X100 Uds",
+      "brand": "Olimpica",
+      "description": "TOALLA COCINA OLIMPICA TRIPLE HOJA X 100",
+      "category": "Papeles Desechables",
+      "price": 5590,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2405605/7701008229280_1.jpg?v=639159307337730000",
+      "link": "https://www.olimpica.com/toalla-cocina-olimpica-triple-hoja-x-100-7701008229280--787594/p"
+    },
+    {
+      "source_id": "738148",
+      "name": "Servilleta Olimpica Doble Faz X180 Unds",
+      "brand": "Olimpica",
+      "description": "SERVILLETA OLIMPICA BLANCA DOB X4PAQ X180un",
+      "category": "Papeles Desechables",
+      "price": 3900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2405602/7701008228610_1.jpg?v=639159307120000000",
+      "link": "https://www.olimpica.com/servilleta-olimpica-blanca-dob-x4paq-x180un-7701008228610--738148/p"
+    },
+    {
+      "source_id": "1002230256",
+      "name": "Suavizante Suavitel Cuidado Superior Fresca Primavera 2.3L",
+      "brand": "Suavitel",
+      "description": "Cuida de tus prendas favoritas utilizando el Suavizante de Ropa Suavitel Cuidado Superior Fresca Primavera en su presentación de 2.3 lt, que cuenta con una poderosa fórmula que se apodera de las telas para invadir de suavidad y fragancia. Descubre cómo en cada aplicación el suavi",
+      "category": "Cuidado De La Ropa",
+      "price": 15992,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2244014/7509546667683_1--1-.jpg?v=638981203421770000",
+      "link": "https://www.olimpica.com/suavisante-suavitel-fresca-primavera-2-3l-7509546667683-2173640/p"
+    },
+    {
+      "source_id": "2317274",
+      "name": "Detergente Líquido UltraLimp Lavanda 4000 Ml",
+      "brand": "Ultralimp",
+      "description": "DETERG LIQ ULTRALIMP LAVANDA 4L",
+      "category": "Cuidado De La Ropa",
+      "price": 18490,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2405463/7701008844063_1.jpg?v=639159292932030000",
+      "link": "https://www.olimpica.com/deterg-liq-ultralimp-lavanda-4l/p"
+    },
+    {
+      "source_id": "2314354",
+      "name": "Detergente Polvo Fab Ultra flash 2 Kg",
+      "brand": "Fab",
+      "description": "Bioenzimas rápidas e inteligentes que despercuden y penetran profundamente las telas removiendo manchas dificiles como grase y comida aún sin remojar, ademas contiene cápsulas de perfume que dejan un aroma intenso y duradero en tu ropa",
+      "category": "Cuidado De La Ropa",
+      "price": 20990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1161190/7702191164327.jpg?v=638320407441170000",
+      "link": "https://www.olimpica.com/deterg-polv-fab-floral-2000g/p"
+    },
+    {
+      "source_id": "2303894",
+      "name": "Papel Higiénico Familia Expert 26 Mts X9 Rollos",
+      "brand": "Familia",
+      "description": "P/HIGUIENICO FAMILIA EXPERT CA 26m X9",
+      "category": "Papeles Desechables",
+      "price": 26050,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1762174/7702026148539_1.jpg?v=638737747100370000",
+      "link": "https://www.olimpica.com/p-higuienico-familia-expert-ca-26m-x9/p"
+    },
+    {
+      "source_id": "2126622",
+      "name": "Bolsa de Basura Ultralimp Negra 51x75 Cm X10 Unds",
+      "brand": "Ultralimp",
+      "description": "Bolsa de Basura Ultralimp Negra 51x75 X10 Unds",
+      "category": "Utensilios De Limpieza",
+      "price": 2050,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2405521/7701008628588_1.jpg?v=639159300275000000",
+      "link": "https://www.olimpica.com/bsa-basur-ultralimp-neg-51x75-x10un/p"
+    },
+    {
+      "source_id": "2008643",
+      "name": "Limpia Pisos Fabuloso Antibacterial Lavanda 2L",
+      "brand": "Fabuloso",
+      "description": "*{margin:0;padding:0} .nebula-nebula-wrapper{font-family:'Helvetica Neue',Arial,sans-serif;background:#e8e8e8} .nebula-nebula-container-main{max-width:800px;margin:0 auto;background:#fff;overflow:hidden} .nebula-nebula-row-full{line-height:0;font-size:0} .nebula-nebula-image-full",
+      "category": "Cuidado De Superficies",
+      "price": 13500,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1832771/7702010225109_1.jpg.jpg?v=638787133236000000",
+      "link": "https://www.olimpica.com/limpia-pisos-fabuloso-antibacterial-lavanda-2-lt/p"
+    },
+    {
+      "source_id": "14133",
+      "name": "Blanqueador Clorox Original Botella 3.8 lt",
+      "brand": "Clorox",
+      "description": "El Blanqueador Clorox 5 en 1 Fórmula Original multiplica los beneficios en un solo producto: Limpia profundamente, Desinfecta eficazmente, Desengrasa, Elimina malos olores y Remueve moho. Su poder desinfectante elimina hasta el 99.9% de virus, bacterias y hongos. Perfecto para pi",
+      "category": "Cuidado De La Ropa",
+      "price": 14437,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2347497/7702137624625_1.jpg?v=639046972238970000",
+      "link": "https://www.olimpica.com/blanq-clorox-regular-3-8-l/p"
+    },
+    {
+      "source_id": "2334571",
+      "name": "PAPEL HIGIENICO SUPPRA CARE BCO ECN 3H 20M X16",
+      "brand": "Suppra Care",
+      "description": "PAPEL HIGENICO SUPPRA CARE BCO ECN 3H 20M X16",
+      "category": "Papeles Desechables",
+      "price": 14400,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2241809/7701008846302_1.jpg?v=638931129108000000",
+      "link": "https://www.olimpica.com/p-hig-suppra-care-bco-ecn-3h-20m-x16/p"
+    },
+    {
+      "source_id": "2333245",
+      "name": "LAVALOZA ULTRALIMP CREM 500G",
+      "brand": "Ultralimp",
+      "description": "LAVALOZA ULTRALIMP CREM 500G",
+      "category": "Cuidado De Superficies",
+      "price": 2750,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2405376/7701008847156_1.jpg?v=639159284231600000",
+      "link": "https://www.olimpica.com/lavaloza-ultralimp-crem-500g/p"
+    },
+    {
+      "source_id": "2332289",
+      "name": "PAPEL HIGIENICO SUPPRA CARE TRIP HOJ 33 M X4 ROLLO",
+      "brand": "Suppra Care",
+      "description": "PAPEL HIGENICO SUPPRA CARE TRIP HOJ 33 M X4 ROLLO",
+      "category": "Papeles Desechables",
+      "price": 5990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2405428/7701008846289_1.jpg?v=639159289846000000",
+      "link": "https://www.olimpica.com/p-hig-suppra-care-trip-hoj-33-m-x4-rollo/p"
+    },
+    {
+      "source_id": "2329728",
+      "name": "LAVALOZA LIQUIDO ULTRALIMP VINAG CITRUS 3.7L",
+      "brand": "Ultralimp",
+      "description": "LAVALOZA LIQUIDO ULTRALIMP VINAG CITRUS 3.7L",
+      "category": "Cuidado De Superficies",
+      "price": 18690,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2422501/7701008847002_1.jpg?v=639192124660300000",
+      "link": "https://www.olimpica.com/lavaloza-liquido-ultralimp-vinag-citrus-3-7l/p"
+    },
+    {
+      "source_id": "2329418",
+      "name": "Papel Higiénico Scott Cuidado Completo Triple Hoja 30 metros - 12 rollos",
+      "brand": "Scott",
+      "description": "Nuevo Papel Higiénico Scott® Cuidado Completo ahora con más metros por rollo, te brinda una higiene superior gracias a su suavidad superior, control de malos olores y limpieza efectiva. Descubre los nuevos super rollos con Scott® Cuidado Completo. ¡Súmate, compra Scott y ayuda a ",
+      "category": "Papeles Desechables",
+      "price": 21290,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1899131/7702425485488_1.jpg?v=638893119667530000",
+      "link": "https://www.olimpica.com/p-hig-scott-tri-hoj-30m-x12-unidades/p"
+    },
+    {
+      "source_id": "2323437",
+      "name": "PAPEL HIGIÉNICO ROSAL 3P PLUS MEGA PACK 20M X15R",
+      "brand": "Rosal",
+      "description": "PAPEL HIGIÉNICO ROSAL 3P PLUS MEGA PACK 20M X15R",
+      "category": "Papeles Desechables",
+      "price": 21750,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1899423/7702120014297.jpg?v=638893337657300000",
+      "link": "https://www.olimpica.com/papel-higienico-rosal-3p-plus-mega-pack-20m-x15r/p"
+    },
+    {
+      "source_id": "2322487",
+      "name": "Suavizante Suavitel Cuidado Superior Fresca Primavera 4.8L",
+      "brand": "Suavitel",
+      "description": "body, html { margin: 0; padding: 0; } .nebula-nebula-wrapper { font-family: 'Helvetica Neue', Arial, sans-serif; background: #e8e8e8; margin: 0; padding: 0; } .nebula-nebula-container-main { max-width: 800px; margin: 0 auto; background: #fff; overflow: hidden; } .nebula-nebula-ro",
+      "category": "Cuidado De La Ropa",
+      "price": 36320,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2244115/7509546693903_1--1-.jpg?v=638981207601530000",
+      "link": "https://www.olimpica.com/suavte-soflan-suavit-primav-4-8l/p"
+    },
+    {
+      "source_id": "2094508",
+      "name": "Jabón Antibacterial PROTEX Avena Barra Pack 6 und 110 g - Protección Antibacteriana",
+      "brand": "Protex",
+      "description": ".nebula-wrapper, .nebula-wrapper{margin:0;padding:0}.nebula-nebula-wrapper{font-family:'Helvetica Neue',Arial,sans-serif;background:#e8e8e8;margin:0;padding:0}.nebula-nebula-container-main{max-width:800px;margin:0 auto;background:#fff;overflow:hidden}.nebula-nebula-row-full{line-",
+      "category": "Cuidado De La Piel",
+      "price": 16800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2159273/7702010921681_1.jpg?v=638918333348700000",
+      "link": "https://www.olimpica.com/jab-protex-avena-110g-x6-sup-of/p"
+    },
+    {
+      "source_id": "2226779",
+      "name": "Jabón Antibacterial Protex Avena 110 G X3 Unds",
+      "brand": "Protex",
+      "description": ".nebula-wrapper, .nebula-wrapper{margin:0;padding:0}.nebula-nebula-wrapper{font-family:'Helvetica Neue',Arial,sans-serif;background:#e8e8e8;margin:0;padding:0}.nebula-nebula-container-main{max-width:800px;margin:0 auto;background:#fff;overflow:hidden}.nebula-nebula-row-full{line-",
+      "category": "Cuidado De La Piel",
+      "price": 11800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2318755/7702010920615_1.jpg?v=638990931837430000",
+      "link": "https://www.olimpica.com/jab-protex-avena-110g-x3/p"
+    },
+    {
+      "source_id": "2094507",
+      "name": "Jabon Antibacterial Protex Nutri Protect Macadamia Barra 110 G X6 Unds",
+      "brand": "Protex",
+      "description": ".nebula-wrapper, .nebula-wrapper{margin:0;padding:0}.nebula-nebula-wrapper{font-family:'Helvetica Neue',Arial,sans-serif;background:#e8e8e8;margin:0;padding:0}.nebula-nebula-container-main{max-width:800px;margin:0 auto;background:#fff;overflow:hidden}.nebula-nebula-row-full{line-",
+      "category": "Cuidado De La Piel",
+      "price": 17990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1874742/7509546651736_1.jpg?v=638858587960770000",
+      "link": "https://www.olimpica.com/jabon-protex-macadamia-110g-x-6-unidades-7509546651736--2094507/p"
+    },
+    {
+      "source_id": "2094506",
+      "name": "Jabon Antibacterial Protex Limpieza Profunda Barra 110 G X6 Unds",
+      "brand": "Protex",
+      "description": ".nebula-wrapper, .nebula-wrapper{margin:0;padding:0}.nebula-nebula-wrapper{font-family:'Helvetica Neue',Arial,sans-serif;background:#e8e8e8;margin:0;padding:0}.nebula-nebula-container-main{max-width:800px;margin:0 auto;background:#fff;overflow:hidden}.nebula-nebula-row-full{line-",
+      "category": "Cuidado De La Piel",
+      "price": 22500,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1830955/7509546651729_1.jpg.jpg?v=638845821073730000",
+      "link": "https://www.olimpica.com/jabon-protex-limpieza-profunda-110g-x-6-unidades-7509546651729--2094506/p"
+    },
+    {
+      "source_id": "2226780",
+      "name": "Jabón Antibacterial Protex Balance Saludable 110g x3",
+      "brand": "Protex",
+      "description": ".nebula-wrapper, .nebula-wrapper{margin:0;padding:0}.nebula-nebula-wrapper{font-family:'Helvetica Neue',Arial,sans-serif;background:#e8e8e8;margin:0;padding:0}.nebula-nebula-container-main{max-width:800px;margin:0 auto;background:#fff;overflow:hidden}.nebula-nebula-row-full{line-",
+      "category": "Cuidado De La Piel",
+      "price": 9450,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1832371/7702010921445_1.jpg.jpg?v=638845852246030000",
+      "link": "https://www.olimpica.com/jab-protex-balance-saludable-110g-x3/p"
+    },
+    {
+      "source_id": "2118376",
+      "name": "Crema Dental Colgate Triple Acción 125 Ml X3 Unds",
+      "brand": "Colgate",
+      "description": "Conoce todos los beneficios que te brinda la Crema Dental Colgate Triple Acción Menta Original, su uso diario te ayudará a conseguir una higiene completa y evitar los principales padecimientos de los dientes. Esta crema dental blanqueadora te ayudará a combatir los gérmenes que s",
+      "category": "Cuidado Oral",
+      "price": 23175,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1496294/7509546652016_1.jpg?v=638954628213230000",
+      "link": "https://www.olimpica.com/crem-dent-colgate-tripl-accion-125ml--x3/p"
+    },
+    {
+      "source_id": "1628587",
+      "name": "Crema Dental Colgate Max White Complete Clean100 Ml X3 Unds",
+      "brand": "Colgate",
+      "description": "Dale a tu sonrisa el cuidado que merece utilizando diariamente la Crema Dental Colgate Max White Complete Clean en su presentación de 100 ml x 3, elaborada con láminas de blancura que se disuelven completamente durante el cepillado para brindarte blancura y una limpieza profunda.",
+      "category": "Cuidado Oral",
+      "price": 31950,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1780924/7702010612084_1.jpg.jpg?v=638954634749800000",
+      "link": "https://www.olimpica.com/crem-dent-colgate-maxwhite-100ml--x3un/p"
+    },
+    {
+      "source_id": "1608064",
+      "name": "Desodorante Lady Speed Stick Mujer Pote 24/7 Talc 100 g Pack 2 und - Protección Eficaz",
+      "brand": "Lady Speed Stick",
+      "description": "\"Ahora estarás doblemente protegida contra los efectos de la sudoración, pues el Desodorante antitranspirante Lady Speed Stick 24/7 Double Defense te protegerá las 24 horas, 7 días de la semana. Su fórmula Talc en Crema está disponible en este empaque con 2 Unidades de 100 g cada",
+      "category": "Desodorante Y Antitranspirante",
+      "price": 22300,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2318763/7702010971471_1.jpg?v=638990932248300000",
+      "link": "https://www.olimpica.com/desodorante-lady-speed-stick-crema-pote-100g-x-2-unidades-7702010971471--1608064/p"
+    },
+    {
+      "source_id": "1433689",
+      "name": "Gel Antitranspirante Gillette Specialized Antibacterial 113 g  x 2 Unidades",
+      "brand": "Gillette",
+      "description": "Mantente fresco y protegido con el antitranspirante Gillette Specialized Gel Invisible, que con su sistema 5? ACTIVE PROTECT te ofrece protección instantánea contra la sudoración y mal olor sin manchas blancas en la aplicación. Prueba su fragancia fresca de larga duración con not",
+      "category": "Desodorante Y Antitranspirante",
+      "price": 33600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2408506/7500435128315_1.jpg?v=639167037913030000",
+      "link": "https://www.olimpica.com/desodorante-gillette-antibacterial-gel-113g-x-2-unidades-7500435128315--1433689/p"
+    },
+    {
+      "source_id": "847941",
+      "name": "Crema Dental Colgate Triple Acción 75 Ml X3 Unds",
+      "brand": "Colgate",
+      "description": "Disfruta del mejor cepillado oral con la Crema Dental Colgate Triple Acción Menta Original, su uso diario te ayudará a mejorar visiblemente la salud de tu boca y reducir la formación de los principales padecimientos que dañan la apariencia de tu sonrisa. Descubre cómo la fascinan",
+      "category": "Cuidado Oral",
+      "price": 19500,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1422610/7753442351034.jpg?v=638954632276600000",
+      "link": "https://www.olimpica.com/crem-dent-colgate-tripl-accion-75ml--x3/p"
+    },
+    {
+      "source_id": "691903",
+      "name": "Crema Dental Colgate Total Original Mint Prevención Activa 3x75ml",
+      "brand": "Colgate",
+      "description": ".nebula-wrapper,.nebula-container-main{margin:0;padding:0} .nebula-nebula-wrapper{font-family:'Helvetica Neue',Arial,sans-serif;background:#e8e8e8;margin:0;padding:0} .nebula-nebula-container-main{max-width:800px;margin:0 auto;background:#fff;overflow:hidden} .nebula-nebula-row-f",
+      "category": "Cuidado Oral",
+      "price": 31300,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2365336/7702010611131_1.jpg?v=639094385898330000",
+      "link": "https://www.olimpica.com/crem-dent-colgat-tot-clea-75ml-x3-p-esp-/p"
+    },
+    {
+      "source_id": "2326438",
+      "name": "GALLETA SALTIN ROJO TAC X8 640G",
+      "brand": "Saltin",
+      "description": "GALLETA SALTIN ROJO TAC X8 640G",
+      "category": "Galletas",
+      "price": 11850,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2317728/7702025150830_1.png?v=638990766198530000",
+      "link": "https://www.olimpica.com/galleta-saltin-rojo-tac-x8-640g/p"
+    },
+    {
+      "source_id": "2303887",
+      "name": "Papel Higiénico Familia Acolchamax Megarollo X4 Rollos",
+      "brand": "Familia",
+      "description": "Papel Higiénico Familia AcolchaMAX Megarollo X4 Rollos",
+      "category": "Protección Sanitaria",
+      "price": 11700,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1538065/7702026147488_1.jpg?v=638652881548230000",
+      "link": "https://www.olimpica.com/papel-higienico-familia-acolchamax-megarollo-x4-rollos/p"
+    },
+    {
+      "source_id": "2226777",
+      "name": "Jabon Antibacterial Protex Limpieza Profunda 110 G X3 Unds",
+      "brand": "Protex",
+      "description": ".nebula-wrapper, .nebula-wrapper{margin:0;padding:0}.nebula-nebula-wrapper{font-family:'Helvetica Neue',Arial,sans-serif;background:#e8e8e8;margin:0;padding:0}.nebula-nebula-container-main{max-width:800px;margin:0 auto;background:#fff;overflow:hidden}.nebula-nebula-row-full{line-",
+      "category": "Cuidado De La Piel",
+      "price": 13050,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1415062/7702010920820.jpg?v=638845780887900000",
+      "link": "https://www.olimpica.com/jab-protex-limpieza-prof-110g-x3/p"
+    },
+    {
+      "source_id": "2131336",
+      "name": "Jabón JOHNSON'S Original TRIPACK x 330 GR",
+      "brand": "Johnson",
+      "description": "Jabón JOHNSON'S Original tiene agentes hidratantes e ingredientes naturales que cuidan gentilmente de tu piel. Dermatológicamente comprobado.",
+      "category": "Cuidado De La Piel",
+      "price": 12500,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1860875/7702031407393_0.jpg?v=638847562956200000",
+      "link": "https://www.olimpica.com/jab-johnson-original-110g-x3un/p"
+    },
+    {
+      "source_id": "2035418",
+      "name": "Jabón Olimpica Avena y Vitamina E 125 G X3 Unds",
+      "brand": "Olimpica",
+      "description": "JAB OLIMPICA AVENA & VIT E 125 g X3",
+      "category": "Cuidado De La Piel",
+      "price": 5890,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2405322/8692624149757_1.jpg?v=639159279318070000",
+      "link": "https://www.olimpica.com/jab-olimpica-avena---vit-e-125-g-x3/p"
+    },
+    {
+      "source_id": "2033363",
+      "name": "Shampoo Head Shoulders Limpieza Renovadora Pack 375 ml + 180 ml",
+      "brand": "H & S",
+      "description": "El Shampoo Head & Shoulders Limpieza Renovadora limpia el cabello sin resecar y es recomendado para uso diario. Brinda una dosis diaria de hidratación y tiene una fragancia irresistible. ¡Úsalo 7 días a la semana! Nuestra Colección Limpieza Renovadora es una de las favoritas en L",
+      "category": "Cuidado del Cabello",
+      "price": 25240,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2399310/7500435126809_1.jpg?v=639142802256900000",
+      "link": "https://www.olimpica.com/shampoo-head--shoulders-limpieza-renovadora-375ml--shampoo-180ml-7500435126809--2033363/p"
+    },
+    {
+      "source_id": "1451705",
+      "name": "Dove Jabón Barra Original 90 G X3 Unds",
+      "brand": "Dove",
+      "description": "Dove Jabón Barra Original 3 Unidades X 90G",
+      "category": "Cuidado De La Piel",
+      "price": 15855,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1015007/7891150046481.jpg?v=638071799902300000",
+      "link": "https://www.olimpica.com/jabon-dove-original-90g-x-3-unidades-7891150046481--1451705/p"
+    },
+    {
+      "source_id": "736569",
+      "name": "Crema Dental Colgate Triple Acción 150 Ml",
+      "brand": "Colgate",
+      "description": "\"Déjate sorprender por la Crema Dental Colgate Triple Acción y mantén una higiene oral saludable, en su presentación de 150 ml. Evita la formación de manchas amarillas ocasionadas por el paso del tiempo y la ingesta de ciertos alimentos. Refresca tu aliento con su rico aroma a me",
+      "category": "Cuidado Oral",
+      "price": 13800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1428104/7509546000350.jpg?v=638954882131400000",
+      "link": "https://www.olimpica.com/crema-dental-colgate-triple-accion-150-ml/p"
+    },
+    {
+      "source_id": "95695",
+      "name": "Enjuague Bucal LISTERINE®  Coolmint Frescura Intensa 500ml",
+      "brand": "Listerine",
+      "description": "LISTERINE® COOLMINT Frescura Intensa Alcanza donde el cepillado y el hilo no llegan. Con su exclusiva fórmula de 4 Aceites Esenciales (mentol, timol, eucaliptol y salicilato de metilo) elimina hasta el 99% de los gérmenes que causan la placa, caries y mal aliento.* *24h de protec",
+      "category": "Cuidado Oral",
+      "price": 26250,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1786317/7702035432339_0.jpg.jpg?v=638763520378630000",
+      "link": "https://www.olimpica.com/enjuague-bucal-listerine-cool-mint-500-ml-7702035432339/p"
+    },
+    {
+      "source_id": "53151",
+      "name": "Desodorante Yodora Crema Clásico 60 G Gratis 32 G",
+      "brand": "Yodora",
+      "description": "DESODORANTE YODORA CREMA CLASICO 60G GRATIS 32G",
+      "category": "Desodorante Y Antitranspirante",
+      "price": 24392,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2365412/7702057089290_DEO YODORA CREM CLASIC 60 g GTS 32 OF.jpg?v=639094402300600000",
+      "link": "https://www.olimpica.com/desodorante-yodora-crema-clasico-60g-gratis-32g-7702057089290--53151/p"
+    },
+    {
+      "source_id": "2337345",
+      "name": "Lavaplatos Axion Explosión Cítrica Líquido 3 Lt",
+      "brand": "Axion",
+      "description": "Con el poder multiusos del lavaplatos Axion Explosión Cítrica 100% efectivo contra la grasa dejarás todo tipo de trastes rechinando de lo limpio y además podrás disfrutar su delicioso aroma a Limón, Mandarina y Durazno. ¡No esperes más y descubre el placer de una limpieza perfect",
+      "category": "Cuidado Oral",
+      "price": 23280,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2357636/7509546701172_1.jpg?v=639076488468330000",
+      "link": "https://www.olimpica.com/l-plato-liq-axion-explosion-citrica-3l/p"
+    },
+    {
+      "source_id": "2336781",
+      "name": "Crema Dental Blanqueadora Colgate Luminous White Color Correct 100 mL",
+      "brand": "Colgate",
+      "description": "Descubre una sonrisa más blanca al instante* con la crema dental blnaqueadora Colgate Luminous White Color Correct Fresh Mint. Su fórmula con flúor y tecnología de color violeta neutraliza las manchas amarillas* en los dientes temporalmente. Colgate Luminous White Color Correct e",
+      "category": "Cuidado Oral",
+      "price": 22600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2365360/7509546700397_1.jpg?v=639094387334770000",
+      "link": "https://www.olimpica.com/crem-dent-colgate-lum-wht-corr-col-100ml/p"
+    },
+    {
+      "source_id": "2336179",
+      "name": "Shampoo Head & Shoulders Anti-Resequedad Nutrición Diaria 650 ml",
+      "brand": "HEAD & SHOULDERS",
+      "description": "Head and Shoulders Anti-Resequedad* Nutrición Diaria es ideal para el cuidado del cuero cabelludo seco y el control de la caspa**. Nuestra fórmula más nutritiva nutre y alivia la resequedad* del cuero cabelludo seco desde la primera lavada. Diseñado para uso diario, este shampoo ",
+      "category": "Cuidado del Cabello",
+      "price": 32312,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2397283/7500435249331_1.jpg?v=639141077399800000",
+      "link": "https://www.olimpica.com/shamp-h-s-antiresequedad-650-ml/p"
+    },
+    {
+      "source_id": "2327628",
+      "name": "Pack Shampoo Head & Shoulders Anti-Comezón con menta 375 ml + 180 ml",
+      "brand": "HEAD & SHOULDERS",
+      "description": "¡LIBÉRATE DE LA CASPA Y LA COMEZÓN! El shampoo para caspa y comezón Head & Shoulders, está formulado especialmente con menta y Piroctona Olamina,que generan una sensación inmediata de frescura y alivio a la sensación de comezón en el cuero cabelludo, mientras tienes un cabello ha",
+      "category": "Cuidado del Cabello",
+      "price": 29080,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2408349/7500435247771_1.jpg?v=639167033498070000",
+      "link": "https://www.olimpica.com/shamp-h-s-anticomezon-375-ml--180-ml/p"
+    },
+    {
+      "source_id": "2324749",
+      "name": "Jabón Líquido Suppra Care Antibacterial 3 Lt",
+      "brand": "Suppra Care",
+      "description": "JAB LIQ SUPPRA CARE ANTIBACTERIAL 3L",
+      "category": "Cuidado De La Piel",
+      "price": 16650,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2405410/7701008844629_1.jpg?v=639159288150730000",
+      "link": "https://www.olimpica.com/jab-liq-suppra-care-antibacterial-3l/p"
+    },
+    {
+      "source_id": "2322142",
+      "name": "Toalla Higiénica Nosotras Invisible Rapigel X40 Unds + 30 Protectores",
+      "brand": "Nosotras",
+      "description": "TOALLA NOSOTRAS INV RAPIGEL X40 + 30 PRO",
+      "category": "Protección Sanitaria",
+      "price": 22425,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1643009/7702026155094.jpg?v=638705782103170000",
+      "link": "https://www.olimpica.com/toalla-nosotras-inv-rapigel-x40---30-pro/p"
+    },
+    {
+      "source_id": "2322106",
+      "name": "Shampoo Nutribela Reparación Intensiva 400 Ml",
+      "brand": "Nutribela",
+      "description": "SHAMPOO NUTRIBELA REPAR INTENSIV 400 ML",
+      "category": "Cuidado del Cabello",
+      "price": 23690,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1601138/7702354956219.jpg?v=638695347236600000",
+      "link": "https://www.olimpica.com/shampoo-nutribela-repar-intensiv-400-ml/p"
+    },
+    {
+      "source_id": "697667",
+      "name": "Gaseosa Coca Cola Zero 1,5 Lt",
+      "brand": "Coca-Cola",
+      "description": "Coca-Cola Zero, Gran sabor. ¿La mejor Coca-Cola? Atrévete a probarla.",
+      "category": "Gaseosas",
+      "price": 5352,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2418161/7702535011799_0 -1-.jpg?v=639185177169200000",
+      "link": "https://www.olimpica.com/gaseosa-coca-cola-zero-15-l-7702535011799-697667/p"
+    },
+    {
+      "source_id": "2327504",
+      "name": "BEB PONY MALTA GO PET 200ML X6",
+      "brand": "Pony",
+      "description": "BEB PONY MALTA GO PET 200ML X6",
+      "category": "Maltas",
+      "price": 9800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2354484/7702004025791.jpg?v=639070410697830000",
+      "link": "https://www.olimpica.com/beb-pony-malta-go-pet-200ml-x6/p"
+    },
+    {
+      "source_id": "2215786",
+      "name": "Gaseosa Coca-Cola ZERO 250ml x 6 Unds",
+      "brand": "Coca-Cola",
+      "description": "Coca-Cola Zero, Gran sabor. ¿La mejor Coca-Cola? Atrévete a probarla.",
+      "category": "Gaseosas",
+      "price": 7040,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1848803/7702535029459.jpg?v=638820682985170000",
+      "link": "https://www.olimpica.com/gaseosa-coca-cola-zero-250ml-x-6-unds/p"
+    },
+    {
+      "source_id": "2172933",
+      "name": "Agua Saborizada Brisa con Gas Manzana 1,5 Lt",
+      "brand": "Brisa",
+      "description": "Agua Brisa Saborizada Manzana Botella 1,5 Lt X 1 Und",
+      "category": "Aguas",
+      "price": 3073,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1473123/7702535027868.jpg?v=638590259424370000",
+      "link": "https://www.olimpica.com/agua-brisa-saborizada-manzana-15l-7702535027868-2172933/p"
+    },
+    {
+      "source_id": "2087831",
+      "name": "GASEOSA COCA-COLA ORIGINAL 1.5L",
+      "brand": "Coca-Cola",
+      "description": "GASEOSA COCA-COLA ORIGINAL 1.5L",
+      "category": "Gaseosas",
+      "price": 6950,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2418158/7702535024423_0--1-.jpg?v=639185176970130000",
+      "link": "https://www.olimpica.com/gaseosa-coca-cola-original-1-5l/p"
+    },
+    {
+      "source_id": "986209",
+      "name": "Agua Brisa Sin Gas Bidón 6L",
+      "brand": "Brisa",
+      "description": "Agua Brisa Bidón 6 Lt",
+      "category": "Aguas",
+      "price": 9590,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1473128/7702535002650.jpg?v=638827639739900000",
+      "link": "https://www.olimpica.com/agua-brisa-bidon-6-l-7702535002650-986209/p"
+    },
+    {
+      "source_id": "2323691",
+      "name": "Jugo Hit Surtido 200 Ml 12X10 Unds",
+      "brand": "Hit",
+      "description": "REFRESC HIT STDO 200ML 12X10",
+      "category": "Lácteos",
+      "price": 14990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1836349/7707133016221.jpg.jpg?v=638793948478370000",
+      "link": "https://www.olimpica.com/refresc-hit-stdo-200ml-12x10/p"
+    },
+    {
+      "source_id": "2311364",
+      "name": "Agua Olimpica 4 Lt",
+      "brand": "Olimpica",
+      "description": "1",
+      "category": "Aguas",
+      "price": 2720,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1600694/7701008843165.jpg?v=638694437589900000",
+      "link": "https://www.olimpica.com/agua-olimpica-4-l/p"
+    },
+    {
+      "source_id": "2265391",
+      "name": "GASEOSA COCA-COLA 2.5L X2",
+      "brand": "Coca-Cola",
+      "description": "GASEOSA COCA-COLA 2.5L X2",
+      "category": "Gaseosas",
+      "price": 15000,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2335722/7702535024515_0.jpg?v=639034814066700000",
+      "link": "https://www.olimpica.com/gaseosa-coca-cola-2-5l-x2/p"
+    },
+    {
+      "source_id": "2087830",
+      "name": "GASEOSA COCA-COLA ORIGINAL 2.5L",
+      "brand": "Coca-Cola",
+      "description": "GASEOSA COCA-COLA ORIGINAL 2.5L",
+      "category": "Gaseosas",
+      "price": 7497,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2335716/7702535024430_0.jpg?v=639034813727000000",
+      "link": "https://www.olimpica.com/gaseosa-coca-cola-original-2-5l/p"
+    },
+    {
+      "source_id": "1601341",
+      "name": "Jugo Frutto Néctar Surtido 200 Ml 10X7 Unds Oferta",
+      "brand": "Frutto",
+      "description": "NECTAR FRUTTO ALPINA SURTIDO 200ML 10X7 OFERTA. Aquí puedes encontrar más productos marca Frutto",
+      "category": "Jugos",
+      "price": 17050,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1424197/7702001134410.jpg?v=638514017163870000",
+      "link": "https://www.olimpica.com/nectar-frutto-alpina-surtido-200ml-10x7-oferta-7702001134410-1601341/p"
+    },
+    {
+      "source_id": "1556470",
+      "name": "AGUA BRISA POTABLE S/GAS 280ML X24un",
+      "brand": "Brisa",
+      "description": "AGUA BRISA POTABLE S/GAS 280ML X24un",
+      "category": "Aguas",
+      "price": 20072,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1778219/7702535017791_0.jpg.jpg?v=638750507187130000",
+      "link": "https://www.olimpica.com/agua-brisa-potable-s-gas-280ml-x24un/p"
+    },
+    {
+      "source_id": "1125355",
+      "name": "Gaseosa Coca Cola Zero 2,5 Lt X2 Unds",
+      "brand": "Coca-Cola",
+      "description": "Coca-Cola Zero, Gran sabor. ¿La mejor Coca-Cola? Atrévete a probarla.",
+      "category": "Gaseosas",
+      "price": 16600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2335710/7702535011935_0.jpg?v=639034813203430000",
+      "link": "https://www.olimpica.com/gaseosa-coca-cola-zero-25-l-x2-7702535011935-1125355/p"
+    },
+    {
+      "source_id": "904838",
+      "name": "Soda Bretaña 2,5 Lt",
+      "brand": "Bretaña",
+      "description": "Soda Bretaña Botella 2,5 Lt",
+      "category": "Gaseosas",
+      "price": 4193,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1431476/7702090020502.jpg?v=638521685153370000",
+      "link": "https://www.olimpica.com/mezcla-bretana-25-l-7702090020502-904838/p"
+    },
+    {
+      "source_id": "697758",
+      "name": "Gaseosa Quatro Toronja Original 1,5 Lt",
+      "brand": "Quatro",
+      "description": "Gaseosa Quatro Toronja Sabor Original 1.5L",
+      "category": "Gaseosas",
+      "price": 4790,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1884996/7702535011706.jpg?v=639118485622370000",
+      "link": "https://www.olimpica.com/gaseosa-quatro-toronja-sabor-original-1-5l/p"
+    },
+    {
+      "source_id": "697558",
+      "name": "Gaseosa Schweppes Ginger Ale 1,5 Lt",
+      "brand": "Schweppes",
+      "description": "Gaseosa Schweppes Ginger Ale 1.5L - Los licores nacionales e importados no tienen cambio. - En los lugares donde sea decretada ley seca se despachará licor una vez se levante la medida y la entrega se hará de acuerdo a la política de entrega establecida por Olímpica S.A. - El exc",
+      "category": "Gaseosas",
+      "price": 4190,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1763277/7702535011812_1.jpg.jpg?v=638742991284400000",
+      "link": "https://www.olimpica.com/gaseosa-schweppes-ginger-ale-1-5l/p"
+    },
+    {
+      "source_id": "2329292",
+      "name": "GASEOSA POSTOBON COLOMBIANA 1.5L",
+      "brand": "Postobon",
+      "description": "GASEOSA POSTOBON COLOMBIANA 1.5L",
+      "category": "Gaseosas",
+      "price": 5900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2387566/7707151754952 -1-.jpg?v=639124645683900000",
+      "link": "https://www.olimpica.com/gaseosa-postobon-colombiana-1-5l/p"
+    },
+    {
+      "source_id": "2328466",
+      "name": "BEBIDA HATSU SODA FRAMBUESA 310ML X6",
+      "brand": "Hatsu",
+      "description": "BEBIDA HATSU SODA FRAMBUESA 310ML X6",
+      "category": "Gaseosas",
+      "price": 18900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1885099/7702090001396.jpg?v=638876936436730000",
+      "link": "https://www.olimpica.com/bebida-hatsu-soda-frambuesa-310ml-x6/p"
+    },
+    {
+      "source_id": "2327908",
+      "name": "Gaseosa Coca-Cola Zero 269ml x 6 Und",
+      "brand": "Coca-Cola",
+      "description": "Coca-Cola sabor original es la bebida gaseosa favorita del mundo y se ha disfrutado desde 1886. Puedes encontrar Coca-Cola sabor original en una variedad de presentaciones que se adaptan a cada estilo de vida y ocasión.",
+      "category": "Gaseosas",
+      "price": 15200,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2410852/7702535033487_-0-.jpg?v=639172163117470000",
+      "link": "https://www.olimpica.com/gaseosa-coca-cola-zero-269ml-x-6-und/p"
+    },
+    {
+      "source_id": "2323700",
+      "name": "REFRESCOS HIT STDO 200ML 6X5",
+      "brand": "Hit",
+      "description": "REFRESCOS HIT STDO 200ML 6X5",
+      "category": "Jugos",
+      "price": 7900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1885056/7707133061122.jpg?v=638876906374670000",
+      "link": "https://www.olimpica.com/refrescos-hit-stdo-200ml-6x5/p"
+    },
+    {
+      "source_id": "2238799",
+      "name": "Agua Olimpica 1000 Ml",
+      "brand": "Olimpica",
+      "description": "Agua Olimpica 1000 Ml",
+      "category": "Aguas",
+      "price": 950,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1142031/7701008839342.jpg?v=638285653744430000",
+      "link": "https://www.olimpica.com/agua-olimpica-1000ml/p"
+    },
+    {
+      "source_id": "2095646",
+      "name": "Jugo Del Valle Fresh Frutas Cítricas 2,5 Lt X2 Unds",
+      "brand": "Del Valle",
+      "description": ".body-tucan { font-size: 62.5%; font-family: 'Lato', sans-serif; overflow-x: hidden; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 10",
+      "category": "Jugos",
+      "price": 11250,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1501824/7702535024577_1.jpg?v=638641063928700000",
+      "link": "https://www.olimpica.com/bebida-del-valle-fresh-fruta-citrus-25l-x2-7702535024577-2095646/p"
+    },
+    {
+      "source_id": "2091461",
+      "name": "Jugo Del Valle Fresh Frutas Cítricas 1,5 Lt",
+      "brand": "Del Valle",
+      "description": ".body-tucan { font-size: 62.5%; font-family: 'Lato', sans-serif; overflow-x: hidden; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 10",
+      "category": "Jugos",
+      "price": 3986,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1429267/7702535022061.jpg?v=638853330895900000",
+      "link": "https://www.olimpica.com/bebida-del-valle-frutas-citricas-15l-7702535022061-2091461/p"
+    },
+    {
+      "source_id": "2075288",
+      "name": "Soda Bretaña 300 Ml X12 Unds Oferta",
+      "brand": "Bretaña",
+      "description": "Botella Soda Bretaña 300 Ml X 12 Unds Oferta",
+      "category": "Gaseosas",
+      "price": 20650,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1431581/7702090051797.jpg?v=638521701537370000",
+      "link": "https://www.olimpica.com/gaseosa-bretana-300ml-x12-of-7702090051797-2075288/p"
+    },
+    {
+      "source_id": "2056680",
+      "name": "Té Hatsu Surtido 200 Ml X12 Unds",
+      "brand": "Hatsu",
+      "description": "Té Hatsu Surtido 200 ML X12 Unds",
+      "category": "Té Frío",
+      "price": 22000,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1432172/7702090049428.jpg?v=639038271425800000",
+      "link": "https://www.olimpica.com/te-hatsu-surtido-tetrapack-200ml-x12-7702090049428-2056680/p"
+    },
+    {
+      "source_id": "1549726",
+      "name": "Gaseosa Coca Cola Zero 2,5 Lt",
+      "brand": "Coca-Cola",
+      "description": "Coca-Cola Zero, Gran sabor. ¿La mejor Coca-Cola? Atrévete a probarla.",
+      "category": "Gaseosas",
+      "price": 7471,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1463103/7702535007914_1.jpg?v=638561500818500000",
+      "link": "https://www.olimpica.com/gaseosa-coca-cola-zero-25-l-7702535007914-1549726/p"
+    },
+    {
+      "source_id": "1527636",
+      "name": "Agua Cristal 300 Ml X24 Unds",
+      "brand": "Cristal",
+      "description": "AGUA CRISTAL 300ML X24 un",
+      "category": "Aguas",
+      "price": 13930,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1475513/7702090044294.jpg?v=638599440128200000",
+      "link": "https://www.olimpica.com/agua-cristal-300ml-x24-un/p"
+    },
+    {
+      "source_id": "1504138",
+      "name": "Gaseosa Coca-Cola ZERO 600ml",
+      "brand": "Coca-Cola",
+      "description": "Coca-Cola Zero, Gran sabor. ¿La mejor Coca-Cola? Atrévete a probarla.",
+      "category": "Gaseosas",
+      "price": 3350,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1899950/7702535006764_0.jpg?v=638894011571370000",
+      "link": "https://www.olimpica.com/gaseosa-coca-cola-zero-botella-600-ml-7702535006764-1504138/p"
+    },
+    {
+      "source_id": "1002230676",
+      "name": "Pasaboca Doritos Mega Queso 200 G",
+      "brand": "Doritos",
+      "description": "Aquí puedes encontrar más productos doritos",
+      "category": "Pasabocas",
+      "price": 7360,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1535648/702189056771_1.jpg?v=638652244626200000",
+      "link": "https://www.olimpica.com/pasaboca-doritos-megaqueso-200g-7702189056771-2202524/p"
+    },
+    {
+      "source_id": "2329716",
+      "name": "Paquete Pasabocas Papas Margarita Pollo x12 unds. 25 gr C/U",
+      "brand": "Margarita",
+      "description": "Paquete Pasabocas Papas Margarita Pollo x12 unds. 25 gr C/U",
+      "category": "Pasabocas",
+      "price": 26150,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1869345/7702189000200.jpg?v=638853401054030000",
+      "link": "https://www.olimpica.com/pasaboca-papa-margarita-pollo-12x25-g/p"
+    },
+    {
+      "source_id": "2283159",
+      "name": "PASABOCAS FRITOLAY MEGALONCHERA SURTIDO X22 586g",
+      "brand": "Fritolay",
+      "description": "PASABOCAS FRITOLAY MEGALONCHERA SURTIDO X22 586g",
+      "category": "Pasabocas",
+      "price": 26500,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1787814/7702189226884-1.jpg.jpg?v=638769656833430000",
+      "link": "https://www.olimpica.com/pasaboca-fritolay-megaloncher-stdo-x22-586g/p"
+    },
+    {
+      "source_id": "2262860",
+      "name": "Rosquitas Queso Pa Mi Gente 120 G",
+      "brand": "Pa Mi Gente",
+      "description": "Rosquitas Queso Pa Mi Gente 120 G",
+      "category": "Pasabocas",
+      "price": 10492,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1410458/7705326002334.jpg?v=638965056389430000",
+      "link": "https://www.olimpica.com/rosq-qso-pa-mi-gente-120g/p"
+    },
+    {
+      "source_id": "2248357",
+      "name": "Pasaboca Detodito BBQ 165 G",
+      "brand": "Detodito",
+      "description": "Pasaboca Detodito BBQ 165 G",
+      "category": "Pasabocas",
+      "price": 7600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1787788/7702189057624-1.jpg.jpg?v=638769649956330000",
+      "link": "https://www.olimpica.com/pasaboca-detodito-bbq-165g/p"
+    },
+    {
+      "source_id": "1236993",
+      "name": "PASABOCA NATUCHIPS PLATANO VERDE 135g",
+      "brand": "Natuchips",
+      "description": "PBOCA NATUCHIPS PLATANO VERDE 135g",
+      "category": "Saludable",
+      "price": 8000,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1779878/7702189045720.jpg?v=638773959307900000",
+      "link": "https://www.olimpica.com/pboca-natuchips-platano-verde-135g/p"
+    },
+    {
+      "source_id": "2334591",
+      "name": "PBOCA PAPA MARGARITA NATURAL 12X25G",
+      "brand": "Margarita",
+      "description": "PBOCA PAPA MARGARITA NATURAL 12X25G",
+      "category": "Pasabocas",
+      "price": 25950,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2330300/7702189000064.jpg?v=639026369225800000",
+      "link": "https://www.olimpica.com/pboca-papa-margarita-natural-12x25g/p"
+    },
+    {
+      "source_id": "2329712",
+      "name": "Paquete Pasabocas Papas Margarita Limón x12 unds. 25 gr C/U",
+      "brand": "Margarita",
+      "description": "Paquete Pasabocas Papas Margarita Limón x12 unds. 25 gr C/U",
+      "category": "Pasabocas",
+      "price": 26150,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1869394/7702189000392.jpg?v=638853404963700000",
+      "link": "https://www.olimpica.com/pasaboca-papa-margarita-limon-12x25-g/p"
+    },
+    {
+      "source_id": "2298314",
+      "name": "ROSQUITA SPIGA YUCA X6un",
+      "brand": "Sin Marca",
+      "description": "ROSQUITA SPIGA YUCA X6un",
+      "category": "Pasabocas",
+      "price": 19200,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1829036/7709566575986.jpg?v=638911447707030000",
+      "link": "https://www.olimpica.com/rosquita-spiga-yuca-x6un/p"
+    },
+    {
+      "source_id": "2283157",
+      "name": "PASABOCAS FRITOLAY SUPERLONCHERA SURTIDO X12 271g",
+      "brand": "Fritolay",
+      "description": "PASABOCAS FRITOLAY SUPERLONCHERA SURTIDO X12 271g",
+      "category": "Pasabocas",
+      "price": 15000,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1787812/7702189226877-1.jpg.jpg?v=638769656245300000",
+      "link": "https://www.olimpica.com/pasaboca-fritolay-superlonche-stdo-x12-271g/p"
+    },
+    {
+      "source_id": "2275296",
+      "name": "PAPAS RIZADAS FRITAS MAYONESA 105g",
+      "brand": "Rizadas",
+      "description": "PAPAS RIZADAS FRITAS MAYONESA 105g",
+      "category": "Pasabocas",
+      "price": 6800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2357013/7703133010184.jpg?v=639076300891800000",
+      "link": "https://www.olimpica.com/papas-rizadas-fritas-mayonesa-105g/p"
+    },
+    {
+      "source_id": "2254663",
+      "name": "Rosquitas Sanissimo Multipack 120 G",
+      "brand": "Sanissimo",
+      "description": "Rosquitas Sanissimo Multipack 120 G",
+      "category": "Pasabocas",
+      "price": 14590,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2405295/7705326002433_1.png?v=639159169431900000",
+      "link": "https://www.olimpica.com/rosq-sanissimo-multipack-120g/p"
+    },
+    {
+      "source_id": "2248358",
+      "name": "PASABOCA DETODITO MIX 165g",
+      "brand": "Detodito",
+      "description": "PASABOCA DETODITO MIX 165g",
+      "category": "Pasabocas",
+      "price": 7600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1566895/7702189057631_1.jpg?v=638659898487730000",
+      "link": "https://www.olimpica.com/pasaboca-detodito-mix-165g/p"
+    },
+    {
+      "source_id": "2248356",
+      "name": "PASABOCA DETODITO MEZC NAT 165g",
+      "brand": "Detodito",
+      "description": "1",
+      "category": "Pasabocas",
+      "price": 7600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1787786/7702189057617-1.jpg.jpg?v=638769649313370000",
+      "link": "https://www.olimpica.com/pasaboca-detodito-mezc-nat-165g/p"
+    },
+    {
+      "source_id": "2072998",
+      "name": "Snack Papas Margarita Pollo 105 Gr",
+      "brand": "Margarita",
+      "description": "Papas Margarita Pollo te ofrece el mejor sabor a pollo en cada papa. Crocantes, saboras y de calidad, estas papas fritas cultivadas por los agricultores colombianos, se sazonan de manera perfecta, ofreciéndote una experiencia de sabor inigualable. Son una excelente opción para aq",
+      "category": "Pasabocas",
+      "price": 5600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1567070/7702189053770_1.jpg?v=638659931170670000",
+      "link": "https://www.olimpica.com/pasaboca-papa-margarita-105g-pollo-7702189053770-2072998/p"
+    },
+    {
+      "source_id": "2006257",
+      "name": "BEBIDA ACHOCOLATADA CHOCOLISTO BOLSA 200 g",
+      "brand": "Chocolisto",
+      "description": ".body-tucan { font-size: 62.5%; font-family: 'Lato', sans-serif; overflow-x: hidden; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 10",
+      "category": "Pasabocas",
+      "price": 7550,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2391622/7702007216127_1.png?v=639134997863070000",
+      "link": "https://www.olimpica.com/bebida-achocolatada-chocolisto-bolsa-200-g/p"
+    },
+    {
+      "source_id": "1233792",
+      "name": "Pasaboca Cheetos Boliqueso 160 G",
+      "brand": "Cheetos",
+      "description": "Pasaboca Cheetos Boliqueso 160 G",
+      "category": "Pasabocas",
+      "price": 7700,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1161209/7702189045577_1.jpg?v=638320483739300000",
+      "link": "https://www.olimpica.com/pasaboca-cheetos-boliqueso-160g-7702189045577-1233792/p"
+    },
+    {
+      "source_id": "980141",
+      "name": "GALLETA DUCALES XL BOLSA 243 g",
+      "brand": "Ducales",
+      "description": "GALLETA DUCALES XL BOLSA 243 g",
+      "category": "Pasabocas",
+      "price": 8050,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1836412/7702025133123_1.png.png?v=638795799136870000",
+      "link": "https://www.olimpica.com/galleta-ducales-xl-bolsa-243-g/p"
+    },
+    {
+      "source_id": "1002230718",
+      "name": "Snack Papas Margarita Crema Y Cebolla 110 Gr",
+      "brand": "Margarita",
+      "description": "Papas Margarita Crema y Cebolla te ofrecen una experiencia deliciosa y llena de sabor en cada bocado. Sazonadas con el sabor gourmet de la crema y cebolla, estas papas son la elección perfecta para quienes buscan un sabor de tradición en la cocina colombiana, tanto para un snack,",
+      "category": "Pasabocas",
+      "price": 8540,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1567501/7702189056719_1.jpg?v=638659999847000000",
+      "link": "https://www.olimpica.com/pasaboca-papas-margarita-crem-ceboll-110g-7702189056719-2199817/p"
+    },
+    {
+      "source_id": "2329741",
+      "name": "PBOCA PAPA RIZADAS STDA 25G X12",
+      "brand": "Rizadas",
+      "description": "PBOCA PAPA RIZADAS STDA 25G X12",
+      "category": "Pasabocas",
+      "price": 23600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2357039/7703133070393.jpg?v=639076311271700000",
+      "link": "https://www.olimpica.com/pboca-papa-rizadas-stda-25g-x12/p"
+    },
+    {
+      "source_id": "2329717",
+      "name": "Paquete Pasabocas Natuchips Plátano Maduro X12 und 336Gramos",
+      "brand": "Natuchips",
+      "description": "Paquete Pasabocas Natuchips Plátano Maduro X12 und 336Gramos",
+      "category": "Pasabocas",
+      "price": 24200,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1869388/7702189025319_1.jpg?v=638853404237630000",
+      "link": "https://www.olimpica.com/pasaboca-natuchips-platan-madur-x12-336-g/p"
+    },
+    {
+      "source_id": "2328038",
+      "name": "MANI MEDALLA DE ORO SALAD 200 G",
+      "brand": "Medalla De Oro",
+      "description": "MANI MEDALLA DE ORO SALAD 200 G",
+      "category": "Pasabocas",
+      "price": 3832,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1901639/7701008845657.jpg?v=638900849124870000",
+      "link": "https://www.olimpica.com/mani-medalla-de-oro-salad-200-g/p"
+    },
+    {
+      "source_id": "2322921",
+      "name": "PASABOCA PAPA MARGARITA MULTIPACK X9 225G",
+      "brand": "Margarita",
+      "description": "PASABOCA PAPA MARGARITA MULTIPACK X9 225G",
+      "category": "Pasabocas",
+      "price": 23160,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1885916/7702189226969.jpg?v=638877175670300000",
+      "link": "https://www.olimpica.com/pasaboca-papa-margarita-multipack-x9-225g/p"
+    },
+    {
+      "source_id": "2322589",
+      "name": "MASMEL CHOCMELOS CUB BAND X14UN 90G",
+      "brand": "Chocmelo",
+      "description": "MASMEL CHOCMELOS CUB BAND X14UN 90G",
+      "category": "Confitería",
+      "price": 8300,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1833837/7702011158406.jpg.jpg?v=638791144323100000",
+      "link": "https://www.olimpica.com/masmel-chocmelos-cub-band-x14un-90g/p"
+    },
+    {
+      "source_id": "2322319",
+      "name": "Gomitas Trolli Anayconda 70 G",
+      "brand": "Trolli",
+      "description": "Gomas Trolli Anayconda 70 Gr",
+      "category": "Confitería",
+      "price": 2990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1587561/7702174087773_Trolli_Anayconda.jpg?v=638671118344970000",
+      "link": "https://www.olimpica.com/gomas-trolli-anayconda-70g-/p"
+    },
+    {
+      "source_id": "2318178",
+      "name": "Maní Mani Moto Natural 44 G",
+      "brand": "Mani Moto",
+      "description": "MANI MANI MOTO NAT 44G UND",
+      "category": "Pasabocas",
+      "price": 1750,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1600702/7702189058515.jpg?v=638694437818630000",
+      "link": "https://www.olimpica.com/mani-mani-moto-nat-44g-und/p"
+    },
+    {
+      "source_id": "2316984",
+      "name": "PBOCA YUPI LONCHERA DIVERPACK 431g",
+      "brand": "Yupi",
+      "description": "PBOCA YUPI LONCHERA DIVERPACK 431g",
+      "category": "Pasabocas",
+      "price": 21390,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2357017/7703133012973.jpg?v=639076303336430000",
+      "link": "https://www.olimpica.com/pboca-yupi-lonchera-diverpack-431g/p"
+    },
+    {
+      "source_id": "2320256",
+      "name": "Deditos Medalla de Oro Queso 400 G X10 Unds",
+      "brand": "Medalla De Oro",
+      "description": "DEDITOS QSO MEDALLA DE ORO X10 400G",
+      "category": "Pasabocas Congelados",
+      "price": 10312,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1763495/7701008844728.jpg.jpg?v=638743260770070000",
+      "link": "https://www.olimpica.com/deditos-qso-medalla-de-oro-x10-400g/p"
+    },
+    {
+      "source_id": "2142591",
+      "name": "Papa Medalla de Oro a la Francesa 1000 G",
+      "brand": "Medalla De Oro",
+      "description": "Papas Medalla De Oro a la Francesa 1000 G",
+      "category": "Vegetales Congelados",
+      "price": 9900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2405533/7701008629578_1.jpg?v=639159301143530000",
+      "link": "https://www.olimpica.com/papa-medalla-oro-francesa-1000-g-7701008629578-2142591/p"
+    },
+    {
+      "source_id": "1002233015",
+      "name": "Mix de Vegetales Medalla de Oro Maíz/Arveja/Zanahoria 500 G",
+      "brand": "Medalla De Oro",
+      "description": "Mix de Vegetales Medalla De Oro Maíz/Arveja/Zanahoria 500 G",
+      "category": "Vegetales Congelados",
+      "price": 6690,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1901263/7701008836600_1.jpg?v=638900222844170000",
+      "link": "https://www.olimpica.com/mix-medalla-de-oro-maiz-avj-zanahoria-500g-7701008836600-2148662/p"
+    },
+    {
+      "source_id": "1002232764",
+      "name": "Maíz Medalla de Oro Dulce Congelado 500 G",
+      "brand": "Medalla De Oro",
+      "description": "Maíz Medalla De Oro Dulce Congelado 500 G",
+      "category": "Vegetales Congelados",
+      "price": 7690,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1901264/7701008836617_1.jpg?v=638900223151670000",
+      "link": "https://www.olimpica.com/mraiz-medalla-de-oro-congelada-500g-7701008836617-2148663/p"
+    },
+    {
+      "source_id": "2332958",
+      "name": "DEDITO QSO MEDALLA DE ORO X12 300G",
+      "brand": "Medalla De Oro",
+      "description": "DEDITO QSO MEDALLA DE ORO X12 300G",
+      "category": "Pasabocas Congelados",
+      "price": 7992,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2360663/7701008847699_1.jpg?v=639087534917200000",
+      "link": "https://www.olimpica.com/dedito-qso-medalla-de-oro-x12-300g/p"
+    },
+    {
+      "source_id": "2328523",
+      "name": "Empanada Zenú Coctel 300 G",
+      "brand": "Zenu",
+      "description": "EMPANADA ZENU COCTEL 300G",
+      "category": "Pasabocas Congelados",
+      "price": 13200,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1828792/7701101362150-1.jpg.jpg?v=638786184022800000",
+      "link": "https://www.olimpica.com/empanada-zenu-coctel-300g/p"
+    },
+    {
+      "source_id": "2266291",
+      "name": "Deditos Del Origen Mini Origin 530 G X10 Unds",
+      "brand": "Del Origen",
+      "description": "DEDITOS DEL ORIGEN M/ORIGIN X10un 530g",
+      "category": "Pasabocas Congelados",
+      "price": 33200,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1853842/7709633971789.jpg.jpg?v=638828545056530000",
+      "link": "https://www.olimpica.com/deditos-del-origen-m-origin-x10un-530g/p"
+    },
+    {
+      "source_id": "1650663",
+      "name": "Papa McCain a la Francesa Papa Fácil 1 Kg",
+      "brand": "Mc Cain",
+      "description": "Papas McCain A La Francesa Papa Fácil 1 Kg",
+      "category": "Vegetales Congelados",
+      "price": 19000,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1460334/7707203351184.jpg?v=638556250246830000",
+      "link": "https://www.olimpica.com/papa-mc-cain-facil-1-kg-7707203351184-1650663/p"
+    },
+    {
+      "source_id": "962269",
+      "name": "Papa McCain Francesas Papa Fácil 500 G",
+      "brand": "Mc Cain",
+      "description": "Papas McCain Francesas Papa Fácil 500 G",
+      "category": "Vegetales Congelados",
+      "price": 7130,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1458909/7707203351221.jpg?v=638550219375370000",
+      "link": "https://www.olimpica.com/papa-mcain-francesa-papafacil-500-g-7707203351221-962269/p"
+    },
+    {
+      "source_id": "921463",
+      "name": "Papa McCain Delgadas Rapi Papa 1 Kg",
+      "brand": "Mc Cain",
+      "description": "Papas McCain Delgadas Rapi Papa 1 Kg",
+      "category": "Vegetales Congelados",
+      "price": 20950,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1460324/7707203350224.jpg?v=638556240031200000",
+      "link": "https://www.olimpica.com/papa-mc-cain-delgada-1-kg-7707203350224-921463/p"
+    },
+    {
+      "source_id": "909421",
+      "name": "Nuggets Kokoriko Coma 300 G X20 Unds",
+      "brand": "Kokoriko",
+      "description": "Nuggets Kokoriko Coma 300 G X20 Unds",
+      "category": "Apanados Congelados",
+      "price": 18000,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2257104/7700512232090.jpg?v=638947501891630000",
+      "link": "https://www.olimpica.com/nugget-kokoriko-x20-300-g-7700512232090-909421/p"
+    },
+    {
+      "source_id": "830476",
+      "name": "Papa McCain Tradicionales Rapi Papa 1 Kg",
+      "brand": "Mc Cain",
+      "description": "Papas McCain Tradicionales Rapi Papa 1 Kg",
+      "category": "Vegetales Congelados",
+      "price": 21750,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1460322/7707203350071.jpg?v=638556239295170000",
+      "link": "https://www.olimpica.com/papa-tradicional-mc-cain-1-kg-7707203350071-830476/p"
+    },
+    {
+      "source_id": "25080",
+      "name": "Deditos Delicias Maja de Queso 250 G X10 Unds",
+      "brand": "Maja",
+      "description": "Deditos Delicias Maja De Queso 250 G X10 Unds",
+      "category": "Pasabocas Congelados",
+      "price": 10400,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1530156/7702711001316.jpg?v=638651267840000000",
+      "link": "https://www.olimpica.com/deditos-maja-queso-bandeja-10-250-g-7702711001316-25080/p"
+    },
+    {
+      "source_id": "2332959",
+      "name": "DEDITO QSO MEDALLA DE ORO B/LLO X12 300G",
+      "brand": "Medalla De Oro",
+      "description": "DEDITO QSO MEDALLA DE ORO B/LLO X12 300G",
+      "category": "Pasabocas Congelados",
+      "price": 7992,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2360664/7701008847712_1.jpg?v=639087535051370000",
+      "link": "https://www.olimpica.com/dedito-qso-medalla-de-oro-b-llo-x12-300g/p"
+    },
+    {
+      "source_id": "2290713",
+      "name": "Nuggets De Pollo Zenú Apanado 320 G",
+      "brand": "Zenu",
+      "description": "Nuggets de Pollo Zenú Apanado 320 G",
+      "category": "Apanados Congelados",
+      "price": 25600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1899983/7701101360668_H1C1.jpg?v=638894019971070000",
+      "link": "https://www.olimpica.com/nuggets-pollo-zenu-apanad-320g/p"
+    },
+    {
+      "source_id": "2247985",
+      "name": "Deditos Del Origen Origin X8 Unds",
+      "brand": "Del Origen",
+      "description": "DEDITOS DEL ORIGEN ORIGIN X8 un",
+      "category": "Pasabocas Congelados",
+      "price": 35950,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1853843/7709633971796.jpg.jpg?v=638828545562430000",
+      "link": "https://www.olimpica.com/deditos-del-origen-origin-x8-un/p"
+    },
+    {
+      "source_id": "2172372",
+      "name": "PULPA LA GIRALDA GUANABANA CONGEL 200 g",
+      "brand": "La Giralda",
+      "description": "PULPA LA GIRALDA GUANABANA CONGEL 200 g",
+      "category": "Frutas Congeladas",
+      "price": 3200,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2384843/7701008836808_1.jpg?v=639118623053800000",
+      "link": "https://www.olimpica.com/pulpa-la-giralda-guanabana-congel-200-g/p"
+    },
+    {
+      "source_id": "2125485",
+      "name": "Nuggets Kokoriko Kokorisaurios Pollo Apanados 400 G",
+      "brand": "Kokoriko",
+      "description": "Nuggets Kokoriko Kokorisaurios De Pollo Apanados 400 G",
+      "category": "Apanados Congelados",
+      "price": 21400,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1856991/7700512521293.jpg?v=638838917385470000",
+      "link": "https://www.olimpica.com/nuggets-kokoriko-pollo-apanados-400g-7700512521293-2125485/p"
+    },
+    {
+      "source_id": "1404309",
+      "name": "Deditos Delicias Maja de Queso 550 G X22 Unds",
+      "brand": "Maja",
+      "description": "Deditos Delicias Maja De Queso 550 G X22 Unds",
+      "category": "Pasabocas Congelados",
+      "price": 16195,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1530154/7702711002566.jpg?v=638651266660500000",
+      "link": "https://www.olimpica.com/dedito-queso-22-un-550-g-precio-especial-oferta-7702711002566-1404309/p"
+    },
+    {
+      "source_id": "841320",
+      "name": "Yuca McCain Palitos Jumbo Rapi Yuca 500 G",
+      "brand": "Mc Cain",
+      "description": "Yuca McCain Palitos Jumbo Rapi Yuca 500 G",
+      "category": "Pasabocas Congelados",
+      "price": 9690,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1460323/7707203350118.jpg?v=638556239640000000",
+      "link": "https://www.olimpica.com/croq-mc-cain-rapiyuca-yumbo-500-g/p"
+    },
+    {
+      "source_id": "830490",
+      "name": "Yuca McCain Palitos Jumbo Rapi Yuca 1 Kg",
+      "brand": "Mc Cain",
+      "description": "Yuca McCain Palitos Jumbo Rapi Yuca 1 Kg",
+      "category": "Pasabocas Congelados",
+      "price": 19100,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1460343/7707203357476.jpg?v=638556358642970000",
+      "link": "https://www.olimpica.com/yuca-mc-cain-croqueta-1-kg-7707203357476-830490/p"
+    },
+    {
+      "source_id": "444364",
+      "name": "Hielo en Bolsa Olimpica Cubo 3 Kg",
+      "brand": "Olimpica",
+      "description": "Hielo en Bolsa Olimpica Cubo 3 Kg",
+      "category": "Hielo",
+      "price": 4990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1405071/7701008004603.jpg?v=638826483635700000",
+      "link": "https://www.olimpica.com/hielo-en-bolsa-olimpica-cubo-3-kg/p"
+    },
+    {
+      "source_id": "28584",
+      "name": "Deditos Farah de Queso 400 G X20 Unds",
+      "brand": "Farah",
+      "description": "Deditos Farah de Queso 400 G X20 Unds",
+      "category": "Pasabocas Congelados",
+      "price": 33990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1898726/7702510937137.jpg?v=638890469958230000",
+      "link": "https://www.olimpica.com/deditos-farah-queso-20-und-400-g-7702510937137-28584/p"
+    },
+    {
+      "source_id": "1002237272",
+      "name": "Pulpa La Giralda Mango Congelada 200 G",
+      "brand": "La Giralda",
+      "description": "Pulpa La Giralda Mango Congelada 200 G",
+      "category": "Frutas Congeladas",
+      "price": 3200,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1841540/7701008836716.jpg.jpg?v=638808389813530000",
+      "link": "https://www.olimpica.com/pulpa-lagialda-mango-congelada-200g-7701008836716-2172363/p"
+    },
+    {
+      "source_id": "1002233116",
+      "name": "Lasagna Zenú Bolognesa 320 G",
+      "brand": "Zenu",
+      "description": "Disfruta de esta deliciosa Lasagna con carne de res con sabor casero sin complicaciones para tu almuerzo o cena, gracias a su práctico empaque en el que podrás prepararla en horno microondas o convencional.",
+      "category": "Comidas Preparadas Congeladas",
+      "price": 23400,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1828396/7701101359419-1.jpg.jpg?v=638786006848670000",
+      "link": "https://www.olimpica.com/lasagna-zenu-carne-320g-7701101359419-2202581/p"
+    },
+    {
+      "source_id": "1002233001",
+      "name": "Lasagna Zenú Con Pollo 320 G",
+      "brand": "Zenu",
+      "description": "Disfruta de esta deliciosa Lasagna con pollo y con un típico sabor casero sin complicaciones para tu almuerzo o cena, gracias a su práctico empaque en el que podrás prepararla en horno microondas o convencional.",
+      "category": "Comidas Preparadas Congeladas",
+      "price": 23400,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1828400/7701101359433-1.jpg.jpg?v=638786008139270000",
+      "link": "https://www.olimpica.com/lasagna-zenu-pollo-320g-7701101359426-2202582/p"
+    },
+    {
+      "source_id": "1002232832",
+      "name": "Arverja Medalla de Oro Congelada 500 G",
+      "brand": "Medalla De Oro",
+      "description": "Arverjas Medalla De Oro Congelada 500 G",
+      "category": "Vegetales Congelados",
+      "price": 6990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1897870/7701008836624.jpg?v=638888952412270000",
+      "link": "https://www.olimpica.com/arverja-medalla-de-oro-china-congelada-500g-7701008836624-2148664/p"
+    },
+    {
+      "source_id": "1002232312",
+      "name": "Milanesa Kokoriko Pollo Apanada 279 G",
+      "brand": "Kokoriko",
+      "description": "Disfruta de la milanesa Kokoriko de pollo apanada, perfecta para una comida deliciosa y rápida. Ideal para compartir en familia. Pruébala hoy.",
+      "category": "Apanados Congelados",
+      "price": 15200,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1856994/7700512521637.jpg?v=638838918378370000",
+      "link": "https://www.olimpica.com/milanesa-kokoiko-pollo-apanada-279g-7700512521637-2167302/p"
+    },
+    {
+      "source_id": "2319252",
+      "name": "Toallitas Húmeda Pequeñin Vitamina E X80 Unds",
+      "brand": "PEQUEÑIN",
+      "description": "TOALLA HUMED PEQUEÑIN VITAMINA E X80UN",
+      "category": "Aseo Del Bebe",
+      "price": 4900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1473390/7702026152550_1.jpg?v=638591173377970000",
+      "link": "https://www.olimpica.com/toalla-humed-pequenin-vitamina-e-x80un/p"
+    },
+    {
+      "source_id": "850640",
+      "name": "Pañal Winny Ultratrim Sec Etapa 3 X50 Unds + Toallas X10 Unds",
+      "brand": "Winny",
+      "description": "Pañales Winny Ultratrim Sec Etapa 3 X50 Unds + Toallas X10 Unds. Aquí puedes encontrar más productos Winny",
+      "category": "Cuidado De La Nalguita",
+      "price": 47812,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2357882/7701021111845_1.jpg?v=639077122227370000",
+      "link": "https://www.olimpica.com/panal-winny-sec-etapa-3-x-50-unidades-gratis-toalla-x-10-unidades-7701021111845--850640/p"
+    },
+    {
+      "source_id": "2340541",
+      "name": "PAÑITO HUM PEQUEÑIN DERMA PROTEC 80UN",
+      "brand": "PEQUEÑIN",
+      "description": "PA#ITO HUM PEQUE#IN DERMA PROTEC 80UN",
+      "category": "Cuidado De La Nalguita",
+      "price": 6950,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2354792/DERMO COL X80_FRONTAL-4.jpg?v=639071313848800000",
+      "link": "https://www.olimpica.com/pa-ito-hum-peque-in-derma-protec-80un/p"
+    },
+    {
+      "source_id": "1303521",
+      "name": "PAÑITOS HÚMEDOS ALOE X 250 UND",
+      "brand": "Pequeñin",
+      "description": "Las Toallitas Húmedas Pequeñín Aloe Vera, con su innovadora formula te brindan hasta 8 horas de hidratación total. Además te ofrecen una Suavidad Superior con la piel. Gracias a su tela suave y al Aloe Vera, limpian eficazmente al tiempo que refrescan la piel de tu bebé. Dermatol",
+      "category": "Cuidado De La Nalguita",
+      "price": 23163,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2345770/7702026311858_1.jpg?v=639040838579430000",
+      "link": "https://www.olimpica.com/toalla-humeda-pequenin-aloe-x-250-unidades-7702026311858--1303521/p"
+    },
+    {
+      "source_id": "1037607",
+      "name": "Toallitas Húmedas Winny Aloe Vera y Vitamina C X100 Unds",
+      "brand": "Winny",
+      "description": "Toallitas Húmedas Winny Aloe Vera y Vitamina C X100 Unds",
+      "category": "Cuidado De La Nalguita",
+      "price": 9825,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2365402/7701021145949_1.jpg?v=639094396731170000",
+      "link": "https://www.olimpica.com/toalla-humeda-winny-aloe-vera-x-70-unidades--toalla-x-30-unidades-7701021145949--1037607/p"
+    },
+    {
+      "source_id": "1002230858",
+      "name": "Colada Maizena Vainilla 28 G",
+      "brand": "Maizena",
+      "description": "Colada Maizena Vainilla 28 G",
+      "category": "Alimentación Del Bebé",
+      "price": 1365,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2150589/7702047040058.jpg?v=638908633272970000",
+      "link": "https://www.olimpica.com/colada-maizena-vainillala-28g-7702047040058-2152500/p"
+    },
+    {
+      "source_id": "2329575",
+      "name": "Toallitas Húmedas Huggies Limpieza Diaria 112U",
+      "brand": "Huggies",
+      "description": "Las Toallitas Húmedas Huggies Limpieza Diaria, con un mayor rendndimiento y limpia desde la primera pasada",
+      "category": "Cuidado De La Nalguita",
+      "price": 6892,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1897909/7702425632189_1.jpg?v=638889012223030000",
+      "link": "https://www.olimpica.com/toalla-humedas-huggies--x-112unidades/p"
+    },
+    {
+      "source_id": "2316129",
+      "name": "PAÑITOS HÚMEDOS ALMENDRA X 200 UND",
+      "brand": "PEQUEÑIN",
+      "description": "Las Toallitas Húmedas Pequeñín Almendra, con su innovadora te brindan hasta 8 horas de hidratación total. Además te ofrecen una Suavidad Superior con la piel. Gracias a su tela suave y al extracto de almendra, limpian eficazmente la piel de tu bebé al tiempo que la deja suavecita",
+      "category": "Cuidado De La Nalguita",
+      "price": 25600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2345790/7702026149222_1.jpg?v=639040843492970000",
+      "link": "https://www.olimpica.com/toalla-humed-peque-in-almend-x200un/p"
+    },
+    {
+      "source_id": "2311864",
+      "name": "PAÑITOS HÚMEDOS ALMENDRA X 100 UND",
+      "brand": "PEQUEÑIN",
+      "description": "Las Toallitas Húmedas Pequeñín Almendra, con su innovadora te brindan hasta 8 horas de hidratación total. Además te ofrecen una Suavidad Superior con la piel. Gracias a su tela suave y al extracto de almendra, limpian eficazmente la piel de tu bebé al tiempo que la deja suavecita",
+      "category": "Cuidado De La Nalguita",
+      "price": 13150,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2345787/7702026147631_1.jpg?v=639040842957400000",
+      "link": "https://www.olimpica.com/toalla-humed-peque-in-almend-x100un/p"
+    },
+    {
+      "source_id": "2201486",
+      "name": "Pañal Winny Pants Etapa 6 X30 Unds",
+      "brand": "Winny",
+      "description": "Pañales Winny Pants Etapa 6 X30 Unds",
+      "category": "Cuidado De La Nalguita",
+      "price": 44467,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2357802/7701021118868_1.jpg?v=639077116958130000",
+      "link": "https://www.olimpica.com/panal-winny-pants-etapa-6-x30un/p"
+    },
+    {
+      "source_id": "2167110",
+      "name": "Pañal Winny Pants Etapa 5 X30 Unds",
+      "brand": "Winny",
+      "description": "Pañal Winny Pants Etapa 5 X30 Unds",
+      "category": "Cuidado De La Nalguita",
+      "price": 41842,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2357853/7701021116666_1.jpg?v=639077120814000000",
+      "link": "https://www.olimpica.com/panal-winny-pants-etapa-5-x-30-unidades-7701021116666--2167110/p"
+    },
+    {
+      "source_id": "2125388",
+      "name": "Jabón Bebé Johnson's Original Tripack 330 G",
+      "brand": "Johnson",
+      "description": "El jabón cremoso JOHNSON’S Original limpia suavemente sin agredir la piel delicada del bebé. El jabón cremoso JOHNSON’S Original limpia suavemente sin agredir la piel delicada del bebé. Su fórmula es dermatológicamente probada que ayuda a remover hasta el 99.9% de las bacterias y",
+      "category": "Aseo Del Bebe",
+      "price": 15450,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1393771/7702031407263.jpg?v=638496739864630000",
+      "link": "https://www.olimpica.com/jab-johnson-baby-original-110g-x3-un/p"
+    },
+    {
+      "source_id": "1566314",
+      "name": "PAÑITOS HÚMEDOS ALOE X 70 UND",
+      "brand": "Pequeñin",
+      "description": "Las Toallitas Húmedas Pequeñín Aloe Vera, con su innovadora formula te brindan hasta 8 horas de hidratación total. Además te ofrecen una Suavidad Superior con la piel. Gracias a su tela suave y al Aloe Vera, limpian eficazmente al tiempo que refrescan la piel de tu bebé. Dermatol",
+      "category": "Cuidado De La Nalguita",
+      "price": 7900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2345780/7702026314415_1.jpg?v=639040840622370000",
+      "link": "https://www.olimpica.com/toalla-humeda-pequenin-aloe-x-70-unidades-7702026314415--1566314/p"
+    },
+    {
+      "source_id": "910823",
+      "name": "Pañal Winny Ultratrim Sec Etapa 4 X50 Unds",
+      "brand": "Winny",
+      "description": "Pañales Winny Ultratrim Sec Etapa 4 X50 Unds",
+      "category": "Cuidado De La Nalguita",
+      "price": 83990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2357826/7701021147585_1.jpg?v=639077119412900000",
+      "link": "https://www.olimpica.com/panal-winny-sec-etapa-4-x-50-unidades-7701021147585--910823/p"
+    },
+    {
+      "source_id": "875773",
+      "name": "Pañal Winny Ultratrim Sec Etapa 3 X30 Unds + Toallas X 10 Unds",
+      "brand": "Winny",
+      "description": "Pañales Winny Ultratrim Sec Etapa 3 X30 Unds + Toallas X 10 Unds",
+      "category": "Cuidado De La Nalguita",
+      "price": 28950,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2357878/7701021111821_1.jpg?v=639077122061070000",
+      "link": "https://www.olimpica.com/panal-winny-sec-etapa-3-x-30-unidades--toalla-x-10-unidades-7701021111821--875773/p"
+    },
+    {
+      "source_id": "862918",
+      "name": "Pañal Winny Ultratrim Sec Etapa 5 X30 Unds",
+      "brand": "Winny",
+      "description": "Pañales Winny Ultratrim Sec Etapa 5 X30 Unds",
+      "category": "Cuidado De La Nalguita",
+      "price": 41842,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2357893/7701021114174_1.jpg?v=639077122795470000",
+      "link": "https://www.olimpica.com/panal-winny-sec-etapa-5-x-30-unidades-7701021114174--862918/p"
+    },
+    {
+      "source_id": "846292",
+      "name": "Cereal infantil Nestlé Nestum Trigo Miel 350 G",
+      "brand": "Nestum",
+      "description": "Cereal infantil NESTUM® Trigo Miel x 350g",
+      "category": "Alimentación Del Bebé",
+      "price": 23900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1441717/7613034027610.jpg?v=638531058698000000",
+      "link": "https://www.olimpica.com/cereal-infantil-nestum-trigo-miel-350-g-7613034027610--846292/p"
+    },
+    {
+      "source_id": "60129",
+      "name": "DEO YODORA CREM CLASIC 32 g",
+      "brand": "Yodora",
+      "description": "DEO YODORA CREM CLASIC 32 g",
+      "category": "Cuidado De La Nalguita",
+      "price": 8640,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1855149/7702057080105.jpg.jpg?v=638833521621000000",
+      "link": "https://www.olimpica.com/deo-yodora-crem-clasic-32-g/p"
+    },
+    {
+      "source_id": "2340617",
+      "name": "TOALLAS HUMEDAS WIPER NATURAL X100UN",
+      "brand": "WIPER NATURAL",
+      "description": "TOALLAS HUMEDAS WIPER NATURAL X100UN",
+      "category": "Cuidado De La Nalguita",
+      "price": 5550,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2388642/9944970601069_1.jpg?v=639129066682300000",
+      "link": "https://www.olimpica.com/toallas-humedas-wiper-natural-x100un/p"
+    },
+    {
+      "source_id": "2323508",
+      "name": "Pañal Winny Gold Etapa 6 X30 Unds",
+      "brand": "Winny",
+      "description": "PA#AL WINNY GOLD ETAPA 6 X30UN",
+      "category": "Cuidado De La Nalguita",
+      "price": 50587,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2357811/7701021118912_1.jpg?v=639077118698800000",
+      "link": "https://www.olimpica.com/pa-al-winny-gold-etapa-6-x30un/p"
+    },
+    {
+      "source_id": "2316774",
+      "name": "JAB LAK TROPICAL 110g X3un",
+      "brand": "Lak",
+      "description": "JAB LAK TROPICAL 110g X3un",
+      "category": "Leche En Polvo Y Crema De Leche",
+      "price": 5990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1600670/7702310020930.jpg?v=638694433327030000",
+      "link": "https://www.olimpica.com/jab-lak-tropical-110g-x3un/p"
+    },
+    {
+      "source_id": "2312283",
+      "name": "Pañal Winny Sec Etapa 2 X30 Unds + Gratis Toalla X10 Unds",
+      "brand": "Winny",
+      "description": "PA#AL WINNY SEC ET2 X30 GTS TOAx10un",
+      "category": "Cuidado De La Nalguita",
+      "price": 23550,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2357842/7701021116536_1.jpg?v=639077120142470000",
+      "link": "https://www.olimpica.com/pa-al-winny-sec-et2-x30-gts-toax10un/p"
+    },
+    {
+      "source_id": "2312282",
+      "name": "Pañal Winny Sec Etapa 1 X50 Unds + Gratis Toalla X20 Unds",
+      "brand": "Winny",
+      "description": "1",
+      "category": "Cuidado De La Nalguita",
+      "price": 35692,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2357838/7701021116512_1.jpg?v=639077119962000000",
+      "link": "https://www.olimpica.com/pa-al-winny-sec-et1-x50-gts-toax20un/p"
+    },
+    {
+      "source_id": "2312281",
+      "name": "Pañal Winny Sec Etapa 1 X30 Unds + Gratis Toalla X20 Unds",
+      "brand": "Winny",
+      "description": "PA#AL WINNY SEC ET1 X30 GTS TOAx20un",
+      "category": "Aseo Del Bebe",
+      "price": 21375,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2357834/7701021116499_1.jpg?v=639077119786570000",
+      "link": "https://www.olimpica.com/pa-al-winny-sec-et1-x30-gts-toax20un/p"
+    },
+    {
+      "source_id": "2311326",
+      "name": "Pañales Huggies Triple Protección 4/XG 20 Un",
+      "brand": "Huggies",
+      "description": "Los Pañales Huggies® Triple Protección® Brindan una protección completa, con doble barrera anti filtraciones y un centro reforzado que mantiene a tu bebé sequito y limpio durante mucho más tiempo. Gracias a sus canales de absorción rápida en forma de X, el pis desaparece en cuest",
+      "category": "Cuidado De La Nalguita",
+      "price": 18990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2304185/7702425478350_1.jpg?v=638983828902470000",
+      "link": "https://www.olimpica.com/pañal-huggies-tripl-prot-xg-x20-un/p"
+    },
+    {
+      "source_id": "2302639",
+      "name": "Toalla Húmeda Arrurrú Avena y Karité 170 Unds X2 Unds",
+      "brand": "Arrurru",
+      "description": "TOALLA HUM ARRURRU AVEN Y KARIT 170un X2",
+      "category": "Cuidado De La Nalguita",
+      "price": 16850,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1323277/7702277243960.jpg?v=638447555638130000",
+      "link": "https://www.olimpica.com/toalla-hum-arrurru-aven-y-karit-170un-x2/p"
+    },
+    {
+      "source_id": "2299224",
+      "name": "Compota Baby Fruit Manzana 90 G",
+      "brand": "Baby Fruit",
+      "description": "COMPOTA BABY FRUIT MANZANA 90g",
+      "category": "Alimentación Del Bebé",
+      "price": 3490,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1488546/7707262680102.jpg?v=638627260103000000",
+      "link": "https://www.olimpica.com/compota-baby-fruit-manzana-90g/p"
+    },
+    {
+      "source_id": "2299024",
+      "name": "TOALLA HUM WINNY GOLD AVEN 2PAQ80 +PAQ40",
+      "brand": "Winny",
+      "description": "TOALLA HUM WINNY GOLD AVEN 2PAQ80 +PAQ40",
+      "category": "Desodorante Y Antitranspirante",
+      "price": 24292,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2365404/7701021148933_1.jpg?v=639094396914670000",
+      "link": "https://www.olimpica.com/toalla-hum-winny-gold-aven-2paq80--paq40/p"
+    },
+    {
+      "source_id": "2315685",
+      "name": "Arena Unikat para Gatos Lavanda 4 Kg",
+      "brand": "UNIKAT",
+      "description": "ARENA UNIKAT P/GATOS LAVANDA 4kg",
+      "category": "Articulo de Aseo para Mascotas",
+      "price": 11475,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1306315/7702084057422.jpg?v=638437127275230000",
+      "link": "https://www.olimpica.com/arena-unikat-p-gatos-lavanda-4kg/p"
+    },
+    {
+      "source_id": "2316626",
+      "name": "Alimento para Gato Donkat 1,1 Kg",
+      "brand": "Donkat",
+      "description": "ALIMENTO GATO DONKAT 1.1KG",
+      "category": "Alimento para Gato",
+      "price": 12990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1538058/7702084057446.jpg?v=638652873252870000",
+      "link": "https://www.olimpica.com/alimento-gato-donkat-1-1kg/p"
+    },
+    {
+      "source_id": "2312491",
+      "name": "ALIM GATO MIRRINGO ORIGINAL 1 KG",
+      "brand": "Mirringo",
+      "description": "ALIM GATO MIRRINGO ORIGINAL 1 KG",
+      "category": "Alimento para Gato",
+      "price": 8812,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1775849/7703090732433.jpg.jpg?v=638748997681270000",
+      "link": "https://www.olimpica.com/alim-gato-mirringo-original-1-kg/p"
+    },
+    {
+      "source_id": "2312193",
+      "name": "Alimento para Gato Donkat Adulto 500 G",
+      "brand": "Donkat",
+      "description": "ALIM GATO DONKAT",
+      "category": "Alimento para Gato",
+      "price": 5617,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1354482/7702084057156.jpg?v=638476617456930000",
+      "link": "https://www.olimpica.com/alim-gato-donkat/p"
+    },
+    {
+      "source_id": "2291367",
+      "name": "Alimento para Gato Easy Cat 1 Kg",
+      "brand": "Easy Cat",
+      "description": "ALIM GATO EASY CAT 1 kg",
+      "category": "Alimento para Gato",
+      "price": 4194,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2388410/7707025802826_1.jpg?v=639128942785900000",
+      "link": "https://www.olimpica.com/alim-gato-easy-cat-1-kg/p"
+    },
+    {
+      "source_id": "1339261",
+      "name": "Alimento para Gatos Donkat Gaticos 1 a 12 Meses 1 Kg",
+      "brand": "Donkat",
+      "description": "ALIMENTO GATOS DONKAT GATICOS 1-12MESES 1kg",
+      "category": "Alimento para Gato",
+      "price": 12790,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1127229/7702084057132.jpg?v=638258014419400000",
+      "link": "https://www.olimpica.com/alimento-gatos-donkat-gaticos-1-12meses-1kg-7702084057132--1339261/p"
+    },
+    {
+      "source_id": "1254694",
+      "name": "Alimento Perro Chunky Adultos Pollo 2 Kg",
+      "brand": "Chunky",
+      "description": "ALIMENTO PERRO CHUNKY POLLO ADLTO 2 kg Aquí puedes encontrar más productos Chunky",
+      "category": "Alimento para Perro",
+      "price": 19700,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2322908/7707205156855.jpg?v=639001952938800000",
+      "link": "https://www.olimpica.com/alimento-perro-chunky-pollo-adlto-2-kg--7707205156855--1254694/p"
+    },
+    {
+      "source_id": "1108077",
+      "name": "Alimento Perro Dog Chow Adultos Medianos & Grandes con Carne y Pollo 2 Kg",
+      "brand": "Dog Chow",
+      "description": "DOG CHOW SALUD VISIBLE ADULTOS MEDIANOS Y GRANDES® ahora viene con EXTRALIFE. Una mezcla especial con antioxidantes que maximiza su calidad de vida día tras día. Por que una mejor vida para el, es una mejor vida para todos Juntos la vida es mejor",
+      "category": "Alimento para Perro",
+      "price": 20152,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1470184/7702521104115.jpg?v=638575687871400000",
+      "link": "https://www.olimpica.com/alimento-perro-adulto-dog-chow-raza-mediana-y-grande-x-2-000g-7702521104115--1108077/p"
+    },
+    {
+      "source_id": "692601",
+      "name": "Alimento para Gatos Cat Chow Adulto Vida Sana 1300 G",
+      "brand": "Cat Chow",
+      "description": "ALIMENTO GATOS ADULTO CAT CHOW VIDA SANA 1.300g",
+      "category": "Alimento para Gato",
+      "price": 33742,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1592078/7702521100612-2.jpg?v=638676443024430000",
+      "link": "https://www.olimpica.com/alimento-gatos-adulto-cat-chow-vida-sana-1-300g-7702521100612--692601/p"
+    },
+    {
+      "source_id": "1002230316",
+      "name": "Alpiste Olimpica 500 G",
+      "brand": "Olimpica",
+      "description": "Alpiste Olimpica 500 G",
+      "category": "Alimentos para otras Mascotas",
+      "price": 2625,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2354796/7701008001039.jpg?v=639071316404570000",
+      "link": "https://www.olimpica.com/alpiste-olimpica-500-g-7701008001039-2000079/p"
+    },
+    {
+      "source_id": "2332135",
+      "name": "ALIM PERRO CHUNKY ADUL RAZ PEQ NUG 1.5KG",
+      "brand": "Chunky",
+      "description": "ALIM PERRO CHUNKY ADUL RAZ PEQ NUG 1.5KG",
+      "category": "Alimento para Perro",
+      "price": 14242,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2322906/7707205154134.jpg?v=639001952560770000",
+      "link": "https://www.olimpica.com/alim-perro-chunky-adul-raz-peq-nug-1-5kg/p"
+    },
+    {
+      "source_id": "2327985",
+      "name": "Pañitos Húmedos Tommy Pets X50 Unds",
+      "brand": "Tommy",
+      "description": "PAÑITOS HUMED TOMMY PETS X50UN",
+      "category": "Articulo de Aseo para Mascotas",
+      "price": 4990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1834178/7708808596338--2-.jpg.jpg?v=638797288017600000",
+      "link": "https://www.olimpica.com/panitos-humed-tommy-pets-x50un/p"
+    },
+    {
+      "source_id": "2327846",
+      "name": "Arena Tommy Lavanda 4,5 Kg",
+      "brand": "Tommy",
+      "description": "ARENA TOMMY LAVANDA 4.5 KG",
+      "category": "Articulo de Aseo para Mascotas",
+      "price": 13990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1834174/7709536781768--2-.jpg.jpg?v=638797287152730000",
+      "link": "https://www.olimpica.com/arena-tommy-lavanda-4-5-kg/p"
+    },
+    {
+      "source_id": "2319229",
+      "name": "Alimento para perro Dog Chow® Cachorros Gran Comienzo® Med y Gran x 1kg",
+      "brand": "Dog Chow",
+      "description": "Alimento para perro Dog Chow® Cachorros Gran Comienzo® Med y Gran x 1kg",
+      "category": "Alimento para Perro",
+      "price": 13492,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1471036/7702521193713--1-.png?v=638579444327970000",
+      "link": "https://www.olimpica.com/alimento-para-perro-dog-chow®-cachorros-gran-comienzo®-med-y-gran-x-1kg/p"
+    },
+    {
+      "source_id": "2314941",
+      "name": "Avena Medalla de Oro 1000 G",
+      "brand": "Medalla De Oro",
+      "description": "AVENA MEDALLA ORO 1000g",
+      "category": "Lácteos",
+      "price": 5600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1897894/7701008843851.jpg?v=638888990069100000",
+      "link": "https://www.olimpica.com/avena-medalla-oro-1000g/p"
+    },
+    {
+      "source_id": "2312241",
+      "name": "Alimento para Gato Felix Pack Surtido Precio Especial",
+      "brand": "Felix",
+      "description": "Comida para gatos Felix® Pack Surtido Precio Especial",
+      "category": "Alimento para Gato",
+      "price": 14990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1480445/7702521661366.jpg?v=638606227460700000",
+      "link": "https://www.olimpica.com/comida-para-gatos-felix--pack-surtido-precio-especial/p"
+    },
+    {
+      "source_id": "2274259",
+      "name": "Alimento Perro Pedigree Húmedo Carne 100 G",
+      "brand": "Pedigree",
+      "description": "ALIM PERRO PEDIGREE R PEQ HUM CARNE 100g",
+      "category": "Alimento para Perro",
+      "price": 2467,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1071215/706460249484.jpg?v=638168436563700000",
+      "link": "https://www.olimpica.com/alim-perro-pedigree-r-peq-hum-carne-100g/p"
+    },
+    {
+      "source_id": "2272162",
+      "name": "Alimento Perro Pedigree Húmedos Adultos Pollo 100 G",
+      "brand": "Pedigree",
+      "description": "ALIM PERRO PEDIGREE ADULT POLLO HUM 100g",
+      "category": "Alimento para Perro",
+      "price": 2392,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1071226/706460249286.jpg?v=638168436843430000",
+      "link": "https://www.olimpica.com/alim-perro-pedigree-adult-pollo-hum-100g/p"
+    },
+    {
+      "source_id": "2262407",
+      "name": "Alimento para Gato Felix Salmón Trocitos Jugosos 85 G",
+      "brand": "Felix",
+      "description": "Alimento Para Gato Felix Salmón Trocitos Jugosos 85 G",
+      "category": "Alimento para Gato",
+      "price": 2303,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1470130/7501072209849_1.jpg?v=638575672140600000",
+      "link": "https://www.olimpica.com/alim-gato-felix-humed-salmon-85g/p"
+    },
+    {
+      "source_id": "2262403",
+      "name": "Alimento para Gato Felix Húmedo Carne 85 G",
+      "brand": "Felix",
+      "description": "Alimento Gato Felix Húmedo Carne 85 G",
+      "category": "Alimento para Gato",
+      "price": 2303,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1470109/7501072209788_1.jpg?v=638575665632470000",
+      "link": "https://www.olimpica.com/alim-gato-felix-humed-carne-85g/p"
+    },
+    {
+      "source_id": "2228281",
+      "name": "Alimento Perro Dogourmet Adultos Pavo Pollo 2 Kg",
+      "brand": "Dogourmet",
+      "description": "ALIM PERRO DOGOURMET PAVO 2kg",
+      "category": "Alimento para Perro",
+      "price": 18500,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/898472/7702084051024.jpg?v=637986198366600000",
+      "link": "https://www.olimpica.com/alim-perro-dogourmet-pavo-2kg/p"
+    },
+    {
+      "source_id": "1401348",
+      "name": "Alimento Perro Top Dog Adultos 4 Kg",
+      "brand": "Top Dog",
+      "description": "Alimento para Perros Top Dog Adulto 4 Kg",
+      "category": "Alimento para Perro",
+      "price": 19990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2388408/7707025802642_1.jpg?v=639128942482870000",
+      "link": "https://www.olimpica.com/alimento-perro-top-dog-adulto-4-kg-7707025802642--1401348/p"
+    },
+    {
+      "source_id": "1401346",
+      "name": "Alimento Perro Top Dog Cachorros 2 Kg",
+      "brand": "Top Dog",
+      "description": "Alimento para Perros Top Dog Cachorro 2 Kg",
+      "category": "Alimento para Perro",
+      "price": 12190,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2388483/7707025802628_1.jpg?v=639128954803930000",
+      "link": "https://www.olimpica.com/alimento-perro-top-dog-cachorro-2-kg-7707025802628--1401346/p"
+    },
+    {
+      "source_id": "1339260",
+      "name": "Alimento para Gatos Ohmaigat Casero & Delicado 500 G",
+      "brand": "Ohmaigat",
+      "description": "Alimento para Gatos Ohmaigat Casero & Delicado 500 G",
+      "category": "Alimento para Gato",
+      "price": 9450,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1354457/7702084057095.jpg?v=638807614139100000",
+      "link": "https://www.olimpica.com/alimento-gatos-ohmaigat-casero--delicado-500g-7702084057095--1339260/p"
+    },
+    {
+      "source_id": "1255153",
+      "name": "Alimento Perro Chunky Cachorros Pollo 2 Kg",
+      "brand": "Chunky",
+      "description": "Alimento para Perros Chunky Cachorro Pollo 2 Kg",
+      "category": "Alimento para Perro",
+      "price": 23800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2322910/7707205157333.jpg?v=639001953358930000",
+      "link": "https://www.olimpica.com/alimento-perro-chunky--cachorro-pollo--2-kg-7707205157333--1255153/p"
+    },
+    {
+      "source_id": "1108078",
+      "name": "Alimento Perro Dog Chow Adultos Medianos & Grandes con Carne y Pollo 4 Kg",
+      "brand": "Dog Chow",
+      "description": "DOG CHOW SALUD VISIBLE ADULTOS MEDIANOS Y GRANDES® ahora viene con EXTRALIFE. Una mezcla especial con antioxidantes que maximiza su calidad de vida dia tras dia. Por que una mejor vida para el, es una mejor vida para todos Juntos la vida es mejor",
+      "category": "Alimento para Perro",
+      "price": 40500,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1470189/7702521104122.jpg?v=638575689699700000",
+      "link": "https://www.olimpica.com/alimento-perro-adulto-dog-chow-raza-mediana-y-grande-x-4-000g-7702521104122--1108078/p"
+    },
+    {
+      "source_id": "1002230613",
+      "name": "Alimento Perro Dogourmet Cachorros Leche Deslactosada 2 Kg",
+      "brand": "Dogourmet",
+      "description": "Alimento de Perro Dogourmet Cachorro Leche Deslactosada 2 Kg",
+      "category": "Alimento para Perro",
+      "price": 20475,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1354453/7702084050201.jpg?v=638476616874400000",
+      "link": "https://www.olimpica.com/alimento-perro-dogourm-cachorro-leche-deslac-2kg-7702084050201-883826/p"
+    },
+    {
+      "source_id": "1002230179",
+      "name": "Suero Klaren's Costeño con Válvula 400 G",
+      "brand": "Klaren'S",
+      "description": "Conoce el Suero Klaren's Costeño 400 G con Válvula, ideal para rehidratación efectiva. Perfecto para mantenerte activo y saludable. ¡Ordénalo ahora!",
+      "category": "Delicatessen",
+      "price": 11800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/718981/7702705022020.jpg?v=637756134111730000",
+      "link": "https://www.olimpica.com/sueoklarens-costeno-c-valv-400g-7702705022020-1187223/p"
+    },
+    {
+      "source_id": "1002230199",
+      "name": "Suero Klaren's Costeño con Válvula 200 G",
+      "brand": "Klaren'S",
+      "description": "Optimiza tu hidratación con Suero Klaren's Costeño 200 G. Su válvula facilita la dosificación. Perfecto para mantenerte saludable y enérgico.",
+      "category": "Delicatessen",
+      "price": 6300,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/718980/7702705022013.jpg?v=637756134096230000",
+      "link": "https://www.olimpica.com/sueoklarens-costeno-c-valv-200g-7702705022013-1187221/p"
+    },
+    {
+      "source_id": "1002230308",
+      "name": "Combo Perro Caliente + Bebida",
+      "brand": "Olimpica",
+      "description": "Disfruta del delicioso combo de perro caliente y bebida, perfecto para saciar tu hambre. Ideal para compartir en cualquier ocasión. Pide el tuyo hoy.",
+      "category": "Cafetería",
+      "price": 4990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2414003/ChatGPT-Image-Jun-19-2026-04_13_25-PM.png?v=639175005695270000",
+      "link": "https://www.olimpica.com/combo-peo-caliente-bebida-26293622-1600656/p"
+    },
+    {
+      "source_id": "2322167",
+      "name": "Suero costeño Alqueria 400g",
+      "brand": "Alqueria",
+      "description": "Suero costeño Alqueria 400g",
+      "category": "Delicatessen",
+      "price": 8400,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1881641/7702177023648.jpg?v=638871749780270000",
+      "link": "https://www.olimpica.com/suero-alqueria-coste-o-400g/p"
+    },
+    {
+      "source_id": "2322165",
+      "name": "Suero costeño Alqueria 200g",
+      "brand": "Alqueria",
+      "description": "Suero costeño Alqueria 200g",
+      "category": "Delicatessen",
+      "price": 5800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1838052/7702177023631.jpg.jpg?v=638799890632930000",
+      "link": "https://www.olimpica.com/suero-alqueria-coste-o--200g/p"
+    },
+    {
+      "source_id": "2315910",
+      "name": "QUESO FETA 250G",
+      "brand": "Centurion",
+      "description": "QUESO DE TEXTURA DESMENUZABLE Y UN CARACTERISTICOSABOR SALADO CON NOTAS AGRIAS BIEN BALANCEADAS. IDEAL PARA ENSALADAS",
+      "category": "Delicatessen",
+      "price": 21600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2412208/7708957687062.jpg?v=639173952945670000",
+      "link": "https://www.olimpica.com/qso-feta-centurion-250gr/p"
+    },
+    {
+      "source_id": "2273638",
+      "name": "SUERO COSTEÑO LOS CAMPANOS 400g",
+      "brand": "Los Campanos",
+      "description": "SUERO COSTEÑO LOS CAMPANOS 400g",
+      "category": "Delicatessen",
+      "price": 7500,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1886022/7709522983114.jpg?v=638877628317200000",
+      "link": "https://www.olimpica.com/suero-costeno-los-campanos-400g/p"
+    },
+    {
+      "source_id": "2069066",
+      "name": "PASTA ESPAGUETTI COMARRICO CLASICA 454g",
+      "brand": "Comarrico",
+      "description": "PASTA ESPAGUETTI COMARRICO CLASICA 454g",
+      "category": "Delicatessen",
+      "price": 2660,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1785041/7707307963146.jpg?v=638767868804500000",
+      "link": "https://www.olimpica.com/pasta-espaguetti-comarrico-clasica-454g/p"
+    },
+    {
+      "source_id": "1481209",
+      "name": "Suero Colanta Costeño 200 G",
+      "brand": "Colanta",
+      "description": "SUERO COLANTA COSTE# 200 G",
+      "category": "Delicatessen",
+      "price": 4500,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1391987/7702129035873.jpg?v=638495828457200000",
+      "link": "https://www.olimpica.com/suero-colanta-coste--200-g/p"
+    },
+    {
+      "source_id": "1002230408",
+      "name": "Queso Medalla de Oro Mozzarella Tajado X Kg",
+      "brand": "Medalla De Oro",
+      "description": "Queso Medalla de Oro Mozzarella Tajado X Kg",
+      "category": "Delicatessen",
+      "price": 37000,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/715537/24055123.jpg?v=637756088104000000",
+      "link": "https://www.olimpica.com/queso-medalla-de-oro-t-moza-tajado-kg-24055123-779446/p"
+    },
+    {
+      "source_id": "1002230157",
+      "name": "POLLO ROSTIZADO 1.3KG",
+      "brand": "Olimpica",
+      "description": "Disfruta de un delicioso pollo rostizado de 1,3 kg. Perfecto para compartir en familia. ¡Haz tu pedido y saborea la tradición!",
+      "category": "Cafetería",
+      "price": 21900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2422144/896627.jpg?v=639191168600430000",
+      "link": "https://www.olimpica.com/combo-pollo-ostiz-1-papa-1-3-kg-25109191-896627/p"
+    },
+    {
+      "source_id": "5047136",
+      "name": "QUESO LONCHITAS MOZZARELLA X 16 UND 272G",
+      "brand": "SIN MARCA 2",
+      "description": "LONCHAS DE QUESO DE FACIL FUNDIDO, CON TEXTURA SUAVE Y PRACTICA DE USO DIARIO. IDEAL PARA HAMBURGUESAS Y SANDWICHES.",
+      "category": "Delicatessen",
+      "price": 8540,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2412239/7702603072011.png?v=639173958926800000",
+      "link": "https://www.olimpica.com/qso-lonchita-mozzarella-x16-un-80g/p"
+    },
+    {
+      "source_id": "5047135",
+      "name": "QUESO LONCHITA CHEDDAR X 16 UND 272G",
+      "brand": "SIN MARCA 2",
+      "description": "LONCHAS DE QUESO DE FACIL FUNDIDO, CON TEXTURA SUAVE Y PRACTICA DE USO DIARIO. IDEAL PARA HAMBURGUESAS Y SANDWICHES.",
+      "category": "Delicatessen",
+      "price": 8540,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2412237/7702603072004.jpg?v=639173958502300000",
+      "link": "https://www.olimpica.com/qso-lonchita-cheddar-x16-un-80g/p"
+    },
+    {
+      "source_id": "2326589",
+      "name": "JAMON SERRANO TAJADO 80G",
+      "brand": "IBAÑEZ",
+      "description": "JAMON SERRANO TAJADO 80G",
+      "category": "Delicatessen",
+      "price": 11200,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1837925/7700438881310.jpg?v=639173969317400000",
+      "link": "https://www.olimpica.com/jamon-serrano-tajado-80g/p"
+    },
+    {
+      "source_id": "2071596",
+      "name": "QUINUA DORIA E/GRANO 300g",
+      "brand": "Doria",
+      "description": "QUINUA DORIA E/GRANO 300g",
+      "category": "Delicatessen",
+      "price": 9290,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1785043/7702085003473.jpg?v=638767869761570000",
+      "link": "https://www.olimpica.com/quinua-doria-e-grano-300g/p"
+    },
+    {
+      "source_id": "1600654",
+      "name": "COMBO HAMBURGUESA 320GR + COCA-COLA 12- OZ",
+      "brand": "Olimpica",
+      "description": "COMBO-HAMB-320-GR+COCA-COLA-12-OZ",
+      "category": "Cafetería",
+      "price": 9990,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2414002/ChatGPT-Image-Jun-19-2026-04_12_03-PM.png?v=639175004703900000",
+      "link": "https://www.olimpica.com/combo-hamb-320-gr-coca-cola-12-oz/p"
+    },
+    {
+      "source_id": "1479055",
+      "name": "Crema Agria Colanta 200 G",
+      "brand": "Colanta",
+      "description": "CREMA AGRIA COLANTA 200g",
+      "category": "Delicatessen",
+      "price": 7900,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1423421/7702129035897.jpg?v=638513134078930000",
+      "link": "https://www.olimpica.com/crema-agria-colanta-200g/p"
+    },
+    {
+      "source_id": "1144664",
+      "name": "QUESO GOUDA AHUMADO TAJADO CENTURION 150 G",
+      "brand": "Centurion",
+      "description": "QUESO SEMIDURO, TAJADO Y CON UN DELICADO SABOR A MANTEQUILLA, LIGERAMENTE DULCE Y AHUMADO. ES IDEAL PARA SANDWICHES, HAMBURGUESAS, ENTRADAS Y TABLAS DE QUESOS.",
+      "category": "Delicatessen",
+      "price": 12000,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2412232/7702603071618.png?v=639173957251600000",
+      "link": "https://www.olimpica.com/qso-gouda-ahum-centurion-150-g/p"
+    },
+    {
+      "source_id": "1144663",
+      "name": "QUESO MUENSTER TAJADO CENTURION 150G",
+      "brand": "Centurion",
+      "description": "QUESO SEMIBLANDO CON SABOR SUAVE, Y CREMOSO. IDEAL PARA APERITIVOS, QUESADILLAS, SANDWICHES Y TABLAS DE QUESOS.",
+      "category": "Delicatessen",
+      "price": 11100,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2412234/7702603071632.png?v=639173957640070000",
+      "link": "https://www.olimpica.com/qso-muenster-centurion-150g/p"
+    },
+    {
+      "source_id": "1144660",
+      "name": "QUESO COLBY JACK  TAJADO CENTURION 150G",
+      "brand": "Centurion",
+      "description": "QUESO SEMIBLANDO CON TEXTURA CREMOSA Y SABOR SUAVE. SU EXCELENTE CAPACIDAD PARA FUNDIR LO HACE IDEAL PARA SANDWICHES Y TABLAS DE QUESOS, PERFECTO PARA COMPAÑAR CON VINOS SUAVES.",
+      "category": "Delicatessen",
+      "price": 11400,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2412233/7702603071625.png?v=639173957494230000",
+      "link": "https://www.olimpica.com/qso-colby-jack-centurion-150g/p"
+    },
+    {
+      "source_id": "1065942",
+      "name": "QUESO BRIE 125 G CENTURION",
+      "brand": "Centurion",
+      "description": "QUESO DE TEXTURA CREMOSA Y UNTUOSA. IDEAL PARA SALSAS, Y ACOMPAÑAR CON CONFITURAS.",
+      "category": "Delicatessen",
+      "price": 20100,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2412229/61104410607.png?v=639173956603230000",
+      "link": "https://www.olimpica.com/qso-brie-kaserei-champignon-125g/p"
+    },
+    {
+      "source_id": "999179",
+      "name": "GASEOSA COCA COLA ZERO 400 ML",
+      "brand": "Coca-Cola",
+      "description": "GASEOSA COCA COLA ZERO 400 ML",
+      "category": "Gaseosas",
+      "price": 3600,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/2335706/7702535011119_0.jpg?v=639034812802130000",
+      "link": "https://www.olimpica.com/gaseosa-coca-cola-zero-400-ml/p"
+    },
+    {
+      "source_id": "899972",
+      "name": "Crema Agria 400 G",
+      "brand": "Colanta",
+      "description": "CREMA AGRIA 400 g",
+      "category": "Delicatessen",
+      "price": 13500,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1423338/7702129035859.jpg?v=638879407059500000",
+      "link": "https://www.olimpica.com/crema-agria-400-g/p"
+    },
+    {
+      "source_id": "57005",
+      "name": "QUESO COLANTA MOZARELLA",
+      "brand": "Colanta",
+      "description": "QUESO COLANTA MOZARELLA",
+      "category": "Delicatessen",
+      "price": 39075,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1836296/2935036000008.jpg.jpg?v=638793783907070000",
+      "link": "https://www.olimpica.com/queso-colanta-mozarella/p"
+    },
+    {
+      "source_id": "1002233646",
+      "name": "Mix Madurados Monticello 115 G",
+      "brand": "Monticello",
+      "description": "Combinación de chorizo español de cerdo, jamón serrano y salami. Usado idealmente para montaditos, pasabocas, brochetas, sánduches, ensaladas, pizzas, focaccias, croquetas, etc.",
+      "category": "Delicatessen",
+      "price": 28800,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/1599750/7701101357170-1.jpg?v=638690139284000000",
+      "link": "https://www.olimpica.com/mix-maduad-monticello-115g-7701101357170-2077271/p"
+    },
+    {
+      "source_id": "1002233076",
+      "name": "Suero Atoyabuey Bonga Del Sinú 250 G",
+      "brand": "La Bonga Del Sinu",
+      "description": "Optimiza tus impresiones con el Cartucho Tóner HP 504A Magenta Original. Alta calidad y rendimiento garantizado para tus trabajos profesionales.",
+      "category": "Delicatessen",
+      "price": 7000,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/765411/7707279500028.jpg?v=637806386773100000",
+      "link": "https://www.olimpica.com/sueo-atoyabuey-bonga-del-sinu-250g-7707279500028-1637971/p"
+    },
+    {
+      "source_id": "1002231834",
+      "name": "Suero Codelac Costeño Sinú Pasteurizado 400 G",
+      "brand": "Codelac",
+      "description": "Disfruta del auténtico sabor del Suero Codelac Costeño 400g, ideal para rehidratarte y nutrirte. Calidad garantizada para tu bienestar diario.",
+      "category": "Delicatessen",
+      "price": 9200,
+      "image_url": "https://olimpica.vteximg.com.br/arquivos/ids/719926/7707363590133.jpg?v=637756146638930000",
+      "link": "https://www.olimpica.com/sueo-sinu-costeno-pasteuiz-codelac-400g-7707363590133-1241648/p"
+    }
+  ]
+}

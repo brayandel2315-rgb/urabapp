@@ -106,13 +106,13 @@ export default function HomeMegaSearch({
         <span
           className={cn(
             'home-mega-search__icon-wrap flex shrink-0 items-center justify-center',
-            isHeroMobile ? 'h-8 w-8 rounded-full bg-[#E8F5E9]' : '',
+            isHeroMobile ? 'h-8 w-8 rounded-full bg-[color-mix(in_srgb,var(--brand-primary)_10%,white)]' : '',
           )}
         >
           <AppIcon
             name="search"
             size={isHeroMobile ? 'sm' : 'md'}
-            className={cn('home-mega-search__icon shrink-0', isHero ? 'text-[#2E7D32]' : 'text-primary')}
+            className={cn('home-mega-search__icon shrink-0', isHero ? 'text-[var(--brand-primary)]' : 'text-primary')}
           />
         </span>
         <input
@@ -154,7 +154,7 @@ export default function HomeMegaSearch({
         {isHeroMobile ? (
           <button
             type="button"
-            className="home-mega-search__action flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#E8F5E9] text-[#2E7D32] transition active:scale-95"
+            className="home-mega-search__action flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--brand-primary)_10%,white)] text-[var(--brand-primary)] transition active:scale-95"
             aria-label="Escanear código (próximamente)"
             title="Escáner — próximamente"
           >
@@ -285,7 +285,7 @@ export default function HomeMegaSearch({
           {(query.trim().length >= 2 || hasResults) && (
             <button
               type="button"
-              className="mt-1 flex w-full items-center justify-center gap-1.5 rounded-xl border border-[#E5E7EB] bg-[#FAFAFA] px-3 py-2.5 text-sm font-semibold text-[#2E7D32] active:bg-[#F1F8E9]"
+              className="mt-1 flex w-full items-center justify-center gap-1.5 rounded-[18px] border-0 bg-[#F7F8FA] px-3 py-2.5 text-sm font-semibold text-[var(--brand-primary)] active:bg-[color-mix(in_srgb,var(--brand-primary)_8%,white)]"
               onClick={goToExplore}
             >
               Ver en Explorar

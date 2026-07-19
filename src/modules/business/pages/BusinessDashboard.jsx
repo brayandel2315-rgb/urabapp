@@ -142,7 +142,7 @@ export default function BusinessDashboard() {
   const storeLink = buildBusinessUrl(business);
 
   return (
-    <div className="space-y-4 pb-2">
+    <div className="biz-dashboard space-y-4 pb-2">
       {expressBusiness && (
         <BusinessExpressSuccess
           business={expressBusiness}

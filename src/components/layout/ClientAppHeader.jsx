@@ -16,8 +16,10 @@ export default function ClientAppHeader({ notificationCount = 0 }) {
   const municipio = catalog.viewMunicipio || homeMunicipio;
   const isHome = pathname === CLIENT_HOME;
   const isSearch = pathname === CLIENT_SEARCH || pathname.startsWith(`${CLIENT_SEARCH}/`);
+  const isStorefront = pathname.startsWith('/tienda/') || pathname.startsWith('/business/');
 
-  if (isHome) {
+  /* Cover de tienda ya trae chrome propio; el dock inferior queda como nav global */
+  if (isHome || isStorefront) {
     return null;
   }
 
@@ -29,13 +31,20 @@ export default function ClientAppHeader({ notificationCount = 0 }) {
       )}
     >
       <div className="client-header__inner">
-        <div className="flex h-12 items-center gap-2 sm:h-[3.25rem]">
-          <Link to={CLIENT_HOME} className="flex min-w-0 shrink-0 items-center gap-2">
-            <BrandLogo variant="compact" className="client-header__logo" />
-            <span className="sr-only">{BRAND.name}</span>
+        <div className="client-header__row">
+          <Link to={CLIENT_HOME} className="client-header__brand" aria-label={BRAND.name}>
+            <BrandLogo variant="nav" className="client-header__logo" />
           </Link>
 
-          <div className="ml-auto flex items-center gap-0.5">
+          {!isSearch && (
+            <DiscoverSearchTrigger
+              municipio={municipio}
+              compact
+              className="client-header__search"
+            />
+          )}
+
+          <div className="client-header__actions">
             <ClientHeaderAuthActions
               user={user}
               profile={profile}
@@ -46,12 +55,6 @@ export default function ClientAppHeader({ notificationCount = 0 }) {
             />
           </div>
         </div>
-
-        {!isSearch && (
-          <div className="pb-3 pt-0.5">
-            <DiscoverSearchTrigger municipio={municipio} />
-          </div>
-        )}
       </div>
     </header>
   );

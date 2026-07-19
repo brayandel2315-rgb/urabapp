@@ -15,7 +15,7 @@ export default function TrustPills({ className }) {
           key={pill.label}
           className="trust-pill inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-[11px] font-semibold shadow-soft"
         >
-          <AppIcon name={pill.icon} size={14} className="text-[#28B463]" />
+          <AppIcon name={pill.icon} size={14} className="text-[var(--brand-primary)]" />
           {pill.label}
         </li>
       ))}

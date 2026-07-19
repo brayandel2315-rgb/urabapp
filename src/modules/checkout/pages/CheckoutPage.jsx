@@ -24,8 +24,10 @@ import { ECONOMICS, WELCOME_BENEFIT } from '@/utils/constants';
 import { formatBusinessPromoText } from '@/utils/promo';
 import { resolveCheckoutPromos } from '@/services/promo.service';
 import { getBusinessEtaMinutes } from '@/utils/schedule';
+import { isOnboardingPreview } from '@/utils/onboarding-preview';
 import { toast } from '@/utils/toast';
 import { isSupabaseConfigured } from '@/lib/supabase';
+import AppIcon from '@/design-system/icons/AppIcon';
 import { isValidDeliveryCoordinates } from '../utils/checkout-validation';
 import { useCheckoutForm } from '../hooks/useCheckoutForm';
 import { useCheckoutSubmit } from '../hooks/useCheckoutSubmit';
@@ -100,6 +102,9 @@ export default function CheckoutPage() {
   const { total, businessDiscount, couponDiscount, welcomeDeliveryApplied, deliverySubsidy, proActive, proDeliveryDiscount, customerDeliveryFee } = checkoutPromos;
   const businessPromoText = cartBusiness ? formatBusinessPromoText(cartBusiness) : null;
   const etaMinutes = cartBusiness ? getBusinessEtaMinutes(cartBusiness) : null;
+  const isPreviewCheckout = cartBusiness
+    ? isOnboardingPreview(cartBusiness)
+    : /preview-/i.test(String(businessName || ''));
   const coordsOk = isValidDeliveryCoordinates(form.deliveryCoords.latitude, form.deliveryCoords.longitude);
 
   const { submit } = useCheckoutSubmit({
@@ -253,6 +258,25 @@ export default function CheckoutPage() {
           title="Confirma tu pedido"
           subtitle={businessName || cartBusiness?.name || `Tu ${STORE.oneLower}`}
         />
+
+        {isPreviewCheckout ? (
+          <aside
+            className="flex gap-2.5 rounded-2xl border border-accent/40 bg-accent/15 px-3.5 py-3"
+            role="status"
+            aria-label="Aviso de pedido demo"
+          >
+            <AppIcon name="alert" size={18} className="mt-0.5 shrink-0 text-[hsl(var(--urgency))]" aria-hidden />
+            <div className="min-w-0 space-y-1">
+              <p className="text-sm font-bold text-foreground">
+                Pedido de demostración
+              </p>
+              <p className="text-xs leading-relaxed text-muted-foreground">
+                Esta vitrina es un preview de onboarding. El pedido no se despacha hasta que el
+                comercio active su tienda y apruebe menú, horarios y branding.
+              </p>
+            </div>
+          </aside>
+        ) : null}
 
         {!isAuthed && (
           <ClientAuthGateCard

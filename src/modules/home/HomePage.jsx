@@ -123,7 +123,7 @@ export default function HomeMvpPage() {
   return (
     <>
       <div className="w-full min-w-0 mobile-app-bg lg:hidden">
-        <div className="app-container space-y-7 pb-4 pt-0 sm:space-y-7 sm:pb-6">
+        <div className="app-container space-y-4 pb-4 pt-0 sm:space-y-5 sm:pb-6">
           <HomeMobileUnifiedHero
             user={user}
             profile={profile}

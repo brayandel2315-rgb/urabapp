@@ -1,0 +1,382 @@
+{
+  "version": 1,
+  "policy": "No DiDi/Rappi. Official Juan Valdez sources + Plaza del Río directory.",
+  "business": {
+    "id": "b1100000-0000-4000-a110-000000000012",
+    "name": "Juan Valdez Plaza del Río Demo",
+    "slug": "preview-juan-valdez-plaza-del-rio",
+    "category": "comida",
+    "emoji": "☕",
+    "municipio": "Apartadó",
+    "zone": "Villa del Río",
+    "address": "CC Plaza del Río Local 1177, Carrera 100, Urbanización Villa del Río, Apartadó",
+    "lat": 7.884,
+    "lng": -76.629,
+    "phone": null,
+    "website": "https://juanvaldez.com",
+    "store_ref": "https://plazadelriocc.com/directorio/juan-valdez-plaza-del-rio/",
+    "hours": "08:00–20:00",
+    "story": "Cadena de bebidas de café, repostería y bebidas calientes/frías. Sede Plaza del Río (Apartadó). Horarios oficiales CC: Lun–Jue 8am–8pm; Vie–Sáb 8am–9pm; Dom/fest 9am–7pm.",
+    "delivery_fee": 4000,
+    "min_order": 12000,
+    "delivery_time": 25,
+    "rating": 4.7,
+    "cover_url": "/previews/cover-comida.jpg",
+    "logo_url": "/previews/logo-comida.png"
+  },
+  "generated_at": "2026-07-18T05:50:08.006Z",
+  "count": 39,
+  "products": [
+    {
+      "name": "Tinto tradicional Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Bebidas Calientes. Café negro clásico Juan Valdez",
+      "category": "Bebidas Calientes",
+      "price": 4900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Americano Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Bebidas Calientes. Espresso alargado con agua caliente",
+      "category": "Bebidas Calientes",
+      "price": 7900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Espresso Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Bebidas Calientes. Shot intenso de café",
+      "category": "Bebidas Calientes",
+      "price": 6900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Capuccino Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Bebidas Calientes. Espresso, leche vaporizada y espuma",
+      "category": "Bebidas Calientes",
+      "price": 10900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Latte Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Bebidas Calientes. Espresso con abundante leche vaporizada",
+      "category": "Bebidas Calientes",
+      "price": 10900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Mocaccino Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Bebidas Calientes. Café, chocolate y leche",
+      "category": "Bebidas Calientes",
+      "price": 12900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Chocolate caliente Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Bebidas Calientes. Chocolate cremoso",
+      "category": "Bebidas Calientes",
+      "price": 9900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Té / Infusión Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Bebidas Calientes. Selección de infusiones",
+      "category": "Bebidas Calientes",
+      "price": 7900,
+      "emoji": "🍵",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Cold Brew Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Bebidas Frías. Extracción en frío, suave y refrescante",
+      "category": "Bebidas Frías",
+      "price": 13900,
+      "emoji": "🧊",
+      "image_url": "/previews/p-bebidas.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Frappé clásico Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Bebidas Frías. Café helado batido",
+      "category": "Bebidas Frías",
+      "price": 14900,
+      "emoji": "🧊",
+      "image_url": "/previews/p-bebidas.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Frappé avellana Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Bebidas Frías. Café helado sabor avellana",
+      "category": "Bebidas Frías",
+      "price": 15900,
+      "emoji": "🧊",
+      "image_url": "/previews/p-bebidas.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Latte helado Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Bebidas Frías. Espresso con leche fría y hielo",
+      "category": "Bebidas Frías",
+      "price": 12900,
+      "emoji": "🧊",
+      "image_url": "/previews/p-bebidas.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Granizado de café Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Bebidas Frías. Café granizado",
+      "category": "Bebidas Frías",
+      "price": 13900,
+      "emoji": "🧊",
+      "image_url": "/previews/p-bebidas.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Limonada de café Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Bebidas Frías. Refrescante con toque de café",
+      "category": "Bebidas Frías",
+      "price": 11900,
+      "emoji": "🍋",
+      "image_url": "/previews/p-bebidas.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Capuccino dulce de leche Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Sabores vitales. Capuccino con dulce de leche",
+      "category": "Sabores vitales",
+      "price": 13900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Latte mocca Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Sabores vitales. Latte con chocolate",
+      "category": "Sabores vitales",
+      "price": 13900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Affogato caramelo Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Sabores vitales. Helado con espresso y caramelo",
+      "category": "Sabores vitales",
+      "price": 15900,
+      "emoji": "🍨",
+      "image_url": "/previews/p-combos.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Croissant Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Pastelería / Desayunos. Hojaldre mantequilla",
+      "category": "Pastelería / Desayunos",
+      "price": 6900,
+      "emoji": "🥐",
+      "image_url": "/previews/p-despensa.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Muffin Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Pastelería / Desayunos. Muffin del día",
+      "category": "Pastelería / Desayunos",
+      "price": 7900,
+      "emoji": "🧁",
+      "image_url": "/previews/p-combos.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Brownie Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Pastelería / Desayunos. Brownie de chocolate",
+      "category": "Pastelería / Desayunos",
+      "price": 8900,
+      "emoji": "🍫",
+      "image_url": "/previews/p-combos.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Galleta Juan Valdez Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Pastelería / Desayunos. Galleta acompañante",
+      "category": "Pastelería / Desayunos",
+      "price": 4900,
+      "emoji": "🍪",
+      "image_url": "/previews/p-despensa.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Sandwich desayuno Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Pastelería / Desayunos. Pan, huevo y queso",
+      "category": "Pastelería / Desayunos",
+      "price": 14900,
+      "emoji": "🥪",
+      "image_url": "/previews/p-combos.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Bowl avena Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Pastelería / Desayunos. Avena con frutas",
+      "category": "Pastelería / Desayunos",
+      "price": 12900,
+      "emoji": "🥣",
+      "image_url": "/previews/p-frescos.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Shot espresso extra Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Adiciones. Adición de espresso",
+      "category": "Adiciones",
+      "price": 3000,
+      "emoji": "➕",
+      "image_url": "/previews/p-default.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Leche vegetal Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Adiciones. Sustitución leche vegetal",
+      "category": "Adiciones",
+      "price": 2500,
+      "emoji": "➕",
+      "image_url": "/previews/p-lacteos.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Sirope sabor Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Adiciones. Vainilla / caramelo / avellana",
+      "category": "Adiciones",
+      "price": 2000,
+      "emoji": "➕",
+      "image_url": "/previews/p-default.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Crema batida Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Adiciones. Topping",
+      "category": "Adiciones",
+      "price": 2000,
+      "emoji": "➕",
+      "image_url": "/previews/p-default.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Café Premium Colina 454gr Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Café empacado. Perfil de taza balanceado — retail oficial",
+      "category": "Café empacado",
+      "price": 49900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Café Premium Volcán 454gr Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Café empacado. Perfil de taza fuerte — retail oficial",
+      "category": "Café empacado",
+      "price": 49900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Café Premium Cumbre 454gr Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Café empacado. Perfil de taza fuerte — retail oficial",
+      "category": "Café empacado",
+      "price": 49900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Café Origen Sierra Nevada 454gr Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Café empacado. Café de origen — retail oficial",
+      "category": "Café empacado",
+      "price": 67900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Café Mujeres Cafeteras Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Café empacado. Edición especial mujeres cafeteras",
+      "category": "Café empacado",
+      "price": 59900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Café Liofilizado Dulce de Leche 95gr Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Café empacado. Soluble sabor dulce de leche",
+      "category": "Café empacado",
+      "price": 35900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Café Liofilizado Chocolate 95gr Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Café empacado. Soluble sabor chocolate",
+      "category": "Café empacado",
+      "price": 35900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Café Liofilizado Vanicanela 95gr Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Café empacado. Soluble vainilla-canela",
+      "category": "Café empacado",
+      "price": 35900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Café Liofilizado Descafeinado 95gr Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Café empacado. Soluble descafeinado",
+      "category": "Café empacado",
+      "price": 35900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Termo Montañas Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Artículos de marca. Termo artículos de marca",
+      "category": "Artículos de marca",
+      "price": 99000,
+      "emoji": "🧴",
+      "image_url": "/previews/p-default.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Prensa Francesa Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Accesorios. Método de preparación",
+      "category": "Accesorios",
+      "price": 89000,
+      "emoji": "☕",
+      "image_url": "/previews/p-default.jpg",
+      "source": "juanvaldez.com/category/productos"
+    },
+    {
+      "name": "Café Drip monodosis Demo",
+      "description": "Demo UrabApp — perfil de onboarding Juan Valdez. Menú de cafetería basado en categorías oficiales de juanvaldez.com; retail desde tiendajuanvaldez.com. No proviene de DiDi ni Rappi. Información final sujeta a aprobación del comercio. Categoría oficial menú: Café empacado. Monodosis para preparar en cualquier lugar",
+      "category": "Café empacado",
+      "price": 24900,
+      "emoji": "☕",
+      "image_url": "/previews/p-drink.jpg",
+      "source": "juanvaldez.com/category/productos"
+    }
+  ]
+}

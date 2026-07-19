@@ -67,7 +67,8 @@ export function getAuthIntentMeta(intent) {
 }
 
 export function inferAuthIntentFromPath(path = '') {
-  const p = path.split('?')[0];
+  // null/undefined no usan el default de JS — hay que normalizar
+  const p = String(path ?? '').split('?')[0];
   if (p.startsWith('/negocio') || p.startsWith('/info/registrar-comercio')) return AUTH_INTENT.BUSINESS;
   if (p.startsWith('/domiciliario') || p.startsWith('/info/ser-domiciliario')) return AUTH_INTENT.RIDER;
   if (p.startsWith('/cuenta') || p.startsWith('/checkout') || p.startsWith('/pedidos')) return AUTH_INTENT.CLIENT;

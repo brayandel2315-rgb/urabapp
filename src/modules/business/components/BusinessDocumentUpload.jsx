@@ -48,7 +48,7 @@ export default function BusinessDocumentUpload({
           </a>
         </div>
       ) : (
-        <p className="mt-1 text-xs text-amber-700 dark:text-amber-300">Pendiente de subir</p>
+        <p className="mt-1 text-xs font-medium text-muted-foreground">Pendiente de subir</p>
       )}
       <input ref={inputRef} type="file" accept={accept} className="hidden" onChange={handleFile} />
       <Button

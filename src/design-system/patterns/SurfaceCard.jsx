@@ -1,12 +1,12 @@
 import { cn } from '@/lib/utils';
 
 const VARIANTS = {
-  default: 'bg-card ring-border/50',
-  highlight: 'bg-primary-light/30 ring-primary/20',
-  sky: 'bg-sky-light/60 ring-sky/25',
-  muted: 'bg-muted/40 ring-border/40',
-  accent: 'bg-accent/15 ring-accent/30',
-  brand: 'bg-gradient-to-br from-sky-light/80 to-card ring-primary/15',
+  default: 'bg-card',
+  highlight: 'bg-[color-mix(in_srgb,var(--brand-primary)_6%,white)]',
+  sky: 'bg-muted',
+  muted: 'bg-muted',
+  accent: 'bg-[color-mix(in_srgb,var(--brand-secondary)_12%,white)]',
+  brand: 'bg-card',
 };
 
 export function SurfaceCard({
@@ -20,9 +20,9 @@ export function SurfaceCard({
   return (
     <Comp
       className={cn(
-        'overflow-hidden rounded-[var(--radius-component)] shadow-card ring-1',
+        'overflow-hidden rounded-[var(--radius-component)] border border-border shadow-soft',
         VARIANTS[variant] || VARIANTS.default,
-        padding && 'p-4',
+        padding && 'p-6',
         className
       )}
       {...props}
@@ -35,7 +35,7 @@ export function SurfaceCard({
 export function SectionTitle({ children, className, action }) {
   return (
     <div className={cn('mb-3 flex items-center justify-between gap-2', className)}>
-      <h2 className="font-display text-lg font-bold text-foreground">{children}</h2>
+      <h2 className="urab-section-title">{children}</h2>
       {action}
     </div>
   );

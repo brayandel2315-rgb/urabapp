@@ -11,18 +11,18 @@ const CATEGORY_HINTS = {
   mensajeria: 'Mandados',
   tiendas: 'Comercios',
   envios: 'Envíos',
-  locales: 'Locales',
-  more: 'Explorar',
+  ofertas: 'Descuentos',
+  more: 'Buscar y descubrir',
 };
 
 export default function HomeDiscoveryCategoryGrid({ onNavigate }) {
   return (
     <section aria-labelledby="home-categories-title" className="min-w-0">
       <div className="mb-5">
-        <h2 id="home-categories-title" className="font-display text-2xl font-black text-[#111111]">
+        <h2 id="home-categories-title" className="urab-section-title text-xl">
           Servicios rápidos
         </h2>
-        <p className="mt-1 text-sm font-medium text-[#4B5563]">
+        <p className="mt-1 text-sm font-normal text-muted-foreground">
           Comida, mercado, farmacia, mandados, envíos y más
         </p>
       </div>
@@ -42,9 +42,9 @@ export default function HomeDiscoveryCategoryGrid({ onNavigate }) {
                 animate={{ opacity: 1, y: 0 }}
                 whileHover={{ scale: 1.03, y: -3 }}
                 whileTap={{ scale: 0.97 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
                 className={cn(
-                  'home-service-card h-full !gap-2.5 !p-3',
+                  'home-service-card h-full !gap-2.5 !p-4',
                 )}
               >
                 <ServiceIconTile serviceId={cat.id} name={cat.icon || cat.id} size="lg" />

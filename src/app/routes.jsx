@@ -15,8 +15,9 @@ import ExplorarRedirect from './ExplorarRedirect';
 
 import Login from '../pages/Login';
 import NotFound from '../pages/NotFound';
+// Home eager: evita pantalla "Cargando…" en la ruta principal (lazy + SW a veces la alarga)
+import HomePage from '../modules/client/pages/HomePage';
 
-const HomePage = lazy(() => import('../modules/client/pages/HomePage'));
 const VerticalDiscoveryPage = lazy(() => import('../modules/discovery/pages/VerticalDiscoveryPage'));
 const SearchPage = lazy(() => import('../modules/discovery/pages/SearchPage'));
 const BusinessPage = lazy(() => import('../modules/client/pages/BusinessPage'));
@@ -49,6 +50,7 @@ const SerDomiciliarioPage = lazy(() => import('../modules/info/pages/SerDomicili
 const FaqPage = lazy(() => import('../modules/info/pages/FaqPage'));
 const InstallAppPage = lazy(() => import('../modules/info/pages/InstallAppPage'));
 const SeguridadInfoPage = lazy(() => import('../modules/info/pages/SeguridadInfoPage'));
+const OnboardingVitrinasPage = lazy(() => import('../modules/info/pages/OnboardingVitrinasPage'));
 const RecoverAccount = lazy(() => import('../pages/RecoverAccount'));
 const SupportPage = lazy(() => import('../modules/client/pages/SupportPage'));
 const QuienesSomosPage = lazy(() => import('../modules/client/pages/QuienesSomosPage'));
@@ -79,7 +81,7 @@ export default function AppRoutes() {
   return (
     <Routes>
       <Route element={<ClientLayout />}>
-        <Route path={CLIENT_HOME} element={<Lazy><HomePage /></Lazy>} />
+        <Route path={CLIENT_HOME} element={<HomePage />} />
         <Route path="/explorar" element={<ExplorarRedirect />} />
         <Route path="/restaurantes" element={<Lazy><VerticalDiscoveryPage /></Lazy>} />
         <Route path="/mercado" element={<Lazy><VerticalDiscoveryPage /></Lazy>} />
@@ -126,6 +128,8 @@ export default function AppRoutes() {
         <Route path="/soporte" element={<Lazy><SupportPage /></Lazy>} />
         <Route path="/quienes-somos" element={<Lazy><QuienesSomosPage /></Lazy>} />
         <Route path="/ofertas" element={<Lazy><OffersPage /></Lazy>} />
+        <Route path="/vitrinas" element={<Lazy><OnboardingVitrinasPage /></Lazy>} />
+        <Route path="/demos" element={<Navigate to="/vitrinas" replace />} />
       </Route>
 
       <Route path="/login" element={<Login />} />

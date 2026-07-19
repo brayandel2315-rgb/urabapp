@@ -1,11 +1,13 @@
-/** Imágenes de catálogo — Supabase Storage > fotos reales Urabá > Unsplash */
+/** Imágenes de catálogo — Supabase Storage > fotos por tipo/cocina > Unsplash */
 
 import { URABA_BANNER_IMAGES } from './uraba-images';
 import { resolveBusinessCoverUrl, BUSINESS_COVER_BY_SLUG } from './business-covers';
 import {
   CATEGORY_COVERS as CATALOG_CATEGORY_COVERS,
+  CUISINE_COVERS,
   PRODUCT_IMAGES,
   resolveProductImageUrl,
+  resolveBusinessVisualKey,
   DEMO_PROMO_BANNERS,
 } from '../data/catalog-visuals';
 
@@ -14,13 +16,18 @@ const CATEGORY_COVERS = {
   default: CATALOG_CATEGORY_COVERS.comida,
 };
 
+/**
+ * Portada de comercio: foto propia → slug demo → cocina/categoría viva.
+ * No usa logo como cover (se ve estirado); logo va aparte.
+ */
 export function resolveBusinessCover(business) {
   if (!business) return CATEGORY_COVERS.default;
-  return business.cover_url || business.logo_url || resolveBusinessCoverUrl(business);
+  if (business.cover_url) return business.cover_url;
+  return resolveBusinessCoverUrl(business) || business.logo_url || CATEGORY_COVERS.default;
 }
 
 export function resolveBusinessLogo(business) {
-  return business?.logo_url || business?.cover_url || null;
+  return business?.logo_url || null;
 }
 
 export function resolveProductImage(product, businessCategory, businessSlug) {
@@ -43,4 +50,8 @@ export function getBannerImages() {
   return DEMO_PROMO_BANNERS.map((b) => b.image_url);
 }
 
-export { CATEGORY_COVERS, PRODUCT_IMAGES };
+export function getBusinessVisualKey(business) {
+  return resolveBusinessVisualKey(business);
+}
+
+export { CATEGORY_COVERS, CUISINE_COVERS, PRODUCT_IMAGES, resolveBusinessVisualKey };

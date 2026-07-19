@@ -39,17 +39,17 @@ export default function MobileStickyCheckoutBar({
   return (
     <div
       className={cn(
-        'fixed left-0 right-0 z-40 border-t border-border/60 bg-background/95 shadow-float backdrop-blur-xl lg:hidden',
+        'store-sticky-cart fixed left-0 right-0 z-40 border-t border-border/50 bg-white/96 backdrop-blur-xl lg:hidden',
         className
       )}
       style={{
         bottom: 'calc(4rem + env(safe-area-inset-bottom, 0px))',
       }}
     >
-      <div className="mx-auto flex max-w-lg items-center justify-between gap-3 px-4 py-3">
+      <div className="mx-auto flex max-w-lg items-center justify-between gap-3 px-4 py-2.5">
         <div className="min-w-0">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">{totalLabel}</p>
-          <p className="font-display text-xl font-black tabular-nums text-foreground">{formatCOP(total)}</p>
+          <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">{totalLabel}</p>
+          <p className="font-display text-lg font-bold tabular-nums tracking-tight text-foreground">{formatCOP(total)}</p>
           {hint ? <p className="truncate text-[11px] font-medium text-primary">{hint}</p> : null}
         </div>
         {action}

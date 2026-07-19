@@ -35,6 +35,7 @@ export const HOME_FOOTER_COLUMNS = [
     title: 'Únete',
     links: [
       { label: STORE.register, to: '/info/registrar-comercio' },
+      { label: 'Vitrinas onboarding', to: '/vitrinas' },
       { label: 'Ser domiciliario', to: '/domiciliario/registro' },
     ],
   },

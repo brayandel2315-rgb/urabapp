@@ -1,6 +1,6 @@
 :root {
-  --font-sans: 'Poppins', system-ui, sans-serif;
-  --font-display: 'Poppins', system-ui, sans-serif;
+  --font-sans: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -12,40 +12,52 @@
   --text-4xl: 2.25rem;
   --text-5xl: 3rem;
 
-  --leading-tight: 1.15;
+  --leading-tight: 1.2;
   --leading-snug: 1.35;
   --leading-body: 1.5;
 
   --tracking-tight: -0.02em;
-  --tracking-display: -0.03em;
+  --tracking-display: -0.025em;
 }
 
 .font-display {
   font-family: var(--font-display);
   letter-spacing: var(--tracking-display);
+  font-weight: 700;
 }
 
 .font-body {
   font-family: var(--font-sans);
+  font-weight: 400;
 }
 
 .text-label {
   font-family: var(--font-sans);
   font-size: var(--text-xs);
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
 }
 
 .text-brand {
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: var(--tracking-tight);
+  color: var(--brand-primary);
 }
 
-/* Utility: large accessible body */
 .text-body-lg {
   font-size: var(--text-lg);
   line-height: var(--leading-body);
+  font-weight: 400;
   color: hsl(var(--foreground));
+}
+
+.text-muted {
+  color: hsl(var(--muted-foreground));
+}
+
+.text-disabled {
+  color: #9CA3AF;
 }

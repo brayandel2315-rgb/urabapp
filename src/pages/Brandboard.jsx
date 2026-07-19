@@ -9,21 +9,21 @@ import BrandLogo from '@/components/brand/BrandLogo';
 import { BRAND_LOGO_SRC } from '@/assets/logo/brand';
 
 const colors = [
-  { name: 'Azul marino', hex: '#0D2B45', token: 'secondary', usage: 'Headers, splash, textos principales' },
-  { name: 'Azul medio', hex: '#0E6BA8', token: 'sky', usage: 'Acciones secundarias, mapas, enlaces' },
-  { name: 'Verde Urabá', hex: '#28B463', token: 'primary', usage: 'Botones, éxito, CTAs principales' },
-  { name: 'Verde lima', hex: '#A8D60E', token: 'accent', usage: 'Highlights, promos, energía local' },
-  { name: 'Celeste suave', hex: '#E6F4FF', token: 'sky-light', usage: 'Fondos de sección, tarjetas suaves' },
-  { name: 'Off-white', hex: '#F7FAFC', token: 'background', usage: 'Fondo general de la app' },
+  { name: 'Brand primary', hex: '#1E6F43', token: 'brand-primary', usage: 'Botones, activos, nav, focus, links' },
+  { name: 'Brand secondary', hex: '#7AC943', token: 'brand-secondary', usage: 'Hover details, badges, highlights' },
+  { name: 'Texto principal', hex: '#111827', token: 'foreground', usage: 'Títulos y cuerpo principal' },
+  { name: 'Texto secundario', hex: '#6B7280', token: 'muted-foreground', usage: 'Descripciones y meta' },
+  { name: 'Fondo principal', hex: '#FFFFFF', token: 'background', usage: 'Superficie base de la app' },
+  { name: 'Fondo secundario', hex: '#F7F8FA', token: 'muted', usage: 'Secciones y chips neutrales' },
 ];
 
 const typography = [
-  { role: 'Marca / Logo', class: 'text-brand', weight: '900', size: '36px', sample: 'URABAPP' },
-  { role: 'Tagline', class: 'text-tagline', weight: '500', size: '12px', sample: 'CONEXIÓN LOCAL Y ENVÍOS' },
-  { role: 'Título / H2', class: 'text-heading', weight: '800', size: '24px', sample: '¿Qué se te antoja?' },
-  { role: 'Subtítulo', class: 'text-subheading', weight: '700', size: '18px', sample: 'Restaurantes cercanos' },
-  { role: 'Cuerpo', class: 'text-body', weight: '400', size: '16px', sample: 'Pide de tus tiendas favoritas en Urabá.' },
-  { role: 'Botón', class: 'text-label', weight: '600', size: '16px', sample: 'Pedir ahora' },
+  { role: 'Marca / Logo', class: 'text-brand', weight: '700', size: '36px', sample: 'URABAPP' },
+  { role: 'Tagline', class: 'text-tagline', weight: '500', size: '12px', sample: 'LA SUPERAPP DE URABÁ' },
+  { role: 'Título / H2', class: 'text-heading', weight: '600', size: '24px', sample: '¿Qué necesitas hoy?' },
+  { role: 'Subtítulo', class: 'text-subheading', weight: '600', size: '18px', sample: 'Servicios cerca de ti' },
+  { role: 'Cuerpo', class: 'text-body', weight: '400', size: '16px', sample: 'Comida, mercado, envíos y más en Urabá.' },
+  { role: 'Botón', class: 'text-label', weight: '600', size: '16px', sample: 'Continuar' },
   { role: 'Caption', class: 'text-caption', weight: '500', size: '12px', sample: 'ENTREGAR EN' },
 ];
 

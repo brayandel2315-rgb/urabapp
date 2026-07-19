@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 
 const STORAGE_KEY = 'urabapp-theme';
-const THEME_COLOR_LIGHT = '#FAF9F6';
-const THEME_COLOR_DARK = '#111111';
+const THEME_COLOR_LIGHT = '#FFFFFF';
+const THEME_COLOR_DARK = '#111827';
 
 function readTheme() {
   if (typeof window === 'undefined') return 'light';

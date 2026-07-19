@@ -170,42 +170,42 @@ function BusinessOrderCard({
           </div>
 
           {order.status === 'on_the_way' && (
-            <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm dark:border-emerald-900 dark:bg-emerald-950/30">
-              <p className="font-semibold text-emerald-900 dark:text-emerald-100">En camino con el mensajero</p>
-              <p className="mt-0.5 text-emerald-800 dark:text-emerald-200">
+            <div className="biz-callout biz-callout--ok text-sm">
+              <p className="font-semibold text-foreground">En camino con el mensajero</p>
+              <p className="mt-0.5 text-muted-foreground">
                 El cliente verá el avance en su app. La entrega la confirma el mensajero.
               </p>
             </div>
           )}
 
           {order.status === 'accepted' && (
-            <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm dark:border-amber-900 dark:bg-amber-950/30">
-              <p className="font-semibold text-amber-900 dark:text-amber-100">Pedido confirmado</p>
-              <p className="mt-0.5 text-amber-800 dark:text-amber-200">
-                Cuando inicies la preparación, Urabapp buscará un mensajero. El mensajero solo puede aceptar cuando marques &quot;en preparación&quot;.
+            <div className="biz-callout biz-callout--soft text-sm">
+              <p className="font-semibold text-foreground">Pedido confirmado</p>
+              <p className="mt-0.5 text-muted-foreground">
+                Cuando inicies la preparación, UrabApp buscará un mensajero. El mensajero solo puede aceptar cuando marques &quot;en preparación&quot;.
               </p>
             </div>
           )}
 
           {order.status === 'preparing' && (
-            <div className="rounded-xl border border-sky-200 bg-sky-50 p-3 text-sm dark:border-sky-900 dark:bg-sky-950/30">
-              <p className="font-semibold text-sky-900 dark:text-sky-100">
+            <div className="biz-callout biz-callout--soft text-sm">
+              <p className="font-semibold text-foreground">
                 {order.drivers?.name ? `Mensajero: ${order.drivers.name}` : 'Buscando mensajero…'}
               </p>
-              <p className="mt-0.5 text-sky-800 dark:text-sky-200">
+              <p className="mt-0.5 text-muted-foreground">
                 {order.drivers?.name
                   ? 'El mensajero que aceptó recogerá el pedido en tu local.'
-                  : 'Al marcar en preparación, Urabapp notifica a mensajeros cercanos. El que acepte vendrá a recoger.'}
+                  : 'Al marcar en preparación, UrabApp notifica a mensajeros cercanos. El que acepte vendrá a recoger.'}
               </p>
             </div>
           )}
 
           {order.notes && (
-            <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm dark:border-amber-900 dark:bg-amber-950/30">
-              <p className="text-xs font-semibold uppercase tracking-wide text-amber-800 dark:text-amber-200">
+            <div className="biz-callout biz-callout--warn text-sm">
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                 Notas del cliente
               </p>
-              <p className="mt-1 text-amber-950 dark:text-amber-100">{order.notes}</p>
+              <p className="mt-1 text-foreground">{order.notes}</p>
             </div>
           )}
 
@@ -338,26 +338,28 @@ export default function BusinessOrdersPanel({ businessId, orders = [], isLoading
 
   return (
     <div className="space-y-4">
-      <div className="flex gap-2">
+      <div className="flex gap-2 overflow-x-auto hide-scrollbar" role="tablist" aria-label="Filtro de pedidos">
         <button
           type="button"
+          role="tab"
+          aria-selected={filter === 'active'}
           onClick={() => setFilter('active')}
-          className={`rounded-2xl px-4 py-2 text-sm font-semibold transition-colors ${
-            filter === 'active'
-              ? 'bg-secondary text-secondary-foreground shadow-soft'
-              : 'bg-card text-muted ring-1 ring-border/50'
-          }`}
+          className={cn(
+            'urab-chip-tab',
+            filter === 'active' ? 'urab-chip-tab--active' : 'urab-chip-tab--idle border border-border',
+          )}
         >
           Activos ({activeOrders.length})
         </button>
         <button
           type="button"
+          role="tab"
+          aria-selected={filter === 'history'}
           onClick={() => setFilter('history')}
-          className={`rounded-2xl px-4 py-2 text-sm font-semibold transition-colors ${
-            filter === 'history'
-              ? 'bg-secondary text-secondary-foreground shadow-soft'
-              : 'bg-card text-muted ring-1 ring-border/50'
-          }`}
+          className={cn(
+            'urab-chip-tab',
+            filter === 'history' ? 'urab-chip-tab--active' : 'urab-chip-tab--idle border border-border',
+          )}
         >
           Historial ({historyOrders.length})
         </button>
@@ -380,11 +382,11 @@ export default function BusinessOrdersPanel({ businessId, orders = [], isLoading
       ) : (
         <>
           {filter === 'active' && activeOrders.some((o) => o.status === 'pending') && (
-            <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm dark:border-amber-900 dark:bg-amber-950/40">
-              <p className="font-semibold text-amber-900 dark:text-amber-100">
+            <div className="biz-callout biz-callout--warn text-sm">
+              <p className="font-semibold text-foreground">
                 Tienes {activeOrders.filter((o) => o.status === 'pending').length} pedido(s) por aceptar
               </p>
-              <p className="mt-0.5 text-amber-800 dark:text-amber-200">
+              <p className="mt-0.5 text-muted-foreground">
                 Acepta y actualiza el estado para que el cliente y el mensajero estén al tanto.
               </p>
             </div>

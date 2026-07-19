@@ -1,9 +1,11 @@
 import { cn } from '@/lib/utils';
 import AppIcon from '@/design-system/icons/AppIcon';
+import { getCategoryColor } from '@/design-system/tokens/category-colors';
 import { getServiceIconImage } from '@/data/service-icons';
 
 /**
- * Icono de servicio — imagen 3D brandboard o fallback vectorial.
+ * Icono de servicio — imagen 3D brand cuando existe; Lucide como fallback.
+ * Las imágenes se escalan visualmente sin agrandar el slot del layout (la tarjeta no crece).
  */
 export default function ServiceIconTile({
   name,
@@ -14,50 +16,50 @@ export default function ServiceIconTile({
   className,
 }) {
   const presets = {
-    sm: { box: 'h-10 w-10', icon: 20, img: 'h-10 w-10' },
-    md: { box: 'h-[4.75rem] w-[4.75rem]', icon: 28, img: 'h-[4.75rem] w-[4.75rem]' },
-    lg: { box: 'h-[4.75rem] w-[4.75rem]', icon: 32, img: 'h-[4.75rem] w-[4.75rem]' },
+    sm: { box: 'h-11 w-11', icon: 20, imgScale: 'scale-[1.35]' },
+    md: { box: 'h-14 w-14', icon: 24, imgScale: 'scale-[1.45]' },
+    lg: { box: 'h-16 w-16', icon: 28, imgScale: 'scale-[1.4]' },
   };
   const preset = presets[size] || presets.md;
-  const imageSrc = getServiceIconImage(serviceId) || getServiceIconImage(name);
-
-  if (imageSrc) {
-    return (
-      <span
-        className={cn(
-          'inline-flex shrink-0 items-center justify-center',
-          preset.box,
-          active && 'scale-95',
-          className,
-        )}
-      >
-        <img
-          src={imageSrc}
-          alt=""
-          className={cn(preset.img, 'service-icon-3d object-contain')}
-          loading="lazy"
-          decoding="async"
-          draggable={false}
-        />
-      </span>
-    );
-  }
+  const accent = getCategoryColor(serviceId || name, tone === 'blue' ? '#2196F3' : '#1E6F43');
+  const imageSrc =
+    getServiceIconImage(serviceId) ||
+    getServiceIconImage(name) ||
+    null;
 
   return (
     <span
       className={cn(
         'service-icon-tile inline-flex shrink-0 items-center justify-center',
         preset.box,
-        tone === 'blue' && 'service-icon-tile--blue',
+        imageSrc
+          ? 'service-icon-tile--image relative overflow-visible rounded-none bg-transparent shadow-none ring-0'
+          : 'rounded-2xl',
         active && 'service-icon-tile--active',
         className,
       )}
+      style={
+        imageSrc
+          ? undefined
+          : {
+              color: accent,
+              background: `color-mix(in srgb, ${accent} 10%, white)`,
+            }
+      }
     >
-      <AppIcon
-        name={name}
-        size={preset.icon}
-        className={tone === 'blue' ? 'text-[#0E6BA8]' : 'text-[#28B463]'}
-      />
+      {imageSrc ? (
+        <img
+          src={imageSrc}
+          alt=""
+          draggable={false}
+          className={cn(
+            'pointer-events-none h-full w-full object-contain origin-center',
+            preset.imgScale,
+          )}
+        />
+      ) : (
+        <AppIcon name={name || serviceId} size={preset.icon} className="text-current" />
+      )}
     </span>
   );
 }

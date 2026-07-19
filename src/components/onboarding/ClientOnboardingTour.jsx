@@ -11,6 +11,7 @@ import { useSettingsStore } from '@/store/settingsStore';
 import { tween } from '@/design-system/motion/presets';
 import { STORE } from '@/utils/marketplace-copy';
 import { cn } from '@/lib/utils';
+import { hasResolvedCookieConsent } from '@/utils/cookie-consent';
 
 const STEPS = [
   {
@@ -71,8 +72,21 @@ export default function ClientOnboardingTour() {
   useEffect(() => {
     if (completed) return undefined;
     if (SKIP_PATHS.some((p) => location.pathname.startsWith(p))) return undefined;
-    const timer = window.setTimeout(() => setOpen(true), 1400);
-    return () => window.clearTimeout(timer);
+
+    let timer;
+    const tryOpen = () => {
+      // No tapar el home con tutorial + banner de cookies a la vez
+      if (!hasResolvedCookieConsent()) return;
+      timer = window.setTimeout(() => setOpen(true), 600);
+    };
+
+    tryOpen();
+    const onConsent = () => tryOpen();
+    window.addEventListener('urabapp:cookie-consent', onConsent);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener('urabapp:cookie-consent', onConsent);
+    };
   }, [completed, location.pathname]);
 
   useEffect(() => {

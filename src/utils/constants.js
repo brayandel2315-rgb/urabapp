@@ -1,8 +1,9 @@
 export const BRAND = {
   name: 'Urabapp',
-  tagline: 'Conectamos lo que importa. Impulsamos lo local.',
-  shortTagline: 'Lo que mueve Urabá.',
-  homeHeroTagline: 'Todo lo que necesitas, llega contigo.',
+  tagline: 'Todo Urabá, a un toque.',
+  shortTagline: 'Todo Urabá, a un toque.',
+  homeHeroTagline: 'Todo Urabá, a un toque.',
+  homeHeroLead: 'Comida, mercados, envíos y más. Entregado localmente.',
   motto: 'Más que envíos, creamos conexiones.',
 };
 

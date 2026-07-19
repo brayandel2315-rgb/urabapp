@@ -146,6 +146,7 @@ export const LUCIDE_ICONS = {
   download: Download,
   share: Share2,
   add: Plus,
+  plus: Plus,
 };
 
 /** Iconografía UI — Solar Bold Duotone: iconos completos, redondeados, estilo app premium */

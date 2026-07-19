@@ -230,8 +230,8 @@ export default function BusinessOffersPanel({ business }) {
         )}
 
         {previewText && (
-          <div className="rounded-xl bg-accent/20 p-3 text-sm">
-            <p className="font-bold text-secondary">Vista previa</p>
+          <div className="biz-callout biz-callout--ok text-sm">
+            <p className="font-bold text-foreground">Vista previa</p>
             <p className="mt-1">{previewText}</p>
             {form.promo_min_order > 0 && (
               <p className="text-muted">Mínimo {formatCOP(Number(form.promo_min_order))}</p>

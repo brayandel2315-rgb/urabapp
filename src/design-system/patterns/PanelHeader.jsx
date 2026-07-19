@@ -8,7 +8,7 @@ export default function PanelHeader({ tag, title, subtitle, action, children, cl
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           {title && (
-            <h1 className="font-display text-2xl font-bold text-[#0D2B45]">
+            <h1 className="font-display text-2xl font-semibold text-[#111827]">
               {title}
             </h1>
           )}

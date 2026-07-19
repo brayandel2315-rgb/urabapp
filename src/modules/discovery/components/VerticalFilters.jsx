@@ -23,10 +23,10 @@ export default function VerticalFilters({ value = 'all', onChange, className }) 
           aria-selected={value === opt.id}
           onClick={() => onChange?.(opt.id)}
           className={cn(
-            'shrink-0 rounded-full px-3.5 py-2 text-xs font-semibold transition-colors',
+            'urab-chip-tab shrink-0 text-xs',
             value === opt.id
-              ? 'bg-primary text-primary-foreground shadow-soft'
-              : 'border border-border bg-card text-foreground hover:border-primary/40',
+              ? 'urab-chip-tab--active shadow-soft'
+              : 'urab-chip-tab--idle border border-border',
           )}
         >
           {opt.label}

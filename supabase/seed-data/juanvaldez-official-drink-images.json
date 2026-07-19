@@ -1,0 +1,381 @@
+{
+  "source": "https://juanvaldez.com/wp-json/wp/v2/amigo-productos",
+  "generated_at": "2026-07-18T05:52:51.143Z",
+  "count": 34,
+  "products": [
+    {
+      "id": 100706,
+      "title": "Afogatto Juan Valdez",
+      "slug": "afogatto-juan-valdez",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Afogatto-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/afogatto-juan-valdez/",
+      "categories": [
+        "bebidas-frias",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100708,
+      "title": "Almojábana",
+      "slug": "almojabana",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/6000e8e2fe9cc36e6b6ed7cb_Almojabana-Juan-Valdez.png",
+      "link": "https://juanvaldez.com/amigo-productos/almojabana/",
+      "categories": [
+        "categoria-producto",
+        "pasteleria"
+      ]
+    },
+    {
+      "id": 100817,
+      "title": "Rollito de Canela",
+      "slug": "rollito-de-canela",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/rollito_de_canela.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/rollito-de-canela/",
+      "categories": [
+        "categoria-producto",
+        "pasteleria"
+      ]
+    },
+    {
+      "id": 100813,
+      "title": "Galleta Choco Chip",
+      "slug": "galleta-choco-chip",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Galleta-chips-de-chocolate-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/galleta-choco-chip/",
+      "categories": [
+        "categoria-producto",
+        "pasteleria"
+      ]
+    },
+    {
+      "id": 100807,
+      "title": "Torta de Zanahoria",
+      "slug": "torta-de-zanahoria",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Torta-de-zanahoria-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/torta-de-zanahoria/",
+      "categories": [
+        "categoria-producto",
+        "pasteleria"
+      ]
+    },
+    {
+      "id": 100795,
+      "title": "Torta de Chocolate",
+      "slug": "torta-de-chocolate",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Torta-de-chocolate-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/torta-de-chocolate/",
+      "categories": [
+        "categoria-producto",
+        "pasteleria"
+      ]
+    },
+    {
+      "id": 100793,
+      "title": "Torta de Banano",
+      "slug": "torta-de-banano",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Torta-de-banano-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/torta-de-banano/",
+      "categories": [
+        "categoria-producto",
+        "pasteleria"
+      ]
+    },
+    {
+      "id": 100791,
+      "title": "Pandebono de Bocadillo",
+      "slug": "pandebono-de-bocadillo",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Pandebono-Juan-Valdez-1.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/pandebono-de-bocadillo/",
+      "categories": [
+        "categoria-producto",
+        "pasteleria"
+      ]
+    },
+    {
+      "id": 100789,
+      "title": "Pandebono",
+      "slug": "pandebono",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Pandebono-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/pandebono/",
+      "categories": [
+        "categoria-producto",
+        "pasteleria"
+      ]
+    },
+    {
+      "id": 100787,
+      "title": "Palito de Queso",
+      "slug": "palito-de-queso",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Palito-de-queso-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/palito-de-queso/",
+      "categories": [
+        "categoria-producto",
+        "pasteleria"
+      ]
+    },
+    {
+      "id": 100785,
+      "title": "Nevado Café",
+      "slug": "nevado-cafe",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/nevado_de_cafe___300ml_700x700px.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/nevado-cafe/",
+      "categories": [
+        "bebidas-frias",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100783,
+      "title": "Nevado Café Reducido en Azúcar",
+      "slug": "nevado-cafe-reducido-en-azucar",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/nevado_reducido_en_azucar_300ml_700x700px.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/nevado-cafe-reducido-en-azucar/",
+      "categories": [
+        "bebidas-frias",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100781,
+      "title": "Nevado Chocolate",
+      "slug": "nevado-chocolate",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/nevado_de_chocolate_300ml_700x700px.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/nevado-chocolate/",
+      "categories": [
+        "bebidas-frias",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100775,
+      "title": "Nevado Brownie",
+      "slug": "nevado-brownie",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Nevado-Brownie-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/nevado-brownie/",
+      "categories": [
+        "bebidas-frias",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100772,
+      "title": "Cold Brew Nitro",
+      "slug": "cold-brew-nitro",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Cold-Brew-nitro-Juan-Valdez-1.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/cold-brew-nitro/",
+      "categories": [
+        "bebidas-frias",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100770,
+      "title": "Cold Brew Original",
+      "slug": "cold-brew-original",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Cold-Brew-nitro-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/cold-brew-original/",
+      "categories": [
+        "bebidas-frias",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100766,
+      "title": "Nevado Baileys",
+      "slug": "nevado-baileys",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Nevado-Baileys-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/nevado-baileys/",
+      "categories": [
+        "bebidas-frias",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100723,
+      "title": "Nevado Chai",
+      "slug": "nevado-chai",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Nevado-chai-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/nevado-chai/",
+      "categories": [
+        "bebidas-frias",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100716,
+      "title": "Granizado",
+      "slug": "granizado",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Granizado-juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/granizado/",
+      "categories": [
+        "bebidas-frias",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100714,
+      "title": "Latte Frío",
+      "slug": "latte-frio",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Latte-frio-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/latte-frio/",
+      "categories": [
+        "bebidas-frias",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100704,
+      "title": "Aromática Primavera",
+      "slug": "aromatica-primavera",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/AROMATICA-3.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/aromatica-primavera/",
+      "categories": [
+        "bebidas-calientes",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100702,
+      "title": "Aromática Silvestre",
+      "slug": "aromatica-silvestre",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/AROMATICA-2.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/aromatica-silvestre/",
+      "categories": [
+        "bebidas-calientes",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100698,
+      "title": "Aromática Bosque Infusión",
+      "slug": "aromatica-bosque-infusion",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/AROMATICA.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/aromatica-bosque-infusion/",
+      "categories": [
+        "bebidas-calientes",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100696,
+      "title": "Chai",
+      "slug": "chai",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Chai-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/chai/",
+      "categories": [
+        "bebidas-calientes",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100694,
+      "title": "Pods",
+      "slug": "pods",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/pods.png",
+      "link": "https://juanvaldez.com/amigo-productos/pods/",
+      "categories": [
+        "bebidas-calientes",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100692,
+      "title": "Macchiato",
+      "slug": "macchiato",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Machiatto-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/macchiato/",
+      "categories": [
+        "bebidas-calientes",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100690,
+      "title": "Espresso",
+      "slug": "espresso",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Espresso-tradicional-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/espresso/",
+      "categories": [
+        "bebidas-calientes",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100688,
+      "title": "Flat White",
+      "slug": "flat-white",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Flat-white-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/flat-white/",
+      "categories": [
+        "bebidas-calientes",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100686,
+      "title": "Chocolate",
+      "slug": "chocolate",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Chocolate-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/chocolate/",
+      "categories": [
+        "bebidas-calientes",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100684,
+      "title": "Latte",
+      "slug": "latte",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Latte-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/latte/",
+      "categories": [
+        "bebidas-calientes",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100682,
+      "title": "Mocca",
+      "slug": "mocca",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Mocca-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/mocca/",
+      "categories": [
+        "bebidas-calientes",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100680,
+      "title": "Cappuccino",
+      "slug": "cappuccino",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Cappuccino-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/cappuccino/",
+      "categories": [
+        "bebidas-calientes",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100678,
+      "title": "Café Americano",
+      "slug": "cafe-americano",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Cafe-Americano-Juan-Valdez.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/cafe-americano/",
+      "categories": [
+        "bebidas-calientes",
+        "categoria-producto"
+      ]
+    },
+    {
+      "id": 100676,
+      "title": "Tintos",
+      "slug": "tintos",
+      "image": "https://juanvaldez.com/wp-content/uploads/2025/03/Tinto-Juan-Valdez-campesino.jpg",
+      "link": "https://juanvaldez.com/amigo-productos/tintos/",
+      "categories": [
+        "bebidas-calientes",
+        "categoria-producto"
+      ]
+    }
+  ]
+}

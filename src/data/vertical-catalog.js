@@ -20,19 +20,17 @@ export const VERTICAL_PAGES = {
     id: 'restaurantes',
     route: '/restaurantes',
     title: 'Sabores cerca de ti',
-    subtitle: 'Explora restaurantes disponibles.',
+    subtitle: 'Clasificados por tipo de comida · pide a domicilio.',
     categories: ['comida'],
+    classified: true,
     seo: {
       title: 'Restaurantes en Urabá',
       description: 'Pide comida a domicilio de restaurantes y fondas en tu municipio.',
     },
+    /** Destacados cortos; el resto se ordena por cocina en el directorio. */
     sections: [
-      { type: 'favoritos', title: 'Favoritos de Urabá', limit: 8 },
       { type: 'cerca', title: 'Cerca de ti', limit: 8 },
-      { type: 'rapida', title: 'Entrega más rápida', limit: 6 },
       { type: 'abiertos', title: 'Abiertos ahora', limit: 8 },
-      { type: 'recomendados', title: 'Recomendados para ti', limit: 6 },
-      { type: 'demanda', title: 'Alta demanda', limit: 6 },
     ],
   },
   mercado: {
@@ -124,8 +122,8 @@ export const HOME_CATEGORY_TILES = [
   { id: 'mensajeria', label: 'Mensajería', icon: 'mensajeria', route: '/mandado' },
   { id: 'tiendas', label: 'Tiendas', icon: 'tiendas', route: '/tiendas' },
   { id: 'envios', label: 'Envíos', icon: 'envios', route: '/envios' },
-  { id: 'locales', label: 'Locales', icon: 'store', route: '/tiendas' },
-  { id: 'more', label: 'Ver más', icon: 'all', route: '/search' },
+  { id: 'ofertas', label: 'Ofertas', icon: 'ofertas', route: '/ofertas' },
+  { id: 'more', label: 'Explorar', icon: 'explorar', route: '/search' },
 ];
 
 /** Home móvil: 6 categorías sin duplicar rutas ni competir con el FAB de servicios */
@@ -134,8 +132,8 @@ export const HOME_CATEGORY_TILES_MOBILE = [
   { id: 'mercado', label: 'Mercado', icon: 'market', route: '/mercado' },
   { id: 'farmacia', label: 'Farmacia', icon: 'pharmacy', route: '/farmacia' },
   { id: 'tiendas', label: 'Tiendas', icon: 'tiendas', route: '/tiendas' },
-  { id: 'ofertas', label: 'Ofertas', icon: 'tag', route: '/ofertas' },
-  { id: 'more', label: 'Explorar', icon: 'all', route: '/search' },
+  { id: 'ofertas', label: 'Ofertas', icon: 'ofertas', route: '/ofertas' },
+  { id: 'more', label: 'Explorar', icon: 'explorar', route: '/search' },
 ];
 
 export const DEFAULT_TRENDING = [

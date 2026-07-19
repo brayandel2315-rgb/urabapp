@@ -12,28 +12,28 @@ function valueTypography(value) {
 
 const ACCOUNT_TONE_STYLES = {
   green: {
-    card: 'lg:border-[#D5E3EF] lg:bg-white',
-    icon: 'lg:bg-[#E6F4FF] lg:text-[#0E6BA8]',
-    value: 'lg:text-[#0D2B45]',
-    valueAccent: 'lg:text-[#0E6BA8]',
+    card: 'lg:border-0 lg:bg-white',
+    icon: 'lg:bg-[#F7F8FA] lg:text-[var(--brand-primary)]',
+    value: 'lg:text-[#111827]',
+    valueAccent: 'lg:text-[var(--brand-primary)]',
   },
   blue: {
-    card: 'lg:border-[#D5E3EF] lg:bg-white',
-    icon: 'lg:bg-[#E6F4FF] lg:text-[#0E6BA8]',
-    value: 'lg:text-[#0D2B45]',
-    valueAccent: 'lg:text-[#0E6BA8]',
+    card: 'lg:border-0 lg:bg-white',
+    icon: 'lg:bg-[#F7F8FA] lg:text-[var(--brand-primary)]',
+    value: 'lg:text-[#111827]',
+    valueAccent: 'lg:text-[var(--brand-primary)]',
   },
   sky: {
-    card: 'lg:border-[#D5E3EF] lg:bg-white',
-    icon: 'lg:bg-[#E6F4FF] lg:text-[#0E6BA8]',
-    value: 'lg:text-[#0D2B45]',
-    valueAccent: 'lg:text-[#0E6BA8]',
+    card: 'lg:border-0 lg:bg-white',
+    icon: 'lg:bg-[#F7F8FA] lg:text-[var(--brand-primary)]',
+    value: 'lg:text-[#111827]',
+    valueAccent: 'lg:text-[var(--brand-primary)]',
   },
   promo: {
-    card: 'lg:border-[#D5E3EF] lg:bg-white',
-    icon: 'lg:bg-[#E6F4FF] lg:text-[#0E6BA8]',
-    value: 'lg:text-[#0D2B45]',
-    valueAccent: 'lg:text-[#0E6BA8]',
+    card: 'lg:border-0 lg:bg-white',
+    icon: 'lg:bg-[#F7F8FA] lg:text-[var(--brand-primary)]',
+    value: 'lg:text-[#111827]',
+    valueAccent: 'lg:text-[var(--brand-primary)]',
   },
 };
 
@@ -108,8 +108,8 @@ export function MetricCard({
           'lg:relative lg:min-h-[10rem] lg:rounded-2xl lg:shadow-card',
           toneStyle.card,
         ],
-        interactive && 'transition-shadow hover:border-[#0E6BA8]/30 hover:shadow-soft',
-        interactive && isAccount && 'lg:hover:border-[#0E6BA8]/25',
+        interactive && 'transition-shadow duration hover:shadow-lift',
+        interactive && isAccount && 'lg:hover:shadow-lift',
         className,
       )}
     >

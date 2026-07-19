@@ -6,6 +6,8 @@ import mensajeria from '@/assets/services/mensajeria.png';
 import tiendas from '@/assets/services/tiendas.png';
 import locales from '@/assets/services/locales.png';
 import envios from '@/assets/services/envios.png';
+import ofertas from '@/assets/services/ofertas.png';
+import explorar from '@/assets/services/explorar.png';
 import soporte from '@/assets/services/soporte.png';
 
 /** Iconos 3D brandboard por categoría de servicio */
@@ -21,6 +23,13 @@ export const SERVICE_ICON_IMAGES = {
   tiendas,
   locales,
   store: locales,
+  ofertas,
+  promo: ofertas,
+  tag: ofertas,
+  explorar,
+  more: explorar,
+  all: explorar,
+  search: explorar,
   soporte,
   ayuda: soporte,
   support: soporte,

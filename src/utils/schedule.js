@@ -1,6 +1,20 @@
-/** Horario de apertura del negocio (HH:MM en BD) */
+/**
+ * Restricción por opens_at/closes_at.
+ * Durante revisión: OFF por defecto.
+ * Para reactivar: VITE_ENFORCE_BUSINESS_HOURS=true (o cambiar el default a true).
+ */
+export function isBusinessHoursEnforced() {
+  const env = import.meta.env.VITE_ENFORCE_BUSINESS_HOURS;
+  if (env === 'true' || env === '1') return true;
+  if (env === 'false' || env === '0') return false;
+  return false;
+}
+
+/** Horario de apertura del negocio (HH:MM en BD). Respeta is_open del comercio. */
 export function isBusinessOpenNow(business) {
   if (!business?.is_open) return false;
+  // Revisión: si la tienda está marcada abierta, no bloquear por franja horaria
+  if (!isBusinessHoursEnforced()) return true;
   if (!business.opens_at || !business.closes_at) return true;
 
   const now = new Date();
@@ -33,7 +47,7 @@ export function getBusinessOpenState(business) {
       hint: 'Abre tu tienda para recibir pedidos nuevos.',
     };
   }
-  if (!isBusinessOpenNow(business)) {
+  if (isBusinessHoursEnforced() && !isBusinessOpenNow(business)) {
     return {
       acceptingOrders: false,
       label: 'Fuera de horario',
