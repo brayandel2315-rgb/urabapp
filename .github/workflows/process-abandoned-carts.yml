@@ -1,11 +1,14 @@
-# Recupera carritos abandonados cada 30 min (push + in-app).
-# Secrets: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY (o CRON_SECRET + SUPABASE_ANON_KEY)
+# DESACTIVADO el schedule: fallaba cada 30 min por secrets de GitHub
+# y enviaba correos diarios "All jobs have failed".
+#
+# El cron ahora corre en Supabase (pg_cron → process_abandoned_carts).
+# Migración: 120_process_abandoned_carts_cron.sql
+#
+# Este workflow queda solo para prueba manual (opcional).
 
 name: Process Abandoned Carts
 
 on:
-  schedule:
-    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -13,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Invoke process-abandoned-carts
+      - name: Invoke process-abandoned-carts (manual)
         env:
           SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           SERVICE_ROLE: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
@@ -21,8 +24,8 @@ jobs:
         run: |
           set -euo pipefail
           if [ -z "${SUPABASE_URL:-}" ]; then
-            echo "Missing VITE_SUPABASE_URL secret"
-            exit 1
+            echo "Missing VITE_SUPABASE_URL — el cron productivo ya está en Supabase pg_cron."
+            exit 0
           fi
           URL="${SUPABASE_URL%/}/functions/v1/process-abandoned-carts"
           if [ -n "${SERVICE_ROLE:-}" ]; then
@@ -37,6 +40,6 @@ jobs:
               -H "Content-Type: application/json" \
               -d '{}'
           else
-            echo "Need SUPABASE_SERVICE_ROLE_KEY or CRON_SECRET"
-            exit 1
+            echo "Sin SUPABASE_SERVICE_ROLE_KEY/CRON_SECRET — usar pg_cron en Supabase."
+            exit 0
           fi
